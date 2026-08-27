@@ -159,12 +159,19 @@ apiRouter.post(
   asyncHandler(async (req, res) => {
     const body = SearchCurriculumSchema.parse(req.body);
     log({ message: "Tool call", toolName: "search_curriculum", requestId: req.ctx.requestId });
-    const results = await searchVectorStore({
-      query: body.query,
-      filters: body.subject
-        ? { type: "eq", key: "subject", value: body.subject }
-        : undefined,
-    });
+
+    const filters = body.subject
+      ? {
+          type: "and",
+          filters: [
+            { type: "eq", key: "subject", value: body.subject },
+            { type: "eq", key: "access", value: "student" },
+          ],
+        }
+      : { type: "eq", key: "access", value: "student" };
+
+    const query = body.unit ? `${body.query}\nUnit context: ${body.unit}` : body.query;
+    const results = await searchVectorStore({ query, filters });
     res.json(results);
   }),
 );
