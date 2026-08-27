@@ -3,12 +3,28 @@ import { readFile, readdir, stat } from "fs/promises";
 import path from "path";
 import { prisma } from "../lib/prisma.js";
 import { DailyScheduleSchema } from "../../shared/schemas/lesson.js";
-import { uploadFileToVectorStore, pollVectorStoreFileStatus } from "../lib/openai.js";
+import {
+  uploadFileToVectorStore,
+  pollVectorStoreFileStatus,
+  removeVectorStoreFile,
+  type VectorFileAttributes,
+} from "../lib/openai.js";
 import { log } from "../lib/logger.js";
 import { env } from "../config/env.js";
 import type { Subject } from "@prisma/client";
 
 const CURRICULUM_ROOT = path.join(process.cwd(), "curriculum");
+const REFERENCE_ROOT = path.join(CURRICULUM_ROOT, "2026-27", "reference");
+const REFERENCE_MANIFEST = path.join(REFERENCE_ROOT, "vector-manifest.json");
+
+type ReferenceManifestEntry = {
+  path: string;
+  attributes: VectorFileAttributes;
+};
+
+type ReferenceManifest = {
+  files: ReferenceManifestEntry[];
+};
 
 export function sha256(content: string | Buffer): string {
   return createHash("sha256").update(content).digest("hex");
@@ -25,13 +41,65 @@ async function walk(dir: string): Promise<string[]> {
   return files;
 }
 
+function makeStudentSafeDailyDocument(parsed: ReturnType<typeof DailyScheduleSchema.parse>) {
+  return {
+    ...parsed,
+    lessons: parsed.lessons.map((lesson) => ({
+      ...lesson,
+      guided_practice: lesson.guided_practice.map(({ answer: _answer, ...item }) => item),
+      independent_practice: lesson.independent_practice.map(({ answer: _answer, ...item }) => item),
+      exit_ticket: lesson.exit_ticket.map(({ answer: _answer, ...item }) => item),
+      answer_key: {},
+      teacher_notes: "",
+    })),
+  };
+}
+
+async function prepareReplacement(sourcePath: string, checksum: string) {
+  const existingDoc = await prisma.sourceDocument.findUnique({ where: { sourcePath } });
+  if (existingDoc?.checksum === checksum && existingDoc.indexingStatus === "completed") {
+    return { existingDoc, skip: true as const };
+  }
+
+  if (existingDoc?.vectorStoreFileId && existingDoc.checksum !== checksum) {
+    await removeVectorStoreFile(existingDoc.vectorStoreFileId);
+  }
+
+  return { existingDoc, skip: false as const };
+}
+
+async function uploadAndPoll(params: {
+  filename: string;
+  content: Buffer;
+  attributes: VectorFileAttributes;
+}) {
+  let vectorStatus: "pending" | "completed" | "failed" | "skipped" = "skipped";
+  let openaiFileId: string | null = null;
+  let vectorStoreFileId: string | null = null;
+
+  if (env.OPENAI_API_KEY && env.OPENAI_VECTOR_STORE_ID) {
+    const upload = await uploadFileToVectorStore({
+      filename: params.filename,
+      content: params.content,
+      attributes: params.attributes,
+    });
+    openaiFileId = upload.fileId;
+    vectorStoreFileId = upload.vectorStoreFileId;
+    if (vectorStoreFileId) {
+      const polled = await pollVectorStoreFileStatus(vectorStoreFileId);
+      vectorStatus = polled === "completed" ? "completed" : "failed";
+    }
+  }
+
+  return { vectorStatus, openaiFileId, vectorStoreFileId };
+}
+
 export async function ingestDailyFile(filePath: string) {
   const content = await readFile(filePath, "utf-8");
   const checksum = sha256(content);
-
-  const existingDoc = await prisma.sourceDocument.findUnique({ where: { checksum } });
-  if (existingDoc?.indexingStatus === "completed") {
-    log({ message: "Skipping unchanged file", sourcePath: filePath, ingestionJobId: existingDoc.id });
+  const replacement = await prepareReplacement(filePath, checksum);
+  if (replacement.skip) {
+    log({ message: "Skipping unchanged file", sourcePath: filePath, ingestionJobId: replacement.existingDoc?.id });
     return { status: "skipped" as const, checksum };
   }
 
@@ -49,7 +117,7 @@ export async function ingestDailyFile(filePath: string) {
       schoolYear = await prisma.schoolYear.create({
         data: {
           label: parsed.school_year,
-          startDate: new Date("2026-08-01"),
+          startDate: new Date("2026-08-25"),
           endDate: new Date("2027-06-15"),
           studentId: student.id,
         },
@@ -122,13 +190,27 @@ export async function ingestDailyFile(filePath: string) {
         },
         update: {
           date,
+          unitTitle: lesson.unit_title,
+          lessonNumber: lesson.lesson_number,
           lessonTitle: lesson.lesson_title,
+          standards: lesson.standards,
+          previousLearning: lesson.previous_learning,
+          courseContext: lesson.course_context,
           learningObjectives: lesson.learning_objectives,
+          whyItMatters: lesson.why_it_matters,
+          vocabulary: lesson.vocabulary,
+          writtenInstruction: lesson.written_instruction,
           workedExamples: lesson.worked_examples,
           guidedPractice: lesson.guided_practice,
           independentPractice: lesson.independent_practice,
           exitTicket: lesson.exit_ticket,
+          masteryThreshold: lesson.mastery_threshold,
+          materials: lesson.materials,
+          estimatedMinutes: lesson.estimated_minutes,
           voicePrompt: lesson.voice_prompt,
+          teacherNotes: lesson.teacher_notes ?? "",
+          answerKey: lesson.answer_key ?? {},
+          sourceReferences: lesson.source_references,
           dayNumber: parsed.day_number,
           todaysGoal: parsed.todays_goal,
           checksum,
@@ -154,22 +236,21 @@ export async function ingestDailyFile(filePath: string) {
       });
     }
 
-    let vectorStatus: "pending" | "completed" | "failed" | "skipped" = "skipped";
-    let openaiFileId: string | null = null;
-    let vectorStoreFileId: string | null = null;
-
-    if (env.OPENAI_API_KEY && env.OPENAI_VECTOR_STORE_ID) {
-      const upload = await uploadFileToVectorStore({
-        filename: path.basename(filePath),
-        content: Buffer.from(content),
-      });
-      openaiFileId = upload.fileId;
-      vectorStoreFileId = upload.vectorStoreFileId;
-      if (vectorStoreFileId) {
-        const polled = await pollVectorStoreFileStatus(vectorStoreFileId);
-        vectorStatus = polled === "completed" ? "completed" : "failed";
-      }
-    }
+    // The database stores protected answers. The vector store receives only the student-safe form.
+    const safeContent = Buffer.from(JSON.stringify(makeStudentSafeDailyDocument(parsed), null, 2));
+    const uploaded = await uploadAndPoll({
+      filename: `${path.basename(filePath, ".json")}.student.json`,
+      content: safeContent,
+      attributes: {
+        document_type: "daily_curriculum",
+        school_year: parsed.school_year,
+        grade: parsed.grade_level,
+        date: parsed.date,
+        subject: "multi",
+        access: "student",
+        status: "current",
+      },
+    });
 
     await prisma.sourceDocument.upsert({
       where: { sourcePath: filePath },
@@ -178,18 +259,19 @@ export async function ingestDailyFile(filePath: string) {
         sourceType: "daily_curriculum",
         sourcePath: filePath,
         checksum,
-        openaiFileId,
-        vectorStoreFileId,
-        indexingStatus: vectorStatus,
+        openaiFileId: uploaded.openaiFileId,
+        vectorStoreFileId: uploaded.vectorStoreFileId,
+        indexingStatus: uploaded.vectorStatus,
         ingestedAt: new Date(),
-        metadata: { day_number: parsed.day_number },
+        metadata: { day_number: parsed.day_number, student_safe_vector_copy: true },
       },
       update: {
         checksum,
-        openaiFileId,
-        vectorStoreFileId,
-        indexingStatus: vectorStatus,
+        openaiFileId: uploaded.openaiFileId,
+        vectorStoreFileId: uploaded.vectorStoreFileId,
+        indexingStatus: uploaded.vectorStatus,
         ingestedAt: new Date(),
+        metadata: { day_number: parsed.day_number, student_safe_vector_copy: true },
       },
     });
 
@@ -199,7 +281,7 @@ export async function ingestDailyFile(filePath: string) {
     });
 
     log({ message: "Curriculum ingested", sourcePath: filePath, ingestionJobId: job.id, toolOutcome: "success" });
-    return { status: "completed" as const, checksum, lessons: parsed.lessons.length, vectorStatus };
+    return { status: "completed" as const, checksum, lessons: parsed.lessons.length, vectorStatus: uploaded.vectorStatus };
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     await prisma.ingestionJob.update({
@@ -211,6 +293,79 @@ export async function ingestDailyFile(filePath: string) {
   }
 }
 
+export async function ingestReferenceFile(filePath: string, attributes: VectorFileAttributes) {
+  const content = await readFile(filePath);
+  const checksum = sha256(content);
+  const replacement = await prepareReplacement(filePath, checksum);
+  if (replacement.skip) {
+    return { status: "skipped" as const, checksum };
+  }
+
+  const job = await prisma.ingestionJob.create({
+    data: { sourcePath: filePath, checksum, status: "processing", metadata: attributes },
+  });
+
+  try {
+    const uploaded = await uploadAndPoll({
+      filename: path.basename(filePath),
+      content,
+      attributes,
+    });
+
+    await prisma.sourceDocument.upsert({
+      where: { sourcePath: filePath },
+      create: {
+        filename: path.basename(filePath),
+        sourceType: String(attributes.document_type ?? "reference"),
+        sourcePath: filePath,
+        checksum,
+        openaiFileId: uploaded.openaiFileId,
+        vectorStoreFileId: uploaded.vectorStoreFileId,
+        indexingStatus: uploaded.vectorStatus,
+        ingestedAt: new Date(),
+        metadata: attributes,
+      },
+      update: {
+        checksum,
+        openaiFileId: uploaded.openaiFileId,
+        vectorStoreFileId: uploaded.vectorStoreFileId,
+        indexingStatus: uploaded.vectorStatus,
+        ingestedAt: new Date(),
+        metadata: attributes,
+      },
+    });
+
+    await prisma.ingestionJob.update({
+      where: { id: job.id },
+      data: { status: "completed", completedAt: new Date(), message: "Reference document ingested" },
+    });
+
+    return { status: "completed" as const, checksum, vectorStatus: uploaded.vectorStatus };
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    await prisma.ingestionJob.update({
+      where: { id: job.id },
+      data: { status: "failed", message, completedAt: new Date() },
+    });
+    throw error;
+  }
+}
+
+async function ingestReferenceManifest() {
+  try {
+    const manifest = JSON.parse(await readFile(REFERENCE_MANIFEST, "utf-8")) as ReferenceManifest;
+    const results = [];
+    for (const entry of manifest.files) {
+      const filePath = path.join(REFERENCE_ROOT, entry.path);
+      results.push(await ingestReferenceFile(filePath, entry.attributes));
+    }
+    return results;
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === "ENOENT") return [];
+    throw error;
+  }
+}
+
 export async function ingestAllCurriculum() {
   const files = await walk(CURRICULUM_ROOT);
   const dailyFiles = files.filter((f) => f.includes(`${path.sep}daily${path.sep}`) && f.endsWith(".json"));
@@ -218,6 +373,7 @@ export async function ingestAllCurriculum() {
   for (const file of dailyFiles) {
     results.push(await ingestDailyFile(file));
   }
+  results.push(...(await ingestReferenceManifest()));
   return results;
 }
 
