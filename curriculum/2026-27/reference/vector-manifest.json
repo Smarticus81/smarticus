@@ -18,6 +18,8 @@
     {"path":"02-feedback/2026-08-26-mathematics.md","attributes":{"document_type":"teacher_feedback","school_year":"2026-27","grade":6,"subject":"mathematics","access":"student","status":"current","date":"2026-08-26","version":1}},
     {"path":"02-feedback/2026-08-26-literature.md","attributes":{"document_type":"teacher_feedback","school_year":"2026-27","grade":6,"subject":"literature","access":"student","status":"current","date":"2026-08-26","version":1}},
     {"path":"02-feedback/2026-08-26-writing.md","attributes":{"document_type":"teacher_feedback","school_year":"2026-27","grade":6,"subject":"writing","access":"student","status":"current","date":"2026-08-26","version":1}},
-    {"path":"02-feedback/2026-08-26-science.md","attributes":{"document_type":"teacher_feedback","school_year":"2026-27","grade":6,"subject":"science","access":"student","status":"current","date":"2026-08-26","version":1}}
+    {"path":"02-feedback/2026-08-26-science.md","attributes":{"document_type":"teacher_feedback","school_year":"2026-27","grade":6,"subject":"science","access":"student","status":"current","date":"2026-08-26","version":1}},
+
+    {"path":"03-sources/2026-08-27-city-heat-reading.md","attributes":{"document_type":"lesson_source","school_year":"2026-27","grade":6,"subject":"multi","access":"student","status":"current","date":"2026-08-27","version":1}}
   ]
 }
