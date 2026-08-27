@@ -148,6 +148,15 @@ export async function getMasteryState(subject: Subject, standardOrUnit?: string)
   return { subject, standardOrUnit, records };
 }
 
+function stripAnswers(value: unknown): unknown {
+  if (!Array.isArray(value)) return value;
+  return value.map((entry) => {
+    if (!entry || typeof entry !== "object") return entry;
+    const { answer: _answer, ...rest } = entry as Record<string, unknown>;
+    return rest;
+  });
+}
+
 function serializeLesson(lesson: {
   id: string;
   externalId: string;
@@ -203,15 +212,15 @@ function serializeLesson(lesson: {
     vocabulary: lesson.vocabulary,
     written_instruction: lesson.writtenInstruction,
     worked_examples: lesson.workedExamples,
-    guided_practice: lesson.guidedPractice,
-    independent_practice: lesson.independentPractice,
-    exit_ticket: lesson.exitTicket,
+    guided_practice: stripAnswers(lesson.guidedPractice),
+    independent_practice: stripAnswers(lesson.independentPractice),
+    exit_ticket: stripAnswers(lesson.exitTicket),
     mastery_threshold: lesson.masteryThreshold,
     materials: lesson.materials,
     estimated_minutes: lesson.estimatedMinutes,
     voice_prompt: lesson.voicePrompt,
-    teacher_notes: lesson.teacherNotes,
-    answer_key: lesson.answerKey,
+    teacher_notes: "",
+    answer_key: {},
     source_references: lesson.sourceReferences,
     status: lesson.status,
     day_number: lesson.dayNumber,
