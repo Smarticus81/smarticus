@@ -31,6 +31,23 @@ function compactCurriculumContext(result: unknown) {
   });
 }
 
+function studentSubjectFilter(subject: string) {
+  return {
+    type: "and",
+    filters: [
+      { type: "eq", key: "access", value: "student" },
+      {
+        type: "or",
+        filters: [
+          { type: "eq", key: "subject", value: subject },
+          { type: "eq", key: "subject", value: "multi" },
+          { type: "eq", key: "subject", value: "all" },
+        ],
+      },
+    ],
+  };
+}
+
 export async function buildAgentInstructions(lesson: Record<string, unknown> & {
   id: string;
   lesson_title: string;
@@ -88,15 +105,9 @@ export async function buildAgentInstructions(lesson: Record<string, unknown> & {
       },
     }),
     searchVectorStore({
-      query: `Grade ${lesson.grade_level} ${lesson.subject} ${lesson.unit_title ?? ""} ${lesson.lesson_title} teaching sequence prerequisite misconceptions worked examples`,
+      query: `Grade ${lesson.grade_level} ${lesson.subject} ${lesson.unit_title ?? ""} ${lesson.lesson_title} teaching sequence prerequisite misconceptions worked examples source text`,
       maxResults: 6,
-      filters: {
-        type: "and",
-        filters: [
-          { type: "eq", key: "subject", value: lesson.subject },
-          { type: "eq", key: "access", value: "student" },
-        ],
-      },
+      filters: studentSubjectFilter(lesson.subject),
     }).catch(() => ({ data: [] })),
   ]);
 
@@ -147,7 +158,7 @@ ${isFrench ? `- French is a continuing subject, not beginner language study. Use
 CURRENT LESSON — authoritative for today's assigned work:
 ${JSON.stringify(safeLesson, null, 2)}
 
-RETRIEVED COURSE/UNIT CONTEXT — student-safe background for syllabus, sequencing, teaching guidance, and rubrics. The current lesson controls today's assigned work:
+RETRIEVED COURSE/UNIT CONTEXT — student-safe background for syllabus, sequencing, source text, teaching guidance, and rubrics. The current lesson controls today's assigned work:
 ${JSON.stringify(curriculumContext, null, 2)}
 
 STUDENT CONTEXT — use only this evidence; never invent performance:
@@ -160,5 +171,5 @@ ${JSON.stringify({
   recent_session_summaries: recentSessions,
 }, null, 2)}
 
-Begin naturally as Atticus's teacher. You have current lesson context and relevant course context already. Use search_curriculum if you need a more specific explanation, prerequisite, rubric, or unit connection. Use protected-answer tools rather than exposing stored answers.`;
+Begin naturally as Atticus's teacher. You have current lesson context and relevant course context already. Use search_curriculum if you need a more specific explanation, prerequisite, source passage, rubric, or unit connection. Use protected-answer tools rather than exposing stored answers.`;
 }
