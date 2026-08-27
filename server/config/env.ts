@@ -9,6 +9,10 @@ const envSchema = z.object({
   OPENAI_VECTOR_STORE_ID: z.string().optional(),
   DATABASE_URL: z.string().default("postgresql://postgres:postgres@localhost:5432/atticus_tutor"),
   SESSION_SECRET: z.string().default("dev-session-secret-change-in-production"),
+  AUTO_INGEST_CURRICULUM: z
+    .enum(["true", "false"])
+    .default("true")
+    .transform((value) => value === "true"),
 });
 
 export type Env = z.infer<typeof envSchema>;

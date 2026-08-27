@@ -9,6 +9,7 @@ import { errorHandler } from "./middleware/http.js";
 import { apiRouter } from "./routes/api.js";
 import { realtimeRouter } from "./routes/special.js";
 import { log } from "./lib/logger.js";
+import { ingestAllCurriculum } from "./ingest/curriculum.js";
 
 export function createApp() {
   const app = express();
@@ -55,6 +56,27 @@ export function createApp() {
   return app;
 }
 
+async function syncCurriculumInBackground() {
+  if (!env.AUTO_INGEST_CURRICULUM) return;
+  try {
+    const results = await ingestAllCurriculum();
+    log({
+      message: "Automatic curriculum sync completed",
+      toolOutcome: "success",
+      resultCount: results.length,
+    });
+  } catch (error) {
+    // The voice service should remain available even if an external vector store
+    // or database migration is temporarily unavailable. The error remains visible
+    // in server logs and the deterministic CLI can be rerun after the dependency recovers.
+    log({
+      level: "error",
+      message: "Automatic curriculum sync failed",
+      error: error instanceof Error ? error.message : String(error),
+    });
+  }
+}
+
 export function startServer() {
   const app = createApp();
   const host = "0.0.0.0";
@@ -62,6 +84,7 @@ export function startServer() {
 
   app.listen(port, host, () => {
     log({ message: "Atticus Tutor server started", port, host, nodeEnv: env.NODE_ENV });
+    void syncCurriculumInBackground();
   });
 
   return app;

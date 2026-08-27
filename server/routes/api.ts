@@ -34,6 +34,24 @@ function param(value: string | string[]): string {
   return Array.isArray(value) ? value[0] : value;
 }
 
+function studentSearchFilter(subject?: string) {
+  if (!subject) return { type: "eq", key: "access", value: "student" };
+  return {
+    type: "and",
+    filters: [
+      { type: "eq", key: "access", value: "student" },
+      {
+        type: "or",
+        filters: [
+          { type: "eq", key: "subject", value: subject },
+          { type: "eq", key: "subject", value: "multi" },
+          { type: "eq", key: "subject", value: "all" },
+        ],
+      },
+    ],
+  };
+}
+
 export const apiRouter = Router();
 
 apiRouter.get(
@@ -159,11 +177,10 @@ apiRouter.post(
   asyncHandler(async (req, res) => {
     const body = SearchCurriculumSchema.parse(req.body);
     log({ message: "Tool call", toolName: "search_curriculum", requestId: req.ctx.requestId });
+    const query = body.unit ? `${body.query}\nUnit context: ${body.unit}` : body.query;
     const results = await searchVectorStore({
-      query: body.query,
-      filters: body.subject
-        ? { type: "eq", key: "subject", value: body.subject }
-        : undefined,
+      query,
+      filters: studentSearchFilter(body.subject),
     });
     res.json(results);
   }),

@@ -3,6 +3,8 @@ import { env } from "../config/env.js";
 
 let client: OpenAI | null = null;
 
+export type VectorFileAttributes = Record<string, string | number | boolean>;
+
 export function getOpenAI(): OpenAI {
   if (!client) {
     if (!env.OPENAI_API_KEY) {
@@ -18,7 +20,7 @@ export async function mintRealtimeClientSecret(params: {
   instructions: string;
   tools?: unknown[];
 }) {
-  const openai = getOpenAI();
+  getOpenAI();
   const response = await fetch("https://api.openai.com/v1/realtime/client_secrets", {
     method: "POST",
     headers: {
@@ -70,6 +72,7 @@ export async function uploadFileToVectorStore(params: {
   filename: string;
   content: Buffer | Blob;
   purpose?: "assistants";
+  attributes?: VectorFileAttributes;
 }) {
   const openai = getOpenAI();
   const file = await openai.files.create({
@@ -83,9 +86,28 @@ export async function uploadFileToVectorStore(params: {
 
   const vsFile = await openai.vectorStores.files.create(env.OPENAI_VECTOR_STORE_ID, {
     file_id: file.id,
+    ...(params.attributes ? { attributes: params.attributes as never } : {}),
   });
 
   return { fileId: file.id, vectorStoreFileId: vsFile.id };
+}
+
+export async function removeVectorStoreFile(vectorStoreFileId: string | null | undefined) {
+  if (!vectorStoreFileId || !env.OPENAI_VECTOR_STORE_ID || !env.OPENAI_API_KEY) return;
+
+  const response = await fetch(
+    `https://api.openai.com/v1/vector_stores/${encodeURIComponent(env.OPENAI_VECTOR_STORE_ID)}/files/${encodeURIComponent(vectorStoreFileId)}`,
+    {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${env.OPENAI_API_KEY}` },
+    },
+  );
+
+  // A missing old attachment is already effectively removed, so treat 404 as success.
+  if (!response.ok && response.status !== 404) {
+    const text = await response.text();
+    throw new Error(`Failed to remove old vector store file: ${response.status} ${text}`);
+  }
 }
 
 export async function pollVectorStoreFileStatus(vectorStoreFileId: string, maxAttempts = 30) {

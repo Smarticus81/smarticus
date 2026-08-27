@@ -2,9 +2,9 @@
   "date": "2026-08-27",
   "school_year": "2026-27",
   "grade_level": 6,
-  "day_number": 1,
+  "day_number": 3,
   "school_day_label": "Thursday, August 27, 2026",
-  "todays_goal": "Begin the 2026-27 school year with clear understanding in each scheduled subject.",
+  "todays_goal": "Use a process, explain why it works, and support conclusions with evidence.",
   "lessons": [
     {
       "id": "2026-08-27-mathematics",
@@ -13,92 +13,74 @@
       "grade_level": 6,
       "subject": "mathematics",
       "course": "Grade 6 Mathematics",
-      "unit_id": "math-decimals",
-      "unit_title": "Decimal Operations",
+      "unit_id": "math-number-operations",
+      "unit_title": "Number Operations: Fractions and Decimals",
       "lesson_number": 1,
-      "lesson_title": "Decimal multiplication and division",
-      "standards": [
-        "G6-mathematics-1"
-      ],
-      "previous_learning": "Place value with decimals and whole-number multiplication.",
-      "course_context": "Unit: Decimal Operations",
+      "lesson_title": "Fraction division reteach and decimal multiplication",
+      "standards": ["6.NS.A.1", "6.NS.B.3"],
+      "previous_learning": "Wednesday work showed improving fraction multiplication but inconsistent fraction division. Atticus has prior success with decimal subtraction and some decimal multiplication.",
+      "course_context": "This is the opening number-operations unit. The goal is secure Grade 6 computation and reasoning before ratios, rates, percent, and algebraic work.",
       "learning_objectives": [
-        "Multiply decimals by whole numbers and other decimals.",
-        "Divide decimals by whole numbers with understanding of place value.",
-        "Estimate products and quotients to check reasonableness."
+        "Divide fractions by fractions using the reciprocal procedure and explain which fraction is inverted.",
+        "Convert mixed numbers before fraction division.",
+        "Multiply multi-digit decimals accurately using place-value reasoning.",
+        "Estimate decimal products to check reasonableness."
       ],
-      "why_it_matters": "Decimal operations appear in money, measurement, and science data throughout Grade 6.",
+      "why_it_matters": "Fraction division is a core Grade 6 skill and decimal multiplication is used in measurement, money, science data, rates, and later percent work.",
       "vocabulary": [
-        {
-          "term": "product",
-          "definition": "The result of multiplication."
-        },
-        {
-          "term": "quotient",
-          "definition": "The result of division."
-        },
-        {
-          "term": "estimate",
-          "definition": "A reasonable approximation before exact calculation."
-        }
+        {"term":"dividend","definition":"The quantity being divided."},
+        {"term":"divisor","definition":"The quantity you are dividing by."},
+        {"term":"reciprocal","definition":"A fraction with numerator and denominator exchanged; the reciprocal of 3/5 is 5/3."},
+        {"term":"product","definition":"The result of multiplication."},
+        {"term":"estimate","definition":"A reasonable approximate value used to predict or check an exact answer."}
       ],
-      "written_instruction": "Work through decimal multiplication and division using place-value reasoning.",
+      "written_instruction": "Begin with a short fraction-division correction because Wednesday showed that the divisor/reciprocal step is not secure. In a/b ÷ c/d, keep the dividend, change division to multiplication, and use the reciprocal of the divisor only: a/b × d/c. Convert mixed numbers to improper fractions first. Then move to decimal multiplication. Estimate first. Multiply using whole-number place-value reasoning, then place the decimal according to the value of the factors. Explain that the decimal placement represents tenths/hundredths rather than teaching a memorized trick alone.",
       "worked_examples": [
         {
-          "title": "Multiply 2.4 x 3",
-          "problem": "2.4 x 3",
-          "solution": "7.2",
-          "explanation": "24 tenths times 3 equals 72 tenths, or 7.2."
+          "title":"Fraction division — simple",
+          "problem":"2/3 ÷ 1/6",
+          "solution":"4",
+          "explanation":"The divisor is 1/6, so only 1/6 is inverted: 2/3 × 6/1 = 12/3 = 4."
         },
         {
-          "title": "Divide 5.04 / 4",
-          "problem": "5.04 / 4",
-          "solution": "1.26",
-          "explanation": "Divide as whole numbers, then place the decimal using place value."
+          "title":"Fraction division — mixed number",
+          "problem":"1 1/2 ÷ 3/5",
+          "solution":"2 1/2",
+          "explanation":"Convert 1 1/2 to 3/2. The divisor is 3/5, so use 5/3: 3/2 × 5/3 = 15/6 = 5/2 = 2 1/2."
+        },
+        {
+          "title":"Decimal multiplication with estimate",
+          "problem":"12.6 × 0.4",
+          "solution":"5.04",
+          "explanation":"Estimate first: 13 × 0.4 is about 5. Compute 126 × 4 = 504. Since the factors represent tenths and tenths, the product is hundredths: 5.04, consistent with the estimate."
         }
       ],
       "guided_practice": [
-        {
-          "id": "math-g1",
-          "prompt": "Estimate 1.8 x 4 before calculating.",
-          "hint": "Round 1.8 to 2."
-        },
-        {
-          "id": "math-g2",
-          "prompt": "Calculate 3.6 / 3.",
-          "hint": "Think of 36 tenths divided by 3."
-        }
+        {"id":"math-g1","prompt":"5/8 ÷ 3/4. Identify the divisor before solving.","hint":"3/4 is the divisor, so its reciprocal is 4/3."},
+        {"id":"math-g2","prompt":"2 1/4 ÷ 3/8. Convert the mixed number first.","hint":"2 1/4 = 9/4; then invert only 3/8."},
+        {"id":"math-g3","prompt":"4.8 × 0.7. Estimate before calculating.","hint":"5 × 0.7 is about 3.5."},
+        {"id":"math-g4","prompt":"2.35 × 1.2. Explain where the decimal in the product comes from.","hint":"Think in hundredths and tenths after multiplying 235 × 12."}
       ],
       "independent_practice": [
-        {
-          "id": "math-i1",
-          "prompt": "4.5 x 2 = ?",
-          "hint": "Use place value."
-        },
-        {
-          "id": "math-i2",
-          "prompt": "6.3 / 7 = ?",
-          "hint": "Set up the division carefully."
-        }
+        {"id":"math-i1","prompt":"7/9 ÷ 2/3. Show every step."},
+        {"id":"math-i2","prompt":"2 1/2 ÷ 5/8. Show every step."},
+        {"id":"math-i3","prompt":"14.8 × 0.35. Estimate, then calculate."},
+        {"id":"math-i4","prompt":"0.84 × 2.75. Estimate, then calculate."},
+        {"id":"math-i5","prompt":"A rectangular panel is 3.6 meters long and 1.25 meters wide. Find its area and explain why your decimal placement is reasonable."}
       ],
       "exit_ticket": [
-        {
-          "id": "math-e1",
-          "prompt": "Explain why estimating 5.04 / 4 helps before dividing.",
-          "answer": "Estimation checks whether the quotient near 1.25 is reasonable.",
-          "rubric": "Mentions reasonableness or place value."
-        }
+        {"id":"math-e1","prompt":"5/6 ÷ 1/3. Show the reciprocal step.","answer":"5/2 or 2 1/2","rubric":"Correctly inverts only the divisor and simplifies."},
+        {"id":"math-e2","prompt":"1 3/4 ÷ 7/8. Show the conversion and division steps.","answer":"2","rubric":"Converts 1 3/4 to 7/4, multiplies by 8/7, simplifies to 2."},
+        {"id":"math-e3","prompt":"3.25 × 1.6. Estimate first, then calculate.","answer":"5.2","rubric":"Reasonable estimate and exact product 5.2."},
+        {"id":"math-e4","prompt":"In one sentence, explain why estimating before decimal multiplication is useful.","answer":"Estimation helps check whether the exact product has a reasonable size and decimal placement.","rubric":"Mentions checking reasonableness, magnitude, or decimal placement."}
       ],
       "mastery_threshold": 75,
-      "materials": [
-        "Notebook",
-        "Pencil"
-      ],
-      "estimated_minutes": 50,
-      "voice_prompt": "Connect to whole-number operations, teach decimal placement, model two full examples, then guide practice verbally.",
-      "teacher_notes": "",
-      "answer_key": {},
-      "source_references": [],
+      "materials": ["Thursday packet", "Pencil", "Scratch paper"],
+      "estimated_minutes": 60,
+      "voice_prompt": "Teach before testing. Start by acknowledging that Wednesday gave useful evidence that fraction division needs another pass. Explicitly identify dividend and divisor and model two fraction-division examples, including one mixed number. Ask Atticus which fraction gets flipped and wait for his answer. Then transition to decimal multiplication using place value and estimation. Work at least one complete decimal example verbally, ask one guided problem, and only then direct him to independent practice. Do not reveal exit-ticket answers.",
+      "teacher_notes": "Wednesday evidence: fraction multiplication developing; fraction division requires reteach. Do not accelerate.",
+      "answer_key": {"math-i1":"7/6 or 1 1/6","math-i2":"4","math-i3":"5.18","math-i4":"2.31","math-i5":"4.5 square meters"},
+      "source_references": ["reference/01-subjects/mathematics-6.md", "reference/02-feedback/2026-08-26-mathematics.md"],
       "status": "scheduled"
     },
     {
@@ -107,61 +89,54 @@
       "school_year": "2026-27",
       "grade_level": 6,
       "subject": "literature",
-      "course": "Grade 6 Literature",
-      "unit_id": "lit-info",
-      "unit_title": "Informational Text",
-      "lesson_number": 1,
-      "lesson_title": "Informational text / central idea and evidence",
-      "standards": [
-        "G6-literature-1"
-      ],
-      "previous_learning": "Prior Grade 6 work in this course.",
-      "course_context": "Unit: Informational Text",
+      "course": "Grade 6 Literature / Reading",
+      "unit_id": "lit-close-reading",
+      "unit_title": "Close Reading and Informational Text",
+      "lesson_number": 2,
+      "lesson_title": "Central idea, evidence, and objective summary",
+      "standards": ["RI.6.1", "RI.6.2", "RI.6.4"],
+      "previous_learning": "Wednesday fiction work showed solid comprehension and inference. The main need is precision in theme/significance and complete evidence-based responses.",
+      "course_context": "The opening reading unit builds evidence, inference, central idea/theme, vocabulary in context, and objective summary before longer novel and research work.",
       "learning_objectives": [
-        "Identify the central idea of an informational passage.",
-        "Locate and explain supporting evidence."
+        "Distinguish a topic from a central idea.",
+        "Identify details that directly develop a central idea.",
+        "Use context to determine a word's meaning.",
+        "Write a concise objective summary."
       ],
-      "why_it_matters": "This skill supports Grade 6 reasoning and future units.",
-      "vocabulary": [],
-      "written_instruction": "",
+      "why_it_matters": "Finding the main point and strongest evidence is foundational for science, history, research, and analytical writing.",
+      "vocabulary": [
+        {"term":"central idea","definition":"The most important point an author communicates about a topic."},
+        {"term":"evidence","definition":"A specific detail, fact, example, or quotation that supports an idea."},
+        {"term":"objective summary","definition":"A concise account of the most important ideas without personal opinion."},
+        {"term":"urban heat island","definition":"A pattern in which built-up areas become warmer than nearby areas because of surfaces, buildings, reduced vegetation, and related factors."}
+      ],
+      "written_instruction": "Use an informational reading about why some city streets are hotter than others. Before reading, distinguish topic from central idea with unrelated examples. Read once for overall meaning, then reread and mark details about pavement, shade/tree canopy, materials, and energy. The central idea must be a complete statement, not the topic 'city heat.' For each major answer, ask whether the chosen detail actually supports the point. The summary should include the problem/phenomenon, major causes, and important solutions or implications without personal opinion.",
       "worked_examples": [
-        {
-          "title": "Central idea in a short article",
-          "problem": "Read about how bees pollinate crops.",
-          "solution": "Central idea: Bees help plants reproduce by moving pollen.",
-          "explanation": "Evidence includes descriptions of pollen transfer and crop dependence."
-        }
+        {"title":"Topic vs central idea","problem":"A short article explains how bees move pollen between flowers and why crops depend on this process.","solution":"Topic: bees/pollination. Central idea: Bees help many plants reproduce by transferring pollen, making pollinators important to ecosystems and food production.","explanation":"The central idea states what the author wants the reader to understand about the topic."},
+        {"title":"Supporting evidence","problem":"Central idea: Shade and vegetation can reduce surface heating.","solution":"A shaded sidewalk remains cooler than nearby pavement exposed to direct sunlight.","explanation":"The temperature contrast directly supports the effect of shade."},
+        {"title":"Objective summary check","problem":"Which belongs in an objective summary: 'Cities should obviously plant more trees' or 'Trees can reduce surface heating by shading the ground and releasing water vapor'?","solution":"The second sentence.","explanation":"It reports the text's information without inserting a personal judgment."}
       ],
       "guided_practice": [
-        {
-          "id": "lit-g1",
-          "prompt": "State the central idea in one sentence.",
-          "hint": "What is the passage mostly about?"
-        }
+        {"id":"lit-g1","prompt":"State the topic of the reading in 1–3 words, then turn it into a complete central-idea sentence.","hint":"What does the author want you to understand about heat differences within a city?"},
+        {"id":"lit-g2","prompt":"Choose one detail about pavement and explain how it supports the central idea.","hint":"Do not just repeat the detail; add what it shows."}
       ],
       "independent_practice": [
-        {
-          "id": "lit-i1",
-          "prompt": "List two pieces of evidence for the central idea."
-        }
+        {"id":"lit-i1","prompt":"Identify the central idea in one complete sentence."},
+        {"id":"lit-i2","prompt":"Give two specific supporting details and explain what each shows."},
+        {"id":"lit-i3","prompt":"Use context to explain one assigned vocabulary word from the passage."},
+        {"id":"lit-i4","prompt":"Write a 2–3 sentence objective summary of the informational text."}
       ],
       "exit_ticket": [
-        {
-          "id": "lit-e1",
-          "prompt": "What is the difference between a topic and a central idea?",
-          "answer": "A topic is the subject; the central idea is the main point the author makes about it."
-        }
+        {"id":"lit-e1","prompt":"Explain the difference between a topic and a central idea.","answer":"A topic names the subject; a central idea states the main point the author communicates about that subject.","rubric":"Must distinguish subject from complete main-point statement."},
+        {"id":"lit-e2","prompt":"What makes a piece of evidence strong for a central idea?","answer":"It directly supports or helps explain the main point rather than merely being an interesting detail.","rubric":"Mentions direct relevance/support."}
       ],
       "mastery_threshold": 75,
-      "materials": [
-        "Notebook",
-        "Pencil"
-      ],
-      "estimated_minutes": 45,
-      "voice_prompt": "Model finding central idea and evidence in a short passage.",
-      "teacher_notes": "",
+      "materials": ["Thursday packet", "Informational reading", "Pencil/highlighter"],
+      "estimated_minutes": 50,
+      "voice_prompt": "Teach topic versus central idea before Atticus reads. Give two examples not related to today's text. Do not tell him the central idea of the assigned passage. After reading, ask what the author most wants the reader to understand and which detail most directly supports that. Push him from literal detail to significance with 'What does that show?' Keep the text at Grade 6 level.",
+      "teacher_notes": "Comprehension is stronger than some written precision; focus on evidence/significance rather than easier reading.",
       "answer_key": {},
-      "source_references": [],
+      "source_references": ["reference/01-subjects/literature-6.md", "reference/02-feedback/2026-08-26-literature.md"],
       "status": "scheduled"
     },
     {
@@ -170,60 +145,50 @@
       "school_year": "2026-27",
       "grade_level": 6,
       "subject": "writing",
-      "course": "Grade 6 Writing",
-      "unit_id": "write-explain",
-      "unit_title": "Explanatory Writing",
-      "lesson_number": 1,
-      "lesson_title": "Evidence-based explanatory paragraph",
-      "standards": [
-        "G6-writing-1"
-      ],
-      "previous_learning": "Prior Grade 6 work in this course.",
-      "course_context": "Unit: Explanatory Writing",
+      "course": "Grade 6 Writing / Language",
+      "unit_id": "writing-evidence",
+      "unit_title": "Evidence-Based Explanatory Writing",
+      "lesson_number": 3,
+      "lesson_title": "Explain with evidence and reasoning",
+      "standards": ["W.6.2", "W.6.9", "L.6.1", "L.6.2"],
+      "previous_learning": "Wednesday's CER contained strong ideas and relevant details, but organization, sentence boundaries, and explicit reasoning need reinforcement.",
+      "course_context": "This opening writing unit builds complete evidence-based paragraphs before longer explanatory and argument essays.",
       "learning_objectives": [
-        "Write a paragraph with a clear topic sentence and evidence.",
-        "Explain how evidence supports the claim."
+        "Plan an explanation before drafting.",
+        "Use at least two pieces of relevant evidence.",
+        "Explain why each piece of evidence supports the main idea.",
+        "Revise sentence boundaries and basic conventions."
       ],
-      "why_it_matters": "This skill supports Grade 6 reasoning and future units.",
-      "vocabulary": [],
-      "written_instruction": "",
+      "why_it_matters": "Clear evidence-and-reasoning structure is used in literature, history, science, research, and later argument writing.",
+      "vocabulary": [
+        {"term":"topic sentence","definition":"A sentence that states the main idea of a paragraph."},
+        {"term":"reasoning","definition":"The explanation that connects evidence to the main idea or claim."},
+        {"term":"transition","definition":"A word or phrase that helps ideas connect smoothly."}
+      ],
+      "written_instruction": "Use the informational reading as the evidence source. Before drafting, orally or on paper list: main explanation; evidence 1; why it matters; evidence 2; why it matters; conclusion. Draft 8–10 complete sentences. Do not merely list facts. After each important fact, explain the mechanism or connection. Then revise one sentence at a time for boundaries, capitalization, punctuation, and repeated wording.",
       "worked_examples": [
-        {
-          "title": "Explanatory paragraph model",
-          "problem": "Explain why reading daily improves vocabulary.",
-          "solution": "Topic sentence + two evidence sentences + explanation.",
-          "explanation": "Each evidence sentence connects back to the claim."
-        }
+        {"title":"Evidence without reasoning","problem":"Dark pavement absorbs solar energy.","solution":"This is evidence but not yet a full explanation.","explanation":"The reader still needs to know how that fact produces a temperature difference."},
+        {"title":"Evidence plus reasoning","problem":"Dark pavement absorbs solar energy.","solution":"Dark pavement absorbs more solar energy and warms during the day, so an exposed paved area can become hotter than a shaded or vegetated area.","explanation":"The second clause explains why the evidence matters."},
+        {"title":"Paragraph structure","problem":"Explain why two places in the same city can have different temperatures.","solution":"Topic sentence → pavement evidence/reasoning → tree/shade evidence/reasoning → conclusion.","explanation":"The structure makes the causal explanation easy to follow."}
       ],
       "guided_practice": [
-        {
-          "id": "wr-g1",
-          "prompt": "Draft a topic sentence for an explanatory paragraph."
-        }
+        {"id":"wr-g1","prompt":"Say or write your main explanation in one sentence.","hint":"Answer the exact question before choosing evidence."},
+        {"id":"wr-g2","prompt":"Choose your first fact from the reading and finish the sentence: 'This matters because…'","hint":"Explain the mechanism, not just that the fact is important."}
       ],
       "independent_practice": [
-        {
-          "id": "wr-i1",
-          "prompt": "Write a full explanatory paragraph with two pieces of evidence."
-        }
+        {"id":"wr-i1","prompt":"Write 8–10 complete sentences answering: Why can two locations in the same city have very different temperatures on the same afternoon? Use at least two facts from the reading and explain how each supports your explanation."},
+        {"id":"wr-i2","prompt":"Revise the paragraph using the self-check: exact question, two details, reasoning after each, complete sentences, capitalization/punctuation/spelling."}
       ],
       "exit_ticket": [
-        {
-          "id": "wr-e1",
-          "prompt": "What must every evidence sentence do?",
-          "answer": "Support and connect to the topic sentence/claim."
-        }
+        {"id":"wr-e1","prompt":"In your own words, what is the difference between evidence and reasoning?","answer":"Evidence is the fact/detail/data; reasoning explains why that evidence supports the main claim or explanation.","rubric":"Clearly distinguishes support/detail from explanatory connection."}
       ],
       "mastery_threshold": 75,
-      "materials": [
-        "Notebook",
-        "Pencil"
-      ],
+      "materials": ["Thursday packet", "Informational reading", "Pencil"],
       "estimated_minutes": 45,
-      "voice_prompt": "Teach paragraph structure before drafting.",
-      "teacher_notes": "",
+      "voice_prompt": "Before Atticus writes, have him verbally plan claim/main explanation, evidence 1, why it matters, evidence 2, why it matters, conclusion. Show a weak evidence-only sentence and a stronger evidence-plus-reasoning version. Do not dictate his paragraph. During revision, focus on one sentence at a time and ask where each complete thought ends.",
+      "teacher_notes": "Maintain Grade 6 expectations; support structure and revision rather than reducing content demand.",
       "answer_key": {},
-      "source_references": [],
+      "source_references": ["reference/01-subjects/writing-6.md", "reference/02-feedback/2026-08-26-writing.md"],
       "status": "scheduled"
     },
     {
@@ -233,121 +198,106 @@
       "grade_level": 6,
       "subject": "science",
       "course": "Grade 6 Science",
-      "unit_id": "sci-light",
-      "unit_title": "Light and Vision",
-      "lesson_number": 1,
-      "lesson_title": "How light lets us see objects",
-      "standards": [
-        "G6-science-1"
-      ],
-      "previous_learning": "Prior Grade 6 work in this course.",
-      "course_context": "Unit: Light and Vision",
+      "unit_id": "science-light-matter",
+      "unit_title": "Light and Matter",
+      "lesson_number": 4,
+      "lesson_title": "How light allows us to see objects",
+      "standards": ["MS-PS4-2"],
+      "previous_learning": "Wednesday's lab investigated transmission, reflection, and absorption. Atticus correctly reasoned that light can reflect from a book into the eyes; evidence language and diffuse reflection need refinement.",
+      "course_context": "The Light & Matter unit builds models of how light travels and interacts with materials before later physical-science units.",
       "learning_objectives": [
-        "Explain that we see objects when light reflects into our eyes.",
-        "Describe the role of light sources and reflected light."
+        "Model the path light takes from a source to a non-luminous object and then to the eye.",
+        "Distinguish transparent, translucent, and opaque materials.",
+        "Distinguish observation from inference/explanation.",
+        "Use evidence in a short CER."
       ],
-      "why_it_matters": "This skill supports Grade 6 reasoning and future units.",
-      "vocabulary": [],
-      "written_instruction": "",
+      "why_it_matters": "A light-path model explains everyday vision and prepares students to reason about reflection, transmission, imaging, and optical systems.",
+      "vocabulary": [
+        {"term":"transparent","definition":"Allows much visible light to pass through so objects can be seen clearly."},
+        {"term":"translucent","definition":"Allows some light through but scatters it so images are not clear."},
+        {"term":"opaque","definition":"Does not allow visible light to pass through the material."},
+        {"term":"diffuse reflection","definition":"Reflection in many directions from a rough or ordinary surface."}
+      ],
+      "written_instruction": "Use the model light source → object/material → eye. A book is visible because light from a source reaches the book and some reflected light enters the eyes. Compare a mirror/foil with white paper: both can reflect, but a smooth reflective surface sends light more directionally while paper scatters reflected light in many directions. Before interpreting an observation, write what was literally seen. Then explain what interaction it supports.",
       "worked_examples": [
-        {
-          "title": "Seeing a book",
-          "problem": "Why can you see a book on a desk?",
-          "solution": "Light reflects from the book into your eyes.",
-          "explanation": "The book is not a light source; it reflects light from another source."
-        }
+        {"title":"Lamp","problem":"How can you see a lit lamp?","solution":"Lamp/source → eye.","explanation":"The lamp produces visible light that reaches the eye."},
+        {"title":"Book","problem":"How can you see a book that does not produce its own visible light?","solution":"Lamp/source → book → eye.","explanation":"Light reflects from the book into the eye."},
+        {"title":"Paper versus mirror","problem":"Both can appear bright under a flashlight. Are they reflecting identically?","solution":"No. A mirror produces strong directional reflection; white paper reflects/scatters light diffusely.","explanation":"Material surface structure affects the direction of reflected light."}
       ],
       "guided_practice": [
-        {
-          "id": "sci-g1",
-          "prompt": "Name one light source and one object seen by reflected light."
-        }
+        {"id":"sci-g1","prompt":"Draw or verbally describe the light path that lets you see a red notebook under a lamp.","hint":"Start at the source, then the notebook, then the eye."},
+        {"id":"sci-g2","prompt":"Classify clear plastic, wax paper, and cardboard as transparent, translucent, or opaque and explain what evidence you would look for.","hint":"Think about how clearly an object can be seen through each."}
       ],
       "independent_practice": [
-        {
-          "id": "sci-i1",
-          "prompt": "Explain why the moon is visible at night."
-        }
+        {"id":"sci-i1","prompt":"Complete the assigned visibility/material investigation and record observations before explanations."},
+        {"id":"sci-i2","prompt":"Draw three labeled light-path models for the tested materials."},
+        {"id":"sci-i3","prompt":"Write a short CER answering which material allowed the clearest image/light path and why, using observed evidence."}
       ],
       "exit_ticket": [
-        {
-          "id": "sci-e1",
-          "prompt": "What must happen for you to see an object?",
-          "answer": "Light must enter your eyes, usually by reflection from the object."
-        }
+        {"id":"sci-e1","prompt":"Why can you see a book even though it is not a light source?","answer":"Light from a source reaches the book, reflects from it, and enters the eyes.","rubric":"Includes source → book/object → eye and reflection."},
+        {"id":"sci-e2","prompt":"What is one difference between an observation and an inference?","answer":"An observation reports what was directly detected/measured; an inference explains or interprets what the observation means.","rubric":"Distinguishes direct evidence from interpretation."}
       ],
       "mastery_threshold": 75,
-      "materials": [
-        "Notebook",
-        "Pencil"
-      ],
-      "estimated_minutes": 45,
-      "voice_prompt": "Use concrete examples; distinguish sources from reflectors.",
-      "teacher_notes": "",
+      "materials": ["Flashlight", "Clear plastic", "Translucent material such as wax paper", "Opaque cardboard/paper", "Thursday packet"],
+      "estimated_minutes": 50,
+      "voice_prompt": "Review Wednesday by asking what Atticus literally observed before interpreting it. Correct the idea that white paper is simply an absorber: explain diffuse reflection. Teach source → object → eye with three models. Before the investigation, ask for predictions but do not reveal expected results. Afterward, ask for observation first and scientific explanation second.",
+      "teacher_notes": "Emphasize diffuse reflection and observation vs inference.",
       "answer_key": {},
-      "source_references": [],
+      "source_references": ["reference/01-subjects/science-6.md", "reference/02-feedback/2026-08-26-science.md"],
       "status": "scheduled"
     },
     {
-      "id": "2026-08-27-history_geography",
+      "id": "2026-08-27-history-geography",
       "date": "2026-08-27",
       "school_year": "2026-27",
       "grade_level": 6,
       "subject": "history_geography",
-      "course": "Grade 6 History & Geography",
-      "unit_id": "hist-greece",
+      "course": "Grade 6 History / Geography / Civics",
+      "unit_id": "history-ancient-greece",
       "unit_title": "Ancient Greece",
-      "lesson_number": 1,
-      "lesson_title": "Geography of Ancient Greece",
-      "standards": [
-        "G6-history_geography-1"
-      ],
-      "previous_learning": "Prior Grade 6 work in this course.",
-      "course_context": "Unit: Ancient Greece",
+      "lesson_number": 5,
+      "lesson_title": "How geography shaped Ancient Greece",
+      "standards": ["C3.D2.Geo.2.6-8", "C3.D2.His.14.6-8"],
+      "previous_learning": "Earlier map work established continents, oceans, latitude/longitude, and geographic reasoning. Today's lesson begins the substantive Ancient Greece sequence.",
+      "course_context": "Ancient Greece is the first major historical civilization unit in the Grade 6 sequence; geography provides the causal foundation for later study of city-states, politics, conflict, trade, and ideas.",
       "learning_objectives": [
-        "Describe how mountains and seas shaped Greek city-states.",
-        "Locate major geographic features on a map."
+        "Locate Greece within the Mediterranean/Aegean region.",
+        "Explain how mountains affected travel and political development.",
+        "Explain how sea access supported trade and cultural exchange.",
+        "Explain how limited farmland affected Greek economic choices."
       ],
-      "why_it_matters": "This skill supports Grade 6 reasoning and future units.",
-      "vocabulary": [],
-      "written_instruction": "",
+      "why_it_matters": "Geography helps explain why Greek communities developed as separate city-states and why seafaring and trade became so important.",
+      "vocabulary": [
+        {"term":"city-state / polis","definition":"An independent city and surrounding territory functioning as a political community."},
+        {"term":"Aegean Sea","definition":"The sea between mainland Greece and western Anatolia, containing many islands."},
+        {"term":"arable","definition":"Suitable for growing crops."}
+      ],
+      "written_instruction": "Begin with a map: Mediterranean Sea, Aegean Sea, Greek mainland/Balkan Peninsula, Crete, islands, and western Anatolia/Asia Minor. Then teach causal chains rather than isolated facts. Mountains made overland travel difficult and separated communities. Sea access supported fishing, movement, trade, and cultural exchange. Limited arable land encouraged trade and settlement beyond the mainland. Use geography to reason about why local city-states could develop strong identities.",
       "worked_examples": [
-        {
-          "title": "Mountains and city-states",
-          "problem": "How did mountains affect Greek political organization?",
-          "solution": "Mountains separated communities, encouraging independent city-states.",
-          "explanation": "Geography influenced trade, travel, and political unity."
-        }
+        {"title":"Mountains → political pattern","problem":"How could mountains affect political unity?","solution":"Mountains made travel and communication between valleys/communities harder, helping separate communities develop stronger local independence.","explanation":"The physical barrier changes interaction and administration."},
+        {"title":"Sea → economy","problem":"How could an irregular coastline and nearby islands help communities?","solution":"Water routes supported fishing, trade, travel, and exchange.","explanation":"Sea travel could connect places that were harder to reach over mountainous land."},
+        {"title":"Limited farmland → choices","problem":"What might communities do if local farmland cannot produce everything they need?","solution":"Trade for resources and establish settlements/colonies elsewhere.","explanation":"Resource limits create incentives for exchange and expansion."}
       ],
       "guided_practice": [
-        {
-          "id": "hist-g1",
-          "prompt": "Name two geographic features of Greece and one effect of each."
-        }
+        {"id":"hist-g1","prompt":"Complete the chain: mountains → difficult ______ travel → separated communities → greater local ______.","hint":"Think land travel and independence."},
+        {"id":"hist-g2","prompt":"Name one way the sea could connect Greek communities rather than separate them."}
       ],
       "independent_practice": [
-        {
-          "id": "hist-i1",
-          "prompt": "Explain how the Aegean Sea helped Greek trade."
-        }
+        {"id":"hist-i1","prompt":"Label the assigned map features."},
+        {"id":"hist-i2","prompt":"Explain one way mountains affected Greek political development."},
+        {"id":"hist-i3","prompt":"Explain one way the Aegean/Mediterranean environment affected trade or settlement."},
+        {"id":"hist-i4","prompt":"Using geography only, explain why many independent city-states might develop instead of one immediately unified kingdom."}
       ],
       "exit_ticket": [
-        {
-          "id": "hist-e1",
-          "prompt": "Why did Greece develop city-states instead of one large empire?",
-          "answer": "Mountainous terrain separated regions and made unified rule difficult."
-        }
+        {"id":"hist-e1","prompt":"Complete a cause-and-effect explanation connecting Greek mountains to city-states.","answer":"Mountains made overland travel/communication difficult, separating communities and encouraging stronger local independence, which contributed to city-state development.","rubric":"Contains geographic cause, intermediate effect, and political outcome."}
       ],
       "mastery_threshold": 75,
-      "materials": [
-        "Notebook",
-        "Pencil"
-      ],
-      "estimated_minutes": 40,
-      "voice_prompt": "Connect geography to daily life in ancient Greece.",
-      "teacher_notes": "",
+      "materials": ["Map of Greece/Mediterranean region", "Thursday packet", "Pencil"],
+      "estimated_minutes": 45,
+      "voice_prompt": "Start with the big question: How can geography influence a civilization? Place Greece on a map before discussing politics. Teach three causal chains: mountains, sea access, limited farmland. Ask Atticus to reason from geography and explain connections rather than memorize a list.",
+      "teacher_notes": "Beginning of substantive Ancient Greece sequence.",
       "answer_key": {},
-      "source_references": [],
+      "source_references": ["reference/01-subjects/history-geography-6.md"],
       "status": "scheduled"
     },
     {
@@ -357,193 +307,110 @@
       "grade_level": 6,
       "subject": "french",
       "course": "Grade 6 French",
-      "unit_id": "fr-verbs",
-      "unit_title": "Regular -ER Verbs",
-      "lesson_number": 1,
+      "unit_id": "french-present-tense",
+      "unit_title": "Present Tense Consolidation",
+      "lesson_number": 6,
       "lesson_title": "Regular -ER verbs and negation",
-      "standards": [
-        "G6-french-1"
-      ],
-      "previous_learning": "Prior Grade 6 work in this course.",
-      "course_context": "Unit: Regular -ER Verbs",
+      "standards": ["ACTFL.Interpersonal", "ACTFL.Interpretive", "ACTFL.Presentational"],
+      "previous_learning": "Atticus has several years of French. Prior study includes greetings, dates/numbers, classroom vocabulary, family, preferences, food, and present-tense verb work. Wednesday reviewed regular -ER patterns.",
+      "course_context": "The opening French unit consolidates present tense and high-frequency structures before expanding conversation, reading, and paragraph writing.",
       "learning_objectives": [
-        "Conjugate regular -ER verbs in present tense.",
-        "Form simple negative sentences with ne...pas."
+        "Conjugate common regular -ER verbs in the present tense.",
+        "Form negative sentences with ne/n' ... pas.",
+        "Answer short spoken questions in complete French sentences."
       ],
-      "why_it_matters": "This skill supports Grade 6 reasoning and future units.",
+      "why_it_matters": "Present-tense control allows Atticus to describe preferences, routines, activities, and opinions in real conversation.",
       "vocabulary": [
-        {
-          "term": "parler",
-          "definition": "to speak"
-        },
-        {
-          "term": "ne...pas",
-          "definition": "not (negation wrapper)"
-        }
+        {"term":"parler","definition":"to speak"},
+        {"term":"aimer","definition":"to like/love"},
+        {"term":"jouer","definition":"to play"},
+        {"term":"regarder","definition":"to watch/look at"},
+        {"term":"ne...pas","definition":"negative structure meaning not"}
       ],
-      "written_instruction": "",
+      "written_instruction": "Review the regular -ER endings: -e, -es, -e, -ons, -ez, -ent. Negation wraps the conjugated verb: je ne parle pas; il ne joue pas. Before a vowel sound, ne contracts to n': nous n'aimons pas. Practice orally before written work. Require full sentences when appropriate.",
       "worked_examples": [
-        {
-          "title": "Je parle / Je ne parle pas",
-          "problem": "Conjugate parler for je; make negative.",
-          "solution": "Je parle. Je ne parle pas.",
-          "explanation": "Remove -er, add -e for je; wrap verb with ne...pas for negation."
-        }
+        {"title":"parler","problem":"Make 'Je parle français' negative.","solution":"Je ne parle pas français.","explanation":"ne goes before the conjugated verb and pas after it."},
+        {"title":"aimer with elision","problem":"Make 'Nous aimons ce film' negative.","solution":"Nous n'aimons pas ce film.","explanation":"ne becomes n' before the vowel sound in aimons."},
+        {"title":"jouer","problem":"Make 'Il joue au tennis' negative.","solution":"Il ne joue pas au tennis.","explanation":"The conjugated verb joue stays between ne and pas."}
       ],
       "guided_practice": [
-        {
-          "id": "fr-g1",
-          "prompt": "Say: I do not speak French.",
-          "hint": "Je ne parle pas francais."
-        }
+        {"id":"fr-g1","prompt":"Conjugate regarder for nous and say the sentence aloud.","hint":"nous + stem regard- + ons"},
+        {"id":"fr-g2","prompt":"Turn 'J'aime la musique' into a negative sentence.","hint":"Use n' before aime."},
+        {"id":"fr-g3","prompt":"Answer aloud: Est-ce que tu regardes des films ? Use a full affirmative or negative sentence."}
       ],
       "independent_practice": [
-        {
-          "id": "fr-i1",
-          "prompt": "Conjugate aimer for nous."
-        }
+        {"id":"fr-i1","prompt":"Conjugate parler for all six subject-pronoun forms."},
+        {"id":"fr-i2","prompt":"Write four affirmative -ER verb sentences and convert each to the negative."},
+        {"id":"fr-i3","prompt":"Answer three teacher questions orally in full French sentences."}
       ],
       "exit_ticket": [
-        {
-          "id": "fr-e1",
-          "prompt": "Where do ne and pas go around the verb?",
-          "answer": "ne before the conjugated verb, pas after it."
-        }
+        {"id":"fr-e1","prompt":"Where do ne/n' and pas go in a negative sentence?","answer":"ne or n' goes before the conjugated verb and pas goes after it.","rubric":"Correct placement around conjugated verb."},
+        {"id":"fr-e2","prompt":"Write the negative form of 'Nous aimons le chocolat.'","answer":"Nous n'aimons pas le chocolat.","rubric":"Correct n'aimons pas structure."}
       ],
       "mastery_threshold": 75,
-      "materials": [
-        "Notebook",
-        "Pencil"
-      ],
-      "estimated_minutes": 40,
-      "voice_prompt": "Use French pronunciation, short exchanges, gentle correction.",
-      "teacher_notes": "",
+      "materials": ["Thursday packet", "French notebook"],
+      "estimated_minutes": 35,
+      "voice_prompt": "Treat French as continuing study. Speak French naturally. Briefly review two -ER conjugations, then teach ne...pas and n'...pas using three complete spoken examples. Ask Atticus to repeat, then conduct a short exchange with questions about music, films, and activities. Correct gently and let him repeat the corrected form. Do not translate every sentence automatically.",
+      "teacher_notes": "Continuing French; do not restart as beginner Spanish or beginner French.",
       "answer_key": {},
-      "source_references": [],
+      "source_references": ["reference/01-subjects/french-6.md"],
       "status": "scheduled"
     },
     {
-      "id": "2026-08-27-computer_science",
+      "id": "2026-08-27-computer-science",
       "date": "2026-08-27",
       "school_year": "2026-27",
       "grade_level": 6,
       "subject": "computer_science",
-      "course": "Grade 6 Computer Science",
-      "unit_id": "cs-flow",
-      "unit_title": "Algorithms",
-      "lesson_number": 1,
-      "lesson_title": "Conditionals and flowcharts",
-      "standards": [
-        "G6-computer_science-1"
-      ],
-      "previous_learning": "Prior Grade 6 work in this course.",
-      "course_context": "Unit: Algorithms",
+      "course": "Grade 6 Computer Science / AI",
+      "unit_id": "cs-algorithms-conditionals",
+      "unit_title": "Algorithms, Conditionals, and AI Systems",
+      "lesson_number": 7,
+      "lesson_title": "Conditionals, flowcharts, and an online build",
+      "standards": ["CSTA.2-AP-10", "CSTA.2-AP-12", "CSTA.2-AP-13"],
+      "previous_learning": "Wednesday introduced algorithms as precise ordered instructions and debugging as finding/fixing problems in a process.",
+      "course_context": "The opening computer-science unit moves from algorithms to conditionals, then loops, variables, events, data, and later AI/ML projects.",
       "learning_objectives": [
-        "Read and draw flowcharts with decision diamonds.",
-        "Explain how conditionals change program flow."
+        "Explain how a conditional changes an algorithm based on a true/false condition.",
+        "Represent a decision with a simple flowchart.",
+        "Build and test an online Scratch project with at least two conditional branches.",
+        "Explain at a basic level how testing different inputs reveals bugs or missing cases."
       ],
-      "why_it_matters": "This skill supports Grade 6 reasoning and future units.",
-      "vocabulary": [],
-      "written_instruction": "",
+      "why_it_matters": "Interactive software and automated systems must make decisions based on inputs. Conditionals are a foundational programming idea and a bridge to understanding rule-based and learned systems.",
+      "vocabulary": [
+        {"term":"condition","definition":"A statement that can be evaluated as true or false."},
+        {"term":"conditional","definition":"Code/instructions that choose an action based on a condition."},
+        {"term":"branch","definition":"One possible path an algorithm can take after a decision."},
+        {"term":"flowchart","definition":"A diagram showing steps and decisions in a process."},
+        {"term":"test case","definition":"A chosen input used to check how a program behaves."}
+      ],
+      "written_instruction": "Teach IF → THEN → ELSE with everyday systems, then show how a decision appears in a flowchart. Before opening Scratch, have Atticus write the input, conditions, and outputs for his system. Online build: use Scratch in the browser to create an automatic room-comfort controller or another approved small system. It must use at least one variable and at least two conditional branches. Test at least four input combinations and record one change made after testing. Optional AI extension after the Scratch task: use Teachable Machine with household objects/drawings/hand poses to create two or three classes, train a small classifier, test new examples, and describe one failure/limitation. Do not use personal identity as the classification target.",
       "worked_examples": [
-        {
-          "title": "If score >= 60 pass",
-          "problem": "Draw flowchart for pass/fail.",
-          "solution": "Start -> input score -> decision -> pass or fail -> end",
-          "explanation": "The decision diamond branches based on a condition."
-        }
+        {"title":"Thermostat conditional","problem":"What should happen when temperature is above 75?","solution":"IF temperature > 75 THEN cooling_on ELSE cooling_off.","explanation":"The condition creates two possible branches."},
+        {"title":"Plant monitor","problem":"What should a simple plant system do when soil is dry?","solution":"IF soil_is_dry THEN water ELSE wait.","explanation":"The sensor/input determines which action runs."},
+        {"title":"Login","problem":"What happens when a password comparison is false?","solution":"IF password_correct THEN allow_access ELSE reject_access.","explanation":"Testing both true and false cases checks both branches."}
       ],
       "guided_practice": [
-        {
-          "id": "cs-g1",
-          "prompt": "What shape means a decision in a flowchart?"
-        }
+        {"id":"cs-g1","prompt":"Describe a two-branch rule for a bedroom light using IF/THEN/ELSE."},
+        {"id":"cs-g2","prompt":"Draw a flowchart with Start → input → one decision → two outputs.","hint":"Use a yes/no decision."}
       ],
       "independent_practice": [
-        {
-          "id": "cs-i1",
-          "prompt": "Draw a flowchart for choosing a jacket if temperature < 50."
-        }
+        {"id":"cs-i1","prompt":"Go to https://scratch.mit.edu/ and build a small interactive system using at least one variable and two conditional branches."},
+        {"id":"cs-i2","prompt":"Test at least four different inputs. Record expected result, actual result, and whether you changed anything."},
+        {"id":"cs-i3","prompt":"Write 3–5 sentences explaining how your conditions control the program."},
+        {"id":"cs-i4","prompt":"Optional extension: use https://teachablemachine.withgoogle.com/ to train a two- or three-class object/drawing/pose classifier and record one successful test and one failure/limitation."}
       ],
       "exit_ticket": [
-        {
-          "id": "cs-e1",
-          "prompt": "What does a conditional do in an algorithm?",
-          "answer": "It chooses different paths based on whether a condition is true or false."
-        }
+        {"id":"cs-e1","prompt":"What is the difference between an algorithm and a conditional?","answer":"An algorithm is the overall sequence of instructions; a conditional is a decision inside an algorithm that chooses a branch based on whether a condition is true or false.","rubric":"Distinguishes overall procedure from decision/branching."},
+        {"id":"cs-e2","prompt":"Why should you test both the true and false branches of a conditional?","answer":"Because either branch can contain a bug or missing behavior, and testing both checks how the program handles different inputs.","rubric":"Mentions checking both possible paths/inputs for correct behavior."}
       ],
       "mastery_threshold": 75,
-      "materials": [
-        "Notebook",
-        "Pencil"
-      ],
-      "estimated_minutes": 40,
-      "voice_prompt": "Connect flowcharts to everyday decisions.",
-      "teacher_notes": "",
+      "materials": ["Computer with browser", "Scratch account optional", "Thursday packet", "Optional: household objects/drawings for Teachable Machine"],
+      "estimated_minutes": 50,
+      "voice_prompt": "Teach conditionals with thermostat, plant, and login examples before the online build. Ask Atticus to predict outputs for at least two inputs. Then have him plan the variable, conditions, and outputs before opening Scratch. Do not write the final program for him. Guide with questions and small hints. For the optional Teachable Machine extension, explain labels, examples, training, testing, and why a model can fail on new examples.",
+      "teacher_notes": "Online work is required for this lesson; Scratch is the core build. Teachable Machine is an optional AI extension if time permits.",
       "answer_key": {},
-      "source_references": [],
-      "status": "scheduled"
-    },
-    {
-      "id": "2026-08-27-pe",
-      "date": "2026-08-27",
-      "school_year": "2026-27",
-      "grade_level": 6,
-      "subject": "pe",
-      "course": "Grade 6 PE",
-      "unit_id": "pe-athletic",
-      "unit_title": "Athletic Development",
-      "lesson_number": 1,
-      "lesson_title": "General athletic development",
-      "standards": [
-        "G6-pe-1"
-      ],
-      "previous_learning": "Prior Grade 6 work in this course.",
-      "course_context": "Unit: Athletic Development",
-      "learning_objectives": [
-        "Practice dynamic warm-up safely.",
-        "Demonstrate basic movement patterns with control."
-      ],
-      "why_it_matters": "This skill supports Grade 6 reasoning and future units.",
-      "vocabulary": [],
-      "written_instruction": "",
-      "worked_examples": [
-        {
-          "title": "Warm-up sequence",
-          "problem": "Design a 5-minute warm-up.",
-          "solution": "Light jog, dynamic stretches, movement prep.",
-          "explanation": "Warm-up prepares muscles and focus before activity."
-        }
-      ],
-      "guided_practice": [
-        {
-          "id": "pe-g1",
-          "prompt": "Name two dynamic stretches and their purpose."
-        }
-      ],
-      "independent_practice": [
-        {
-          "id": "pe-i1",
-          "prompt": "Complete the warm-up and note one area to improve."
-        }
-      ],
-      "exit_ticket": [
-        {
-          "id": "pe-e1",
-          "prompt": "Why warm up before athletic activity?",
-          "answer": "To reduce injury risk and prepare the body to move effectively."
-        }
-      ],
-      "mastery_threshold": 75,
-      "materials": [
-        "Notebook",
-        "Pencil"
-      ],
-      "estimated_minutes": 30,
-      "voice_prompt": "Emphasize safety, effort, and reflection.",
-      "teacher_notes": "",
-      "answer_key": {},
-      "source_references": [],
+      "source_references": ["reference/01-subjects/computer-science-ai-6.md"],
       "status": "scheduled"
     }
   ]
