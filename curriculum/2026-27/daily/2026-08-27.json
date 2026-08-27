@@ -1,0 +1,550 @@
+{
+  "date": "2026-08-27",
+  "school_year": "2026-27",
+  "grade_level": 6,
+  "day_number": 1,
+  "school_day_label": "Thursday, August 27, 2026",
+  "todays_goal": "Begin the 2026-27 school year with clear understanding in each scheduled subject.",
+  "lessons": [
+    {
+      "id": "2026-08-27-mathematics",
+      "date": "2026-08-27",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "mathematics",
+      "course": "Grade 6 Mathematics",
+      "unit_id": "math-decimals",
+      "unit_title": "Decimal Operations",
+      "lesson_number": 1,
+      "lesson_title": "Decimal multiplication and division",
+      "standards": [
+        "G6-mathematics-1"
+      ],
+      "previous_learning": "Place value with decimals and whole-number multiplication.",
+      "course_context": "Unit: Decimal Operations",
+      "learning_objectives": [
+        "Multiply decimals by whole numbers and other decimals.",
+        "Divide decimals by whole numbers with understanding of place value.",
+        "Estimate products and quotients to check reasonableness."
+      ],
+      "why_it_matters": "Decimal operations appear in money, measurement, and science data throughout Grade 6.",
+      "vocabulary": [
+        {
+          "term": "product",
+          "definition": "The result of multiplication."
+        },
+        {
+          "term": "quotient",
+          "definition": "The result of division."
+        },
+        {
+          "term": "estimate",
+          "definition": "A reasonable approximation before exact calculation."
+        }
+      ],
+      "written_instruction": "Work through decimal multiplication and division using place-value reasoning.",
+      "worked_examples": [
+        {
+          "title": "Multiply 2.4 x 3",
+          "problem": "2.4 x 3",
+          "solution": "7.2",
+          "explanation": "24 tenths times 3 equals 72 tenths, or 7.2."
+        },
+        {
+          "title": "Divide 5.04 / 4",
+          "problem": "5.04 / 4",
+          "solution": "1.26",
+          "explanation": "Divide as whole numbers, then place the decimal using place value."
+        }
+      ],
+      "guided_practice": [
+        {
+          "id": "math-g1",
+          "prompt": "Estimate 1.8 x 4 before calculating.",
+          "hint": "Round 1.8 to 2."
+        },
+        {
+          "id": "math-g2",
+          "prompt": "Calculate 3.6 / 3.",
+          "hint": "Think of 36 tenths divided by 3."
+        }
+      ],
+      "independent_practice": [
+        {
+          "id": "math-i1",
+          "prompt": "4.5 x 2 = ?",
+          "hint": "Use place value."
+        },
+        {
+          "id": "math-i2",
+          "prompt": "6.3 / 7 = ?",
+          "hint": "Set up the division carefully."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "math-e1",
+          "prompt": "Explain why estimating 5.04 / 4 helps before dividing.",
+          "answer": "Estimation checks whether the quotient near 1.25 is reasonable.",
+          "rubric": "Mentions reasonableness or place value."
+        }
+      ],
+      "mastery_threshold": 75,
+      "materials": [
+        "Notebook",
+        "Pencil"
+      ],
+      "estimated_minutes": 50,
+      "voice_prompt": "Connect to whole-number operations, teach decimal placement, model two full examples, then guide practice verbally.",
+      "teacher_notes": "",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-08-27-literature",
+      "date": "2026-08-27",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "literature",
+      "course": "Grade 6 Literature",
+      "unit_id": "lit-info",
+      "unit_title": "Informational Text",
+      "lesson_number": 1,
+      "lesson_title": "Informational text / central idea and evidence",
+      "standards": [
+        "G6-literature-1"
+      ],
+      "previous_learning": "Prior Grade 6 work in this course.",
+      "course_context": "Unit: Informational Text",
+      "learning_objectives": [
+        "Identify the central idea of an informational passage.",
+        "Locate and explain supporting evidence."
+      ],
+      "why_it_matters": "This skill supports Grade 6 reasoning and future units.",
+      "vocabulary": [],
+      "written_instruction": "",
+      "worked_examples": [
+        {
+          "title": "Central idea in a short article",
+          "problem": "Read about how bees pollinate crops.",
+          "solution": "Central idea: Bees help plants reproduce by moving pollen.",
+          "explanation": "Evidence includes descriptions of pollen transfer and crop dependence."
+        }
+      ],
+      "guided_practice": [
+        {
+          "id": "lit-g1",
+          "prompt": "State the central idea in one sentence.",
+          "hint": "What is the passage mostly about?"
+        }
+      ],
+      "independent_practice": [
+        {
+          "id": "lit-i1",
+          "prompt": "List two pieces of evidence for the central idea."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "lit-e1",
+          "prompt": "What is the difference between a topic and a central idea?",
+          "answer": "A topic is the subject; the central idea is the main point the author makes about it."
+        }
+      ],
+      "mastery_threshold": 75,
+      "materials": [
+        "Notebook",
+        "Pencil"
+      ],
+      "estimated_minutes": 45,
+      "voice_prompt": "Model finding central idea and evidence in a short passage.",
+      "teacher_notes": "",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-08-27-writing",
+      "date": "2026-08-27",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "writing",
+      "course": "Grade 6 Writing",
+      "unit_id": "write-explain",
+      "unit_title": "Explanatory Writing",
+      "lesson_number": 1,
+      "lesson_title": "Evidence-based explanatory paragraph",
+      "standards": [
+        "G6-writing-1"
+      ],
+      "previous_learning": "Prior Grade 6 work in this course.",
+      "course_context": "Unit: Explanatory Writing",
+      "learning_objectives": [
+        "Write a paragraph with a clear topic sentence and evidence.",
+        "Explain how evidence supports the claim."
+      ],
+      "why_it_matters": "This skill supports Grade 6 reasoning and future units.",
+      "vocabulary": [],
+      "written_instruction": "",
+      "worked_examples": [
+        {
+          "title": "Explanatory paragraph model",
+          "problem": "Explain why reading daily improves vocabulary.",
+          "solution": "Topic sentence + two evidence sentences + explanation.",
+          "explanation": "Each evidence sentence connects back to the claim."
+        }
+      ],
+      "guided_practice": [
+        {
+          "id": "wr-g1",
+          "prompt": "Draft a topic sentence for an explanatory paragraph."
+        }
+      ],
+      "independent_practice": [
+        {
+          "id": "wr-i1",
+          "prompt": "Write a full explanatory paragraph with two pieces of evidence."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "wr-e1",
+          "prompt": "What must every evidence sentence do?",
+          "answer": "Support and connect to the topic sentence/claim."
+        }
+      ],
+      "mastery_threshold": 75,
+      "materials": [
+        "Notebook",
+        "Pencil"
+      ],
+      "estimated_minutes": 45,
+      "voice_prompt": "Teach paragraph structure before drafting.",
+      "teacher_notes": "",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-08-27-science",
+      "date": "2026-08-27",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "science",
+      "course": "Grade 6 Science",
+      "unit_id": "sci-light",
+      "unit_title": "Light and Vision",
+      "lesson_number": 1,
+      "lesson_title": "How light lets us see objects",
+      "standards": [
+        "G6-science-1"
+      ],
+      "previous_learning": "Prior Grade 6 work in this course.",
+      "course_context": "Unit: Light and Vision",
+      "learning_objectives": [
+        "Explain that we see objects when light reflects into our eyes.",
+        "Describe the role of light sources and reflected light."
+      ],
+      "why_it_matters": "This skill supports Grade 6 reasoning and future units.",
+      "vocabulary": [],
+      "written_instruction": "",
+      "worked_examples": [
+        {
+          "title": "Seeing a book",
+          "problem": "Why can you see a book on a desk?",
+          "solution": "Light reflects from the book into your eyes.",
+          "explanation": "The book is not a light source; it reflects light from another source."
+        }
+      ],
+      "guided_practice": [
+        {
+          "id": "sci-g1",
+          "prompt": "Name one light source and one object seen by reflected light."
+        }
+      ],
+      "independent_practice": [
+        {
+          "id": "sci-i1",
+          "prompt": "Explain why the moon is visible at night."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "sci-e1",
+          "prompt": "What must happen for you to see an object?",
+          "answer": "Light must enter your eyes, usually by reflection from the object."
+        }
+      ],
+      "mastery_threshold": 75,
+      "materials": [
+        "Notebook",
+        "Pencil"
+      ],
+      "estimated_minutes": 45,
+      "voice_prompt": "Use concrete examples; distinguish sources from reflectors.",
+      "teacher_notes": "",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-08-27-history_geography",
+      "date": "2026-08-27",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "history_geography",
+      "course": "Grade 6 History & Geography",
+      "unit_id": "hist-greece",
+      "unit_title": "Ancient Greece",
+      "lesson_number": 1,
+      "lesson_title": "Geography of Ancient Greece",
+      "standards": [
+        "G6-history_geography-1"
+      ],
+      "previous_learning": "Prior Grade 6 work in this course.",
+      "course_context": "Unit: Ancient Greece",
+      "learning_objectives": [
+        "Describe how mountains and seas shaped Greek city-states.",
+        "Locate major geographic features on a map."
+      ],
+      "why_it_matters": "This skill supports Grade 6 reasoning and future units.",
+      "vocabulary": [],
+      "written_instruction": "",
+      "worked_examples": [
+        {
+          "title": "Mountains and city-states",
+          "problem": "How did mountains affect Greek political organization?",
+          "solution": "Mountains separated communities, encouraging independent city-states.",
+          "explanation": "Geography influenced trade, travel, and political unity."
+        }
+      ],
+      "guided_practice": [
+        {
+          "id": "hist-g1",
+          "prompt": "Name two geographic features of Greece and one effect of each."
+        }
+      ],
+      "independent_practice": [
+        {
+          "id": "hist-i1",
+          "prompt": "Explain how the Aegean Sea helped Greek trade."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "hist-e1",
+          "prompt": "Why did Greece develop city-states instead of one large empire?",
+          "answer": "Mountainous terrain separated regions and made unified rule difficult."
+        }
+      ],
+      "mastery_threshold": 75,
+      "materials": [
+        "Notebook",
+        "Pencil"
+      ],
+      "estimated_minutes": 40,
+      "voice_prompt": "Connect geography to daily life in ancient Greece.",
+      "teacher_notes": "",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-08-27-french",
+      "date": "2026-08-27",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "french",
+      "course": "Grade 6 French",
+      "unit_id": "fr-verbs",
+      "unit_title": "Regular -ER Verbs",
+      "lesson_number": 1,
+      "lesson_title": "Regular -ER verbs and negation",
+      "standards": [
+        "G6-french-1"
+      ],
+      "previous_learning": "Prior Grade 6 work in this course.",
+      "course_context": "Unit: Regular -ER Verbs",
+      "learning_objectives": [
+        "Conjugate regular -ER verbs in present tense.",
+        "Form simple negative sentences with ne...pas."
+      ],
+      "why_it_matters": "This skill supports Grade 6 reasoning and future units.",
+      "vocabulary": [
+        {
+          "term": "parler",
+          "definition": "to speak"
+        },
+        {
+          "term": "ne...pas",
+          "definition": "not (negation wrapper)"
+        }
+      ],
+      "written_instruction": "",
+      "worked_examples": [
+        {
+          "title": "Je parle / Je ne parle pas",
+          "problem": "Conjugate parler for je; make negative.",
+          "solution": "Je parle. Je ne parle pas.",
+          "explanation": "Remove -er, add -e for je; wrap verb with ne...pas for negation."
+        }
+      ],
+      "guided_practice": [
+        {
+          "id": "fr-g1",
+          "prompt": "Say: I do not speak French.",
+          "hint": "Je ne parle pas francais."
+        }
+      ],
+      "independent_practice": [
+        {
+          "id": "fr-i1",
+          "prompt": "Conjugate aimer for nous."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "fr-e1",
+          "prompt": "Where do ne and pas go around the verb?",
+          "answer": "ne before the conjugated verb, pas after it."
+        }
+      ],
+      "mastery_threshold": 75,
+      "materials": [
+        "Notebook",
+        "Pencil"
+      ],
+      "estimated_minutes": 40,
+      "voice_prompt": "Use French pronunciation, short exchanges, gentle correction.",
+      "teacher_notes": "",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-08-27-computer_science",
+      "date": "2026-08-27",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "computer_science",
+      "course": "Grade 6 Computer Science",
+      "unit_id": "cs-flow",
+      "unit_title": "Algorithms",
+      "lesson_number": 1,
+      "lesson_title": "Conditionals and flowcharts",
+      "standards": [
+        "G6-computer_science-1"
+      ],
+      "previous_learning": "Prior Grade 6 work in this course.",
+      "course_context": "Unit: Algorithms",
+      "learning_objectives": [
+        "Read and draw flowcharts with decision diamonds.",
+        "Explain how conditionals change program flow."
+      ],
+      "why_it_matters": "This skill supports Grade 6 reasoning and future units.",
+      "vocabulary": [],
+      "written_instruction": "",
+      "worked_examples": [
+        {
+          "title": "If score >= 60 pass",
+          "problem": "Draw flowchart for pass/fail.",
+          "solution": "Start -> input score -> decision -> pass or fail -> end",
+          "explanation": "The decision diamond branches based on a condition."
+        }
+      ],
+      "guided_practice": [
+        {
+          "id": "cs-g1",
+          "prompt": "What shape means a decision in a flowchart?"
+        }
+      ],
+      "independent_practice": [
+        {
+          "id": "cs-i1",
+          "prompt": "Draw a flowchart for choosing a jacket if temperature < 50."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "cs-e1",
+          "prompt": "What does a conditional do in an algorithm?",
+          "answer": "It chooses different paths based on whether a condition is true or false."
+        }
+      ],
+      "mastery_threshold": 75,
+      "materials": [
+        "Notebook",
+        "Pencil"
+      ],
+      "estimated_minutes": 40,
+      "voice_prompt": "Connect flowcharts to everyday decisions.",
+      "teacher_notes": "",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-08-27-pe",
+      "date": "2026-08-27",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "pe",
+      "course": "Grade 6 PE",
+      "unit_id": "pe-athletic",
+      "unit_title": "Athletic Development",
+      "lesson_number": 1,
+      "lesson_title": "General athletic development",
+      "standards": [
+        "G6-pe-1"
+      ],
+      "previous_learning": "Prior Grade 6 work in this course.",
+      "course_context": "Unit: Athletic Development",
+      "learning_objectives": [
+        "Practice dynamic warm-up safely.",
+        "Demonstrate basic movement patterns with control."
+      ],
+      "why_it_matters": "This skill supports Grade 6 reasoning and future units.",
+      "vocabulary": [],
+      "written_instruction": "",
+      "worked_examples": [
+        {
+          "title": "Warm-up sequence",
+          "problem": "Design a 5-minute warm-up.",
+          "solution": "Light jog, dynamic stretches, movement prep.",
+          "explanation": "Warm-up prepares muscles and focus before activity."
+        }
+      ],
+      "guided_practice": [
+        {
+          "id": "pe-g1",
+          "prompt": "Name two dynamic stretches and their purpose."
+        }
+      ],
+      "independent_practice": [
+        {
+          "id": "pe-i1",
+          "prompt": "Complete the warm-up and note one area to improve."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "pe-e1",
+          "prompt": "Why warm up before athletic activity?",
+          "answer": "To reduce injury risk and prepare the body to move effectively."
+        }
+      ],
+      "mastery_threshold": 75,
+      "materials": [
+        "Notebook",
+        "Pencil"
+      ],
+      "estimated_minutes": 30,
+      "voice_prompt": "Emphasize safety, effort, and reflection.",
+      "teacher_notes": "",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    }
+  ]
+}

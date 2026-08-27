@@ -1,0 +1,170 @@
+import { Router } from "express";
+import { asyncHandler } from "../middleware/http.js";
+import {
+  getTodaySchedule,
+  getCurrentLesson,
+  getStudentSnapshot,
+  getPreviousLessonFeedback,
+  getMasteryState,
+} from "../services/academic.js";
+import {
+  recordVerbalCheck,
+  recordMisconception,
+  recordMastery,
+  saveTutorNote,
+  markLessonStarted,
+  markLessonCompleted,
+  getAllowedAnswerSupport,
+  getWorkedExamples,
+  getAssignmentInstructions,
+} from "../services/mastery.js";
+import { getDefaultStudent } from "../services/student.js";
+import {
+  VerbalCheckSchema,
+  MisconceptionSchema,
+  MasteryRecordSchema,
+  TutorNoteSchema,
+  SearchCurriculumSchema,
+} from "../../shared/schemas/api.js";
+import { searchVectorStore } from "../lib/openai.js";
+import { log } from "../lib/logger.js";
+import type { Subject } from "@prisma/client";
+
+function param(value: string | string[]): string {
+  return Array.isArray(value) ? value[0] : value;
+}
+
+export const apiRouter = Router();
+
+apiRouter.get(
+  "/schedule/today",
+  asyncHandler(async (req, res) => {
+    const date = req.query.date as string | undefined;
+    res.json(await getTodaySchedule(date));
+  }),
+);
+
+apiRouter.get(
+  "/lessons/current/:subject?",
+  asyncHandler(async (req, res) => {
+    res.json(await getCurrentLesson(param(req.params.subject) as Subject | undefined));
+  }),
+);
+
+apiRouter.get(
+  "/student/snapshot",
+  asyncHandler(async (req, res) => {
+    const student = await getDefaultStudent();
+    req.session.studentId = student.id;
+    res.json(await getStudentSnapshot());
+  }),
+);
+
+apiRouter.get(
+  "/feedback/previous/:subject",
+  asyncHandler(async (req, res) => {
+    res.json(await getPreviousLessonFeedback(param(req.params.subject) as Subject));
+  }),
+);
+
+apiRouter.get(
+  "/mastery/:subject",
+  asyncHandler(async (req, res) => {
+    const standard = req.query.standard as string | undefined;
+    res.json(await getMasteryState(param(req.params.subject) as Subject, standard));
+  }),
+);
+
+apiRouter.post(
+  "/tools/verbal-check",
+  asyncHandler(async (req, res) => {
+    const body = VerbalCheckSchema.parse(req.body);
+    log({ message: "Tool call", toolName: "record_verbal_check", requestId: req.ctx.requestId, lessonId: body.lesson_id });
+    res.json(await recordVerbalCheck(body));
+  }),
+);
+
+apiRouter.post(
+  "/tools/misconception",
+  asyncHandler(async (req, res) => {
+    const body = MisconceptionSchema.parse(req.body);
+    log({ message: "Tool call", toolName: "record_misconception", requestId: req.ctx.requestId, lessonId: body.lesson_id });
+    res.json(await recordMisconception(body));
+  }),
+);
+
+apiRouter.post(
+  "/tools/mastery",
+  asyncHandler(async (req, res) => {
+    const body = MasteryRecordSchema.parse(req.body);
+    log({ message: "Tool call", toolName: "record_mastery", requestId: req.ctx.requestId, lessonId: body.lesson_id });
+    res.json(await recordMastery(body));
+  }),
+);
+
+apiRouter.post(
+  "/tools/tutor-note",
+  asyncHandler(async (req, res) => {
+    const body = TutorNoteSchema.parse(req.body);
+    log({ message: "Tool call", toolName: "save_tutor_note", requestId: req.ctx.requestId, lessonId: body.lesson_id });
+    res.json(await saveTutorNote(body));
+  }),
+);
+
+apiRouter.post(
+  "/tools/lesson-started",
+  asyncHandler(async (req, res) => {
+    const { lesson_id } = req.body as { lesson_id: string };
+    log({ message: "Tool call", toolName: "mark_lesson_started", requestId: req.ctx.requestId, lessonId: lesson_id });
+    const result = await markLessonStarted(lesson_id);
+    req.session.tutorSessionId = result.sessionId;
+    res.json(result);
+  }),
+);
+
+apiRouter.post(
+  "/tools/lesson-completed",
+  asyncHandler(async (req, res) => {
+    const { lesson_id } = req.body as { lesson_id: string };
+    log({ message: "Tool call", toolName: "mark_lesson_completed", requestId: req.ctx.requestId, lessonId: lesson_id });
+    res.json(await markLessonCompleted(lesson_id));
+  }),
+);
+
+apiRouter.get(
+  "/tools/worked-examples/:lessonId",
+  asyncHandler(async (req, res) => {
+    res.json(await getWorkedExamples(param(req.params.lessonId)));
+  }),
+);
+
+apiRouter.get(
+  "/tools/assignment/:assignmentId",
+  asyncHandler(async (req, res) => {
+    const assignment = await getAssignmentInstructions(param(req.params.assignmentId));
+    if (!assignment) return res.status(404).json({ error: "Assignment not found" });
+    res.json(assignment);
+  }),
+);
+
+apiRouter.get(
+  "/tools/answer-support/:lessonId/:itemId",
+  asyncHandler(async (req, res) => {
+    res.json(await getAllowedAnswerSupport(param(req.params.lessonId), param(req.params.itemId)));
+  }),
+);
+
+apiRouter.post(
+  "/search/curriculum",
+  asyncHandler(async (req, res) => {
+    const body = SearchCurriculumSchema.parse(req.body);
+    log({ message: "Tool call", toolName: "search_curriculum", requestId: req.ctx.requestId });
+    const results = await searchVectorStore({
+      query: body.query,
+      filters: body.subject
+        ? { type: "eq", key: "subject", value: body.subject }
+        : undefined,
+    });
+    res.json(results);
+  }),
+);
