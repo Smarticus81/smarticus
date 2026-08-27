@@ -11,6 +11,26 @@ function stripAnswers(value: unknown): unknown {
   });
 }
 
+function compactCurriculumContext(result: unknown) {
+  const data = (result as { data?: Array<Record<string, unknown>> })?.data;
+  if (!Array.isArray(data)) return [];
+  return data.slice(0, 6).map((item) => {
+    const content = Array.isArray(item.content)
+      ? item.content
+          .map((part) => (part && typeof part === "object" && "text" in part ? String((part as { text?: unknown }).text ?? "") : ""))
+          .filter(Boolean)
+          .join("\n")
+          .slice(0, 2400)
+      : "";
+    return {
+      filename: item.filename,
+      score: item.score,
+      attributes: item.attributes,
+      content,
+    };
+  });
+}
+
 export async function buildAgentInstructions(lesson: Record<string, unknown> & {
   id: string;
   lesson_title: string;
@@ -23,7 +43,7 @@ export async function buildAgentInstructions(lesson: Record<string, unknown> & {
 }) {
   const isFrench = lesson.subject === "french";
   const student = await getDefaultStudent();
-  const [mastery, feedback, misconceptions, recentSessions, curriculumContext] = await Promise.all([
+  const [mastery, feedback, misconceptions, recentSessions, curriculumSearch] = await Promise.all([
     prisma.masteryRecord.findMany({
       where: { studentId: student.id, subject: lesson.subject as never },
       orderBy: { updatedAt: "desc" },
@@ -70,10 +90,17 @@ export async function buildAgentInstructions(lesson: Record<string, unknown> & {
     searchVectorStore({
       query: `Grade ${lesson.grade_level} ${lesson.subject} ${lesson.unit_title ?? ""} ${lesson.lesson_title} teaching sequence prerequisite misconceptions worked examples`,
       maxResults: 6,
-      filters: { type: "eq", key: "subject", value: lesson.subject },
+      filters: {
+        type: "and",
+        filters: [
+          { type: "eq", key: "subject", value: lesson.subject },
+          { type: "eq", key: "access", value: "student" },
+        ],
+      },
     }).catch(() => ({ data: [] })),
   ]);
 
+  const curriculumContext = compactCurriculumContext(curriculumSearch);
   const safeLesson = {
     ...lesson,
     guided_practice: stripAnswers(lesson.guided_practice),
@@ -120,7 +147,7 @@ ${isFrench ? `- French is a continuing subject, not beginner language study. Use
 CURRENT LESSON — authoritative for today's assigned work:
 ${JSON.stringify(safeLesson, null, 2)}
 
-RETRIEVED COURSE/UNIT CONTEXT — use this to understand the larger syllabus, sequencing, teaching guidance, and rubrics. Treat it as background, while the current lesson controls today's assigned work:
+RETRIEVED COURSE/UNIT CONTEXT — student-safe background for syllabus, sequencing, teaching guidance, and rubrics. The current lesson controls today's assigned work:
 ${JSON.stringify(curriculumContext, null, 2)}
 
 STUDENT CONTEXT — use only this evidence; never invent performance:
