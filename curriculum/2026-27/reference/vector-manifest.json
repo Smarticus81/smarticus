@@ -1,0 +1,23 @@
+{
+  "files": [
+    {"path":"00-master/master-curriculum.md","attributes":{"document_type":"master_curriculum","school_year":"2026-27","grade":6,"subject":"all","access":"student","status":"current","version":1}},
+    {"path":"00-master/teacher-agent-operating-manual.md","attributes":{"document_type":"teacher_guidance","school_year":"2026-27","grade":6,"subject":"all","access":"student","status":"current","version":1}},
+    {"path":"00-master/academic-history-summary.md","attributes":{"document_type":"academic_baseline","school_year":"2026-27","grade":6,"subject":"all","access":"student","status":"current","version":1}},
+    {"path":"00-master/retrieval-policy.md","attributes":{"document_type":"retrieval_policy","school_year":"2026-27","grade":6,"subject":"all","access":"student","status":"current","version":1}},
+
+    {"path":"01-subjects/mathematics-6.md","attributes":{"document_type":"subject_syllabus","school_year":"2026-27","grade":6,"subject":"mathematics","access":"student","status":"current","version":1}},
+    {"path":"01-subjects/literature-6.md","attributes":{"document_type":"subject_syllabus","school_year":"2026-27","grade":6,"subject":"literature","access":"student","status":"current","version":1}},
+    {"path":"01-subjects/writing-6.md","attributes":{"document_type":"subject_syllabus","school_year":"2026-27","grade":6,"subject":"writing","access":"student","status":"current","version":1}},
+    {"path":"01-subjects/science-6.md","attributes":{"document_type":"subject_syllabus","school_year":"2026-27","grade":6,"subject":"science","access":"student","status":"current","version":1}},
+    {"path":"01-subjects/history-geography-6.md","attributes":{"document_type":"subject_syllabus","school_year":"2026-27","grade":6,"subject":"history_geography","access":"student","status":"current","version":1}},
+    {"path":"01-subjects/french-6.md","attributes":{"document_type":"subject_syllabus","school_year":"2026-27","grade":6,"subject":"french","access":"student","status":"current","version":1}},
+    {"path":"01-subjects/computer-science-ai-6.md","attributes":{"document_type":"subject_syllabus","school_year":"2026-27","grade":6,"subject":"computer_science","access":"student","status":"current","version":1}},
+    {"path":"01-subjects/art-design-6.md","attributes":{"document_type":"subject_syllabus","school_year":"2026-27","grade":6,"subject":"art_design","access":"student","status":"current","version":1}},
+    {"path":"01-subjects/pe-wellness-6.md","attributes":{"document_type":"subject_syllabus","school_year":"2026-27","grade":6,"subject":"pe","access":"student","status":"current","version":1}},
+
+    {"path":"02-feedback/2026-08-26-mathematics.md","attributes":{"document_type":"teacher_feedback","school_year":"2026-27","grade":6,"subject":"mathematics","access":"student","status":"current","date":"2026-08-26","version":1}},
+    {"path":"02-feedback/2026-08-26-literature.md","attributes":{"document_type":"teacher_feedback","school_year":"2026-27","grade":6,"subject":"literature","access":"student","status":"current","date":"2026-08-26","version":1}},
+    {"path":"02-feedback/2026-08-26-writing.md","attributes":{"document_type":"teacher_feedback","school_year":"2026-27","grade":6,"subject":"writing","access":"student","status":"current","date":"2026-08-26","version":1}},
+    {"path":"02-feedback/2026-08-26-science.md","attributes":{"document_type":"teacher_feedback","school_year":"2026-27","grade":6,"subject":"science","access":"student","status":"current","date":"2026-08-26","version":1}}
+  ]
+}
