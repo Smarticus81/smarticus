@@ -12,7 +12,7 @@
     "build": "npm run clean && npm run build:client && npm run build:server",
     "build:client": "vite build",
     "build:server": "tsc -p tsconfig.server.json",
-    "start": "node dist/server/scripts/bootstrap-database.js --seed-if-empty && node dist/server/server/index.js",
+    "start": "node dist/server/server/index.js",
     "test": "tsx --test \"tests/**/*.test.ts\"",
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.server.json --noEmit",
     "check": "npm run typecheck && npm test && npm run build",

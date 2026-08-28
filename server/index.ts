@@ -17,6 +17,7 @@ import { log } from "./lib/logger.js";
 import { ingestAllCurriculum } from "./ingest/curriculum.js";
 import { disconnectPrisma, prisma } from "./lib/prisma.js";
 import { authRouter, requireAuthentication } from "./routes/auth.js";
+import { bootstrapDatabase } from "../scripts/bootstrap-database.js";
 
 const PostgresSessionStore = connectPgSimple(session);
 let sessionPool: Pool | undefined;
@@ -223,7 +224,9 @@ export function startServer() {
   return server;
 }
 
-function registerShutdownHandlers() {
+async function registerShutdownHandlers() {
+  await bootstrapDatabase({ seedIfEmpty: true });
+
   let shuttingDown = false;
 
   const shutdown = (signal: NodeJS.Signals) => {
@@ -260,5 +263,12 @@ function registerShutdownHandlers() {
 const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
 
 if (isMain) {
-  registerShutdownHandlers();
+  registerShutdownHandlers().catch((error) => {
+    log({
+      level: "error",
+      message: "Database initialization failed",
+      error: error instanceof Error ? error.message : String(error),
+    });
+    process.exit(1);
+  });
 }

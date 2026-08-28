@@ -2,7 +2,9 @@ import "dotenv/config";
 import { createHash, randomUUID } from "node:crypto";
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { Client } from "pg";
+import { disconnectSeedDatabase, seedDatabase } from "../prisma/seed.js";
 
 const databaseUrl = process.env.DATABASE_URL;
 if (!databaseUrl) throw new Error("DATABASE_URL is required");
@@ -133,7 +135,6 @@ async function seedIfEmpty() {
   if (ready) return;
 
   console.log("Production database is empty; loading the initial curriculum.");
-  const { seedDatabase, disconnectSeedDatabase } = await import("../prisma/seed.js");
   try {
     await seedDatabase();
   } finally {
@@ -141,8 +142,22 @@ async function seedIfEmpty() {
   }
 }
 
-await ensureDatabase();
-await applyMigrations();
-if (process.argv.includes("--seed-if-empty")) {
-  await seedIfEmpty();
+export async function bootstrapDatabase(options: { seedIfEmpty?: boolean } = {}) {
+  await ensureDatabase();
+  await applyMigrations();
+  if (options.seedIfEmpty) {
+    await seedIfEmpty();
+  }
+}
+
+const isMain =
+  process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+
+if (isMain) {
+  bootstrapDatabase({ seedIfEmpty: process.argv.includes("--seed-if-empty") }).catch(
+    (error) => {
+      console.error(error);
+      process.exitCode = 1;
+    },
+  );
 }
