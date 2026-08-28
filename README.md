@@ -31,7 +31,7 @@ Set all values in `.env.example` through the deployment platform's secret manage
 - `SESSION_SECRET`, unique and at least 32 characters
 - `APP_ACCESS_PASSWORD`, unique and at least 12 characters
 
-Run `npm run db:migrate` as a release step before starting the new version. Then run `npm start`. The application stores authenticated sessions in PostgreSQL, so restarts and multiple application instances share session state.
+Run `npm start`. Production startup applies checked-in migrations and seeds the initial curriculum only when the database has no student or lesson data. The application stores authenticated sessions in PostgreSQL, so restarts and multiple application instances share session state.
 
 Serve the application behind HTTPS. Set `TRUST_PROXY=true` only when the server is behind a trusted reverse proxy that overwrites forwarded headers. Secure session cookies will not work over plain HTTP in production.
 
@@ -46,4 +46,4 @@ docker build -t atticus-tutor .
 docker run --rm -p 3000:3000 --env-file .env atticus-tutor
 ```
 
-Apply migrations from CI/CD (with the full development dependencies installed) before rolling out that image. Back up PostgreSQL and treat transcripts, student records, and logs as sensitive educational data. Keep `/health` and `/ready` reachable by the platform, but do not expose the service itself without TLS.
+Back up PostgreSQL before deployment and treat transcripts, student records, and logs as sensitive educational data. Keep `/health` and `/ready` reachable by the platform, but do not expose the service itself without TLS.

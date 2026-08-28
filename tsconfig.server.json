@@ -13,6 +13,6 @@
     "resolveJsonModule": true,
     "declaration": false
   },
-  "include": ["server/index.ts", "shared/**/*"],
+  "include": ["server/index.ts", "scripts/bootstrap-database.ts", "prisma/seed.ts", "shared/**/*"],
   "exclude": ["node_modules", "dist", "client"]
 }

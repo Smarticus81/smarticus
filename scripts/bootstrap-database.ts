@@ -115,5 +115,34 @@ async function applyMigrations() {
   }
 }
 
+async function seedIfEmpty() {
+  const client = new Client({ connectionString: targetUrl.toString() });
+  await client.connect();
+  let ready = false;
+  try {
+    const result = await client.query<{ ready: boolean }>(`
+      SELECT
+        EXISTS (SELECT 1 FROM "Student" LIMIT 1)
+        AND EXISTS (SELECT 1 FROM "Lesson" LIMIT 1) AS ready
+    `);
+    ready = result.rows[0]?.ready ?? false;
+  } finally {
+    await client.end();
+  }
+
+  if (ready) return;
+
+  console.log("Production database is empty; loading the initial curriculum.");
+  const { seedDatabase, disconnectSeedDatabase } = await import("../prisma/seed.js");
+  try {
+    await seedDatabase();
+  } finally {
+    await disconnectSeedDatabase();
+  }
+}
+
 await ensureDatabase();
 await applyMigrations();
+if (process.argv.includes("--seed-if-empty")) {
+  await seedIfEmpty();
+}

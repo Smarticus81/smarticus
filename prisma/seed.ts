@@ -1,6 +1,8 @@
 import "dotenv/config";
 import { PrismaClient, type MasteryStatus, type Subject } from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { ingestAllCurriculum } from "../server/ingest/curriculum.js";
 import { parseDate } from "../server/services/student.js";
 
@@ -66,7 +68,7 @@ async function ensureMastery(params: {
   }
 }
 
-async function main() {
+export async function seedDatabase() {
   console.log("Seeding Atticus Tutor...");
 
   const student = await prisma.student.upsert({
@@ -275,11 +277,20 @@ async function main() {
   console.log("Seed complete.", { studentId: student.id, schoolYear: schoolYear.label });
 }
 
-main()
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+export async function disconnectSeedDatabase() {
+  await prisma.$disconnect();
+}
+
+const isMain =
+  process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+
+if (isMain) {
+  seedDatabase()
+    .catch((e) => {
+      console.error(e);
+      process.exitCode = 1;
+    })
+    .finally(async () => {
+      await disconnectSeedDatabase();
+    });
+}
