@@ -17,7 +17,10 @@ import { log } from "./lib/logger.js";
 import { ingestAllCurriculum } from "./ingest/curriculum.js";
 import { disconnectPrisma, prisma } from "./lib/prisma.js";
 import { authRouter, requireAuthentication } from "./routes/auth.js";
-import { bootstrapDatabase } from "../scripts/bootstrap-database.js";
+import {
+  bootstrapDatabase,
+  describeDatabaseError,
+} from "../scripts/bootstrap-database.js";
 
 const PostgresSessionStore = connectPgSimple(session);
 let sessionPool: Pool | undefined;
@@ -264,7 +267,7 @@ const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPat
 
 if (isMain) {
   registerShutdownHandlers().catch((error) => {
-    const detail = error instanceof Error ? error.message : String(error);
+    const detail = describeDatabaseError(error);
     log({
       level: "error",
       message: `Database initialization failed: ${detail}`,

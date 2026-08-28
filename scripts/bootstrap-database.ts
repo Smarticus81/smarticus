@@ -12,9 +12,72 @@ if (!databaseUrl) throw new Error("DATABASE_URL is required");
 const targetUrl = new URL(databaseUrl);
 const databaseName = decodeURIComponent(targetUrl.pathname.slice(1));
 if (!databaseName) throw new Error("DATABASE_URL must include a database name");
+const MAX_CONNECTION_ATTEMPTS = 12;
 
 function quoteIdentifier(value: string) {
   return `"${value.replaceAll('"', '""')}"`;
+}
+
+export function describeDatabaseError(error: unknown): string {
+  if (error instanceof AggregateError) {
+    const details = error.errors
+      .map((entry: unknown) => describeDatabaseError(entry))
+      .filter(Boolean)
+      .join("; ");
+    return details || error.message || "Multiple database connection errors";
+  }
+  if (error instanceof Error) {
+    const coded = error as Error & {
+      code?: string;
+      syscall?: string;
+      address?: string;
+      port?: number;
+      cause?: unknown;
+    };
+    const context = [
+      coded.code,
+      coded.syscall,
+      coded.address,
+      coded.port === undefined ? undefined : String(coded.port),
+    ].filter(Boolean);
+    const primary = [coded.message, context.length ? `(${context.join(" ")})` : undefined]
+      .filter(Boolean)
+      .join(" ");
+    if (primary) return primary;
+    if (coded.cause) return describeDatabaseError(coded.cause);
+    return error.name;
+  }
+  return String(error);
+}
+
+function retryDelay(attempt: number) {
+  return Math.min(1_000 * 2 ** (attempt - 1), 5_000);
+}
+
+async function connectWithRetry(connectionString: string, label: string) {
+  let lastError: unknown;
+  for (let attempt = 1; attempt <= MAX_CONNECTION_ATTEMPTS; attempt += 1) {
+    const client = new Client({
+      connectionString,
+      connectionTimeoutMillis: 5_000,
+    });
+    try {
+      await client.connect();
+      return client;
+    } catch (error) {
+      lastError = error;
+      await client.end().catch(() => undefined);
+      const detail = describeDatabaseError(error);
+      if (attempt === MAX_CONNECTION_ATTEMPTS) break;
+      console.warn(
+        `Waiting for ${label} (${attempt}/${MAX_CONNECTION_ATTEMPTS}): ${detail}`,
+      );
+      await new Promise((resolve) => setTimeout(resolve, retryDelay(attempt)));
+    }
+  }
+  throw new Error(
+    `Unable to connect to ${label} after ${MAX_CONNECTION_ATTEMPTS} attempts: ${describeDatabaseError(lastError)}`,
+  );
 }
 
 async function ensureDatabase() {
@@ -22,8 +85,10 @@ async function ensureDatabase() {
   maintenanceUrl.pathname = "/postgres";
   maintenanceUrl.searchParams.delete("schema");
 
-  const client = new Client({ connectionString: maintenanceUrl.toString() });
-  await client.connect();
+  const client = await connectWithRetry(
+    maintenanceUrl.toString(),
+    "PostgreSQL maintenance database",
+  );
   try {
     const existing = await client.query("SELECT 1 FROM pg_database WHERE datname = $1", [
       databaseName,
@@ -45,8 +110,7 @@ async function applyMigrations() {
     .map((entry) => entry.name)
     .sort();
 
-  const client = new Client({ connectionString: targetUrl.toString() });
-  await client.connect();
+  const client = await connectWithRetry(targetUrl.toString(), "PostgreSQL");
   try {
     await client.query(`
       CREATE TABLE IF NOT EXISTS "_prisma_migrations" (
@@ -118,8 +182,7 @@ async function applyMigrations() {
 }
 
 async function seedIfEmpty() {
-  const client = new Client({ connectionString: targetUrl.toString() });
-  await client.connect();
+  const client = await connectWithRetry(targetUrl.toString(), "PostgreSQL");
   let ready = false;
   try {
     const result = await client.query<{ ready: boolean }>(`
