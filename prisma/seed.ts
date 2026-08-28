@@ -45,6 +45,7 @@ async function ensureMastery(params: {
       standard: params.standard,
       recordType: "AI_OBSERVATION",
     },
+    orderBy: { updatedAt: "desc" },
   });
   if (!existing) {
     await prisma.masteryRecord.create({
@@ -56,6 +57,11 @@ async function ensureMastery(params: {
         evidence: params.evidence,
         recordType: "AI_OBSERVATION",
       },
+    });
+  } else {
+    await prisma.masteryRecord.update({
+      where: { id: existing.id },
+      data: { status: params.status, evidence: params.evidence },
     });
   }
 }
@@ -114,7 +120,7 @@ async function main() {
     console.warn("Curriculum ingest skipped or partial:", err instanceof Error ? err.message : err);
   }
 
-  // Opening-week evidence comes from teacher review of the completed Wednesday packet.
+  // Wednesday evidence.
   await ensureFeedback({
     studentId: student.id,
     subject: "mathematics",
@@ -144,40 +150,126 @@ async function main() {
       "Atticus shows meaningful understanding of reflection and of light traveling from a source to an object/material and then to the eye or wall. Continue sharpening observation versus inference and distinguish directional reflection from foil/mirror from diffuse reflection by ordinary white paper.",
   });
 
+  // Thursday evidence from the completed packet supplied by the parent.
+  await ensureFeedback({
+    studentId: student.id,
+    subject: "mathematics",
+    date: "2026-08-27",
+    content:
+      "Fraction division improved substantially: the independent set and both fraction-division exit items shown were correct. Decimal multiplication was mostly strong, including multi-digit products and applications. Estimation/reasonableness is not yet automatic; 7.2 x 0.45 was written as 5.24 instead of 3.24, which a quick estimate would have caught. Move to Grade 6 decimal division while retaining conceptual fraction-division and estimation checks.",
+  });
+  await ensureFeedback({
+    studentId: student.id,
+    subject: "literature",
+    date: "2026-08-27",
+    content:
+      "Informational-text comprehension is strong at the current Grade 6 level. Atticus correctly explained asphalt heating, transpiration, vegetation cooling, and relevant evidence. Continue precision work: topic must name the subject, an objective summary must include the major ideas, and repeated measurements should be explained as improving reliability rather than simply 'one is not enough.'",
+  });
+  await ensureFeedback({
+    studentId: student.id,
+    subject: "writing",
+    date: "2026-08-27",
+    content:
+      "No separate Thursday writing-workshop sample was included in the completed upload set. Do not claim new Thursday writing mastery. Continue the supported Wednesday position: substantive ideas and evidence with explicit instruction needed for organization, sentence boundaries, evidence-to-reasoning links, and proofreading.",
+  });
+  await ensureFeedback({
+    studentId: student.id,
+    subject: "science",
+    date: "2026-08-27",
+    content:
+      "Light-path reasoning is strong: Atticus correctly explained that room light reaches a book, reflects from the book, and enters the eyes, and that no object is visible in a perfectly dark room without visible light. Transparent/translucent/opaque vocabulary is not yet secure: clear plastic should be transparent in the intended example, wax paper/tissue translucent, and cardboard opaque. Continue with a brief vocabulary repair.",
+  });
+  await ensureFeedback({
+    studentId: student.id,
+    subject: "history_geography",
+    date: "2026-08-27",
+    content:
+      "Atticus correctly connected mountainous terrain to difficult travel, separated communities, and the development of independent city-states. Map work included the major requested features. Correct the claim that the sea helped as drinking water; emphasize transport, trade, fishing, communication, and exchange. The cultural connection versus political unity question was unanswered, so Friday should introduce the polis and complete that distinction.",
+  });
+  await ensureFeedback({
+    studentId: student.id,
+    subject: "french",
+    date: "2026-08-27",
+    content:
+      "Basic ne...pas placement with regular -ER verbs is developing well. Explicitly repair elision before vowel sounds: Elle n'ecoute pas, je n'aime pas. Continue subject-pronoun consistency in self-generated sentences and preserve oral fluency while correcting written forms.",
+  });
+  await ensureFeedback({
+    studentId: student.id,
+    subject: "computer_science",
+    date: "2026-08-27",
+    content:
+      "Atticus completed the Scratch conditional build, tested multiple inputs, found/fixed a green-flag bug, and trained/tested a three-class Teachable Machine image classifier. Hands-on build/debugging evidence is strong. The comparison and exit-ticket explanations were incomplete due to time, so the conceptual distinction between explicit programmed rules and learned patterns from labeled examples remains developing.",
+  });
+
   await ensureMastery({
     studentId: student.id,
     subject: "mathematics",
     standard: "6.NS.A.1-fraction-division",
-    status: "needs_reteach",
-    evidence: "Wednesday independent work showed inconsistent reciprocal use in fraction division, especially with mixed numbers.",
+    status: "proficient",
+    evidence: "Thursday independent and exit-ticket fraction-division work showed repeated correct use of the divisor reciprocal, including mixed numbers. Retain periodic conceptual checks before declaring mastered.",
   });
   await ensureMastery({
     studentId: student.id,
     subject: "mathematics",
     standard: "6.NS-fraction-multiplication",
-    status: "developing",
-    evidence: "Wednesday work showed improving multiplication of fractions and mixed numbers with several correct procedures, but not enough repeated independent evidence for mastery.",
+    status: "proficient",
+    evidence: "Wednesday and Thursday evidence together show reliable multiplication of fractions and mixed numbers at the current Grade 6 level.",
+  });
+  await ensureMastery({
+    studentId: student.id,
+    subject: "mathematics",
+    standard: "6.NS.B.3-decimal-multiplication",
+    status: "proficient",
+    evidence: "Thursday independent decimal multiplication was mostly correct across multi-digit and application problems; estimation/reasonableness remains a required checking habit.",
   });
   await ensureMastery({
     studentId: student.id,
     subject: "literature",
-    standard: "RL.6.1-evidence-and-inference",
+    standard: "RI.6.2-central-idea-summary",
     status: "developing",
-    evidence: "Comprehension and inference were generally sound; responses still need more precise evidence/significance and complete multi-part answers.",
-  });
-  await ensureMastery({
-    studentId: student.id,
-    subject: "writing",
-    standard: "W.6.9-evidence-based-response",
-    status: "developing",
-    evidence: "CER included relevant details and a clear overall claim; organization, sentence boundaries, and explicit reasoning need reinforcement.",
+    evidence: "Thursday work showed correct central understanding and relevant details, but topic naming and objective-summary completeness still need direct practice.",
   });
   await ensureMastery({
     studentId: student.id,
     subject: "science",
-    standard: "MS-PS4-2-light-matter",
+    standard: "MS-PS4-2-light-path",
+    status: "proficient",
+    evidence: "Thursday CER and challenge response correctly modeled light source -> object -> eye and explained why a book cannot be seen in complete darkness.",
+  });
+  await ensureMastery({
+    studentId: student.id,
+    subject: "science",
+    standard: "MS-PS4-2-material-classification",
     status: "developing",
-    evidence: "Light-path reasoning is emerging; continue distinguishing observed reflection/transmission/absorption and explaining evidence precisely.",
+    evidence: "Thursday lab confused transparent, translucent, and opaque classifications even while the broader light-path model was correct.",
+  });
+  await ensureMastery({
+    studentId: student.id,
+    subject: "history_geography",
+    standard: "C3-geography-causation-ancient-greece",
+    status: "developing",
+    evidence: "Correct mountains -> difficult travel -> separated communities reasoning, but incomplete cultural/political distinction and one inaccurate sea-use claim require reinforcement.",
+  });
+  await ensureMastery({
+    studentId: student.id,
+    subject: "french",
+    standard: "ACTFL-er-verbs-negation",
+    status: "developing",
+    evidence: "Thursday work shows generally correct ne...pas placement with regular -ER verbs, with elision and subject consistency still needing repair.",
+  });
+  await ensureMastery({
+    studentId: student.id,
+    subject: "computer_science",
+    standard: "CSTA-conditionals-debugging",
+    status: "proficient",
+    evidence: "Thursday Scratch build demonstrated working conditional logic, boundary testing, and a real debug/fix cycle.",
+  });
+  await ensureMastery({
+    studentId: student.id,
+    subject: "computer_science",
+    standard: "AI-ML-classification-generalization",
+    status: "developing",
+    evidence: "Thursday Teachable Machine build was completed successfully, but the written conceptual comparison between explicit rules and learned patterns was not completed.",
   });
 
   console.log("Seed complete.", { studentId: student.id, schoolYear: schoolYear.label });
