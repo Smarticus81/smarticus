@@ -7,6 +7,7 @@ import { mintRealtimeClientSecret } from "../lib/openai.js";
 import { hashSafetyIdentifier } from "../lib/auth.js";
 import { getDefaultStudent } from "../services/student.js";
 import { prisma } from "../lib/prisma.js";
+import { env } from "../config/env.js";
 
 export const realtimeRouter = Router();
 
@@ -30,7 +31,7 @@ realtimeRouter.post(
       res.json({
         value: secret.value,
         lessonId: lesson.id,
-        sessionModel: process.env.REALTIME_MODEL ?? "gpt-realtime-2.1",
+        sessionModel: env.REALTIME_MODEL,
         instructions,
       });
     } catch (error) {
@@ -47,17 +48,25 @@ realtimeRouter.post(
   "/session/end",
   asyncHandler(async (req, res) => {
     const body = EndSessionSchema.parse(req.body);
+    const student = await getDefaultStudent();
     const settings = await prisma.parentSetting.findFirst();
     const retain = settings?.retainTranscripts ?? true;
 
-    await prisma.tutorSession.update({
-      where: { id: body.session_id },
+    const result = await prisma.tutorSession.updateMany({
+      where: { id: body.session_id, studentId: student.id, endedAt: null },
       data: {
         endedAt: new Date(),
         summary: body.summary,
         transcript: retain && body.transcript ? body.transcript : undefined,
       },
     });
+
+    if (result.count === 0) {
+      return res.status(404).json({ error: "Active tutor session not found" });
+    }
+    if (req.session.tutorSessionId === body.session_id) {
+      delete req.session.tutorSessionId;
+    }
 
     res.json({ ended: true, transcriptRetained: retain && !!body.transcript });
   }),

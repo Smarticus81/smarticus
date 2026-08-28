@@ -115,7 +115,9 @@ export async function pollVectorStoreFileStatus(vectorStoreFileId: string, maxAt
 
   const openai = getOpenAI();
   for (let i = 0; i < maxAttempts; i++) {
-    const file = await openai.vectorStores.files.retrieve(env.OPENAI_VECTOR_STORE_ID, vectorStoreFileId);
+    const file = await openai.vectorStores.files.retrieve(vectorStoreFileId, {
+      vector_store_id: env.OPENAI_VECTOR_STORE_ID,
+    });
     if (file.status === "completed") return "completed";
     if (file.status === "failed" || file.status === "cancelled") return file.status;
     await new Promise((r) => setTimeout(r, 2000));

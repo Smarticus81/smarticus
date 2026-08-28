@@ -25,6 +25,11 @@ import {
   MasteryRecordSchema,
   TutorNoteSchema,
   SearchCurriculumSchema,
+  LessonActionSchema,
+  TodayScheduleQuerySchema,
+  SubjectParamsSchema,
+  OptionalSubjectParamsSchema,
+  MasteryQuerySchema,
 } from "../../shared/schemas/api.js";
 import { searchVectorStore } from "../lib/openai.js";
 import { log } from "../lib/logger.js";
@@ -57,7 +62,7 @@ export const apiRouter = Router();
 apiRouter.get(
   "/schedule/today",
   asyncHandler(async (req, res) => {
-    const date = req.query.date as string | undefined;
+    const { date } = TodayScheduleQuerySchema.parse(req.query);
     res.json(await getTodaySchedule(date));
   }),
 );
@@ -65,7 +70,8 @@ apiRouter.get(
 apiRouter.get(
   "/lessons/current/:subject?",
   asyncHandler(async (req, res) => {
-    res.json(await getCurrentLesson(param(req.params.subject) as Subject | undefined));
+    const { subject } = OptionalSubjectParamsSchema.parse(req.params);
+    res.json(await getCurrentLesson(subject as Subject | undefined));
   }),
 );
 
@@ -81,15 +87,17 @@ apiRouter.get(
 apiRouter.get(
   "/feedback/previous/:subject",
   asyncHandler(async (req, res) => {
-    res.json(await getPreviousLessonFeedback(param(req.params.subject) as Subject));
+    const { subject } = SubjectParamsSchema.parse(req.params);
+    res.json(await getPreviousLessonFeedback(subject as Subject));
   }),
 );
 
 apiRouter.get(
   "/mastery/:subject",
   asyncHandler(async (req, res) => {
-    const standard = req.query.standard as string | undefined;
-    res.json(await getMasteryState(param(req.params.subject) as Subject, standard));
+    const { subject } = SubjectParamsSchema.parse(req.params);
+    const { standard } = MasteryQuerySchema.parse(req.query);
+    res.json(await getMasteryState(subject as Subject, standard));
   }),
 );
 
@@ -132,7 +140,7 @@ apiRouter.post(
 apiRouter.post(
   "/tools/lesson-started",
   asyncHandler(async (req, res) => {
-    const { lesson_id } = req.body as { lesson_id: string };
+    const { lesson_id } = LessonActionSchema.parse(req.body);
     log({ message: "Tool call", toolName: "mark_lesson_started", requestId: req.ctx.requestId, lessonId: lesson_id });
     const result = await markLessonStarted(lesson_id);
     req.session.tutorSessionId = result.sessionId;
@@ -143,7 +151,7 @@ apiRouter.post(
 apiRouter.post(
   "/tools/lesson-completed",
   asyncHandler(async (req, res) => {
-    const { lesson_id } = req.body as { lesson_id: string };
+    const { lesson_id } = LessonActionSchema.parse(req.body);
     log({ message: "Tool call", toolName: "mark_lesson_completed", requestId: req.ctx.requestId, lessonId: lesson_id });
     res.json(await markLessonCompleted(lesson_id));
   }),

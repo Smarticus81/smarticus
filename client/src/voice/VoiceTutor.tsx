@@ -16,6 +16,67 @@ interface VoiceTutorProps {
   lessonTitle: string;
 }
 
+const MICROPHONE_TIMEOUT_MS = 20_000;
+
+async function requestMicrophone(): Promise<MediaStream> {
+  if (!window.isSecureContext) {
+    throw new Error("Microphone access requires HTTPS or localhost.");
+  }
+  if (!navigator.mediaDevices?.getUserMedia) {
+    throw new Error("This browser does not support microphone access.");
+  }
+
+  let timedOut = false;
+  const request = navigator.mediaDevices
+    .getUserMedia({
+      audio: {
+        echoCancellation: true,
+        noiseSuppression: true,
+        autoGainControl: true,
+      },
+    })
+    .then((stream) => {
+      if (timedOut) {
+        stream.getTracks().forEach((track) => track.stop());
+        throw new Error("Microphone permission timed out. Allow microphone access, then try again.");
+      }
+      return stream;
+    });
+
+  let timeoutId = 0;
+  const timeout = new Promise<never>((_resolve, reject) => {
+    timeoutId = window.setTimeout(() => {
+      timedOut = true;
+      reject(
+        new Error(
+          "Microphone permission timed out. Allow microphone access in the browser, then try again.",
+        ),
+      );
+    }, MICROPHONE_TIMEOUT_MS);
+  });
+
+  try {
+    return await Promise.race([request, timeout]);
+  } finally {
+    window.clearTimeout(timeoutId);
+  }
+}
+
+function voiceStartupError(error: unknown): string {
+  if (error instanceof DOMException) {
+    if (error.name === "NotAllowedError" || error.name === "SecurityError") {
+      return "Microphone access was denied. Allow microphone access in the browser, then try again.";
+    }
+    if (error.name === "NotFoundError" || error.name === "DevicesNotFoundError") {
+      return "No microphone was found. Connect a microphone, then try again.";
+    }
+    if (error.name === "NotReadableError" || error.name === "TrackStartError") {
+      return "The microphone is being used by another app. Close that app, then try again.";
+    }
+  }
+  return error instanceof Error ? error.message : "Unable to begin the lesson.";
+}
+
 export function VoiceTutor({ lessonId, lessonTitle }: VoiceTutorProps) {
   const [connection, setConnection] = useState<ConnectionState>("idle");
   const [isMuted, setIsMuted] = useState(false);
@@ -188,19 +249,13 @@ export function VoiceTutor({ lessonId, lessonTitle }: VoiceTutorProps) {
     setConnection("connecting");
 
     try {
-      const [secret, mediaStream] = await Promise.all([
-        api.clientSecret(lessonId),
-        navigator.mediaDevices.getUserMedia({
-          audio: {
-            echoCancellation: true,
-            noiseSuppression: true,
-            autoGainControl: true,
-          },
-        }),
-      ]);
+      const mediaStream = await requestMicrophone();
       mediaStreamRef.current = mediaStream;
 
-      const started = await api.tool.lessonStarted(lessonId);
+      const [secret, started] = await Promise.all([
+        api.clientSecret(lessonId),
+        api.tool.lessonStarted(lessonId),
+      ]);
       tutorSessionIdRef.current = started.sessionId;
 
       const audioElement = document.createElement("audio");
@@ -268,8 +323,7 @@ export function VoiceTutor({ lessonId, lessonTitle }: VoiceTutorProps) {
       setConnection("connected");
     } catch (caught) {
       await cleanup();
-      const message = caught instanceof Error ? caught.message : "Unable to begin the lesson.";
-      setError(message);
+      setError(voiceStartupError(caught));
       setConnection("error");
     }
   }, [
@@ -298,7 +352,7 @@ export function VoiceTutor({ lessonId, lessonTitle }: VoiceTutorProps) {
 
   const status =
     connection === "connecting"
-      ? "Preparing your lesson"
+      ? "Allow microphone access to continue"
       : connection === "connected"
         ? isMuted
           ? "Microphone muted"
@@ -308,7 +362,7 @@ export function VoiceTutor({ lessonId, lessonTitle }: VoiceTutorProps) {
               ? "Listening"
               : 'Say “Virgil” to begin'
         : error
-          ? "Connection interrupted"
+          ? "Tap the wave to retry"
           : "Tap the wave to begin";
 
   return (

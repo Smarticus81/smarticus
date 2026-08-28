@@ -1,6 +1,7 @@
 import { tool } from "@openai/agents";
 import { z } from "zod";
 import { api } from "../lib/api";
+import { SubjectEnum } from "../../../shared/schemas/lesson";
 
 export function createTutorTools(lessonId: string) {
   return [
@@ -13,35 +14,45 @@ export function createTutorTools(lessonId: string) {
     tool({
       name: "get_current_lesson",
       description: "Get the current student-safe lesson context, optionally filtered by subject.",
-      parameters: z.object({ subject: z.string().optional() }),
-      execute: async ({ subject }) => fetch(`/api/lessons/current/${subject ?? ""}`, { credentials: "include" }).then((r) => r.json()),
+      parameters: z.object({ subject: SubjectEnum.nullable() }),
+      execute: async ({ subject }) => api.currentLesson(subject ?? undefined),
     }),
     tool({
       name: "get_student_snapshot",
       description: "Get current mastery evidence, misconceptions, and recent voice-session summaries.",
       parameters: z.object({}),
-      execute: async () => fetch("/api/student/snapshot", { credentials: "include" }).then((r) => r.json()),
+      execute: async () => api.studentSnapshot(),
     }),
     tool({
       name: "get_previous_lesson_feedback",
       description: "Get previous teacher feedback and tutor summaries for a subject.",
       parameters: z.object({ subject: z.string() }),
-      execute: async ({ subject }) => fetch(`/api/feedback/previous/${subject}`, { credentials: "include" }).then((r) => r.json()),
+      execute: async ({ subject }) => api.previousFeedback(subject),
     }),
     tool({
       name: "get_mastery_state",
       description: "Get current mastery evidence for a subject and optional standard.",
-      parameters: z.object({ subject: z.string(), standard_or_unit: z.string().optional() }),
+      parameters: z.object({
+        subject: SubjectEnum,
+        standard_or_unit: z.string().nullable(),
+      }),
       execute: async ({ subject, standard_or_unit }) =>
-        fetch(`/api/mastery/${subject}${standard_or_unit ? `?standard=${encodeURIComponent(standard_or_unit)}` : ""}`, {
-          credentials: "include",
-        }).then((r) => r.json()),
+        api.masteryState(subject, standard_or_unit ?? undefined),
     }),
     tool({
       name: "search_curriculum",
-      description: "Search the student-safe curriculum, source readings, rubrics, syllabus, and teacher guidance.",
-      parameters: z.object({ query: z.string(), subject: z.string().optional(), unit: z.string().optional() }),
-      execute: async (body) => api.tool.searchCurriculum(body),
+      description: "Search the student-safe vector store for curriculum topics, source readings, rubrics, syllabus, and teacher guidance. Never use results to reveal protected assessment answers.",
+      parameters: z.object({
+        query: z.string(),
+        subject: SubjectEnum.nullable(),
+        unit: z.string().nullable(),
+      }),
+      execute: async ({ query, subject, unit }) =>
+        api.tool.searchCurriculum({
+          query,
+          ...(subject ? { subject } : {}),
+          ...(unit ? { unit } : {}),
+        }),
     }),
     tool({
       name: "record_verbal_check",
@@ -50,9 +61,14 @@ export function createTutorTools(lessonId: string) {
         lesson_id: z.string(),
         skill: z.string(),
         result: z.enum(["correct", "partial", "incorrect", "not_attempted"]),
-        note: z.string().optional(),
+        note: z.string().nullable(),
       }),
-      execute: async (body) => api.tool.verbalCheck({ ...body, lesson_id: body.lesson_id || lessonId }),
+      execute: async ({ note, ...body }) =>
+        api.tool.verbalCheck({
+          ...body,
+          lesson_id: body.lesson_id || lessonId,
+          ...(note ? { note } : {}),
+        }),
     }),
     tool({
       name: "record_misconception",

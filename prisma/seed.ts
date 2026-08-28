@@ -1,9 +1,13 @@
 import "dotenv/config";
 import { PrismaClient, type MasteryStatus, type Subject } from "@prisma/client";
+import { PrismaPg } from "@prisma/adapter-pg";
 import { ingestAllCurriculum } from "../server/ingest/curriculum.js";
 import { parseDate } from "../server/services/student.js";
 
-const prisma = new PrismaClient();
+if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL is required");
+const prisma = new PrismaClient({
+  adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL }),
+});
 
 async function ensureFeedback(params: {
   studentId: string;

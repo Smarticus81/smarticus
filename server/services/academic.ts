@@ -84,7 +84,6 @@ export async function getStudentSnapshot() {
   return {
     student: {
       id: student.id,
-      internalId: student.internalId,
       preferredName: student.preferredName,
       gradeLevel: student.gradeLevel,
     },

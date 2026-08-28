@@ -278,3 +278,61 @@ button {
     animation: none;
   }
 }
+/* Production access gate */
+.login-panel {
+  position: relative;
+  z-index: 2;
+  width: min(90vw, 26rem);
+  display: grid;
+  gap: 0.9rem;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 1.25rem;
+  background: rgba(12, 18, 31, 0.82);
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.32);
+  backdrop-filter: blur(18px);
+}
+
+.login-panel h1,
+.login-panel p {
+  margin: 0;
+}
+
+.login-panel label {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.login-panel input,
+.login-panel button {
+  min-height: 3rem;
+  border-radius: 0.75rem;
+  font: inherit;
+}
+
+.login-panel input {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0 0.9rem;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.login-panel input:focus-visible {
+  outline: 2px solid #8fd3ff;
+  outline-offset: 2px;
+}
+
+.login-panel button {
+  border: 0;
+  padding: 0 1rem;
+  font-weight: 700;
+  color: #07101d;
+  background: #b9e5ff;
+  cursor: pointer;
+}
+
+.login-panel button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}

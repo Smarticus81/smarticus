@@ -16,11 +16,28 @@ declare global {
 }
 
 export function requestContextMiddleware(req: Request, _res: Response, next: NextFunction) {
+  const suppliedRequestId = req.header("x-request-id");
   req.ctx = {
-    requestId: (req.headers["x-request-id"] as string) || randomUUID(),
+    requestId:
+      suppliedRequestId && /^[A-Za-z0-9._-]{1,128}$/.test(suppliedRequestId)
+        ? suppliedRequestId
+        : randomUUID(),
     sessionId: req.headers["x-session-id"] as string | undefined,
     lessonId: req.headers["x-lesson-id"] as string | undefined,
   };
+  _res.setHeader("x-request-id", req.ctx.requestId);
+
+  const startedAt = performance.now();
+  _res.on("finish", () => {
+    log({
+      message: "Request completed",
+      requestId: req.ctx.requestId,
+      method: req.method,
+      path: req.originalUrl.split("?")[0],
+      statusCode: _res.statusCode,
+      durationMs: Math.round((performance.now() - startedAt) * 100) / 100,
+    });
+  });
   next();
 }
 

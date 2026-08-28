@@ -12,6 +12,8 @@ import {
 import { log } from "../lib/logger.js";
 import { env } from "../config/env.js";
 import type { Subject } from "@prisma/client";
+import { PdfReader } from "pdfreader";
+import { parseDate } from "../services/student.js";
 
 const CURRICULUM_ROOT = path.join(process.cwd(), "curriculum");
 const REFERENCE_ROOT = path.join(CURRICULUM_ROOT, "2026-27", "reference");
@@ -92,6 +94,124 @@ async function uploadAndPoll(params: {
   }
 
   return { vectorStatus, openaiFileId, vectorStoreFileId };
+}
+
+async function extractPdfText(filePath: string) {
+  const content = await readFile(filePath);
+  return new Promise<string>((resolve, reject) => {
+    const lines: string[] = [];
+    new PdfReader().parseBuffer(content, (error, item) => {
+      if (error) {
+        reject(new Error(String(error)));
+      } else if (item?.text) {
+        lines.push(item.text);
+      } else if (item === undefined) {
+        resolve(lines.join(" ").replace(/\s+/g, " ").trim());
+      }
+    });
+  });
+}
+
+function pdfDate(filePath: string) {
+  const match = path.basename(filePath).match(/(\d{4}-\d{2}-\d{2})/);
+  if (!match) throw new Error(`PDF filename must include a date: ${path.basename(filePath)}`);
+  return match[1];
+}
+
+export async function ingestPdfFile(filePath: string) {
+  const content = await readFile(filePath);
+  const checksum = sha256(content);
+  const replacement = await prepareReplacement(filePath, checksum);
+  if (replacement.skip) return { status: "skipped" as const, checksum };
+
+  const job = await prisma.ingestionJob.create({
+    data: { sourcePath: filePath, checksum, status: "processing" },
+  });
+
+  try {
+    const student = await prisma.student.findFirst({ where: { preferredName: "Atticus" } });
+    if (!student) throw new Error("Student not seeded");
+    const dateString = pdfDate(filePath);
+    const date = parseDate(dateString);
+    const text = await extractPdfText(filePath);
+    const externalId = `pdf-${sha256(filePath).slice(0, 24)}`;
+    const schoolYear = await prisma.schoolYear.upsert({
+      where: { label: "2026-27" },
+      create: {
+        label: "2026-27",
+        startDate: parseDate("2026-08-25"),
+        endDate: parseDate("2027-06-15"),
+        studentId: student.id,
+      },
+      update: {},
+    });
+    const course = await prisma.course.upsert({
+      where: { schoolYearId_subject: { schoolYearId: schoolYear.id, subject: "mathematics" } },
+      create: { subject: "mathematics", title: "Grade 6 Learning Packet", schoolYearId: schoolYear.id },
+      update: {},
+    });
+    const unit = await prisma.unit.upsert({
+      where: { courseId_externalId: { courseId: course.id, externalId: "pdf-learning-packets" } },
+      create: { externalId: "pdf-learning-packets", title: "Daily Learning Packets", courseId: course.id },
+      update: {},
+    });
+    const lesson = await prisma.lesson.upsert({
+      where: { externalId },
+      create: {
+        externalId,
+        date,
+        schoolYear: "2026-27",
+        gradeLevel: student.gradeLevel,
+        subject: "mathematics",
+        course: "Grade 6 Learning Packet",
+        unitId: unit.id,
+        unitTitle: "Daily Learning Packets",
+        lessonNumber: 1,
+        lessonTitle: path.basename(filePath, ".pdf").replace(/[_-]+/g, " "),
+        previousLearning: "See the attached learning packet.",
+        courseContext: text,
+        whyItMatters: "This packet contains today's learning activities across the curriculum.",
+        writtenInstruction: text,
+        estimatedMinutes: 60,
+        voicePrompt: "Answer questions about this packet as a helpful teaching companion. Do not reveal protected answers.",
+        status: "scheduled",
+        dayNumber: 4,
+        todaysGoal: "Explain what you know, not just produce an answer.",
+        checksum,
+      },
+      update: { date, courseContext: text, writtenInstruction: text, checksum, status: "scheduled" },
+    });
+    await prisma.assignment.upsert({
+      where: { externalId: `${externalId}-packet` },
+      create: {
+        externalId: `${externalId}-packet`,
+        lessonId: lesson.id,
+        studentId: student.id,
+        title: "Daily Learning Packet",
+        instructions: "Use the attached packet and ask the tutor questions as needed.",
+        dueDate: date,
+        completed: false,
+      },
+      update: {},
+    });
+
+    const uploaded = await uploadAndPoll({
+      filename: `${path.basename(filePath, ".pdf")}.txt`,
+      content: Buffer.from(text),
+      attributes: { document_type: "daily_curriculum", school_year: "2026-27", date: dateString, subject: "multi", access: "student", status: "current" },
+    });
+    await prisma.sourceDocument.upsert({
+      where: { sourcePath: filePath },
+      create: { filename: path.basename(filePath), sourceType: "daily_curriculum_pdf", sourcePath: filePath, checksum, openaiFileId: uploaded.openaiFileId, vectorStoreFileId: uploaded.vectorStoreFileId, indexingStatus: uploaded.vectorStatus, ingestedAt: new Date(), metadata: { student_safe_text: true } },
+      update: { checksum, openaiFileId: uploaded.openaiFileId, vectorStoreFileId: uploaded.vectorStoreFileId, indexingStatus: uploaded.vectorStatus, ingestedAt: new Date(), metadata: { student_safe_text: true } },
+    });
+    await prisma.ingestionJob.update({ where: { id: job.id }, data: { status: "completed", completedAt: new Date(), message: "Ingested PDF learning packet" } });
+    return { status: "completed" as const, checksum, lessons: 1, vectorStatus: uploaded.vectorStatus };
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    await prisma.ingestionJob.update({ where: { id: job.id }, data: { status: "failed", message, completedAt: new Date() } });
+    throw error;
+  }
 }
 
 export async function ingestDailyFile(filePath: string) {
@@ -369,9 +489,13 @@ async function ingestReferenceManifest() {
 export async function ingestAllCurriculum() {
   const files = await walk(CURRICULUM_ROOT);
   const dailyFiles = files.filter((f) => f.includes(`${path.sep}daily${path.sep}`) && f.endsWith(".json"));
+  const pdfFiles = files.filter((f) => f.includes(`${path.sep}daily${path.sep}`) && f.endsWith(".pdf"));
   const results = [];
   for (const file of dailyFiles) {
     results.push(await ingestDailyFile(file));
+  }
+  for (const file of pdfFiles) {
+    results.push(await ingestPdfFile(file));
   }
   results.push(...(await ingestReferenceManifest()));
   return results;

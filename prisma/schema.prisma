@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  engineType = "client"
 }
 
 datasource db {
@@ -381,4 +382,15 @@ model DailyReview {
   content   Json
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+// Backing table for express-session. Keeping it in the Prisma schema ensures
+// future migrations do not treat the durable session store as schema drift.
+model WebSession {
+  sid    String   @id @db.VarChar(255)
+  sess   Json     @db.Json
+  expire DateTime @db.Timestamp(6)
+
+  @@index([expire], map: "IDX_session_expire")
+  @@map("session")
 }

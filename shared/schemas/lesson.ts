@@ -70,7 +70,7 @@ export const LessonSchema = z.object({
   estimated_minutes: z.number().int().positive(),
   voice_prompt: z.string(),
   teacher_notes: z.string().optional().default(""),
-  answer_key: z.record(z.string()).optional().default({}),
+  answer_key: z.record(z.string(), z.string()).optional().default({}),
   source_references: z.array(z.string()).default([]),
   status: LessonStatusEnum.default("scheduled"),
 });
