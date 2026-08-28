@@ -9,6 +9,7 @@ COPY tsconfig.json tsconfig.server.json vite.config.ts ./
 COPY client ./client
 COPY server ./server
 COPY shared ./shared
+COPY scripts ./scripts
 COPY curriculum ./curriculum
 RUN npm run build && npm prune --omit=dev
 
