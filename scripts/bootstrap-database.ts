@@ -142,8 +142,12 @@ async function seedIfEmpty() {
   }
 }
 
-export async function bootstrapDatabase(options: { seedIfEmpty?: boolean } = {}) {
-  await ensureDatabase();
+export async function bootstrapDatabase(
+  options: { ensureDatabase?: boolean; seedIfEmpty?: boolean } = {},
+) {
+  if (options.ensureDatabase !== false) {
+    await ensureDatabase();
+  }
   await applyMigrations();
   if (options.seedIfEmpty) {
     await seedIfEmpty();

@@ -225,7 +225,7 @@ export function startServer() {
 }
 
 async function registerShutdownHandlers() {
-  await bootstrapDatabase({ seedIfEmpty: true });
+  await bootstrapDatabase({ ensureDatabase: false, seedIfEmpty: true });
 
   let shuttingDown = false;
 
@@ -264,10 +264,12 @@ const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPat
 
 if (isMain) {
   registerShutdownHandlers().catch((error) => {
+    const detail = error instanceof Error ? error.message : String(error);
     log({
       level: "error",
-      message: "Database initialization failed",
-      error: error instanceof Error ? error.message : String(error),
+      message: `Database initialization failed: ${detail}`,
+      error: detail,
+      stack: error instanceof Error ? error.stack : undefined,
     });
     process.exit(1);
   });
