@@ -13,17 +13,9 @@ export default function App() {
 
   useEffect(() => {
     void api
-      .todaySchedule()
-      .then((schedule) => {
-        const current =
-          schedule.lessons.find(
-            (candidate) =>
-              candidate.status === "started" ||
-              candidate.status === "in_progress",
-          ) ??
-          schedule.lessons.find((candidate) => candidate.status !== "completed") ??
-          schedule.lessons[0];
-        if (!current) throw new Error("No lesson is scheduled.");
+      .currentLesson()
+      .then((current) => {
+        if (!current) throw new Error("The curriculum has not been initialized.");
         setLesson(current);
       })
       .catch((caught) => {

@@ -1,4 +1,4 @@
-import type { ScheduleView } from "./types";
+import type { LessonView, ScheduleView } from "./types";
 
 const API_BASE = "";
 
@@ -41,7 +41,7 @@ export const api = {
   todaySchedule: (date?: string) =>
     request<ScheduleView>(`/api/schedule/today${date ? `?date=${encodeURIComponent(date)}` : ""}`),
   currentLesson: (subject?: string) =>
-    request(`/api/lessons/current${subject ? `/${encodeURIComponent(subject)}` : ""}`),
+    request<LessonView | null>(`/api/lessons/current${subject ? `/${encodeURIComponent(subject)}` : ""}`),
   studentSnapshot: () => request("/api/student/snapshot"),
   previousFeedback: (subject: string) =>
     request(`/api/feedback/previous/${encodeURIComponent(subject)}`),
@@ -66,6 +66,11 @@ export const api = {
     mastery: (body: unknown) => request("/api/tools/mastery", { method: "POST", body: JSON.stringify(body) }),
     tutorNote: (body: unknown) => request("/api/tools/tutor-note", { method: "POST", body: JSON.stringify(body) }),
     searchCurriculum: (body: unknown) => request("/api/search/curriculum", { method: "POST", body: JSON.stringify(body) }),
+    searchWeb: (query: string) =>
+      request("/api/search/web", {
+        method: "POST",
+        body: JSON.stringify({ query }),
+      }),
     workedExamples: (lessonId: string) => request(`/api/tools/worked-examples/${encodeURIComponent(lessonId)}`),
     answerSupport: (lessonId: string, itemId: string) =>
       request(`/api/tools/answer-support/${encodeURIComponent(lessonId)}/${encodeURIComponent(itemId)}`),

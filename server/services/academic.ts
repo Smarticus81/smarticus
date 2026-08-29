@@ -43,14 +43,42 @@ export async function getCurrentLesson(subject?: Subject) {
   const settings = await prisma.parentSetting.findFirst();
   if (settings?.currentLessonId) {
     const lesson = await getLessonById(settings.currentLessonId);
-    if (lesson) return lesson;
+    if (lesson && (!subject || lesson.subject === subject)) return lesson;
   }
 
-  const schedule = await getTodaySchedule();
-  if (subject) {
-    return schedule.lessons.find((l) => l.subject === subject) ?? schedule.lessons[0] ?? null;
-  }
-  return schedule.lessons.find((l) => l.status !== "completed") ?? schedule.lessons[0] ?? null;
+  const today = parseDate(formatDate(new Date()));
+  const subjectFilter = subject ? { subject } : {};
+  const include = { unit: { include: { course: true } } } as const;
+
+  const activeLesson = await prisma.lesson.findFirst({
+    where: {
+      ...subjectFilter,
+      status: { in: ["started", "in_progress"] },
+    },
+    orderBy: [{ updatedAt: "desc" }],
+    include,
+  });
+  if (activeLesson) return serializeLesson(activeLesson);
+
+  const latestLesson = await prisma.lesson.findFirst({
+    where: {
+      ...subjectFilter,
+      date: { lte: today },
+    },
+    orderBy: [{ date: "desc" }, { lessonNumber: "asc" }],
+    include,
+  });
+  if (latestLesson) return serializeLesson(latestLesson);
+
+  const upcomingLesson = await prisma.lesson.findFirst({
+    where: {
+      ...subjectFilter,
+      date: { gt: today },
+    },
+    orderBy: [{ date: "asc" }, { lessonNumber: "asc" }],
+    include,
+  });
+  return upcomingLesson ? serializeLesson(upcomingLesson) : null;
 }
 
 export async function getStudentSnapshot() {

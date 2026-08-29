@@ -43,6 +43,10 @@ export const SearchCurriculumSchema = z.object({
   unit: z.string().trim().max(500).optional(),
 }).strict();
 
+export const WebSearchSchema = z.object({
+  query: z.string().trim().min(1).max(2_000),
+}).strict();
+
 export const ClientSecretRequestSchema = z.object({
   lesson_id: IdSchema,
 }).strict();

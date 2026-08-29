@@ -25,13 +25,14 @@ import {
   MasteryRecordSchema,
   TutorNoteSchema,
   SearchCurriculumSchema,
+  WebSearchSchema,
   LessonActionSchema,
   TodayScheduleQuerySchema,
   SubjectParamsSchema,
   OptionalSubjectParamsSchema,
   MasteryQuerySchema,
 } from "../../shared/schemas/api.js";
-import { searchVectorStore } from "../lib/openai.js";
+import { searchVectorStore, searchWeb } from "../lib/openai.js";
 import { log } from "../lib/logger.js";
 import type { Subject } from "@prisma/client";
 
@@ -191,5 +192,14 @@ apiRouter.post(
       filters: studentSearchFilter(body.subject),
     });
     res.json(results);
+  }),
+);
+
+apiRouter.post(
+  "/search/web",
+  asyncHandler(async (req, res) => {
+    const { query } = WebSearchSchema.parse(req.body);
+    log({ message: "Tool call", toolName: "search_web", requestId: req.ctx.requestId });
+    res.json(await searchWeb(query));
   }),
 );

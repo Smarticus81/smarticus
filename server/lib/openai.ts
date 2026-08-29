@@ -68,6 +68,35 @@ export async function searchVectorStore(params: {
   return response;
 }
 
+export async function searchWeb(query: string) {
+  const response = await getOpenAI().responses.create({
+    model: env.WEB_SEARCH_MODEL,
+    instructions:
+      "Answer for a Grade 6 student in clear, accurate language. Use live web search when it improves accuracy or freshness. Distinguish established facts from uncertainty, avoid unsafe or age-inappropriate detail, and never fabricate sources.",
+    input: query,
+    tools: [{ type: "web_search", external_web_access: true }],
+    tool_choice: "auto",
+    include: ["web_search_call.action.sources"],
+    max_output_tokens: 1_200,
+    store: false,
+  });
+
+  const sources = new Set<string>();
+  for (const item of response.output) {
+    if (item.type !== "web_search_call") continue;
+    if (item.action.type === "search") {
+      for (const source of item.action.sources ?? []) sources.add(source.url);
+    } else if ("url" in item.action && item.action.url) {
+      sources.add(item.action.url);
+    }
+  }
+
+  return {
+    answer: response.output_text,
+    sources: [...sources],
+  };
+}
+
 export async function uploadFileToVectorStore(params: {
   filename: string;
   content: Buffer | Blob;

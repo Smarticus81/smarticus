@@ -55,6 +55,15 @@ export function createTutorTools(lessonId: string) {
         }),
     }),
     tool({
+      name: "search_web",
+      description:
+        "Search the live internet for current, time-sensitive, factual, or non-curriculum questions. Return an accurate student-appropriate answer grounded in cited web sources.",
+      parameters: z.object({
+        query: z.string(),
+      }),
+      execute: async ({ query }) => api.tool.searchWeb(query),
+    }),
+    tool({
       name: "record_verbal_check",
       description: "Record the result of a meaningful verbal understanding check.",
       parameters: z.object({

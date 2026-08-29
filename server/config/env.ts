@@ -12,6 +12,7 @@ export const envSchema = z
     OPENAI_API_KEY: optionalString,
     REALTIME_MODEL: z.string().default("gpt-realtime-2.1"),
     REALTIME_VOICE: z.string().default("marin"),
+    WEB_SEARCH_MODEL: z.string().default("gpt-5.6"),
     OPENAI_VECTOR_STORE_ID: optionalString,
     DATABASE_URL: z
       .string()
