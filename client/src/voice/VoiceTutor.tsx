@@ -17,6 +17,50 @@ interface VoiceTutorProps {
 }
 
 const MICROPHONE_TIMEOUT_MS = 20_000;
+const WAKE_WORD = "virgil";
+const WAKE_WORD_CONFIDENCE_THRESHOLD = 0.4;
+const GOODBYE_PATTERN =
+  /\b(?:good\s*bye|bye(?:-bye)?|see you(?: later)?|talk to you later|that(?:'s| is) all)\b/i;
+
+interface TranscriptionLogprob {
+  token: string;
+  logprob: number;
+}
+
+function wakeWordConfidence(logprobs: TranscriptionLogprob[] | undefined): number | null {
+  if (!logprobs?.length) return null;
+
+  const tokenRanges: Array<TranscriptionLogprob & { start: number; end: number }> = [];
+  let text = "";
+  for (const entry of logprobs) {
+    const start = text.length;
+    text += entry.token;
+    tokenRanges.push({ ...entry, start, end: text.length });
+  }
+
+  const normalized = text.toLocaleLowerCase();
+  const wakeStart = normalized.indexOf(WAKE_WORD);
+  if (wakeStart < 0) return null;
+  const wakeEnd = wakeStart + WAKE_WORD.length;
+  const wakeTokens = tokenRanges.filter(
+    (entry) => entry.end > wakeStart && entry.start < wakeEnd,
+  );
+  if (!wakeTokens.length) return null;
+
+  const meanLogprob =
+    wakeTokens.reduce((total, entry) => total + entry.logprob, 0) /
+    wakeTokens.length;
+  return Math.min(1, Math.max(0, Math.exp(meanLogprob)));
+}
+
+function hasConfidentWakeWord(
+  transcript: string,
+  logprobs: TranscriptionLogprob[] | undefined,
+) {
+  if (!new RegExp(`\\b${WAKE_WORD}\\b`, "i").test(transcript)) return false;
+  const confidence = wakeWordConfidence(logprobs);
+  return confidence === null || confidence >= WAKE_WORD_CONFIDENCE_THRESHOLD;
+}
 
 async function requestMicrophone(): Promise<MediaStream> {
   if (!window.isSecureContext) {
@@ -96,10 +140,16 @@ export function VoiceTutor({ lessonId, lessonTitle }: VoiceTutorProps) {
   const animationRef = useRef<number | null>(null);
   const outputProbeRef = useRef<number | null>(null);
   const isSpeakingRef = useRef(false);
+  const isAwakeRef = useRef(false);
 
   useEffect(() => {
     isSpeakingRef.current = isSpeaking;
   }, [isSpeaking]);
+
+  const setWakeState = useCallback((awake: boolean) => {
+    isAwakeRef.current = awake;
+    setIsAwake(awake);
+  }, []);
 
   const appendTranscript = useCallback((role: TranscriptLine["role"], text: string) => {
     if (!text.trim()) return;
@@ -240,8 +290,8 @@ export function VoiceTutor({ lessonId, lessonTitle }: VoiceTutorProps) {
     setConnection("idle");
     setIsSpeaking(false);
     setIsMuted(false);
-    setIsAwake(false);
-  }, [cleanup, lessonTitle, transcript]);
+    setWakeState(false);
+  }, [cleanup, lessonTitle, setWakeState, transcript]);
 
   const connect = useCallback(async () => {
     if (connection === "connecting" || connection === "connected") return;
@@ -275,6 +325,9 @@ export function VoiceTutor({ lessonId, lessonTitle }: VoiceTutorProps) {
         transport,
         historyStoreAudio: false,
         config: {
+          providerData: {
+            include: ["item.input_audio_transcription.logprobs"],
+          },
           outputModalities: ["audio"],
           audio: {
             input: {
@@ -295,6 +348,7 @@ export function VoiceTutor({ lessonId, lessonTitle }: VoiceTutorProps) {
         transcript?: string;
         text?: string;
         delta?: string;
+        logprobs?: TranscriptionLogprob[] | null;
       }) => {
         const type = event.type ?? "";
         if (type === "response.output_audio.delta" || type === "response.audio.delta") {
@@ -312,8 +366,12 @@ export function VoiceTutor({ lessonId, lessonTitle }: VoiceTutorProps) {
         }
         if (type.includes("input_audio_transcription.completed") && event.transcript) {
           appendTranscript("user", event.transcript);
-          if (/\bvirgil\b/i.test(event.transcript)) {
-            setIsAwake(true);
+          if (isAwakeRef.current && GOODBYE_PATTERN.test(event.transcript)) {
+            setWakeState(false);
+          } else if (
+            hasConfidentWakeWord(event.transcript, event.logprobs ?? undefined)
+          ) {
+            setWakeState(true);
           }
         }
       });
@@ -331,6 +389,7 @@ export function VoiceTutor({ lessonId, lessonTitle }: VoiceTutorProps) {
     cleanup,
     connection,
     lessonId,
+    setWakeState,
     startVisualizer,
   ]);
 
