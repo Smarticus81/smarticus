@@ -5,6 +5,7 @@
     {"path":"00-master/academic-history-summary.md","attributes":{"document_type":"academic_baseline","school_year":"2026-27","grade":6,"subject":"all","access":"student","status":"current","version":1}},
     {"path":"00-master/retrieval-policy.md","attributes":{"document_type":"retrieval_policy","school_year":"2026-27","grade":6,"subject":"all","access":"student","status":"current","version":1}},
     {"path":"00-master/master-glossary.md","attributes":{"document_type":"master_glossary","school_year":"2026-27","grade":6,"subject":"all","access":"student","status":"current","version":1}},
+    {"path":"00-master/question-quality-guidance.md","attributes":{"document_type":"teacher_guidance","school_year":"2026-27","grade":6,"subject":"all","access":"student","status":"current","version":1}},
 
     {"path":"01-subjects/mathematics-6.md","attributes":{"document_type":"subject_syllabus","school_year":"2026-27","grade":6,"subject":"mathematics","access":"student","status":"current","version":1}},
     {"path":"01-subjects/literature-6.md","attributes":{"document_type":"subject_syllabus","school_year":"2026-27","grade":6,"subject":"literature","access":"student","status":"current","version":1}},
@@ -29,9 +30,20 @@
     {"path":"02-feedback/2026-08-27-french.md","attributes":{"document_type":"teacher_feedback","school_year":"2026-27","grade":6,"subject":"french","access":"student","status":"current","date":"2026-08-27","version":1}},
     {"path":"02-feedback/2026-08-27-computer_science.md","attributes":{"document_type":"teacher_feedback","school_year":"2026-27","grade":6,"subject":"computer_science","access":"student","status":"current","date":"2026-08-27","version":1}},
 
+    {"path":"02-feedback/2026-08-28-mathematics.md","attributes":{"document_type":"teacher_feedback","school_year":"2026-27","grade":6,"subject":"mathematics","access":"student","status":"current","date":"2026-08-28","version":1}},
+    {"path":"02-feedback/2026-08-28-literature.md","attributes":{"document_type":"teacher_feedback","school_year":"2026-27","grade":6,"subject":"literature","access":"student","status":"current","date":"2026-08-28","version":1}},
+    {"path":"02-feedback/2026-08-28-writing.md","attributes":{"document_type":"teacher_feedback","school_year":"2026-27","grade":6,"subject":"writing","access":"student","status":"current","date":"2026-08-28","version":1}},
+    {"path":"02-feedback/2026-08-28-science.md","attributes":{"document_type":"teacher_feedback","school_year":"2026-27","grade":6,"subject":"science","access":"student","status":"current","date":"2026-08-28","version":1}},
+    {"path":"02-feedback/2026-08-28-history_geography.md","attributes":{"document_type":"teacher_feedback","school_year":"2026-27","grade":6,"subject":"history_geography","access":"student","status":"current","date":"2026-08-28","version":1}},
+    {"path":"02-feedback/2026-08-28-french.md","attributes":{"document_type":"teacher_feedback","school_year":"2026-27","grade":6,"subject":"french","access":"student","status":"current","date":"2026-08-28","version":1}},
+    {"path":"02-feedback/2026-08-28-computer_science.md","attributes":{"document_type":"teacher_feedback","school_year":"2026-27","grade":6,"subject":"computer_science","access":"student","status":"current","date":"2026-08-28","version":1}},
+    {"path":"02-feedback/2026-08-28-art_design.md","attributes":{"document_type":"teacher_feedback","school_year":"2026-27","grade":6,"subject":"art_design","access":"student","status":"current","date":"2026-08-28","version":1}},
+
     {"path":"03-sources/2026-08-27-city-heat-reading.md","attributes":{"document_type":"lesson_source","school_year":"2026-27","grade":6,"subject":"multi","access":"student","status":"current","date":"2026-08-27","version":1}},
     {"path":"03-sources/2026-08-27-ancient-greece-geography-reading.md","attributes":{"document_type":"lesson_source","school_year":"2026-27","grade":6,"subject":"history_geography","access":"student","status":"current","date":"2026-08-27","version":1}},
     {"path":"03-sources/2026-08-28-bridges-reading.md","attributes":{"document_type":"lesson_source","school_year":"2026-27","grade":6,"subject":"literature","access":"student","status":"current","date":"2026-08-28","version":1}},
-    {"path":"03-sources/2026-08-28-polis-reading.md","attributes":{"document_type":"lesson_source","school_year":"2026-27","grade":6,"subject":"history_geography","access":"student","status":"current","date":"2026-08-28","version":1}}
+    {"path":"03-sources/2026-08-28-polis-reading.md","attributes":{"document_type":"lesson_source","school_year":"2026-27","grade":6,"subject":"history_geography","access":"student","status":"current","date":"2026-08-28","version":1}},
+    {"path":"03-sources/2026-08-31-spare-key-story.md","attributes":{"document_type":"lesson_source","school_year":"2026-27","grade":6,"subject":"literature","access":"student","status":"current","date":"2026-08-31","version":1}},
+    {"path":"03-sources/2026-08-31-athens-sparta-reading.md","attributes":{"document_type":"lesson_source","school_year":"2026-27","grade":6,"subject":"history_geography","access":"student","status":"current","date":"2026-08-31","version":1}}
   ]
 }
