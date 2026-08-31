@@ -40,25 +40,43 @@ export async function getLessonById(lessonId: string) {
 }
 
 export async function getCurrentLesson(subject?: Subject) {
+  const today = parseDate(formatDate(new Date()));
+  const todayString = formatDate(today);
+  const subjectFilter = subject ? { subject } : {};
+  const include = { unit: { include: { course: true } } } as const;
+
   const settings = await prisma.parentSetting.findFirst();
   if (settings?.currentLessonId) {
     const lesson = await getLessonById(settings.currentLessonId);
-    if (lesson && (!subject || lesson.subject === subject)) return lesson;
+    if (
+      lesson &&
+      lesson.date === todayString &&
+      (!subject || lesson.subject === subject)
+    ) {
+      return lesson;
+    }
   }
-
-  const today = parseDate(formatDate(new Date()));
-  const subjectFilter = subject ? { subject } : {};
-  const include = { unit: { include: { course: true } } } as const;
 
   const activeLesson = await prisma.lesson.findFirst({
     where: {
       ...subjectFilter,
+      date: today,
       status: { in: ["started", "in_progress"] },
     },
     orderBy: [{ updatedAt: "desc" }],
     include,
   });
   if (activeLesson) return serializeLesson(activeLesson);
+
+  const firstLessonToday = await prisma.lesson.findFirst({
+    where: {
+      ...subjectFilter,
+      date: today,
+    },
+    orderBy: [{ lessonNumber: "asc" }],
+    include,
+  });
+  if (firstLessonToday) return serializeLesson(firstLessonToday);
 
   const latestLesson = await prisma.lesson.findFirst({
     where: {

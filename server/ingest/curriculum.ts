@@ -27,6 +27,13 @@ type ReferenceManifest = {
   files: ReferenceManifestEntry[];
 };
 
+type IngestionResult = {
+  status: "skipped" | "completed";
+  checksum: string;
+  lessons?: number;
+  vectorStatus?: "pending" | "completed" | "failed" | "skipped";
+};
+
 export function sha256(content: string | Buffer): string {
   return createHash("sha256").update(content).digest("hex");
 }
@@ -478,14 +485,22 @@ async function ingestReferenceManifest() {
   }
 }
 
-export async function ingestAllCurriculum() {
+export async function ingestDailyCurriculum() {
   const files = await walk(CURRICULUM_ROOT);
-  const dailyFiles = files.filter((f) => f.includes(`${path.sep}daily${path.sep}`) && f.endsWith(".json"));
-  const pdfFiles = files.filter((f) => f.includes(`${path.sep}daily${path.sep}`) && f.endsWith(".pdf"));
+  const dailyFiles = files
+    .filter((f) => f.includes(`${path.sep}daily${path.sep}`) && f.endsWith(".json"))
+    .sort((a, b) => b.localeCompare(a));
   const results = [];
   for (const file of dailyFiles) {
     results.push(await ingestDailyFile(file));
   }
+  return results;
+}
+
+export async function ingestAllCurriculum() {
+  const files = await walk(CURRICULUM_ROOT);
+  const pdfFiles = files.filter((f) => f.includes(`${path.sep}daily${path.sep}`) && f.endsWith(".pdf"));
+  const results: IngestionResult[] = await ingestDailyCurriculum();
   for (const file of pdfFiles) {
     results.push(await ingestPdfFile(file));
   }

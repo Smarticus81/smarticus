@@ -1,5 +1,6 @@
 import { prisma } from "../lib/prisma.js";
-import { getDefaultStudent } from "./student.js";
+import { serializeLesson } from "./academic.js";
+import { getDefaultStudent, parseDate } from "./student.js";
 
 function stripAnswers(value: unknown): unknown {
   if (!Array.isArray(value)) return value;
@@ -12,6 +13,7 @@ function stripAnswers(value: unknown): unknown {
 
 export async function buildAgentInstructions(lesson: Record<string, unknown> & {
   id: string;
+  date: string;
   lesson_title: string;
   subject: string;
   unit_title?: string;
@@ -22,7 +24,7 @@ export async function buildAgentInstructions(lesson: Record<string, unknown> & {
 }) {
   const isFrench = lesson.subject === "french";
   const student = await getDefaultStudent();
-  const [mastery, feedback, misconceptions, recentSessions] = await Promise.all([
+  const [mastery, feedback, misconceptions, recentSessions, dayLessonRows] = await Promise.all([
     prisma.masteryRecord.findMany({
       where: { studentId: student.id, subject: lesson.subject as never },
       orderBy: { updatedAt: "desc" },
@@ -66,6 +68,11 @@ export async function buildAgentInstructions(lesson: Record<string, unknown> & {
         lesson: { select: { lessonTitle: true } },
       },
     }),
+    prisma.lesson.findMany({
+      where: { date: parseDate(lesson.date) },
+      orderBy: [{ lessonNumber: "asc" }],
+      include: { unit: { include: { course: true } } },
+    }),
   ]);
   const safeLesson = {
     ...lesson,
@@ -75,6 +82,7 @@ export async function buildAgentInstructions(lesson: Record<string, unknown> & {
     answer_key: {},
     teacher_notes: "",
   };
+  const dayLessons = dayLessonRows.map(serializeLesson);
 
   return `You are Atticus Tutor, a persistent, always-available Grade 6 homeschool voice teacher for Atticus.
 
@@ -112,6 +120,9 @@ ${isFrench ? `- French is a continuing subject, not beginner language study. Use
 
 CURRENT LESSON ANCHOR — authoritative for this assigned work, but not a boundary on what Atticus may ask:
 ${JSON.stringify(safeLesson, null, 2)}
+
+TODAY'S COMPLETE LESSON PLAN — authoritative student-safe content for every scheduled subject:
+${JSON.stringify(dayLessons, null, 2)}
 
 STUDENT CONTEXT — use only this evidence; never invent performance:
 ${JSON.stringify({

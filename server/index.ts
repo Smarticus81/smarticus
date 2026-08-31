@@ -14,7 +14,10 @@ import { errorHandler } from "./middleware/http.js";
 import { apiRouter } from "./routes/api.js";
 import { realtimeRouter } from "./routes/special.js";
 import { log } from "./lib/logger.js";
-import { ingestAllCurriculum } from "./ingest/curriculum.js";
+import {
+  ingestAllCurriculum,
+  ingestDailyCurriculum,
+} from "./ingest/curriculum.js";
 import { disconnectPrisma, prisma } from "./lib/prisma.js";
 import { authRouter, requireAuthentication } from "./routes/auth.js";
 import {
@@ -211,6 +214,24 @@ async function syncCurriculumInBackground() {
   }
 }
 
+async function syncDailyCurriculumBeforeStart() {
+  if (env.NODE_ENV !== "production" && !env.AUTO_INGEST_CURRICULUM) return;
+  try {
+    const results = await ingestDailyCurriculum();
+    log({
+      message: "Daily curriculum ready",
+      toolOutcome: "success",
+      resultCount: results.length,
+    });
+  } catch (error) {
+    log({
+      level: "error",
+      message: "Pre-start daily curriculum sync failed",
+      error: error instanceof Error ? error.message : String(error),
+    });
+  }
+}
+
 export function startServer() {
   const app = createApp();
   const host = "0.0.0.0";
@@ -229,6 +250,7 @@ export function startServer() {
 
 async function registerShutdownHandlers() {
   await bootstrapDatabase({ ensureDatabase: false, seedIfEmpty: true });
+  await syncDailyCurriculumBeforeStart();
 
   let shuttingDown = false;
 
