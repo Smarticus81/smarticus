@@ -13,7 +13,6 @@ import { log } from "../lib/logger.js";
 import { env } from "../config/env.js";
 import type { Subject } from "@prisma/client";
 import { PdfReader } from "pdfreader";
-import { parseDate } from "../services/student.js";
 
 const CURRICULUM_ROOT = path.join(process.cwd(), "curriculum");
 const REFERENCE_ROOT = path.join(CURRICULUM_ROOT, "2026-27", "reference");
@@ -118,10 +117,44 @@ function pdfDate(filePath: string) {
   return match[1];
 }
 
+function makeStudentSafePdfText(text: string) {
+  const protectedSection = text.search(
+    /\bPARENT\b.{0,80}\b(?:ANSWER\s+KEY|TEACHER\s+KEY)\b/i,
+  );
+  return {
+    text: (protectedSection >= 0 ? text.slice(0, protectedSection) : text).trim(),
+    protectedSectionRemoved: protectedSection >= 0,
+  };
+}
+
+async function preparePdfReplacement(sourcePath: string, checksum: string) {
+  const existingDoc = await prisma.sourceDocument.findUnique({ where: { sourcePath } });
+  const metadata =
+    existingDoc?.metadata &&
+    typeof existingDoc.metadata === "object" &&
+    !Array.isArray(existingDoc.metadata)
+      ? existingDoc.metadata
+      : {};
+  const alreadySanitized = metadata.protected_sections_removed === true;
+
+  if (
+    existingDoc?.checksum === checksum &&
+    existingDoc.indexingStatus === "completed" &&
+    alreadySanitized
+  ) {
+    return { existingDoc, skip: true as const };
+  }
+
+  if (existingDoc?.vectorStoreFileId) {
+    await removeVectorStoreFile(existingDoc.vectorStoreFileId);
+  }
+  return { existingDoc, skip: false as const };
+}
+
 export async function ingestPdfFile(filePath: string) {
   const content = await readFile(filePath);
   const checksum = sha256(content);
-  const replacement = await prepareReplacement(filePath, checksum);
+  const replacement = await preparePdfReplacement(filePath, checksum);
   if (replacement.skip) return { status: "skipped" as const, checksum };
 
   const job = await prisma.ingestionJob.create({
@@ -129,84 +162,43 @@ export async function ingestPdfFile(filePath: string) {
   });
 
   try {
-    const student = await prisma.student.findFirst({ where: { preferredName: "Atticus" } });
-    if (!student) throw new Error("Student not seeded");
     const dateString = pdfDate(filePath);
-    const date = parseDate(dateString);
-    const text = await extractPdfText(filePath);
+    const extracted = await extractPdfText(filePath);
+    const safePacket = makeStudentSafePdfText(extracted);
+    if (!safePacket.text) {
+      throw new Error(`PDF has no student-safe content: ${path.basename(filePath)}`);
+    }
+
     const externalId = `pdf-${sha256(filePath).slice(0, 24)}`;
-    const schoolYear = await prisma.schoolYear.upsert({
-      where: { label: "2026-27" },
-      create: {
-        label: "2026-27",
-        startDate: parseDate("2026-08-25"),
-        endDate: parseDate("2027-06-15"),
-        studentId: student.id,
-      },
-      update: {},
-    });
-    const course = await prisma.course.upsert({
-      where: { schoolYearId_subject: { schoolYearId: schoolYear.id, subject: "mathematics" } },
-      create: { subject: "mathematics", title: "Grade 6 Learning Packet", schoolYearId: schoolYear.id },
-      update: {},
-    });
-    const unit = await prisma.unit.upsert({
-      where: { courseId_externalId: { courseId: course.id, externalId: "pdf-learning-packets" } },
-      create: { externalId: "pdf-learning-packets", title: "Daily Learning Packets", courseId: course.id },
-      update: {},
-    });
-    const lesson = await prisma.lesson.upsert({
+    const legacyLesson = await prisma.lesson.findUnique({
       where: { externalId },
-      create: {
-        externalId,
-        date,
-        schoolYear: "2026-27",
-        gradeLevel: student.gradeLevel,
-        subject: "mathematics",
-        course: "Grade 6 Learning Packet",
-        unitId: unit.id,
-        unitTitle: "Daily Learning Packets",
-        lessonNumber: 1,
-        lessonTitle: path.basename(filePath, ".pdf").replace(/[_-]+/g, " "),
-        previousLearning: "See the attached learning packet.",
-        courseContext: text,
-        whyItMatters: "This packet contains today's learning activities across the curriculum.",
-        writtenInstruction: text,
-        estimatedMinutes: 60,
-        voicePrompt: "Answer questions about this packet as a helpful teaching companion. Do not reveal protected answers.",
-        status: "scheduled",
-        dayNumber: 4,
-        todaysGoal: "Explain what you know, not just produce an answer.",
-        checksum,
-      },
-      update: { date, courseContext: text, writtenInstruction: text, checksum, status: "scheduled" },
+      select: { id: true, unitId: true },
     });
-    await prisma.assignment.upsert({
-      where: { externalId: `${externalId}-packet` },
-      create: {
-        externalId: `${externalId}-packet`,
-        lessonId: lesson.id,
-        studentId: student.id,
-        title: "Daily Learning Packet",
-        instructions: "Use the attached packet and ask the tutor questions as needed.",
-        dueDate: date,
-        completed: false,
-      },
-      update: {},
-    });
+    if (legacyLesson) {
+      await prisma.lesson.delete({ where: { id: legacyLesson.id } });
+      await prisma.unit.deleteMany({
+        where: { id: legacyLesson.unitId, lessons: { none: {} } },
+      });
+    }
 
     const uploaded = await uploadAndPoll({
       filename: `${path.basename(filePath, ".pdf")}.txt`,
-      content: Buffer.from(text),
+      content: Buffer.from(safePacket.text),
       attributes: { document_type: "daily_curriculum", school_year: "2026-27", date: dateString, subject: "multi", access: "student", status: "current" },
     });
+    const metadata = {
+      student_safe_text: true,
+      protected_sections_removed: true,
+      protected_section_found: safePacket.protectedSectionRemoved,
+      structured_daily_source: `${dateString}.json`,
+    };
     await prisma.sourceDocument.upsert({
       where: { sourcePath: filePath },
-      create: { filename: path.basename(filePath), sourceType: "daily_curriculum_pdf", sourcePath: filePath, checksum, openaiFileId: uploaded.openaiFileId, vectorStoreFileId: uploaded.vectorStoreFileId, indexingStatus: uploaded.vectorStatus, ingestedAt: new Date(), metadata: { student_safe_text: true } },
-      update: { checksum, openaiFileId: uploaded.openaiFileId, vectorStoreFileId: uploaded.vectorStoreFileId, indexingStatus: uploaded.vectorStatus, ingestedAt: new Date(), metadata: { student_safe_text: true } },
+      create: { filename: path.basename(filePath), sourceType: "daily_curriculum_pdf", sourcePath: filePath, checksum, openaiFileId: uploaded.openaiFileId, vectorStoreFileId: uploaded.vectorStoreFileId, indexingStatus: uploaded.vectorStatus, ingestedAt: new Date(), metadata },
+      update: { checksum, openaiFileId: uploaded.openaiFileId, vectorStoreFileId: uploaded.vectorStoreFileId, indexingStatus: uploaded.vectorStatus, ingestedAt: new Date(), metadata },
     });
-    await prisma.ingestionJob.update({ where: { id: job.id }, data: { status: "completed", completedAt: new Date(), message: "Ingested PDF learning packet" } });
-    return { status: "completed" as const, checksum, lessons: 1, vectorStatus: uploaded.vectorStatus };
+    await prisma.ingestionJob.update({ where: { id: job.id }, data: { status: "completed", completedAt: new Date(), message: "Ingested sanitized PDF learning packet" } });
+    return { status: "completed" as const, checksum, lessons: 0, vectorStatus: uploaded.vectorStatus };
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     await prisma.ingestionJob.update({ where: { id: job.id }, data: { status: "failed", message, completedAt: new Date() } });

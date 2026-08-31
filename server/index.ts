@@ -191,7 +191,7 @@ export function createApp() {
 }
 
 async function syncCurriculumInBackground() {
-  if (!env.AUTO_INGEST_CURRICULUM) return;
+  if (env.NODE_ENV !== "production" && !env.AUTO_INGEST_CURRICULUM) return;
   try {
     const results = await ingestAllCurriculum();
     log({

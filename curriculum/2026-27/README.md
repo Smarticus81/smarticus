@@ -4,6 +4,7 @@ This directory is the canonical academic source for Atticus Tutor / Virgil.
 
 ## Structure
 - `daily/YYYY-MM-DD.json` — authoritative assigned lessons for a school day. These files may contain protected answers for server-side grading/support.
+- `daily/*.pdf` — printable lesson packets. They support the matching daily JSON but never create separate lesson records.
 - `reference/00-master/` — school-wide curriculum, teacher behavior, history, and retrieval rules.
 - `reference/01-subjects/` — full Grade 6 course sequence plus current teaching guidance/rubrics.
 - `reference/02-feedback/` — teacher-reviewed, student-safe feedback that should influence future lessons.
@@ -20,9 +21,10 @@ The ingestion pipeline:
 1. validates daily JSON against the lesson schema;
 2. upserts lesson/assignment structure into Postgres;
 3. creates a student-safe copy for vector ingestion with protected answer fields removed;
-4. ingests reference Markdown with file attributes from the manifest;
-5. uses checksums to skip unchanged files;
-6. replaces stale vector attachments when a source file changes.
+4. removes parent/teacher answer-key pages from PDF text before vector ingestion;
+5. ingests reference Markdown with file attributes from the manifest;
+6. uses checksums to skip unchanged files;
+7. replaces stale vector attachments when a source file changes.
 
 ## Academic priority
 Current daily lesson > current teacher feedback/mastery > subject syllabus/reference > historical academic baseline.
