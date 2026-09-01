@@ -24,6 +24,15 @@ const WAKE_WORD_CONFIDENCE_THRESHOLD = 0.4;
 const GOODBYE_PATTERN =
   /\b(?:good\s*bye|bye(?:-bye)?|see you(?: later)?|talk to you later|that(?:'s| is) all)\b/i;
 
+function listeningModeConfig(awake: boolean) {
+  return {
+    type: "semantic_vad" as const,
+    eagerness: awake ? ("high" as const) : ("low" as const),
+    createResponse: awake,
+    interruptResponse: false,
+  };
+}
+
 interface TranscriptionLogprob {
   token: string;
   logprob: number;
@@ -62,6 +71,15 @@ function hasConfidentWakeWord(
   if (!new RegExp(`\\b${WAKE_WORD}\\b`, "i").test(transcript)) return false;
   const confidence = wakeWordConfidence(logprobs);
   return confidence === null || confidence >= WAKE_WORD_CONFIDENCE_THRESHOLD;
+}
+
+function containsConfirmedSpeech(text: string) {
+  const normalized = text.trim().toLocaleLowerCase();
+  if (/\b(?:stop|wait|pause|no|virgil|actually|hold on)\b/i.test(normalized)) {
+    return true;
+  }
+  const words = normalized.match(/[\p{L}\p{N}']+/gu) ?? [];
+  return words.length >= 2 || words.some((word) => word.length >= 4);
 }
 
 async function requestMicrophone(): Promise<MediaStream> {
@@ -148,6 +166,9 @@ export function VoiceTutor({
   const outputProbeRef = useRef<number | null>(null);
   const isSpeakingRef = useRef(false);
   const isAwakeRef = useRef(false);
+  const inputItemRef = useRef<string | null>(null);
+  const inputTranscriptRef = useRef("");
+  const inputLogprobsRef = useRef<TranscriptionLogprob[]>([]);
 
   useEffect(() => {
     isSpeakingRef.current = isSpeaking;
@@ -160,8 +181,19 @@ export function VoiceTutor({
   }, [connection, onConnectionChange]);
 
   const setWakeState = useCallback((awake: boolean) => {
+    if (isAwakeRef.current === awake) return;
     isAwakeRef.current = awake;
     setIsAwake(awake);
+    const session = sessionRef.current;
+    if (session?.transport.status === "connected") {
+      session.transport.updateSessionConfig({
+        audio: {
+          input: {
+            turnDetection: listeningModeConfig(awake),
+          },
+        },
+      });
+    }
   }, []);
 
   const appendTranscript = useCallback((role: TranscriptLine["role"], text: string) => {
@@ -351,13 +383,13 @@ export function VoiceTutor({
           outputModalities: ["audio"],
           audio: {
             input: {
-              transcription: { model: "gpt-live-transcribe" },
-              turnDetection: {
-                type: "semantic_vad",
-                eagerness: "auto",
-                createResponse: true,
-                interruptResponse: true,
+              noiseReduction: { type: "near_field" },
+              transcription: {
+                model: "gpt-live-transcribe",
+                delay: "minimal",
+                keywords: ["Virgil"],
               },
+              turnDetection: listeningModeConfig(false),
             },
           },
         },
@@ -368,6 +400,7 @@ export function VoiceTutor({
         transcript?: string;
         text?: string;
         delta?: string;
+        item_id?: string;
         logprobs?: TranscriptionLogprob[] | null;
       }) => {
         const type = event.type ?? "";
@@ -384,14 +417,51 @@ export function VoiceTutor({
         if (type.includes("output_audio_transcript.done") && event.transcript) {
           appendTranscript("assistant", event.transcript);
         }
+        if (type === "conversation.item.input_audio_transcription.delta" && event.delta) {
+          const itemId = event.item_id ?? "current-input";
+          if (inputItemRef.current !== itemId) {
+            inputItemRef.current = itemId;
+            inputTranscriptRef.current = "";
+            inputLogprobsRef.current = [];
+          }
+          inputTranscriptRef.current += event.delta;
+          if (event.logprobs?.length) {
+            inputLogprobsRef.current.push(...event.logprobs);
+          }
+          if (
+            !isAwakeRef.current &&
+            hasConfidentWakeWord(
+              inputTranscriptRef.current,
+              inputLogprobsRef.current,
+            )
+          ) {
+            setWakeState(true);
+          }
+          if (
+            isSpeakingRef.current &&
+            containsConfirmedSpeech(inputTranscriptRef.current)
+          ) {
+            sessionRef.current?.interrupt();
+            isSpeakingRef.current = false;
+            setIsSpeaking(false);
+            inputTranscriptRef.current = "";
+          }
+        }
         if (type.includes("input_audio_transcription.completed") && event.transcript) {
+          inputItemRef.current = null;
+          inputTranscriptRef.current = "";
+          inputLogprobsRef.current = [];
           appendTranscript("user", event.transcript);
           if (isAwakeRef.current && GOODBYE_PATTERN.test(event.transcript)) {
             setWakeState(false);
           } else if (
             hasConfidentWakeWord(event.transcript, event.logprobs ?? undefined)
           ) {
+            const activatedFromCompletedTranscript = !isAwakeRef.current;
             setWakeState(true);
+            if (activatedFromCompletedTranscript) {
+              sessionRef.current?.transport.requestResponse?.();
+            }
           }
         }
       });
