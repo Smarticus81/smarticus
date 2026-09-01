@@ -298,6 +298,7 @@ export function VoiceTutor({
           transcript,
         })
         .catch(() => undefined);
+      tutorSessionIdRef.current = null;
     }
     await cleanup();
     setConnection("idle");
@@ -320,6 +321,12 @@ export function VoiceTutor({
         api.tool.lessonStarted(lessonId),
       ]);
       tutorSessionIdRef.current = started.sessionId;
+      if (
+        secret.lessonId !== lessonId ||
+        !secret.instructions.includes("[SELECTED_LESSON:")
+      ) {
+        throw new Error("The voice session did not receive the selected lesson context.");
+      }
 
       const audioElement = document.createElement("audio");
       audioElement.autoplay = true;
@@ -393,6 +400,15 @@ export function VoiceTutor({
       await session.connect({ apiKey: secret.value });
       setConnection("connected");
     } catch (caught) {
+      if (tutorSessionIdRef.current) {
+        await api
+          .endSession({
+            session_id: tutorSessionIdRef.current,
+            summary: `Voice session setup failed for ${lessonTitle}`,
+          })
+          .catch(() => undefined);
+        tutorSessionIdRef.current = null;
+      }
       await cleanup();
       setError(voiceStartupError(caught));
       setConnection("error");
@@ -402,6 +418,7 @@ export function VoiceTutor({
     cleanup,
     connection,
     lessonId,
+    lessonTitle,
     setWakeState,
     startVisualizer,
   ]);

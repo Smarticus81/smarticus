@@ -8,6 +8,7 @@ import { hashSafetyIdentifier } from "../lib/auth.js";
 import { getDefaultStudent } from "../services/student.js";
 import { prisma } from "../lib/prisma.js";
 import { env } from "../config/env.js";
+import { log } from "../lib/logger.js";
 
 export const realtimeRouter = Router();
 
@@ -20,13 +21,28 @@ realtimeRouter.post(
 
     const lesson = await getLessonById(lesson_id);
     if (!lesson) return res.status(404).json({ error: "Lesson not found" });
+    if (!lesson.voice_prompt.trim()) {
+      return res.status(422).json({ error: "Lesson voice guidance is missing" });
+    }
 
     const instructions = await buildAgentInstructions(lesson);
+    const lessonMarker = `[SELECTED_LESSON:${lesson.external_id ?? lesson.id}]`;
+    if (!instructions.includes(lessonMarker)) {
+      throw new Error("Realtime instructions are missing the selected lesson marker");
+    }
 
     try {
       const secret = await mintRealtimeClientSecret({
         safetyIdentifier: hashSafetyIdentifier(student.internalId),
         instructions,
+      });
+      log({
+        message: "Realtime lesson context ready",
+        requestId: req.ctx.requestId,
+        lessonId: lesson.id,
+        lessonExternalId: lesson.external_id,
+        lessonDate: lesson.date,
+        voiceGuidanceAttached: true,
       });
       res.json({
         value: secret.value,

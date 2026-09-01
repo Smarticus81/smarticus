@@ -17,6 +17,7 @@ import { PdfReader } from "pdfreader";
 const CURRICULUM_ROOT = path.join(process.cwd(), "curriculum");
 const REFERENCE_ROOT = path.join(CURRICULUM_ROOT, "2026-27", "reference");
 const REFERENCE_MANIFEST = path.join(REFERENCE_ROOT, "vector-manifest.json");
+const sourceIngestionLocks = new Map<string, Promise<unknown>>();
 
 type ReferenceManifestEntry = {
   path: string;
@@ -33,6 +34,23 @@ type IngestionResult = {
   lessons?: number;
   vectorStatus?: "pending" | "completed" | "failed" | "skipped";
 };
+
+async function withSourceIngestionLock<T>(
+  sourcePath: string,
+  operation: () => Promise<T>,
+): Promise<T> {
+  const key = path.resolve(sourcePath);
+  const existing = sourceIngestionLocks.get(key) as Promise<T> | undefined;
+  if (existing) return existing;
+
+  const running = operation().finally(() => {
+    if (sourceIngestionLocks.get(key) === running) {
+      sourceIngestionLocks.delete(key);
+    }
+  });
+  sourceIngestionLocks.set(key, running);
+  return running;
+}
 
 export function sha256(content: string | Buffer): string {
   return createHash("sha256").update(content).digest("hex");
@@ -158,7 +176,7 @@ async function preparePdfReplacement(sourcePath: string, checksum: string) {
   return { existingDoc, skip: false as const };
 }
 
-export async function ingestPdfFile(filePath: string) {
+async function ingestPdfFileUnlocked(filePath: string) {
   const content = await readFile(filePath);
   const checksum = sha256(content);
   const replacement = await preparePdfReplacement(filePath, checksum);
@@ -213,7 +231,11 @@ export async function ingestPdfFile(filePath: string) {
   }
 }
 
-export async function ingestDailyFile(filePath: string) {
+export function ingestPdfFile(filePath: string) {
+  return withSourceIngestionLock(filePath, () => ingestPdfFileUnlocked(filePath));
+}
+
+async function ingestDailyFileUnlocked(filePath: string) {
   const content = await readFile(filePath, "utf-8");
   const checksum = sha256(content);
   const replacement = await prepareReplacement(filePath, checksum);
@@ -412,6 +434,10 @@ export async function ingestDailyFile(filePath: string) {
   }
 }
 
+export function ingestDailyFile(filePath: string) {
+  return withSourceIngestionLock(filePath, () => ingestDailyFileUnlocked(filePath));
+}
+
 export async function ingestReferenceFile(filePath: string, attributes: VectorFileAttributes) {
   const content = await readFile(filePath);
   const checksum = sha256(content);
@@ -508,11 +534,22 @@ export async function ingestAllCurriculum() {
   return results;
 }
 
-export async function ingestFileIfExists(filePath: string) {
+export async function ingestCurriculumFileIfExists(filePath: string) {
   try {
     await stat(filePath);
-    return ingestDailyFile(filePath);
-  } catch {
+    if (filePath.endsWith(".json")) return ingestDailyFile(filePath);
+    if (filePath.endsWith(".pdf")) return ingestPdfFile(filePath);
+    return { status: "skipped" as const, reason: "unsupported curriculum file" };
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
     return { status: "skipped" as const, reason: "file not found" };
   }
 }
+
+export function ingestDailyDate(date: string) {
+  return ingestCurriculumFileIfExists(
+    path.join(CURRICULUM_ROOT, "2026-27", "daily", `${date}.json`),
+  );
+}
+
+export const ingestFileIfExists = ingestCurriculumFileIfExists;

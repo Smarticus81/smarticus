@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "prisma generate",
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
-    "dev:server": "tsx watch server/index.ts",
+    "dev:server": "cross-env NODE_ENV=development AUTO_INGEST_CURRICULUM=true tsx watch server/index.ts",
     "dev:client": "vite",
     "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true});require('fs').rmSync('client/dist',{recursive:true,force:true})\"",
     "build": "npm run clean && npm run build:client && npm run build:server",
@@ -61,6 +61,7 @@
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",
     "concurrently": "^9.1.2",
+    "cross-env": "^10.1.0",
     "prisma": "^6.5.0",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2",

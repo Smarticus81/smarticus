@@ -5,17 +5,27 @@ import {
   parseDate,
   formatDate,
 } from "./student.js";
+import { ingestDailyDate } from "../ingest/curriculum.js";
 import type { Subject } from "@prisma/client";
 
 export async function getTodaySchedule(dateStr?: string) {
   const student = await getDefaultStudent();
   const date = dateStr ? parseDate(dateStr) : parseDate(formatDate(new Date()));
 
-  const lessons = await prisma.lesson.findMany({
+  let lessons = await prisma.lesson.findMany({
     where: { date },
     orderBy: [{ lessonNumber: "asc" }],
     include: { unit: { include: { course: true } } },
   });
+
+  if (!lessons.length) {
+    await ingestDailyDate(formatDate(date));
+    lessons = await prisma.lesson.findMany({
+      where: { date },
+      orderBy: [{ lessonNumber: "asc" }],
+      include: { unit: { include: { course: true } } },
+    });
+  }
 
   const dayNumber = lessons[0]?.dayNumber ?? 1;
   const todaysGoal = lessons[0]?.todaysGoal ?? "Complete today's scheduled lessons with understanding.";

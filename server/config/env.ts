@@ -5,6 +5,24 @@ const optionalString = z.preprocess(
   z.string().optional(),
 );
 
+function booleanEnvironment(defaultValue: "true" | "false") {
+  return z
+    .preprocess(
+      (value) => {
+        if (value === undefined || value === "") return defaultValue;
+        const normalized = String(value)
+          .trim()
+          .toLowerCase()
+          .replace(/^["']+|["']+$/g, "");
+        if (["1", "yes", "on"].includes(normalized)) return "true";
+        if (["0", "no", "off"].includes(normalized)) return "false";
+        return normalized;
+      },
+      z.enum(["true", "false"]),
+    )
+    .transform((value) => value === "true");
+}
+
 export const envSchema = z
   .object({
     NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
@@ -24,15 +42,9 @@ export const envSchema = z
       .int()
       .positive()
       .default(7 * 24 * 60 * 60 * 1000),
-    TRUST_PROXY: z
-      .enum(["true", "false"])
-      .default("false")
-      .transform((value) => value === "true"),
+    TRUST_PROXY: booleanEnvironment("false"),
     SHUTDOWN_TIMEOUT_MS: z.coerce.number().int().positive().default(10_000),
-    AUTO_INGEST_CURRICULUM: z
-      .enum(["true", "false"])
-      .default("false")
-      .transform((value) => value === "true"),
+    AUTO_INGEST_CURRICULUM: booleanEnvironment("true"),
   })
   .superRefine((values, context) => {
     if (values.NODE_ENV !== "production") return;

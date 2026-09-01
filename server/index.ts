@@ -5,6 +5,7 @@ import session from "express-session";
 import connectPgSimple from "connect-pg-simple";
 import compression from "compression";
 import { rateLimit } from "express-rate-limit";
+import { watch, type FSWatcher } from "node:fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { Pool } from "pg";
@@ -16,6 +17,7 @@ import { realtimeRouter } from "./routes/special.js";
 import { log } from "./lib/logger.js";
 import {
   ingestAllCurriculum,
+  ingestCurriculumFileIfExists,
   ingestDailyCurriculum,
 } from "./ingest/curriculum.js";
 import { disconnectPrisma, prisma } from "./lib/prisma.js";
@@ -27,6 +29,8 @@ import {
 
 const PostgresSessionStore = connectPgSimple(session);
 let sessionPool: Pool | undefined;
+let curriculumWatcher: FSWatcher | undefined;
+const curriculumWatchTimers = new Map<string, NodeJS.Timeout>();
 
 function createSessionStore() {
   if (env.NODE_ENV !== "production") return undefined;
@@ -232,6 +236,51 @@ async function syncDailyCurriculumBeforeStart() {
   }
 }
 
+function startCurriculumWatcher() {
+  if (env.NODE_ENV !== "development" || curriculumWatcher) return;
+
+  const dailyRoot = path.join(process.cwd(), "curriculum", "2026-27", "daily");
+  curriculumWatcher = watch(dailyRoot, (_eventType, filename) => {
+    if (!filename) return;
+    const name = filename.toString();
+    if (!name.endsWith(".json") && !name.endsWith(".pdf")) return;
+
+    const existingTimer = curriculumWatchTimers.get(name);
+    if (existingTimer) clearTimeout(existingTimer);
+    const timer = setTimeout(() => {
+      curriculumWatchTimers.delete(name);
+      const sourcePath = path.join(dailyRoot, name);
+      void ingestCurriculumFileIfExists(sourcePath)
+        .then((result) => {
+          log({
+            message: "Curriculum file synchronized",
+            sourcePath,
+            toolOutcome: "success",
+            result,
+          });
+        })
+        .catch((error) => {
+          log({
+            level: "error",
+            message: "Curriculum file synchronization failed",
+            sourcePath,
+            error: error instanceof Error ? error.message : String(error),
+          });
+        });
+    }, 500);
+    timer.unref();
+    curriculumWatchTimers.set(name, timer);
+  });
+  curriculumWatcher.on("error", (error) => {
+    log({
+      level: "error",
+      message: "Curriculum watcher failed",
+      error: error.message,
+    });
+  });
+  curriculumWatcher.unref();
+}
+
 export function startServer() {
   const app = createApp();
   const host = "0.0.0.0";
@@ -240,6 +289,7 @@ export function startServer() {
   const server = app.listen(port, host, () => {
     log({ message: "Atticus Tutor server started", port, host, nodeEnv: env.NODE_ENV });
     void syncCurriculumInBackground();
+    startCurriculumWatcher();
   });
   server.keepAliveTimeout = 65_000;
   server.headersTimeout = 66_000;
@@ -258,6 +308,10 @@ async function registerShutdownHandlers() {
     if (shuttingDown) return;
     shuttingDown = true;
     log({ message: "Graceful shutdown started", signal });
+    curriculumWatcher?.close();
+    curriculumWatcher = undefined;
+    for (const timer of curriculumWatchTimers.values()) clearTimeout(timer);
+    curriculumWatchTimers.clear();
 
     const forceExitTimer = setTimeout(() => {
       log({ level: "error", message: "Graceful shutdown timed out" });
