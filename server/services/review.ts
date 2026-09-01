@@ -118,6 +118,9 @@ Rules:
 - Stay focused on education. Do not claim to replace professionals.
 ${isFrench ? `- French is a continuing subject, not beginner language study. Use natural French pronunciation, short spoken exchanges, gentle correction, and gradually reduced English scaffolding. Atticus has several years of prior French.` : ""}
 
+LESSON-SPECIFIC VOICE GUIDANCE — this is the authoritative teaching approach for the selected lesson. Follow it explicitly unless it conflicts with safety or answer-integrity rules:
+${lesson.voice_prompt}
+
 CURRENT LESSON ANCHOR — authoritative for this assigned work, but not a boundary on what Atticus may ask:
 ${JSON.stringify(safeLesson, null, 2)}
 

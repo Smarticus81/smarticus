@@ -6,6 +6,7 @@ import {
   getStudentSnapshot,
   getPreviousLessonFeedback,
   getMasteryState,
+  selectCurrentLesson,
 } from "../services/academic.js";
 import {
   recordVerbalCheck,
@@ -73,6 +74,16 @@ apiRouter.get(
   asyncHandler(async (req, res) => {
     const { subject } = OptionalSubjectParamsSchema.parse(req.params);
     res.json(await getCurrentLesson(subject as Subject | undefined));
+  }),
+);
+
+apiRouter.post(
+  "/lessons/select",
+  asyncHandler(async (req, res) => {
+    const { lesson_id } = LessonActionSchema.parse(req.body);
+    const lesson = await selectCurrentLesson(lesson_id);
+    if (!lesson) return res.status(404).json({ error: "Lesson not found" });
+    res.json(lesson);
   }),
 );
 

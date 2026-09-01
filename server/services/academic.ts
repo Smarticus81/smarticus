@@ -1,5 +1,10 @@
 import { prisma } from "../lib/prisma.js";
-import { getDefaultStudent, parseDate, formatDate } from "./student.js";
+import {
+  getDefaultStudent,
+  getParentSettings,
+  parseDate,
+  formatDate,
+} from "./student.js";
 import type { Subject } from "@prisma/client";
 
 export async function getTodaySchedule(dateStr?: string) {
@@ -37,6 +42,18 @@ export async function getLessonById(lessonId: string) {
   });
   if (!lesson) return null;
   return serializeLesson(lesson);
+}
+
+export async function selectCurrentLesson(lessonId: string) {
+  const lesson = await getLessonById(lessonId);
+  if (!lesson) return null;
+
+  const settings = await getParentSettings();
+  await prisma.parentSetting.update({
+    where: { id: settings.id },
+    data: { currentLessonId: lesson.id },
+  });
+  return lesson;
 }
 
 export async function getCurrentLesson(subject?: Subject) {

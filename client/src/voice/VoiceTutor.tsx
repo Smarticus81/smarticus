@@ -14,6 +14,8 @@ interface TranscriptLine {
 interface VoiceTutorProps {
   lessonId: string;
   lessonTitle: string;
+  embedded?: boolean;
+  onConnectionChange?: (active: boolean) => void;
 }
 
 const MICROPHONE_TIMEOUT_MS = 20_000;
@@ -121,7 +123,12 @@ function voiceStartupError(error: unknown): string {
   return error instanceof Error ? error.message : "Unable to begin the lesson.";
 }
 
-export function VoiceTutor({ lessonId, lessonTitle }: VoiceTutorProps) {
+export function VoiceTutor({
+  lessonId,
+  lessonTitle,
+  embedded = false,
+  onConnectionChange,
+}: VoiceTutorProps) {
   const [connection, setConnection] = useState<ConnectionState>("idle");
   const [isMuted, setIsMuted] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
@@ -145,6 +152,12 @@ export function VoiceTutor({ lessonId, lessonTitle }: VoiceTutorProps) {
   useEffect(() => {
     isSpeakingRef.current = isSpeaking;
   }, [isSpeaking]);
+
+  useEffect(() => {
+    onConnectionChange?.(
+      connection === "connecting" || connection === "connected",
+    );
+  }, [connection, onConnectionChange]);
 
   const setWakeState = useCallback((awake: boolean) => {
     isAwakeRef.current = awake;
@@ -425,7 +438,10 @@ export function VoiceTutor({ lessonId, lessonTitle }: VoiceTutorProps) {
           : "Tap the wave to begin";
 
   return (
-    <main className={`voice-stage ${isSpeaking ? "voice-stage--speaking" : ""}`}>
+    <section
+      className={`voice-stage ${embedded ? "voice-stage--embedded" : ""} ${isSpeaking ? "voice-stage--speaking" : ""}`}
+      aria-label={`Voice tutor for ${lessonTitle}`}
+    >
       <div className="voice-ambient voice-ambient--one" />
       <div className="voice-ambient voice-ambient--two" />
 
@@ -458,6 +474,6 @@ export function VoiceTutor({ lessonId, lessonTitle }: VoiceTutorProps) {
       )}
 
       {error && <p className="voice-error">{error}</p>}
-    </main>
+    </section>
   );
 }

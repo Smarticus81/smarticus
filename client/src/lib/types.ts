@@ -1,3 +1,22 @@
+export interface WorkedExample {
+  title: string;
+  problem: string;
+  solution: string;
+  explanation: string;
+}
+
+export interface PracticeItem {
+  id: string;
+  prompt: string;
+  hint?: string;
+}
+
+export interface ExitTicketItem {
+  id: string;
+  prompt: string;
+  rubric?: string;
+}
+
 export interface LessonView {
   id: string;
   external_id?: string;
@@ -17,10 +36,10 @@ export interface LessonView {
   why_it_matters: string;
   vocabulary: Array<{ term: string; definition: string }>;
   written_instruction: string;
-  worked_examples: unknown[];
-  guided_practice: unknown[];
-  independent_practice: unknown[];
-  exit_ticket: unknown[];
+  worked_examples: WorkedExample[];
+  guided_practice: PracticeItem[];
+  independent_practice: PracticeItem[];
+  exit_ticket: ExitTicketItem[];
   mastery_threshold: number;
   materials: string[];
   estimated_minutes: number;
@@ -40,4 +59,18 @@ export interface ScheduleView {
   day_number: number;
   todays_goal: string;
   lessons: LessonView[];
+  student?: {
+    id: string;
+    preferredName: string;
+    gradeLevel: number;
+  };
+}
+
+export interface AnswerSupport {
+  itemId: string;
+  supportType: string;
+  hint: string;
+  answerWithheld: boolean;
+  answer?: string;
+  reason?: string;
 }

@@ -1,0 +1,423 @@
+{
+  "date": "2026-09-01",
+  "school_year": "2026-27",
+  "grade_level": 6,
+  "day_number": 6,
+  "school_day_label": "Tuesday, September 1, 2026",
+  "todays_goal": "Finish Monday's required exit items, then strengthen ratios, precise reading and writing, and academic vocabulary while moving forward in science and French.",
+  "lessons": [
+    {
+      "id": "2026-09-01-writing",
+      "date": "2026-09-01",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "writing",
+      "course": "Grade 6 Writing / Language",
+      "unit_id": "writing-sentences",
+      "unit_title": "Sentence Boundaries and Explanatory Writing",
+      "lesson_number": 1,
+      "lesson_title": "Logical connectors and sentence boundaries",
+      "standards": ["W.6.2", "L.6.1", "L.6.2"],
+      "previous_learning": "Monday's ideas were strong, but conjunction choice did not always match the logical relationship between ideas.",
+      "course_context": "Build precise cause, result, and contrast relationships while maintaining correct sentence boundaries.",
+      "learning_objectives": ["Choose because, so, or but by meaning.", "Repair run-ons and comma splices.", "Explain cause, result, and contrast clearly."],
+      "why_it_matters": "Correct grammar is not enough; a connector must also express the intended logic.",
+      "vocabulary": [
+        {"term": "conjunction", "definition": "a word that connects ideas, such as because, but, or so"},
+        {"term": "cause", "definition": "why something happens"},
+        {"term": "effect", "definition": "what happens as a result"},
+        {"term": "contrast", "definition": "a difference between ideas"},
+        {"term": "run-on sentence", "definition": "two or more complete thoughts joined without correct punctuation"},
+        {"term": "comma splice", "definition": "two complete sentences joined only with a comma"}
+      ],
+      "written_instruction": "Choose a connector by the relationship between ideas: because introduces a reason, so introduces a result, and but introduces a contrast. Then check that every complete thought has a correct sentence boundary.",
+      "worked_examples": [
+        {"title": "Cause", "problem": "Why do engineers add expansion joints?", "solution": "Engineers add expansion joints because metal changes size with temperature.", "explanation": "Because introduces the reason."},
+        {"title": "Result", "problem": "The key was missing. What happened next?", "solution": "The key was missing, so the team used the spare.", "explanation": "So introduces the result."},
+        {"title": "Contrast", "problem": "The classifier was confident, yet wrong.", "solution": "The classifier was 99% confident, but the prediction was wrong.", "explanation": "But marks the contrast; confidence did not cause the error."}
+      ],
+      "guided_practice": [
+        {"id": "wr-g1", "prompt": "Choose because, but, or so: The wax paper transmits light, ___ the image is blurry because light is scattered.", "hint": "The two facts contrast."},
+        {"id": "wr-g2", "prompt": "Choose because, but, or so: The mountains made land travel difficult, ___ many Greek communities developed separately.", "hint": "The second idea is a result."},
+        {"id": "wr-g3", "prompt": "Repair this run-on using correct punctuation: Malik admitted the mistake the team found the spare key the test could continue."},
+        {"id": "wr-g4", "prompt": "Explain why but is better than so in this sentence: The model was 99% confident, ___ the prediction was wrong."}
+      ],
+      "independent_practice": [
+        {"id": "wr-i1", "prompt": "Combine with because: Transparent materials form clear images. They scatter very little transmitted light."},
+        {"id": "wr-i2", "prompt": "Combine with so: The ratio 2:5 was doubled. The equivalent ratio became 4:10."},
+        {"id": "wr-i3", "prompt": "Combine with but: Athens and Sparta shared Greek culture. Their governments were different."},
+        {"id": "wr-i4", "prompt": "Repair the punctuation and connector: Priya was frustrated, so she still helped Malik find the spare key."},
+        {"id": "wr-i5", "prompt": "Write 7-9 sentences explaining why a reader must understand the relationship between ideas, not just the facts. Include one cause/effect example and one contrast example from today's subjects."}
+      ],
+      "exit_ticket": [],
+      "mastery_threshold": 75,
+      "materials": ["Tuesday packet", "Pencil"],
+      "estimated_minutes": 45,
+      "voice_prompt": "Teach Atticus to choose a connector based on the relationship between ideas. BECAUSE introduces a reason, SO introduces a result, and BUT introduces a contrast. Connect this to Monday's sentence 'The classifier showed 99% confidence, so the prediction was incorrect'—explain that the grammar is possible but the logic is wrong because high confidence did not cause the error. Model three examples before practice. When correcting, name the exact relationship: cause, result, or contrast. Keep sentence mechanics separate from idea quality.",
+      "teacher_notes": "Keep logic and mechanics as separate feedback categories.",
+      "answer_key": {"wr-g1": "but", "wr-g2": "so", "wr-g4": "But marks contrast; so would incorrectly imply confidence caused the error."},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-01-french",
+      "date": "2026-09-01",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "french",
+      "course": "Grade 6 French",
+      "unit_id": "fr-core-verbs",
+      "unit_title": "High-Frequency Present Tense",
+      "lesson_number": 2,
+      "lesson_title": "Être versus avoir with negation",
+      "standards": ["ACTFL-Interpersonal"],
+      "previous_learning": "Monday showed that the forms are emerging, but verb choice sometimes ignored whether the sentence meant being or having.",
+      "course_context": "Choose être or avoir by meaning before conjugating and applying negation.",
+      "learning_objectives": ["Distinguish being from having.", "Conjugate être and avoir in context.", "Use ne...pas and de after negated avoir."],
+      "why_it_matters": "Meaning determines the verb, and accurate verb choice is essential for natural French.",
+      "vocabulary": [
+        {"term": "être", "definition": "to be"},
+        {"term": "avoir", "definition": "to have"},
+        {"term": "meaning cue", "definition": "the idea in a sentence that tells which verb belongs"},
+        {"term": "conjugate", "definition": "change the verb form to match the subject"},
+        {"term": "negation", "definition": "ne...pas or n'...pas"},
+        {"term": "de after negation", "definition": "in many have sentences, un, une, or des becomes de after ne...pas"}
+      ],
+      "written_instruction": "Être describes being, state, or identity. Avoir expresses having or possession and appears in common expressions. Choose the verb by meaning, match it to the subject, then form any required negation.",
+      "worked_examples": [
+        {"title": "State", "problem": "We are ready.", "solution": "Nous sommes prêts.", "explanation": "Being ready is a state, so use être."},
+        {"title": "Possession", "problem": "They have two books.", "solution": "Ils ont deux livres.", "explanation": "Having books is possession, so use avoir."},
+        {"title": "Negative possession", "problem": "J'ai un crayon.", "solution": "Je n'ai pas de crayon.", "explanation": "Use n' before ai and de after the negated avoir expression."}
+      ],
+      "guided_practice": [
+        {"id": "fr-g1", "prompt": "Choose être or avoir, then conjugate: Tu ___ fatigué aujourd'hui."},
+        {"id": "fr-g2", "prompt": "Choose être or avoir, then conjugate: Nous ___ trois cahiers."},
+        {"id": "fr-g3", "prompt": "Choose être or avoir, then conjugate: Elles ___ contentes."},
+        {"id": "fr-g4", "prompt": "Choose être or avoir, then conjugate: Il ___ un chien."},
+        {"id": "fr-g5", "prompt": "Make negative: J'ai un stylo."},
+        {"id": "fr-g6", "prompt": "Make negative: Nous sommes en retard."}
+      ],
+      "independent_practice": [
+        {"id": "fr-i1", "prompt": "Answer in a complete French sentence: Est-ce que tu as des devoirs aujourd'hui?"},
+        {"id": "fr-i2", "prompt": "Answer in a complete French sentence: Est-ce que tu es prêt pour les maths?"},
+        {"id": "fr-i3", "prompt": "Say six short sentences: three with être and three with avoir, including at least two negative sentences."}
+      ],
+      "exit_ticket": [
+        {"id": "fr-e1", "prompt": "Correct the sentence: Ils sont deux livres.", "answer": "Ils ont deux livres.", "rubric": "Choose avoir by meaning and use the correct ils form."}
+      ],
+      "mastery_threshold": 75,
+      "materials": ["Tuesday packet"],
+      "estimated_minutes": 40,
+      "voice_prompt": "Teach the meaning difference before conjugation: ÊTRE describes being, state, or identity; AVOIR expresses having or possessing and appears in common expressions. Repair Monday's error 'Ils sont deux livres' by asking whether the sentence means 'they ARE two books' or 'they HAVE two books.' Then model Nous sommes prêts, Ils ont deux livres, and Je n'ai pas de crayon. Keep French natural and continuing-level. Ask Atticus to say each sentence before writing it.",
+      "teacher_notes": "",
+      "answer_key": {"fr-g1": "es", "fr-g2": "avons", "fr-g3": "sont", "fr-g4": "a", "fr-g5": "Je n'ai pas de stylo.", "fr-g6": "Nous ne sommes pas en retard."},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-01-mathematics",
+      "date": "2026-09-01",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "mathematics",
+      "course": "Grade 6 Mathematics",
+      "unit_id": "math-ratios",
+      "unit_title": "Ratios and Equivalent Ratios",
+      "lesson_number": 3,
+      "lesson_title": "Equivalent ratios and ratio tables",
+      "standards": ["6.RP.A.1", "6.RP.A.3"],
+      "previous_learning": "Monday showed understanding of ratio meaning, but inconsistent scale factors in ratio tables.",
+      "course_context": "Strengthen equivalent-ratio reasoning before introducing unit rates.",
+      "learning_objectives": ["Apply one scale factor to both quantities.", "Complete ratio tables.", "Test ratios for equivalence.", "Distinguish part-to-part from part-to-whole."],
+      "why_it_matters": "Equivalent ratios preserve one relationship and support later work with unit rates, percent, and scale.",
+      "vocabulary": [
+        {"term": "ratio", "definition": "a comparison of two quantities in a stated order"},
+        {"term": "equivalent ratios", "definition": "ratios that describe the same comparison"},
+        {"term": "scale factor", "definition": "the multiplier or divisor applied to both quantities"},
+        {"term": "ratio table", "definition": "a table of equivalent ratio pairs"},
+        {"term": "double number line", "definition": "two aligned number lines showing matching equivalent quantities"},
+        {"term": "simplest form", "definition": "a ratio divided so both numbers are as small as possible"}
+      ],
+      "written_instruction": "Use one invariant rule: whatever multiplier or divisor is applied to the first quantity must also be applied to the second quantity. Keep ratio quantities aligned in tables.",
+      "worked_examples": [
+        {"title": "Double both quantities", "problem": "2:5 with scale factor 2", "solution": "4:10", "explanation": "Multiply both 2 and 5 by 2."},
+        {"title": "Triple both quantities", "problem": "2:5 with scale factor 3", "solution": "6:15", "explanation": "The same factor must be used on both numbers, so 6:20 is not equivalent."},
+        {"title": "Apply a context scale factor", "problem": "5 cups cereal to 2 cups nuts; find nuts for 15 cups cereal", "solution": "6 cups nuts", "explanation": "Multiply 5 by 3 to reach 15, then multiply 2 by 3."}
+      ],
+      "guided_practice": [
+        {"id": "math-g1", "prompt": "Complete the ratio table for 3 red beads to 4 blue beads: 3:4, 6:__, 9:__, 12:__. State each scale factor."},
+        {"id": "math-g2", "prompt": "A set has 5 notebooks for every 2 folders. If there are 15 notebooks, how many folders? Show the scale factor."},
+        {"id": "math-g3", "prompt": "Are 4:6 and 10:15 equivalent? Simplify both ratios and compare."},
+        {"id": "math-g4", "prompt": "A recipe uses 2 cups rice for 3 cups water. Complete 2:3, 4:__, 6:__, 8:__, then explain the pattern."}
+      ],
+      "independent_practice": [
+        {"id": "math-i1", "prompt": "Complete the table for 4 blue tiles to 7 white tiles: 4:7, 8:__, 12:__, 20:__. Show each scale factor."},
+        {"id": "math-i2", "prompt": "A mixture uses 3 scoops powder for every 8 cups water. If 24 cups water are used, how many scoops are needed?"},
+        {"id": "math-i3", "prompt": "A map key uses 2 cm for every 15 km. Complete: 4 cm to __ km; 6 cm to __ km; 10 cm to __ km."},
+        {"id": "math-i4", "prompt": "Are 6:9 and 14:21 equivalent? Simplify both ratios and explain."},
+        {"id": "math-i5", "prompt": "A class has 12 students wearing sneakers and 8 wearing other shoes. Write sneakers:other and sneakers:total in simplest form."}
+      ],
+      "exit_ticket": [
+        {"id": "math-e1", "prompt": "Complete 5:8 = 15:__ and state the scale factor.", "answer": "24, scale factor 3."},
+        {"id": "math-e2", "prompt": "A drink mix uses 2 parts concentrate for 7 parts water. If 21 parts water are used, how many parts concentrate are needed?", "answer": "6 parts concentrate."},
+        {"id": "math-e3", "prompt": "Explain why 3:5 and 9:20 are not equivalent.", "answer": "No single scale factor changes both quantities; 3/5 is 0.6 while 9/20 is 0.45."}
+      ],
+      "mastery_threshold": 75,
+      "materials": ["Tuesday packet", "Grid paper", "Pencil"],
+      "estimated_minutes": 60,
+      "voice_prompt": "Monday showed that Atticus understands what a ratio is but does not yet preserve the same scale factor reliably in ratio tables. Do NOT introduce unit rate yet. Teach one invariant rule: whatever multiplier or divisor is applied to the first quantity must also be applied to the second quantity. Use 2 notebooks : 5 pencils and build 2:5, 4:10, 6:15, 8:20. Then revisit 5 cereal : 2 nuts so 15 cereal means multiply both by 3, giving 6 nuts. Use grid paper for tables and aligned work. Work three complete examples before independent practice.",
+      "teacher_notes": "Do not advance to unit rate until the ratio exit ticket and ratio-table scaling are secure.",
+      "answer_key": {"math-g1": "6:8, 9:12, 12:16", "math-g2": "6 folders", "math-g3": "Yes; both simplify to 2:3.", "math-g4": "4:6, 6:9, 8:12", "math-i1": "8:14, 12:21, 20:35", "math-i2": "9 scoops", "math-i3": "30 km, 45 km, 75 km", "math-i4": "Yes; both simplify to 2:3.", "math-i5": "3:2 and 3:5"},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-01-history_geography",
+      "date": "2026-09-01",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "history_geography",
+      "course": "Grade 6 History & Geography",
+      "unit_id": "hist-greece",
+      "unit_title": "Ancient Greece",
+      "lesson_number": 4,
+      "lesson_title": "Culturally connected versus politically unified",
+      "standards": ["C3.D2.His.2.6-8"],
+      "previous_learning": "Monday's Athens and Sparta comparison was mostly understood, but the distinction between shared culture and one government needs explicit repair.",
+      "course_context": "Clarify how Greek poleis shared culture while governing themselves independently.",
+      "learning_objectives": ["Define cultural connection.", "Define political unity.", "Use Athens and Sparta as evidence.", "Explain why shared culture can coexist with rivalry."],
+      "why_it_matters": "Shared identity does not necessarily mean shared government.",
+      "vocabulary": [
+        {"term": "culturally connected", "definition": "sharing language, religion, customs, stories, festivals, or other cultural practices"},
+        {"term": "politically unified", "definition": "governed together under one political system or central authority"},
+        {"term": "polis", "definition": "an independent Greek city-state and its surrounding territory"},
+        {"term": "independent", "definition": "governing itself"},
+        {"term": "shared identity", "definition": "a sense of belonging created by common culture or traditions"},
+        {"term": "rivalry", "definition": "competition or conflict between groups"}
+      ],
+      "written_instruction": "Greek poleis often shared language, religious stories, sanctuaries, festivals, and athletic contests. Yet each polis could make its own laws, organize its own government, train its own soldiers, and compete with neighboring poleis. Athens and Sparta were both Greek but developed different political institutions and social priorities.",
+      "worked_examples": [
+        {"title": "Shared culture, separate government", "problem": "Athens and Sparta participated in Greek religious traditions but had their own governments.", "solution": "Culturally connected, not politically unified.", "explanation": "Shared traditions are cultural evidence; separate laws and governments show political independence."}
+      ],
+      "guided_practice": [
+        {"id": "hist-g1", "prompt": "Give two examples of cultural connections Greek poleis could share."},
+        {"id": "hist-g2", "prompt": "Give two examples of political decisions a polis could control for itself."},
+        {"id": "hist-g3", "prompt": "Why does sharing the same gods or festivals not prove Athens and Sparta had one government?"},
+        {"id": "hist-g4", "prompt": "Complete accurately: Athens and Sparta were culturally connected because ___, but politically independent because ___."},
+        {"id": "hist-g5", "prompt": "Why can culturally connected societies still become rivals? Use one plausible reason from the Greek polis context."}
+      ],
+      "independent_practice": [],
+      "exit_ticket": [
+        {"id": "hist-e1", "prompt": "In three sentences: define culturally connected, define politically unified, and explain which description best fits Athens and Sparta and why.", "answer": "Culturally connected societies share traditions such as language, religion, or festivals. Politically unified societies share one governing system. Athens and Sparta were culturally connected but politically independent because they shared Greek culture while maintaining separate governments and laws.", "rubric": "Include both definitions and apply the distinction accurately to Athens and Sparta."}
+      ],
+      "mastery_threshold": 75,
+      "materials": ["Tuesday packet"],
+      "estimated_minutes": 45,
+      "voice_prompt": "Start by answering Atticus's Monday closeout question directly: culturally connected means groups share culture; politically unified means they are governed together by one political system. Use a modern analogy that does not distort history: different independent countries may share a language or cultural tradition without sharing one government. Then return to Athens and Sparta. Explicitly show: shared Greek language, religion, and festivals equal cultural connection; separate governments and laws equal political independence. Ask self-contained comparison questions.",
+      "teacher_notes": "",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-01-science",
+      "date": "2026-09-01",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "science",
+      "course": "Grade 6 Science",
+      "unit_id": "sci-light",
+      "unit_title": "Light and Matter",
+      "lesson_number": 5,
+      "lesson_title": "Reflection, absorption, transmission, and color",
+      "standards": ["MS-PS4-2"],
+      "previous_learning": "Monday showed much stronger classification of transparent, translucent, and opaque materials.",
+      "course_context": "Move from material classification to the main ways light interacts with matter.",
+      "learning_objectives": ["Distinguish reflection, absorption, and transmission.", "Retain the image-clarity test.", "Explain object color using reflected light."],
+      "why_it_matters": "Light-matter interactions explain visibility, color, heating, and material behavior.",
+      "vocabulary": [
+        {"term": "reflect", "definition": "bounce light away from a surface"},
+        {"term": "absorb", "definition": "take in light energy"},
+        {"term": "transmit", "definition": "let light pass through"},
+        {"term": "scatter", "definition": "redirect light in many directions"},
+        {"term": "wavelength", "definition": "a property of light related to color"},
+        {"term": "visible light", "definition": "the part of light humans can see"}
+      ],
+      "written_instruction": "When light hits matter, some light may be reflected, absorbed, or transmitted. Under white light, an object appears a color because light of those reflected wavelengths reaches the eye; other visible wavelengths may be absorbed. An object does not contain its color.",
+      "worked_examples": [
+        {"title": "Transmission", "problem": "Clear glass", "solution": "Much visible light is transmitted.", "explanation": "Transmitted light allows you to see through the glass."},
+        {"title": "Absorption", "problem": "Black paper", "solution": "Much visible light is absorbed.", "explanation": "Little light is reflected to the eye."},
+        {"title": "Reflection and color", "problem": "A red object under white light", "solution": "More red light is reflected toward the eyes.", "explanation": "Much of the other visible light is absorbed."}
+      ],
+      "guided_practice": [
+        {"id": "sci-g1", "prompt": "A mirror looks bright because it bounces much of the light that hits it. Which interaction is most important: reflection, absorption, or transmission?"},
+        {"id": "sci-g2", "prompt": "A black shirt warms in sunlight partly because it takes in light energy. Which interaction is described?"},
+        {"id": "sci-g3", "prompt": "A clear window lets light from outside reach your eyes through the glass. Which interaction allows this?"},
+        {"id": "sci-g4", "prompt": "Why does saying wax paper transmits light not automatically mean wax paper is transparent?"},
+        {"id": "sci-g5", "prompt": "Under white light, why can a red book look red to your eyes?"}
+      ],
+      "independent_practice": [],
+      "exit_ticket": [
+        {"id": "sci-e1", "prompt": "Name the three main light-matter interactions in today's lesson.", "answer": "Reflection, absorption, and transmission."},
+        {"id": "sci-e2", "prompt": "In one sentence, explain why a red object can appear red under white light.", "answer": "The object reflects more red light toward the eyes while absorbing much of the other visible light."}
+      ],
+      "mastery_threshold": 75,
+      "materials": ["Tuesday packet"],
+      "estimated_minutes": 40,
+      "voice_prompt": "Monday showed that material classification is now much stronger. Begin with a three-minute check: transparent versus translucent depends on image clarity and scattering, not just whether light passes. Then move forward: when light hits matter, some may be reflected, absorbed, or transmitted. Introduce color at a simple Grade 6 level: an object appears a color because the light reaching the eye contains wavelengths reflected from the object; other visible wavelengths may be absorbed. Avoid saying an object 'contains' its color. Use familiar examples like a red folder under white light.",
+      "teacher_notes": "",
+      "answer_key": {"sci-g1": "reflection", "sci-g2": "absorption", "sci-g3": "transmission"},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-01-literature",
+      "date": "2026-09-01",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "literature",
+      "course": "Grade 6 Literature / Reading",
+      "unit_id": "lit-fiction",
+      "unit_title": "Fiction: Character, Inference, Theme",
+      "lesson_number": 6,
+      "lesson_title": "Motivation, theme, and relevant evidence",
+      "standards": ["RL.6.1", "RL.6.2", "RL.6.3"],
+      "previous_learning": "Monday showed good literal comprehension but weaker explanations of character motivation and evidence for theme.",
+      "course_context": "Strengthen why-based character inference and select evidence that directly proves an interpretation.",
+      "learning_objectives": ["Infer motivation from details.", "Distinguish motivation from theme.", "Select relevant evidence.", "Write an objective summary."],
+      "why_it_matters": "Strong literary analysis explains why characters act and uses evidence that directly supports a transferable idea.",
+      "vocabulary": [
+        {"term": "motivation", "definition": "the reason a character wants or chooses something"},
+        {"term": "inference", "definition": "a conclusion based on evidence plus reasoning"},
+        {"term": "theme", "definition": "a complete message about life, choices, or human experience"},
+        {"term": "evidence", "definition": "a specific detail that supports an interpretation"},
+        {"term": "relevant evidence", "definition": "evidence that directly helps prove the idea"},
+        {"term": "objective summary", "definition": "a brief account of main events without opinion"}
+      ],
+      "written_instruction": "Read “The Unsent Message.” Nora completed the robotics club's registration email but forgot to press Send. On Monday she considered blaming a technical failure so she would not have to admit the mistake. Instead, she showed Luis the saved draft and admitted what happened. They contacted the organizers with the time-stamped draft, and the club was allowed to register. The club then created a two-person confirmation process for important submissions. When Nora wondered whether Luis no longer trusted her, he explained that the checklist was for everyone.",
+      "worked_examples": [
+        {"title": "Motivation", "problem": "A character considers blaming a technical failure instead of admitting a mistake.", "solution": "The character may want to avoid embarrassment or blame.", "explanation": "Motivation answers why the character considers the action."},
+        {"title": "Relevant theme evidence", "problem": "Choose between the initial mistake and the later admission plus system change.", "solution": "The admission and system change are stronger.", "explanation": "Those actions directly show responsibility, learning, and rebuilding trust."}
+      ],
+      "guided_practice": [
+        {"id": "lit-g1", "prompt": "What mistake did Nora make before Monday morning?"},
+        {"id": "lit-g2", "prompt": "Nora considers blaming a technical failure. What is her likely motivation, and which detail supports your inference?"},
+        {"id": "lit-g3", "prompt": "What does Nora ultimately do instead, and what does that choice reveal about her character?"},
+        {"id": "lit-g4", "prompt": "Why is the time-stamped draft important to the plot?"}
+      ],
+      "independent_practice": [
+        {"id": "lit-i1", "prompt": "Write a universal theme statement about responsibility, trust, or systems without using a character's name."},
+        {"id": "lit-i2", "prompt": "Give two pieces of evidence that directly support your theme. Explain what each detail proves."},
+        {"id": "lit-i3", "prompt": "Which is stronger evidence for a theme about responsibility: Nora forgot to press Send, or Nora admitted the mistake and helped create a two-person confirmation system? Explain."},
+        {"id": "lit-i4", "prompt": "Write a three-sentence objective summary of “The Unsent Message.”"}
+      ],
+      "exit_ticket": [
+        {"id": "lit-e1", "prompt": "Explain the difference between a character's motivation and a story's theme.", "answer": "Motivation is the reason a character acts, while theme is a transferable message the story develops about life, choices, or people.", "rubric": "Accurately define and distinguish both concepts."}
+      ],
+      "mastery_threshold": 75,
+      "materials": ["Tuesday packet"],
+      "estimated_minutes": 45,
+      "voice_prompt": "Monday showed good literal comprehension but weaker motivation and theme evidence. Explicitly repair 'he has no motivation whatsoever': Malik was motivated to avoid embarrassment, blame, or delay. Teach that motivation answers WHY a character considers an action. Then teach evidence quality: 'Malik lost the key' alone does not strongly prove a theme about responsibility; his admission, the team's spare-key system, and the checklist changes are stronger evidence. Model one unrelated example before today's story.",
+      "teacher_notes": "Do not supply a theme; require Atticus to support his own theme with direct evidence.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-01-computer_science",
+      "date": "2026-09-01",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "computer_science",
+      "course": "Grade 6 Computer Science / AI",
+      "unit_id": "cs-ai-ml",
+      "unit_title": "Machine Learning Evaluation",
+      "lesson_number": 7,
+      "lesson_title": "Training, testing, and generalization",
+      "standards": ["CSTA-2-DA-09"],
+      "previous_learning": "Monday showed that confidence and correctness still need precision and that repeated nearly identical examples were confused with varied training data.",
+      "course_context": "Distinguish data used to fit a model from data used to evaluate it, and introduce overfitting.",
+      "learning_objectives": ["Distinguish training data from test data.", "Explain generalization.", "Recognize narrow overfitting.", "Interpret confidence with correctness."],
+      "why_it_matters": "A useful model must work on new examples, not just memorize familiar training patterns.",
+      "vocabulary": [
+        {"term": "training data", "definition": "examples used to fit or teach a model"},
+        {"term": "test data", "definition": "new examples used to evaluate a model after training"},
+        {"term": "generalization", "definition": "working well on new examples or conditions"},
+        {"term": "confidence", "definition": "how strongly the model matches an input to a learned class"},
+        {"term": "correctness", "definition": "whether the prediction is actually right"},
+        {"term": "overfitting", "definition": "performing well on familiar training patterns but poorly on new ones"}
+      ],
+      "written_instruction": "Training data teaches the model; separate test data evaluates it. Repeated nearly identical examples can encourage a model to learn a narrow background or angle instead of the broader category. Varied representative training examples usually support better generalization.",
+      "worked_examples": [
+        {"title": "Narrow training", "problem": "Thirty nearly identical cup photos", "solution": "High overfitting risk", "explanation": "The model may learn the white table or one camera angle instead of the broader idea of a cup."},
+        {"title": "Varied training", "problem": "Cup photos with different angles, distances, and backgrounds", "solution": "Better chance to generalize", "explanation": "The model sees more of the ways a cup can appear."}
+      ],
+      "guided_practice": [
+        {"id": "cs-g1", "prompt": "Which is training data: examples used to teach a model, or new examples used afterward to evaluate it?"},
+        {"id": "cs-g2", "prompt": "Why can 30 nearly identical cup photos be less useful for generalization than 30 varied cup photos?"},
+        {"id": "cs-g3", "prompt": "A model predicts CUP for an actual BOOK with 99% confidence. State the prediction, actual object, correctness, and what 99% does and does not mean."},
+        {"id": "cs-g4", "prompt": "A classifier is perfect on training images but makes many mistakes on new backgrounds. What problem might this suggest?"}
+      ],
+      "independent_practice": [],
+      "exit_ticket": [
+        {"id": "cs-e1", "prompt": "Define generalization in your own words.", "answer": "Generalization means performing well on new examples or conditions not seen exactly during training."},
+        {"id": "cs-e2", "prompt": "Explain one difference between training data and test data.", "answer": "Training data is used to fit or teach the model; separate test data is used afterward to evaluate its performance."},
+        {"id": "cs-e3", "prompt": "Name one way to reduce the risk that a simple image classifier learns only the background.", "answer": "Use varied backgrounds and representative examples during training."}
+      ],
+      "mastery_threshold": 75,
+      "materials": ["Tuesday packet"],
+      "estimated_minutes": 35,
+      "voice_prompt": "Monday showed that Atticus still needs the difference between varied training data and repeated nearly identical examples. Teach training versus testing and a simple idea of overfitting. Use an example: 30 cup photos from the same angle and background may let the model memorize a narrow pattern; varied angles and backgrounds are more likely to help generalization. Re-emphasize that confidence must be interpreted together with correctness. Ask questions that always state the actual object, prediction, and confidence when relevant.",
+      "teacher_notes": "Do not add more machine-learning vocabulary if training, testing, and generalization remain unclear.",
+      "answer_key": {"cs-g1": "The examples used to teach the model.", "cs-g3": "Prediction CUP; actual BOOK; incorrect; 99% is strong model preference, not a guarantee.", "cs-g4": "Overfitting or narrow training."},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-01-art_design",
+      "date": "2026-09-01",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "art_design",
+      "course": "Grade 6 Art / Design",
+      "unit_id": "art-visual",
+      "unit_title": "Visual Communication",
+      "lesson_number": 8,
+      "lesson_title": "Complete the visual explainer",
+      "standards": ["NCAS-Cr2.1.6a"],
+      "previous_learning": "Monday produced a plan for a transparent, translucent, and opaque materials explainer.",
+      "course_context": "Turn the approved plan into a finished, scientifically accurate portfolio piece.",
+      "learning_objectives": ["Create deliberate visual hierarchy.", "Use accurate annotations.", "Compare three material categories visually.", "Write a concise explanatory caption."],
+      "why_it_matters": "A strong visual explainer combines accurate content with a composition that guides the viewer.",
+      "vocabulary": [
+        {"term": "visual hierarchy", "definition": "the order in which a viewer notices information"},
+        {"term": "annotation", "definition": "a label or note that explains part of a visual"},
+        {"term": "contrast", "definition": "a difference that helps important information stand out"},
+        {"term": "composition", "definition": "the arrangement of visual elements"},
+        {"term": "caption", "definition": "brief text that explains a visual"}
+      ],
+      "written_instruction": "Create the final piece titled “Transparent, Translucent, Opaque.” Show one flashlight or light source across three materials, label clear image, blurry image, and blocked visible light, use deliberate size or contrast, and add a two- to three-sentence caption using transmit and scatter.",
+      "worked_examples": [
+        {"title": "Scientific visual comparison", "problem": "Show how three materials affect one light source.", "solution": "Keep the light source consistent and vary the material and resulting image clarity.", "explanation": "A controlled visual comparison makes the science easy to understand."}
+      ],
+      "guided_practice": [
+        {"id": "art-g1", "prompt": "What should the viewer notice first in your final explainer?"},
+        {"id": "art-g2", "prompt": "How will size or contrast separate the three material categories?"}
+      ],
+      "independent_practice": [
+        {"id": "art-i1", "prompt": "Create the final one-page visual explainer with the required title, central light-source diagram, three or more annotations, clear visual hierarchy, and a two- to three-sentence scientifically accurate caption."}
+      ],
+      "exit_ticket": [
+        {"id": "art-e1", "prompt": "Explain one design choice that helps a viewer compare transparent, translucent, and opaque materials.", "answer": "Answers vary; the explanation should identify a deliberate hierarchy, contrast, alignment, or annotation choice that improves comparison.", "rubric": "Name the design choice and explain its effect on the viewer."}
+      ],
+      "mastery_threshold": 75,
+      "materials": ["Tuesday packet", "Grid or blank paper", "Pencil", "Markers"],
+      "estimated_minutes": 25,
+      "voice_prompt": "Atticus already planned a visual explainer on transparent, translucent, and opaque materials. Today he must create the FINAL piece, not another plan. Use his plan: a flashlight shining through three materials, with labels explaining clear image, blurry image, and no transmitted visible light. Ask him what the viewer should notice first, then let him design it. Require scientific accuracy: translucent transmits some light but scatters it; opaque does not transmit visible light. Do not design it for him.",
+      "teacher_notes": "",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-import type { LessonView, ScheduleView } from "./types";
+import type { AnswerSupport, LessonView, ScheduleView } from "./types";
 
 const API_BASE = "";
 
@@ -42,6 +42,11 @@ export const api = {
     request<ScheduleView>(`/api/schedule/today${date ? `?date=${encodeURIComponent(date)}` : ""}`),
   currentLesson: (subject?: string) =>
     request<LessonView | null>(`/api/lessons/current${subject ? `/${encodeURIComponent(subject)}` : ""}`),
+  selectLesson: (lesson_id: string) =>
+    request<LessonView>("/api/lessons/select", {
+      method: "POST",
+      body: JSON.stringify({ lesson_id }),
+    }),
   studentSnapshot: () => request("/api/student/snapshot"),
   previousFeedback: (subject: string) =>
     request(`/api/feedback/previous/${encodeURIComponent(subject)}`),
@@ -73,7 +78,7 @@ export const api = {
       }),
     workedExamples: (lessonId: string) => request(`/api/tools/worked-examples/${encodeURIComponent(lessonId)}`),
     answerSupport: (lessonId: string, itemId: string) =>
-      request(`/api/tools/answer-support/${encodeURIComponent(lessonId)}/${encodeURIComponent(itemId)}`),
+      request<AnswerSupport>(`/api/tools/answer-support/${encodeURIComponent(lessonId)}/${encodeURIComponent(itemId)}`),
     assignment: (assignmentId: string) => request(`/api/tools/assignment/${encodeURIComponent(assignmentId)}`),
   },
 };
