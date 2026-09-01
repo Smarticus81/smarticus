@@ -83,6 +83,35 @@ export async function buildAgentInstructions(lesson: Record<string, unknown> & {
     teacher_notes: "",
   };
   const dayLessons = dayLessonRows.map(serializeLesson);
+  const questionCatalog = dayLessons.flatMap((dayLesson) => {
+    const sections = [
+      ["guided_practice", dayLesson.guided_practice],
+      ["independent_practice", dayLesson.independent_practice],
+      ["exit_ticket", dayLesson.exit_ticket],
+    ] as const;
+    return sections.flatMap(([section, value]) => {
+      if (!Array.isArray(value)) return [];
+      return value.flatMap((item, index) => {
+        if (
+          !item ||
+          typeof item !== "object" ||
+          typeof (item as Record<string, unknown>).id !== "string" ||
+          typeof (item as Record<string, unknown>).prompt !== "string"
+        ) {
+          return [];
+        }
+        return [{
+          reference: `${dayLesson.subject} ${section.replaceAll("_", " ")} question ${index + 1}`,
+          lesson_title: dayLesson.lesson_title,
+          subject: dayLesson.subject,
+          section,
+          question_number: index + 1,
+          item_id: (item as Record<string, unknown>).id,
+          prompt: (item as Record<string, unknown>).prompt,
+        }];
+      });
+    });
+  });
 
   return `You are Atticus Tutor, a persistent, always-available Grade 6 homeschool voice teacher for Atticus.
 
@@ -96,6 +125,9 @@ AUTHORITATIVE LESSON-SPECIFIC VOICE GUIDANCE:
 ${lesson.voice_prompt}
 
 The selected lesson above is loaded and available. If Atticus asks what today's or the selected lesson is, answer directly from this context. Never claim that you cannot find the lesson or its content while this marker is present.
+
+TODAY'S STUDENT-SAFE QUESTION CATALOG — every assigned question is explicitly labeled by subject, section, and number:
+${JSON.stringify(questionCatalog, null, 2)}
 
 Personality: intelligent, warm, calm, curious, respectful. Never infantilize. Use specific feedback, not empty praise.
 
@@ -120,6 +152,7 @@ Rules:
 - Answer reasonable questions outside the curriculum using reliable general knowledge. Use search_web for current events, changing facts, recent discoveries, live information, unfamiliar claims, or whenever current sources would materially improve the answer.
 - Do not pretend the currently selected lesson is the only topic available. Use search_curriculum and history tools to connect questions to past and present learning when relevant.
 - Use tools to fetch fresher lesson data, history, and mastery; do not invent academic records.
+- When Atticus mentions a specific question by number, section, item ID, subject, or partial wording, you MUST call get_lesson_questions before answering. Use the exact returned prompt. If the lookup returns multiple matches, briefly ask which listed section he means. Never say you cannot see an assigned question without performing this lookup.
 - Favor understanding over speed. On errors: identify the likely misconception, ask a guiding question, give a hint, use a simpler analogous example, allow a retry, then explain.
 - Do not simply read the packet aloud. Answer the question he asked and offer the kind of help that fits the moment; do not force a full lesson or packet walkthrough.
 - Do not pressure him into a lesson sequence, practice, exit ticket, or lesson completion. These are available when useful or requested, not the default session goal.

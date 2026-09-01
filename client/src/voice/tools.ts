@@ -2,6 +2,7 @@ import { tool } from "@openai/agents";
 import { z } from "zod";
 import { api } from "../lib/api";
 import { SubjectEnum } from "../../../shared/schemas/lesson";
+import { QuestionSectionEnum } from "../../../shared/schemas/api";
 
 export function createTutorTools(lessonId: string) {
   return [
@@ -16,6 +17,23 @@ export function createTutorTools(lessonId: string) {
       description: "Get the current student-safe lesson context, optionally filtered by subject.",
       parameters: z.object({ subject: SubjectEnum.nullable() }),
       execute: async ({ subject }) => api.currentLesson(subject ?? undefined),
+    }),
+    tool({
+      name: "get_lesson_questions",
+      description:
+        "Resolve the exact text of any guided-practice, independent-practice, or exit-ticket question in the selected lesson or elsewhere in the selected lesson's day. You MUST call this whenever the student refers to a question by number, item id, section, subject, or partial wording. If multiple matches return, ask which returned section they mean; never claim the question is unavailable.",
+      parameters: z.object({
+        subject: SubjectEnum.nullable(),
+        section: QuestionSectionEnum.nullable(),
+        question_number: z.number().int().positive().nullable(),
+        item_id: z.string().nullable(),
+        query: z.string().nullable(),
+      }),
+      execute: async (lookup) =>
+        api.tool.lessonQuestions({
+          lesson_id: lessonId,
+          ...lookup,
+        }),
     }),
     tool({
       name: "get_student_snapshot",

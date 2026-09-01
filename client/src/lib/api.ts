@@ -79,6 +79,11 @@ export const api = {
     workedExamples: (lessonId: string) => request(`/api/tools/worked-examples/${encodeURIComponent(lessonId)}`),
     answerSupport: (lessonId: string, itemId: string) =>
       request<AnswerSupport>(`/api/tools/answer-support/${encodeURIComponent(lessonId)}/${encodeURIComponent(itemId)}`),
+    lessonQuestions: (body: unknown) =>
+      request("/api/lessons/questions", {
+        method: "POST",
+        body: JSON.stringify(body),
+      }),
     assignment: (assignmentId: string) => request(`/api/tools/assignment/${encodeURIComponent(assignmentId)}`),
   },
 };

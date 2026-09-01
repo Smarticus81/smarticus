@@ -6,6 +6,7 @@ import {
   getStudentSnapshot,
   getPreviousLessonFeedback,
   getMasteryState,
+  getLessonQuestionCatalog,
   selectCurrentLesson,
 } from "../services/academic.js";
 import {
@@ -32,6 +33,7 @@ import {
   SubjectParamsSchema,
   OptionalSubjectParamsSchema,
   MasteryQuerySchema,
+  LessonQuestionLookupSchema,
 } from "../../shared/schemas/api.js";
 import { searchVectorStore, searchWeb } from "../lib/openai.js";
 import { log } from "../lib/logger.js";
@@ -84,6 +86,22 @@ apiRouter.post(
     const lesson = await selectCurrentLesson(lesson_id);
     if (!lesson) return res.status(404).json({ error: "Lesson not found" });
     res.json(lesson);
+  }),
+);
+
+apiRouter.post(
+  "/lessons/questions",
+  asyncHandler(async (req, res) => {
+    const lookup = LessonQuestionLookupSchema.parse(req.body);
+    const result = await getLessonQuestionCatalog(lookup);
+    if (!result) return res.status(404).json({ error: "Lesson not found" });
+    log({
+      message: "Lesson question lookup",
+      requestId: req.ctx.requestId,
+      lessonId: lookup.lesson_id,
+      resultCount: result.count,
+    });
+    res.json(result);
   }),
 );
 

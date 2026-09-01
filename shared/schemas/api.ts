@@ -53,6 +53,21 @@ export const ClientSecretRequestSchema = z.object({
 
 export const LessonActionSchema = ClientSecretRequestSchema;
 
+export const QuestionSectionEnum = z.enum([
+  "guided_practice",
+  "independent_practice",
+  "exit_ticket",
+]);
+
+export const LessonQuestionLookupSchema = z.object({
+  lesson_id: IdSchema,
+  subject: SubjectEnum.nullable(),
+  section: QuestionSectionEnum.nullable(),
+  question_number: z.number().int().positive().nullable(),
+  item_id: IdSchema.nullable(),
+  query: z.string().trim().min(1).max(500).nullable(),
+}).strict();
+
 const DateStringSchema = z
   .string()
   .regex(/^\d{4}-\d{2}-\d{2}$/)

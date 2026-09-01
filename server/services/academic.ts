@@ -66,6 +66,111 @@ export async function selectCurrentLesson(lessonId: string) {
   return lesson;
 }
 
+type QuestionSection =
+  | "guided_practice"
+  | "independent_practice"
+  | "exit_ticket";
+
+type QuestionLookup = {
+  lesson_id: string;
+  subject: Subject | null;
+  section: QuestionSection | null;
+  question_number: number | null;
+  item_id: string | null;
+  query: string | null;
+};
+
+function questionItems(value: unknown) {
+  if (!Array.isArray(value)) return [];
+  return value.flatMap((item) => {
+    if (
+      !item ||
+      typeof item !== "object" ||
+      typeof (item as Record<string, unknown>).id !== "string" ||
+      typeof (item as Record<string, unknown>).prompt !== "string"
+    ) {
+      return [];
+    }
+    return [{
+      itemId: (item as Record<string, unknown>).id as string,
+      prompt: (item as Record<string, unknown>).prompt as string,
+    }];
+  });
+}
+
+export async function getLessonQuestionCatalog(params: QuestionLookup) {
+  const anchor = await prisma.lesson.findFirst({
+    where: { OR: [{ id: params.lesson_id }, { externalId: params.lesson_id }] },
+  });
+  if (!anchor) return null;
+
+  const dayLessons = await prisma.lesson.findMany({
+    where: {
+      date: anchor.date,
+      ...(params.subject ? { subject: params.subject } : {}),
+      ...(!params.subject && !params.query && !params.item_id
+        ? { id: anchor.id }
+        : {}),
+    },
+    orderBy: [{ lessonNumber: "asc" }],
+  });
+
+  const sections: Array<{
+    name: QuestionSection;
+    value: (lesson: (typeof dayLessons)[number]) => unknown;
+  }> = [
+    { name: "guided_practice", value: (lesson) => lesson.guidedPractice },
+    { name: "independent_practice", value: (lesson) => lesson.independentPractice },
+    { name: "exit_ticket", value: (lesson) => lesson.exitTicket },
+  ];
+
+  const normalizedQuery = params.query?.toLocaleLowerCase() ?? null;
+  const questions = dayLessons.flatMap((lesson) =>
+    sections.flatMap((section) => {
+      if (params.section && params.section !== section.name) return [];
+      return questionItems(section.value(lesson)).flatMap((item, index) => {
+        const questionNumber = index + 1;
+        if (
+          params.question_number &&
+          params.question_number !== questionNumber
+        ) {
+          return [];
+        }
+        if (params.item_id && params.item_id !== item.itemId) return [];
+        if (
+          normalizedQuery &&
+          !`${lesson.lessonTitle} ${lesson.subject} ${item.itemId} ${item.prompt}`
+            .toLocaleLowerCase()
+            .includes(normalizedQuery)
+        ) {
+          return [];
+        }
+        return [{
+          lessonId: lesson.id,
+          lessonExternalId: lesson.externalId,
+          lessonDate: formatDate(lesson.date),
+          subject: lesson.subject,
+          lessonTitle: lesson.lessonTitle,
+          section: section.name,
+          questionNumber,
+          itemId: item.itemId,
+          reference: `${lesson.subject} ${section.name.replaceAll("_", " ")} question ${questionNumber}`,
+          prompt: item.prompt,
+        }];
+      });
+    }),
+  );
+
+  return {
+    anchorLessonId: anchor.id,
+    anchorLessonTitle: anchor.lessonTitle,
+    date: formatDate(anchor.date),
+    count: questions.length,
+    ambiguous: questions.length > 1,
+    questions,
+  };
+}
+
 export async function getCurrentLesson(subject?: Subject) {
   const today = parseDate(formatDate(new Date()));
   const todayString = formatDate(today);
