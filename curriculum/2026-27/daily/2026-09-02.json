@@ -1,0 +1,652 @@
+{
+  "date": "2026-09-02",
+  "school_year": "2026-27",
+  "grade_level": 6,
+  "day_number": 7,
+  "school_day_label": "Wednesday, September 2, 2026",
+  "todays_goal": "Move forward where Tuesday showed readiness, while giving targeted repair only where the evidence still shows a gap.",
+  "lessons": [
+    {
+      "id": "2026-09-02-literature",
+      "date": "2026-09-02",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "literature",
+      "course": "Grade 6 Literature",
+      "unit_id": "literature-fiction-analysis",
+      "unit_title": "Fiction: Motivation, Inference, and Theme Evidence",
+      "lesson_number": 1,
+      "lesson_title": "Motivation and theme evidence",
+      "standards": ["RL.6.1", "RL.6.2", "RL.6.3"],
+      "previous_learning": "Tuesday showed good plot comprehension, while motivation and theme evidence still needed more precise reasoning.",
+      "course_context": "Analyze character motivation and explain how specific evidence supports an inference or universal theme.",
+      "learning_objectives": [
+        "Infer what a character wants to avoid, gain, protect, prove, or change.",
+        "Distinguish a character's motivation from the consequence of an action.",
+        "Write a universal theme statement.",
+        "Explain the significance of evidence instead of merely listing story events.",
+        "Write an objective summary."
+      ],
+      "why_it_matters": "Strong literary analysis connects a precise story detail to what it proves about a character, conflict, or theme.",
+      "vocabulary": [
+        {"term": "motivation", "definition": "the reason a character chooses an action"},
+        {"term": "inference", "definition": "a conclusion made from evidence plus reasoning"},
+        {"term": "consequence", "definition": "a result that follows from an action or event"},
+        {"term": "theme", "definition": "a complete message about life, people, or choices developed by a story"},
+        {"term": "evidence", "definition": "a specific detail that supports an interpretation"},
+        {"term": "significance", "definition": "what a detail proves or reveals"}
+      ],
+      "written_instruction": "Motivation is what a character wants to avoid, gain, protect, prove, or change. An event is not automatically evidence for a theme: the reader must explain what that event reveals. Original story — The Last Battery: On Wednesday afternoon, Nia's robotics group had exactly forty minutes left before the school showcase began. Their small rover could follow a black line across the floor, stop at a marker, and lift a plastic cube with a motorized arm. During the final test, the rover slowed halfway across the mat and stopped. The battery indicator blinked red. 'We have one charged battery left,' Tomas said. 'Use it now.' Nia looked at the spare battery on the table. Their teacher had warned the class to save one battery for the showcase itself. If they used the last charge during practice and something drained it, the rover might fail in front of visitors. 'We could skip the last test,' Nia said. Tomas shook his head. 'The arm hasn't lifted the cube correctly twice in a row. If we don't test it, we won't know whether the problem is the battery or the code.' Nia wanted the rover to look finished. She also did not want to risk discovering a new problem with only minutes left. She picked up the charged battery, then stopped. 'Let's test only the arm,' she said. 'We don't need to run the whole course.' They connected the battery and placed the rover beside the cube. The arm rose, paused, and then dropped the cube. 'Code,' Tomas said. Nia opened the program. One timing value had been changed from 1.2 seconds to 0.2 seconds. She corrected it, and the arm completed three successful lifts. The group removed the battery immediately. It still showed almost a full charge. At the showcase, the rover completed the course. Later, Tomas said, 'Good thing we didn't save the battery by saving the mistake.' Nia smiled. 'Good thing we didn't waste the battery either.'",
+      "worked_examples": [
+        {
+          "title": "Motivation",
+          "problem": "A student hides a low quiz score before a parent meeting.",
+          "solution": "The likely motivation is to avoid embarrassment or consequences.",
+          "explanation": "The student hiding the paper immediately after seeing the score is evidence of the motivation."
+        },
+        {
+          "title": "Evidence and significance",
+          "problem": "Theme claim: Asking for help can prevent a small problem from becoming larger.",
+          "solution": "Evidence: A character admits she cannot finish a task alone and the group completes it.",
+          "explanation": "The action shows that honesty about limits can lead to a better outcome."
+        }
+      ],
+      "guided_practice": [
+        {"id": "lit-g1", "prompt": "What problem does Nia's group face after the rover stops during the final test?", "hint": "Name both the rover problem and the time or battery constraint."},
+        {"id": "lit-g2", "prompt": "Nia says, 'We could skip the last test.' What TWO things is she trying to protect or avoid? Use the story.", "hint": "Consider the showcase and what could happen if a new problem appears."},
+        {"id": "lit-g3", "prompt": "Why does Tomas want to test the rover even though only one charged battery remains?", "hint": "What two possible causes does he need to distinguish?"},
+        {"id": "lit-g4", "prompt": "What compromise does Nia propose, and why is it a reasonable compromise?", "hint": "Explain how it balances testing with conserving the battery."},
+        {"id": "lit-g5", "prompt": "What does the 0.2-second timing error prove about the cause of the arm problem?", "hint": "Distinguish the code from the battery."}
+      ],
+      "independent_practice": [
+        {"id": "lit-i6", "prompt": "Write one universal theme statement. Do not use Nia's or Tomas's name."},
+        {"id": "lit-i7", "prompt": "Give TWO pieces of evidence that support your theme. After each piece, write one sentence explaining its significance."},
+        {"id": "lit-i8", "prompt": "Write a 3-sentence objective summary of 'The Last Battery.'"}
+      ],
+      "exit_ticket": [
+        {
+          "id": "lit-e1",
+          "prompt": "Explain the difference between a character's MOTIVATION and the CONSEQUENCE of the character's action. Use one example from today's story.",
+          "answer": "Motivation is the reason for a choice; consequence is the result that follows. Responses should accurately apply both ideas to Nia or Tomas.",
+          "rubric": "Clearly distinguish reason from result and support the explanation with one accurate example from 'The Last Battery.'"
+        }
+      ],
+      "mastery_threshold": 75,
+      "materials": ["Wednesday packet", "Pencil"],
+      "estimated_minutes": 50,
+      "voice_prompt": "Teach motivation as 'what the character wants to avoid, gain, protect, prove, or change.' Connect to Tuesday: Malik considered lying because he wanted to avoid embarrassment or blame and delaying the team. Then teach evidence quality: an event is not automatically evidence for a theme unless the student explains what the event reveals. Model two unrelated examples before Atticus reads. Do not give the story's theme. Ask self-contained questions that name the character and the exact action being discussed.",
+      "teacher_notes": "Accept a supported theme such as 'careful testing can prevent hidden problems' or 'responsibility includes balancing risk with preparation.' Motivation must name what Nia wants to avoid or protect. Evidence must include significance.",
+      "answer_key": {
+        "lit-g1": "The rover has stopped with a low battery, the arm has not worked reliably, only one charged battery remains, and the showcase starts soon.",
+        "lit-g2": "Nia wants to protect the last battery for the showcase and avoid discovering or having to repair another problem with very little time left.",
+        "lit-g3": "Tomas wants to determine whether the arm problem is caused by the weak battery or by the code before the public showcase.",
+        "lit-g4": "She proposes testing only the arm. This checks the uncertain part while using less of the final battery than running the full course.",
+        "lit-g5": "It proves that the arm failure was caused by an incorrect code timing value rather than the battery."
+      },
+      "source_references": ["Atticus_Grade6_Day7_Wednesday_Packet_2026-09-02.pdf"],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-02-french",
+      "date": "2026-09-02",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "french",
+      "course": "Grade 6 French",
+      "unit_id": "fr-core-verbs",
+      "unit_title": "High-Frequency Present Tense",
+      "lesson_number": 2,
+      "lesson_title": "Être, avoir, and negative de",
+      "standards": ["ACTFL-Interpersonal", "ACTFL-Presentational"],
+      "previous_learning": "Être and avoir meaning improved Tuesday, but 'elles sont contentes' and 'je n'ai pas de...' still need targeted repair.",
+      "course_context": "Choose être or avoir by meaning before conjugating, then apply ne...pas and de accurately in negative possession sentences.",
+      "learning_objectives": [
+        "Decide whether a sentence expresses being or having.",
+        "Conjugate être and avoir to match the subject.",
+        "Use de after negated possession expressions.",
+        "Speak complete affirmative and negative French sentences."
+      ],
+      "why_it_matters": "Choosing the verb from meaning and forming negation accurately makes French speech and writing understandable and natural.",
+      "vocabulary": [
+        {"term": "être", "definition": "to be; used for state, identity, or description"},
+        {"term": "avoir", "definition": "to have; used for possession and some common expressions"},
+        {"term": "meaning cue", "definition": "the idea in the sentence that tells which verb belongs"},
+        {"term": "negation", "definition": "ne...pas or n'...pas"},
+        {"term": "de after negation", "definition": "in many possession sentences, un, une, or des becomes de after ne...pas"},
+        {"term": "conjugate", "definition": "change the verb form to match the subject"}
+      ],
+      "written_instruction": "Ask first whether the sentence means BE or HAVE. Then select and conjugate être or avoir. In many negative possession sentences, un, une, or des changes to de after ne...pas.",
+      "worked_examples": [
+        {
+          "title": "Description with être",
+          "problem": "They are happy.",
+          "solution": "Elles sont contentes.",
+          "explanation": "Being happy is a description, so use être."
+        },
+        {
+          "title": "Possession with avoir",
+          "problem": "They have three notebooks.",
+          "solution": "Elles ont trois cahiers.",
+          "explanation": "Having notebooks is possession, so use avoir."
+        },
+        {
+          "title": "Negative possession",
+          "problem": "J'ai des devoirs.",
+          "solution": "Je n'ai pas de devoirs.",
+          "explanation": "Use n' before ai, pas after it, and de in place of des."
+        }
+      ],
+      "guided_practice": [
+        {"id": "fr-g1", "prompt": "Choose être or avoir, then conjugate: Vous ______ prêts.", "hint": "Does the sentence describe being ready or having something?"},
+        {"id": "fr-g2", "prompt": "Choose être or avoir, then conjugate: Elles ______ deux chiens.", "hint": "This sentence expresses possession."},
+        {"id": "fr-g3", "prompt": "Choose être or avoir, then conjugate: Ils ______ fatigués.", "hint": "This sentence describes a state."},
+        {"id": "fr-g4", "prompt": "Make negative: J'ai une calculatrice.", "hint": "Use n'ai pas and change une to de."},
+        {"id": "fr-g5", "prompt": "Make negative: Nous avons des livres.", "hint": "Place ne and pas around avons and change des to de."}
+      ],
+      "independent_practice": [
+        {"id": "fr-i6", "prompt": "Answer in a complete French sentence: Est-ce que tu as des devoirs aujourd'hui?"},
+        {"id": "fr-i7", "prompt": "Answer in a complete French sentence: Est-ce que tu es prêt pour l'histoire?"},
+        {"id": "fr-i8", "prompt": "Oral check: Say six sentences—three with être and three with avoir. Include two negative possession sentences using de."}
+      ],
+      "exit_ticket": [],
+      "mastery_threshold": 75,
+      "materials": ["Wednesday packet"],
+      "estimated_minutes": 35,
+      "voice_prompt": "Repair Tuesday's exact errors without restarting the entire lesson. Ask whether each sentence means BE or HAVE before conjugating. Model 'Elles sont contentes' and contrast it with 'Elles ont deux livres.' Then model 'J'ai un stylo -> Je n'ai pas de stylo' and 'J'ai des devoirs -> Je n'ai pas de devoirs.' Use natural French pronunciation. Have Atticus say the sentence before writing. Keep corrections focused on être/avoir meaning and negative de.",
+      "teacher_notes": "Open responses vary. Focus corrections only on être/avoir meaning, subject agreement, and negative de.",
+      "answer_key": {
+        "fr-g1": "êtes",
+        "fr-g2": "ont",
+        "fr-g3": "sont",
+        "fr-g4": "Je n'ai pas de calculatrice.",
+        "fr-g5": "Nous n'avons pas de livres."
+      },
+      "source_references": ["Atticus_Grade6_Day7_Wednesday_Packet_2026-09-02.pdf"],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-02-mathematics",
+      "date": "2026-09-02",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "mathematics",
+      "course": "Grade 6 Mathematics",
+      "unit_id": "math-ratios",
+      "unit_title": "Ratios, Rates, and Proportional Reasoning",
+      "lesson_number": 3,
+      "lesson_title": "Unit rates and per 1",
+      "standards": ["6.RP.A.2", "6.RP.A.3"],
+      "previous_learning": "Tuesday's equivalent-ratio and ratio-table evidence was strong enough to move into unit rates, with one short ratio-table warmup.",
+      "course_context": "Move from equivalent ratios to rates expressed for one unit of the comparison quantity.",
+      "learning_objectives": [
+        "Interpret a unit rate as an amount per one unit.",
+        "Use division, ratio tables, or double number lines to calculate unit rates.",
+        "Label every unit rate with correct units.",
+        "Compare options using unit prices."
+      ],
+      "why_it_matters": "Unit rates make quantities with different totals directly comparable and appear in speed, prices, recipes, and measurement.",
+      "vocabulary": [
+        {"term": "rate", "definition": "a ratio comparing quantities with different units"},
+        {"term": "unit rate", "definition": "a rate with a denominator or second quantity of 1"},
+        {"term": "per", "definition": "for each; often signals a unit rate"},
+        {"term": "equivalent ratios", "definition": "ratios that describe the same comparison"},
+        {"term": "double number line", "definition": "two aligned number lines showing corresponding values"},
+        {"term": "constant of proportionality", "definition": "the fixed multiplier connecting the two quantities in a proportional relationship"}
+      ],
+      "written_instruction": "A unit rate answers: how much for one of the second quantity? Identify which quantity must become 1, divide both corresponding quantities by the same value, and retain the real units.",
+      "worked_examples": [
+        {
+          "title": "Distance per hour",
+          "problem": "A vehicle travels 180 miles in 3 hours.",
+          "solution": "180 ÷ 3 = 60 miles per 1 hour, or 60 mph.",
+          "explanation": "Divide the distance by the number of hours to find the distance for one hour."
+        },
+        {
+          "title": "Cost per notebook",
+          "problem": "Four notebooks cost $12.",
+          "solution": "$12 ÷ 4 = $3 per notebook.",
+          "explanation": "Divide the total cost by four to find the cost for one notebook."
+        },
+        {
+          "title": "Recipe rate",
+          "problem": "A recipe uses 6 cups water for 2 cups rice.",
+          "solution": "6 ÷ 2 = 3 cups water per 1 cup rice.",
+          "explanation": "Divide both quantities by two so the rice quantity becomes one."
+        }
+      ],
+      "guided_practice": [
+        {"id": "math-w1", "prompt": "Warmup: Complete 4:7 = 12:____.", "hint": "Find the factor that changes 4 to 12 and apply it to 7."},
+        {"id": "math-w2", "prompt": "Warmup: Simplify 15:25.", "hint": "Divide both quantities by their greatest common factor."},
+        {"id": "math-g1", "prompt": "A cyclist travels 72 miles in 4 hours. Find the unit rate in miles per hour.", "hint": "Find the distance for 1 hour."},
+        {"id": "math-g2", "prompt": "Five identical pens cost $8.75. Find the cost per pen.", "hint": "Divide the total cost by the number of pens."},
+        {"id": "math-g3", "prompt": "A machine fills 18 bottles in 3 minutes. Find bottles per minute.", "hint": "Find how many bottles are filled in 1 minute."},
+        {"id": "math-g4", "prompt": "A recipe uses 10 cups broth for 4 cups rice. Find cups broth per 1 cup rice. You may use a ratio table.", "hint": "Divide both quantities by 4."}
+      ],
+      "independent_practice": [
+        {"id": "math-i1", "prompt": "A train travels 315 miles in 5 hours. What is its unit rate in miles per hour?"},
+        {"id": "math-i2", "prompt": "Six movie tickets cost $54. What is the cost per ticket?"},
+        {"id": "math-i3", "prompt": "A faucet releases 14 liters in 2 minutes. What is the unit rate in liters per minute?"},
+        {"id": "math-i4", "prompt": "A bag contains 2.4 kilograms of rice split equally into 6 packages. What is the mass per package?"},
+        {"id": "math-i5", "prompt": "A map scale says 3 centimeters represents 24 kilometers. How many kilometers does 1 centimeter represent?"},
+        {"id": "math-i6", "prompt": "Which is the better price: 4 notebooks for $10 or 6 notebooks for $13.50? Find both unit prices and compare."}
+      ],
+      "exit_ticket": [
+        {
+          "id": "math-e1",
+          "prompt": "A runner covers 9 miles in 1.5 hours. Find miles per hour.",
+          "answer": "6 miles per hour.",
+          "rubric": "Divide 9 miles by 1.5 hours and include miles per hour."
+        },
+        {
+          "id": "math-e2",
+          "prompt": "$15 buys 5 kilograms of apples. Find dollars per kilogram.",
+          "answer": "$3 per kilogram.",
+          "rubric": "Divide the total cost by 5 kilograms and label the unit rate."
+        },
+        {
+          "id": "math-e3",
+          "prompt": "Explain in one sentence what 'per 1' means in a unit rate.",
+          "answer": "It means the amount for one unit of the comparison quantity.",
+          "rubric": "Explain that the second or denominator quantity has been scaled to one."
+        }
+      ],
+      "mastery_threshold": 75,
+      "materials": ["Wednesday packet", "Grid paper", "Pencil"],
+      "estimated_minutes": 60,
+      "voice_prompt": "Start with a 5-minute equivalent-ratio warmup, then introduce unit rate as 'how much for 1.' Use real units in every example. Model 3 examples: 180 miles in 3 hours -> 60 miles per hour; $12 for 4 notebooks -> $3 per notebook; 6 cups water for 2 cups rice -> 3 cups water per 1 cup rice. Show both division and a ratio-table route. Ask which quantity should become 1 and why. Use grid paper for ratio tables or double number lines.",
+      "teacher_notes": "Math advances to unit rates because Tuesday independent and exit evidence was strong. Require units in every unit rate.",
+      "answer_key": {
+        "math-w1": "21",
+        "math-w2": "3:5",
+        "math-g1": "18 miles per hour",
+        "math-g2": "$1.75 per pen",
+        "math-g3": "6 bottles per minute",
+        "math-g4": "2.5 cups broth per cup rice",
+        "math-i1": "63 miles per hour",
+        "math-i2": "$9 per ticket",
+        "math-i3": "7 liters per minute",
+        "math-i4": "0.4 kilogram per package",
+        "math-i5": "8 kilometers per centimeter",
+        "math-i6": "$2.50 per notebook versus $2.25 per notebook; 6 notebooks for $13.50 is the better price."
+      },
+      "source_references": ["Atticus_Grade6_Day7_Wednesday_Packet_2026-09-02.pdf"],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-02-science",
+      "date": "2026-09-02",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "science",
+      "course": "Grade 6 Science",
+      "unit_id": "science-light",
+      "unit_title": "Light and Materials",
+      "lesson_number": 4,
+      "lesson_title": "Why objects appear colored",
+      "standards": ["MS-PS4-2"],
+      "previous_learning": "Reflection, absorption, and transmission are strong. The remaining gap is explaining why a red object looks red under white light.",
+      "course_context": "Advance from identifying light interactions to explaining color through selective reflection and absorption.",
+      "learning_objectives": [
+        "Explain object color under white light.",
+        "Use selective reflection and selective absorption accurately.",
+        "Predict how an object may appear under a colored light source.",
+        "Compare how white and black materials interact with visible light."
+      ],
+      "why_it_matters": "The colors we see depend on both the wavelengths in the light source and the wavelengths an object reflects toward our eyes.",
+      "vocabulary": [
+        {"term": "white light", "definition": "visible light containing many wavelengths or colors"},
+        {"term": "wavelength", "definition": "a property of light related to the color we perceive"},
+        {"term": "selective reflection", "definition": "reflecting some wavelengths more strongly than others"},
+        {"term": "selective absorption", "definition": "absorbing some wavelengths more strongly than others"},
+        {"term": "reflect", "definition": "send light away from a surface"},
+        {"term": "absorb", "definition": "take in light energy"}
+      ],
+      "written_instruction": "Under white light, a red object reflects more red wavelengths toward the eyes and absorbs much of the other visible wavelengths. Color explanations must identify what light is available, what is reflected, and what is absorbed.",
+      "worked_examples": [
+        {
+          "title": "Red apple under white light",
+          "problem": "Why does a red apple look red under white light?",
+          "solution": "It reflects more red light toward the eyes and absorbs much of the other visible light.",
+          "explanation": "The reflected red wavelengths are the light that reaches the observer."
+        },
+        {
+          "title": "Black shirt",
+          "problem": "Why does a black shirt look dark?",
+          "solution": "It absorbs much of the visible light, so little visible light is reflected to the eyes.",
+          "explanation": "Very little reflected visible light makes the material look dark."
+        },
+        {
+          "title": "White paper",
+          "problem": "Why does white paper look white?",
+          "solution": "It reflects many visible wavelengths, which together look white.",
+          "explanation": "Many colors of visible light return to the observer together."
+        }
+      ],
+      "guided_practice": [
+        {"id": "sci-g1", "prompt": "Why does a green leaf usually look green under white light?", "hint": "Name which wavelengths are reflected more strongly and what happens to much of the rest."},
+        {"id": "sci-g2", "prompt": "Why does a black object usually look dark under white light?", "hint": "Compare how much visible light is absorbed and reflected."},
+        {"id": "sci-g3", "prompt": "Why can white paper look bright in a well-lit room?", "hint": "Think about how many visible wavelengths it reflects."}
+      ],
+      "independent_practice": [
+        {"id": "sci-i4", "prompt": "A red book is illuminated only with blue light. Based on today's model, why might the book look very dark instead of bright red?", "hint": "Is red light available for the book to reflect?"}
+      ],
+      "exit_ticket": [
+        {
+          "id": "sci-e1",
+          "prompt": "Explain why a red object appears red under white light using the words reflect and absorb.",
+          "answer": "It reflects more red wavelengths toward the eyes and absorbs much of the other visible light.",
+          "rubric": "Explicitly use both reflect and absorb and identify red light as the wavelength reflected more strongly."
+        },
+        {
+          "id": "sci-e2",
+          "prompt": "Which object generally reflects more visible light: white paper or black cloth? Explain.",
+          "answer": "White paper generally reflects more visible light; black cloth absorbs much more of it.",
+          "rubric": "Choose white paper and explain the contrast using reflection and absorption."
+        }
+      ],
+      "mastery_threshold": 75,
+      "materials": ["Wednesday packet"],
+      "estimated_minutes": 40,
+      "voice_prompt": "Connect to Tuesday: Atticus correctly identified reflection, absorption, and transmission, but his red-book explanation described only that light reaches the eyes. Teach the missing step: under white light, a red object reflects more red wavelengths toward the eyes and absorbs much of the other visible wavelengths. Use simple language first, then the terms selective reflection and selective absorption. Work three examples before independent practice.",
+      "teacher_notes": "Advance to selective reflection and color. Do not reteach transparent, translucent, and opaque unless a new error appears.",
+      "answer_key": {
+        "sci-g1": "A green leaf reflects more green wavelengths toward the eyes and absorbs much of the other visible light.",
+        "sci-g2": "It absorbs much of the visible light and reflects relatively little to the eyes.",
+        "sci-g3": "White paper reflects many visible wavelengths, so substantial visible light reaches the eyes.",
+        "sci-i4": "Blue illumination contains little or no red light for the book to reflect, and the book absorbs much of the blue light, so it may appear dark."
+      },
+      "source_references": ["Atticus_Grade6_Day7_Wednesday_Packet_2026-09-02.pdf"],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-02-history_geography",
+      "date": "2026-09-02",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "history_geography",
+      "course": "Grade 6 History / Civics",
+      "unit_id": "hist-greece",
+      "unit_title": "Ancient Greece",
+      "lesson_number": 5,
+      "lesson_title": "Athenian democracy and citizenship",
+      "standards": ["C3.D2.Civ.1.6-8", "C3.D2.His.14.6-8"],
+      "previous_learning": "Tuesday's distinction between culturally connected and politically unified is secure enough to advance to Athenian government.",
+      "course_context": "Examine Athenian direct democracy accurately by considering both citizen participation and exclusion.",
+      "learning_objectives": [
+        "Explain what made Athenian democracy direct for eligible citizens.",
+        "Identify groups excluded from political participation.",
+        "Explain why historical claims about democracy require context.",
+        "Compare direct and representative democracy."
+      ],
+      "why_it_matters": "Evaluating a political system requires asking who had rights, who participated, and who was excluded.",
+      "vocabulary": [
+        {"term": "citizen", "definition": "a recognized member of a political community with rights and duties"},
+        {"term": "direct democracy", "definition": "a system in which eligible citizens vote directly on public decisions"},
+        {"term": "assembly", "definition": "a gathering of citizens for debate and decisions"},
+        {"term": "political rights", "definition": "rights to participate in government"},
+        {"term": "excluded", "definition": "left out or not permitted to participate"},
+        {"term": "context", "definition": "background information needed to understand a claim accurately"}
+      ],
+      "written_instruction": "Democracy, but for whom? In classical Athens, some political decisions were made in an assembly where eligible male citizens could speak and vote directly. This differed from systems in which a king or a small hereditary group made all major decisions. Athenian participation was significant in the history of government, but it was limited. Women did not have the same political rights as male citizens. Enslaved people had no political citizenship, and many foreigners living in Athens could not participate as citizens. This means two statements can both be true: Athens developed an important form of direct citizen participation, and Athens did not give equal political rights to everyone living there. Historians therefore use context. Saying only 'Athens was a democracy' is incomplete unless we also ask who counted as a citizen, who could vote, and who was excluded.",
+      "worked_examples": [
+        {
+          "title": "Direct voting versus representation",
+          "problem": "Eligible members make decisions by voting on the proposal themselves.",
+          "solution": "This is direct participation.",
+          "explanation": "The eligible members vote on the decision rather than electing someone else to decide for them."
+        }
+      ],
+      "guided_practice": [
+        {"id": "hist-g1", "prompt": "What made Athenian democracy 'direct' for eligible citizens?", "hint": "Who voted on public decisions?"},
+        {"id": "hist-g2", "prompt": "Name TWO groups who were excluded from full political participation in classical Athens.", "hint": "Use two groups named in the reading."},
+        {"id": "hist-g3", "prompt": "Why is the sentence 'Athens was a democracy' true but incomplete?", "hint": "Explain both participation and its limits."}
+      ],
+      "independent_practice": [
+        {"id": "hist-i4", "prompt": "What question should a historian ask whenever a source says that a society gave 'citizens' political rights?"},
+        {"id": "hist-i5", "prompt": "Compare direct democracy with representative democracy in one clear sentence."}
+      ],
+      "exit_ticket": [
+        {
+          "id": "hist-e1",
+          "prompt": "In 3-4 sentences, explain both the importance and the limitation of Athenian democracy. Include the words citizen and excluded.",
+          "answer": "Athenian democracy was important because eligible citizens participated directly in public decisions. It was limited because women, enslaved people, and many foreign residents were excluded from political citizenship and voting.",
+          "rubric": "Explain both direct citizen participation and exclusion, accurately using citizen and excluded."
+        }
+      ],
+      "mastery_threshold": 75,
+      "materials": ["Wednesday packet"],
+      "estimated_minutes": 45,
+      "voice_prompt": "Build from Tuesday's strong distinction between shared culture and separate governments. Explain Athenian direct democracy accurately and with context: eligible adult male citizens could participate, but women, enslaved people, and many non-citizen residents were excluded. Do not present Athens as modern universal democracy. Use a modern school-club analogy only to clarify direct voting versus electing representatives, not to equate the systems.",
+      "teacher_notes": "Direct means eligible citizens themselves voted in an assembly. Do not present Athens as a modern universal democracy.",
+      "answer_key": {
+        "hist-g1": "Eligible citizens themselves spoke and voted on public decisions in the assembly.",
+        "hist-g2": "Any two of: women, enslaved people, and many foreign residents.",
+        "hist-g3": "Athens used important direct citizen participation, but only a limited group counted as eligible citizens and many residents were excluded.",
+        "hist-i4": "Who counted as a citizen, who could exercise the political rights, and who was excluded?",
+        "hist-i5": "In a direct democracy eligible citizens vote on decisions themselves, while in a representative democracy citizens elect representatives to make decisions."
+      },
+      "source_references": ["Atticus_Grade6_Day7_Wednesday_Packet_2026-09-02.pdf"],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-02-writing",
+      "date": "2026-09-02",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "writing",
+      "course": "Grade 6 Writing / Language",
+      "unit_id": "writing-analytical",
+      "unit_title": "Analytical Writing",
+      "lesson_number": 6,
+      "lesson_title": "Evidence to reasoning",
+      "standards": ["W.6.2", "W.6.9", "L.6.1", "L.6.2"],
+      "previous_learning": "Tuesday showed stronger connectors and cross-subject examples. Facts and the relationship between facts are becoming more distinct.",
+      "course_context": "Move from sentence combining into analytical paragraphs that connect claims, evidence, and reasoning.",
+      "learning_objectives": [
+        "Distinguish claim, evidence, and reasoning.",
+        "Explain why a detail proves a claim.",
+        "Write reasoning after each piece of evidence.",
+        "Organize an analytical paragraph with a conclusion."
+      ],
+      "why_it_matters": "Analysis becomes convincing when a writer explains why evidence matters instead of presenting facts without a connection.",
+      "vocabulary": [
+        {"term": "analytical writing", "definition": "writing that explains what evidence shows or means"},
+        {"term": "claim", "definition": "the main point you are proving"},
+        {"term": "evidence", "definition": "a specific fact or detail that supports the claim"},
+        {"term": "reasoning", "definition": "the explanation of why the evidence proves the claim"},
+        {"term": "significance", "definition": "why the evidence matters"},
+        {"term": "transition", "definition": "a word or phrase that connects ideas"}
+      ],
+      "written_instruction": "Use the structure claim -> evidence -> reasoning. After every specific fact or story detail, explain what it reveals and why it supports the claim.",
+      "worked_examples": [
+        {
+          "title": "System reliability",
+          "problem": "Claim: The team became more reliable after the mistake.",
+          "solution": "Evidence: They added a spare-key check to the checklist.",
+          "explanation": "Changing the system means the group learned from the problem instead of depending only on one person's memory."
+        },
+        {
+          "title": "Limited participation",
+          "problem": "Claim: Athens had limited political participation.",
+          "solution": "Evidence: Women and enslaved people were excluded.",
+          "explanation": "This shows that political rights were not shared by everyone living in Athens."
+        }
+      ],
+      "guided_practice": [
+        {"id": "wr-g1", "prompt": "Write one sentence of REASONING after this evidence: 'The rover's arm failed because the timing value had been changed to 0.2 seconds.' Explain what this evidence reveals.", "hint": "Connect the code error to the value of testing before the showcase."},
+        {"id": "wr-g2", "prompt": "Write one sentence of REASONING after this evidence: 'Wax paper transmits light but the image is blurry.' Explain what this evidence proves about the material.", "hint": "Explain the difference between allowing light through and forming a clear image."}
+      ],
+      "independent_practice": [
+        {"id": "wr-i1", "prompt": "Write 8-10 sentences answering: Why can testing a system before an important event be worth the risk of discovering a problem? Use 'The Last Battery' as your main evidence. Include a clear claim, at least TWO specific story details, reasoning after each detail, and a conclusion."}
+      ],
+      "exit_ticket": [],
+      "mastery_threshold": 75,
+      "materials": ["Wednesday packet", "Pencil"],
+      "estimated_minutes": 40,
+      "voice_prompt": "Tuesday's writing showed stronger connectors and cross-subject examples. Today shift from sentence combining to analytical writing. Teach the structure claim -> evidence -> reasoning. Model one full paragraph using an unrelated example. Then model two short evidence/reasoning pairs. Require Atticus to explain significance after each piece of evidence instead of listing facts.",
+      "teacher_notes": "Require a claim, two story details, and reasoning after each detail. Score mechanics and reasoning separately.",
+      "answer_key": {
+        "wr-g1": "Responses should explain that testing exposed a hidden code problem that could be corrected before the important event.",
+        "wr-g2": "Responses should explain that transmitting light does not guarantee a clear image because scattering can blur it."
+      },
+      "source_references": ["Atticus_Grade6_Day7_Wednesday_Packet_2026-09-02.pdf"],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-02-computer_science",
+      "date": "2026-09-02",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "computer_science",
+      "course": "Grade 6 Computer Science / AI",
+      "unit_id": "cs-ai-classification",
+      "unit_title": "Data and Image Classification",
+      "lesson_number": 7,
+      "lesson_title": "Training data, test data, and overfitting",
+      "standards": ["CSTA 2-AP-11", "CSTA 2-IC-20"],
+      "previous_learning": "Training data is becoming clearer, but test data and generalization are not yet secure.",
+      "course_context": "Distinguish data used to teach a model from new data used to evaluate transfer, then identify weak generalization and overfitting.",
+      "learning_objectives": [
+        "Distinguish training data from test data.",
+        "Explain why test examples must remain separate.",
+        "Define generalization and overfitting.",
+        "Improve training data to reduce background dependence."
+      ],
+      "why_it_matters": "Accuracy on familiar examples does not prove that an AI system will work on new examples or in new conditions.",
+      "vocabulary": [
+        {"term": "training data", "definition": "examples used to teach a model"},
+        {"term": "test data", "definition": "new examples kept separate and used to evaluate the trained model"},
+        {"term": "generalization", "definition": "performing well on new examples or conditions not seen exactly during training"},
+        {"term": "overfitting", "definition": "learning the training examples too narrowly and performing poorly on new examples"},
+        {"term": "feature", "definition": "a pattern or property the model may use"},
+        {"term": "background dependence", "definition": "when a model relies too heavily on the background instead of the intended object"}
+      ],
+      "written_instruction": "Training data teaches; test data evaluates. A model generalizes when it performs well on new examples. A large gap between training and test performance may indicate overfitting. More varied training conditions can make the intended object, rather than one background, the reliable pattern.",
+      "worked_examples": [
+        {
+          "title": "Separate training and test sets",
+          "problem": "A project has 30 cup photos for training and 10 new cup photos not used during training.",
+          "solution": "Use the 30 examples to train and the 10 separate examples to test.",
+          "explanation": "New examples provide evidence of whether learning transfers."
+        },
+        {
+          "title": "Weak generalization",
+          "problem": "A model gets every training photo correct but fails on new backgrounds.",
+          "solution": "The model may be overfitting and generalizing poorly.",
+          "explanation": "Training accuracy alone does not show performance under new conditions."
+        },
+        {
+          "title": "Reduce background dependence",
+          "problem": "A cup classifier saw cups only on one white tabletop.",
+          "solution": "Train with cups shown on varied backgrounds, from varied angles, distances, and lighting.",
+          "explanation": "Variation makes the cup, rather than one background, the dependable feature."
+        }
+      ],
+      "guided_practice": [
+        {"id": "cs-g1", "prompt": "Which set should be kept separate until evaluation: training data or test data? Explain why.", "hint": "The evaluation should use examples the model did not learn from."},
+        {"id": "cs-g2", "prompt": "A classifier gets 100% accuracy on its training images but 55% on new images. What does this suggest about generalization?", "hint": "Compare performance on familiar and unseen examples."}
+      ],
+      "independent_practice": [
+        {"id": "cs-i3", "prompt": "A cup classifier was trained only on a white tabletop. Name TWO changes to the training data that could reduce background dependence."},
+        {"id": "cs-i4", "prompt": "Why is it a bad evaluation if the exact same photos are used both to train and to test the model?"}
+      ],
+      "exit_ticket": [
+        {
+          "id": "cs-e1",
+          "prompt": "Define generalization in your own words.",
+          "answer": "Generalization is performing well on new examples or conditions not seen exactly during training.",
+          "rubric": "Refer to successful performance on new or unseen examples."
+        },
+        {
+          "id": "cs-e2",
+          "prompt": "Explain one difference between training data and test data.",
+          "answer": "Training data teaches the model; separate test data evaluates the trained model on new examples.",
+          "rubric": "Accurately identify the different purpose of each data set."
+        },
+        {
+          "id": "cs-e3",
+          "prompt": "In one sentence, define overfitting.",
+          "answer": "Overfitting is learning the training examples too narrowly and then performing poorly on new examples.",
+          "rubric": "Include both overly narrow training fit and weak performance on new data."
+        }
+      ],
+      "mastery_threshold": 75,
+      "materials": ["Wednesday packet"],
+      "estimated_minutes": 40,
+      "voice_prompt": "Repair Tuesday's remaining confusion. First define training data and test data with a school analogy: practice problems teach; a new quiz checks whether learning transfers. Then define generalization and overfitting. Use an image classifier that sees cups only on a white table: perfect training accuracy can still fail on a cup outdoors. Make clear that the solution is usually MORE VARIED training examples, not keeping every background clean and identical. Ask concrete questions with the actual object, training condition, and test condition named.",
+      "teacher_notes": "Keep the object, training condition, and test condition explicit in every question.",
+      "answer_key": {
+        "cs-g1": "Test data should stay separate so evaluation measures performance on new examples rather than examples the model already learned from.",
+        "cs-g2": "It suggests weak generalization and possible overfitting.",
+        "cs-i3": "Any two relevant variations, such as background, angle, lighting, or distance.",
+        "cs-i4": "The same photos measure memory or fit to the training set, not transfer to unseen data."
+      },
+      "source_references": ["Atticus_Grade6_Day7_Wednesday_Packet_2026-09-02.pdf"],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-02-theatre",
+      "date": "2026-09-02",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "art_design",
+      "course": "Grade 6 Theatre / Public Speaking",
+      "unit_id": "theatre-speaking",
+      "unit_title": "Voice, Structure, and Audience",
+      "lesson_number": 8,
+      "lesson_title": "60-second civic speech",
+      "standards": ["SL.6.4", "SL.6.6", "TH:Pr6.1.6"],
+      "previous_learning": "Atticus has practiced cross-subject explanations and is ready to organize and deliver a short persuasive civic speech.",
+      "course_context": "Use voice, structure, pacing, and audience awareness to deliver a fictional civic speech.",
+      "learning_objectives": [
+        "State a clear position for an audience.",
+        "Organize an opening, two reasons, and a closing.",
+        "Use pace, volume, pauses, and emphasis deliberately.",
+        "Deliver a complete 45-60 second speech."
+      ],
+      "why_it_matters": "Clear organization and intentional delivery help an audience understand and evaluate a speaker's ideas.",
+      "vocabulary": [
+        {"term": "audience", "definition": "the people listening or watching"},
+        {"term": "delivery", "definition": "how a speaker uses voice, pace, volume, and expression"},
+        {"term": "emphasis", "definition": "giving extra stress to an important word or idea"},
+        {"term": "pause", "definition": "a deliberate moment of silence"},
+        {"term": "persuade", "definition": "try to convince an audience"},
+        {"term": "rehearse", "definition": "practice a performance before presenting it"}
+      ],
+      "written_instruction": "Fictional assembly question: Athens has enough public money for ONE major project this season—repair the harbor OR improve the market road. Choose one and persuade the assembly. Organize the speech as opening position -> reason one -> reason two -> closing. Rehearse a deliberate pause and emphasize one important phrase.",
+      "worked_examples": [
+        {
+          "title": "Speech structure",
+          "problem": "A speaker has a position but no clear organization.",
+          "solution": "Use an opening position, two distinct reasons, and a complete closing sentence.",
+          "explanation": "A predictable structure helps the audience follow the argument."
+        }
+      ],
+      "guided_practice": [
+        {"id": "theatre-g1", "prompt": "For the fictional assembly question, will you argue that Athens should repair the harbor or improve the market road? State your position."},
+        {"id": "theatre-g2", "prompt": "What is your first reason supporting your chosen project?"},
+        {"id": "theatre-g3", "prompt": "What is your second, different reason supporting your chosen project?"},
+        {"id": "theatre-g4", "prompt": "What complete closing sentence will you use to persuade the fictional assembly?"}
+      ],
+      "independent_practice": [
+        {"id": "theatre-i1", "prompt": "Rehearse and deliver your 45-60 second civic speech with a clear opening position, two reasons, one deliberate pause, emphasis on one important phrase, and a complete closing sentence."}
+      ],
+      "exit_ticket": [
+        {
+          "id": "theatre-e1",
+          "prompt": "Performance check: Was the speech 45-60 seconds, did it include a clear opening position and two reasons, and did the delivery use one deliberate pause and emphasis on one important phrase?",
+          "answer": "Performance evidence should satisfy each listed criterion.",
+          "rubric": "Check duration, opening position, two reasons, deliberate pause, vocal emphasis, audience focus, and a complete closing sentence."
+        }
+      ],
+      "mastery_threshold": 75,
+      "materials": ["Wednesday packet", "Timer"],
+      "estimated_minutes": 30,
+      "voice_prompt": "Act as a theatre and public-speaking coach. Atticus will give a 45-60 second civic speech as if he is an Athenian citizen speaking to an assembly. The topic is fictional and safe: argue whether the city should spend more public money repairing the harbor or improving the market road. Help him choose one position, organize it into opening -> two reasons -> closing, and rehearse delivery. Focus on pace, volume, pauses, and emphasis. Do not write the final speech for him.",
+      "teacher_notes": "Coach the planning and rehearsal, but do not write the final speech for Atticus.",
+      "answer_key": {},
+      "source_references": ["Atticus_Grade6_Day7_Wednesday_Packet_2026-09-02.pdf"],
+      "status": "scheduled"
+    }
+  ]
+}
