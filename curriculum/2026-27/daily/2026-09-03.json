@@ -1,0 +1,665 @@
+{
+  "date": "2026-09-03",
+  "school_year": "2026-27",
+  "grade_level": 6,
+  "day_number": 8,
+  "school_day_label": "Thursday, September 3, 2026",
+  "todays_goal": "Progress into percent in Math, deepen color and light reasoning in Science, and continue analytical reading and writing at full Grade 6 level. Give targeted reinforcement in French and Computer Science / AI.",
+  "lessons": [
+    {
+      "id": "2026-09-03-history_geography",
+      "date": "2026-09-03",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "history_geography",
+      "course": "Grade 6 History / Civics",
+      "unit_id": "hist-greece",
+      "unit_title": "Ancient Greece",
+      "lesson_number": 1,
+      "lesson_title": "Direct versus representative democracy",
+      "standards": ["C3.D2.Civ.1.6-8", "C3.D2.His.14.6-8"],
+      "previous_learning": "The limits of Athenian democracy are mostly understood, but direct versus representative democracy needs a cleaner comparison and Wednesday's written exit was not completed.",
+      "course_context": "Finish the comparison between direct and representative democracy, then apply it while keeping Athenian citizenship exclusions in context.",
+      "learning_objectives": [
+        "Distinguish direct democracy from representative democracy.",
+        "Explain one advantage and one challenge of each system.",
+        "Apply historical context to Athenian democracy.",
+        "Explain why citizenship exclusions limit claims about participation."
+      ],
+      "why_it_matters": "Accurate civic comparison requires identifying who decides public issues and who is permitted to participate.",
+      "vocabulary": [
+        {"term": "direct democracy", "definition": "eligible citizens vote directly on public decisions"},
+        {"term": "representative democracy", "definition": "citizens choose representatives who make many public decisions on their behalf"},
+        {"term": "citizen", "definition": "a recognized member of a political community with rights and duties"},
+        {"term": "representative", "definition": "a person chosen to act or vote on behalf of others"},
+        {"term": "political participation", "definition": "taking part in government or public decision-making"},
+        {"term": "limitation", "definition": "a boundary or restriction on how far something applies"}
+      ],
+      "written_instruction": "Direct democracy means eligible citizens vote on the public issue itself. Representative democracy means citizens elect people who vote or govern on their behalf. In classical Athens, this direct participation applied only to eligible citizens; many residents, including women, enslaved people, and many foreigners, were excluded.",
+      "worked_examples": [
+        {
+          "title": "Direct democracy",
+          "problem": "Who decides whether to fund a harbor repair?",
+          "solution": "Eligible citizens vote directly on the harbor proposal.",
+          "explanation": "The citizens vote on the issue itself."
+        },
+        {
+          "title": "Representative democracy",
+          "problem": "Who decides a harbor budget after citizens elect council members?",
+          "solution": "The elected council members vote on the harbor budget.",
+          "explanation": "Citizens choose representatives who make the decision on their behalf."
+        }
+      ],
+      "guided_practice": [
+        {"id": "hist-g1", "prompt": "In a direct democracy, who votes on the public issue itself?", "hint": "Name the eligible people who participate directly."},
+        {"id": "hist-g2", "prompt": "In a representative democracy, what do citizens choose people to do on their behalf?", "hint": "Explain the role of elected representatives."},
+        {"id": "hist-g3", "prompt": "Why would it be inaccurate to say that everyone living in classical Athens participated equally in its direct democracy?", "hint": "Identify the limits on citizenship and political participation."}
+      ],
+      "independent_practice": [
+        {"id": "hist-i4", "prompt": "Give one advantage and one possible challenge of direct citizen voting when a community becomes very large."},
+        {"id": "hist-i5", "prompt": "Give one advantage and one possible challenge of representative government."}
+      ],
+      "exit_ticket": [
+        {
+          "id": "hist-e1",
+          "prompt": "In 3-4 sentences, compare direct democracy and representative democracy. Then explain why calling Athens a democracy still requires context about who was excluded.",
+          "answer": "In a direct democracy, eligible citizens vote on public issues themselves. In a representative democracy, citizens elect representatives to make many decisions on their behalf. Athens used direct citizen participation, but women, enslaved people, and many foreign residents were excluded, so its democracy was limited.",
+          "rubric": "Accurately compare who votes in each system and explain Athenian exclusion."
+        }
+      ],
+      "mastery_threshold": 75,
+      "materials": ["Thursday packet", "Pencil"],
+      "estimated_minutes": 45,
+      "voice_prompt": "Start from Wednesday's work. Teach one clean distinction: direct democracy means eligible citizens vote on the issue itself; representative democracy means citizens elect people who vote or govern on their behalf. Keep Athens in context: many residents were excluded. Ask self-contained questions with the system named every time.",
+      "teacher_notes": "Direct means eligible citizens vote on the issue. Representative means citizens elect people to decide on their behalf. Athens had major citizenship exclusions.",
+      "answer_key": {
+        "hist-g1": "Eligible citizens vote directly on the public issue.",
+        "hist-g2": "Citizens choose representatives to vote or govern on their behalf.",
+        "hist-g3": "Many people living in Athens, including women, enslaved people, and many foreign residents, were excluded from political citizenship.",
+        "hist-i4": "An advantage is direct citizen control; a challenge is that direct participation can become difficult or slow in a very large community.",
+        "hist-i5": "An advantage is that elected representatives can devote time to governing; a challenge is that representatives may not always reflect every citizen's preference."
+      },
+      "source_references": ["Atticus_Grade6_Day8_Thursday_Packet_2026-09-03.pdf"],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-03-mathematics",
+      "date": "2026-09-03",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "mathematics",
+      "course": "Grade 6 Mathematics",
+      "unit_id": "math-ratios",
+      "unit_title": "Ratios, Rates, and Percent",
+      "lesson_number": 2,
+      "lesson_title": "Percent as a rate per 100",
+      "standards": ["6.RP.A.3"],
+      "previous_learning": "Wednesday's unit rates were very strong. One decimal-placement error when dividing 2.4 kilograms into 6 packages calls for a short division check, but the course is ready to begin percent.",
+      "course_context": "Connect strong unit-rate understanding to percent as a rate per one hundred.",
+      "learning_objectives": [
+        "Explain percent as a rate per 100.",
+        "Connect fractions with denominator 100, decimals, and percents.",
+        "Use benchmark percents to find parts of a whole.",
+        "Identify the whole, percent, and part in a problem."
+      ],
+      "why_it_matters": "Percents provide a common scale of one hundred for comparing portions, progress, prices, and data.",
+      "vocabulary": [
+        {"term": "percent", "definition": "a rate per 100; the percent symbol means per hundred"},
+        {"term": "whole", "definition": "the complete quantity"},
+        {"term": "part", "definition": "a portion of the whole"},
+        {"term": "percent grid", "definition": "a 10 by 10 grid with 100 equal squares"},
+        {"term": "equivalent", "definition": "equal in value even when written differently"},
+        {"term": "benchmark percent", "definition": "a familiar percent such as 10%, 25%, 50%, or 100% used for reasoning"}
+      ],
+      "written_instruction": "Percent means per 100. A hundred grid makes the meaning visible: 25 shaded squares out of 100 equals 25/100, 0.25, and 25%. Use benchmark meanings before formulas: 10% is one tenth, 25% is one fourth, and 50% is one half.",
+      "worked_examples": [
+        {
+          "title": "Thirty percent",
+          "problem": "Thirty squares are shaded on a 100-square grid.",
+          "solution": "30/100 = 30%.",
+          "explanation": "The grid has 100 equal parts, so the shaded count directly gives the percent."
+        },
+        {
+          "title": "Fifty percent",
+          "problem": "Find 50% of 40.",
+          "solution": "20.",
+          "explanation": "Fifty percent means one half, and half of 40 is 20."
+        },
+        {
+          "title": "Twenty-five percent",
+          "problem": "Find 25% of 80.",
+          "solution": "20.",
+          "explanation": "Twenty-five percent means one fourth, and one fourth of 80 is 20."
+        }
+      ],
+      "guided_practice": [
+        {"id": "math-w1", "prompt": "Warmup: 24 liters in 3 minutes = ______ liters per minute.", "hint": "Divide the liters by the minutes."},
+        {"id": "math-w2", "prompt": "Warmup: $18 for 6 notebooks = $______ per notebook.", "hint": "Divide the total price by 6."},
+        {"id": "math-g1", "prompt": "Shade 35 squares on a 100-square grid. What percent is shaded?", "hint": "The whole grid contains 100 squares."},
+        {"id": "math-g2", "prompt": "Write 62% as a fraction with denominator 100 and as a decimal.", "hint": "Percent means per hundred."},
+        {"id": "math-g3", "prompt": "Find 10% of 90. Explain the benchmark-percent reasoning.", "hint": "Ten percent is one tenth."},
+        {"id": "math-g4", "prompt": "Find 50% of 74.", "hint": "Fifty percent is one half."},
+        {"id": "math-g5", "prompt": "Find 25% of 60.", "hint": "Twenty-five percent is one fourth."}
+      ],
+      "independent_practice": [
+        {"id": "math-i1", "prompt": "A class has 100 raffle tickets and 42 are sold. What percent are sold?"},
+        {"id": "math-i2", "prompt": "Write 18% as a fraction out of 100 and as a decimal."},
+        {"id": "math-i3", "prompt": "Find 10% of 250."},
+        {"id": "math-i4", "prompt": "Find 50% of 86."},
+        {"id": "math-i5", "prompt": "Find 25% of 120."},
+        {"id": "math-i6", "prompt": "A 60-page book is 50% completed. How many pages have been read?"},
+        {"id": "math-i7", "prompt": "A game has 80 levels and 25% are complete. How many levels are complete?"},
+        {"id": "math-i8", "prompt": "Which is larger: 40% of 50 or 25% of 100? Show both calculations."}
+      ],
+      "exit_ticket": [
+        {
+          "id": "math-e1",
+          "prompt": "Explain what the word percent means.",
+          "answer": "Percent means a rate per 100.",
+          "rubric": "State that percent means per hundred."
+        },
+        {
+          "id": "math-e2",
+          "prompt": "Find 10% of 340.",
+          "answer": "34.",
+          "rubric": "Find one tenth of 340."
+        },
+        {
+          "id": "math-e3",
+          "prompt": "Find 25% of 48.",
+          "answer": "12.",
+          "rubric": "Use that 25% is one fourth."
+        },
+        {
+          "id": "math-e4",
+          "prompt": "Explain why 50% of a quantity is the same as one half of the quantity.",
+          "answer": "50% is 50/100, which simplifies to 1/2.",
+          "rubric": "Connect 50 per 100 to the equivalent fraction one half."
+        }
+      ],
+      "mastery_threshold": 75,
+      "materials": ["Thursday packet", "Hundred grids", "Pencil"],
+      "estimated_minutes": 55,
+      "voice_prompt": "Begin with a 3-minute unit-rate check, then introduce percent as another rate: per 100. Use a 10x10 grid and connect 25/100, 0.25, and 25%. Model 30%, 50% of 40, and 25% of 80 before practice. Build meaning before formulas.",
+      "teacher_notes": "State the whole, percent, and part. Build percent meaning before formulas.",
+      "answer_key": {
+        "math-w1": "8 liters per minute",
+        "math-w2": "$3 per notebook",
+        "math-g1": "35%",
+        "math-g2": "62/100 and 0.62",
+        "math-g3": "9",
+        "math-g4": "37",
+        "math-g5": "15",
+        "math-i1": "42%",
+        "math-i2": "18/100 and 0.18",
+        "math-i3": "25",
+        "math-i4": "43",
+        "math-i5": "30",
+        "math-i6": "30 pages",
+        "math-i7": "20 levels",
+        "math-i8": "40% of 50 is 20; 25% of 100 is 25, so 25% of 100 is larger."
+      },
+      "source_references": ["Atticus_Grade6_Day8_Thursday_Packet_2026-09-03.pdf"],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-03-science",
+      "date": "2026-09-03",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "science",
+      "course": "Grade 6 Science",
+      "unit_id": "science-light",
+      "unit_title": "Light and Materials",
+      "lesson_number": 3,
+      "lesson_title": "Selective reflection and colored light",
+      "standards": ["MS-PS4-2"],
+      "previous_learning": "Atticus knows that light reflects from an object to the eye, but selective reflection is not yet secure; explanations must identify which colors are reflected or absorbed.",
+      "course_context": "Deepen color reasoning by considering both an object's selective reflection and the wavelengths available in its light source.",
+      "learning_objectives": [
+        "Explain color using specific reflected and absorbed wavelengths.",
+        "Explain why black and white objects differ in appearance.",
+        "Predict appearance under a colored light source.",
+        "Distinguish object color from illumination color."
+      ],
+      "why_it_matters": "An object's appearance depends on both its material properties and the colors available in the illuminating light.",
+      "vocabulary": [
+        {"term": "white light", "definition": "visible light containing many wavelengths or colors"},
+        {"term": "selective reflection", "definition": "reflecting some wavelengths more strongly than others"},
+        {"term": "selective absorption", "definition": "absorbing some wavelengths more strongly than others"},
+        {"term": "wavelength", "definition": "a property of light related to perceived color"},
+        {"term": "illuminate", "definition": "shine light on an object"},
+        {"term": "available light", "definition": "the wavelengths or colors present in the light source"}
+      ],
+      "written_instruction": "A red object appears red under white light because it reflects more red light toward the eyes and absorbs much of the other visible light. Under only blue light, the same red object may look dark because little red light is available to reflect.",
+      "worked_examples": [
+        {
+          "title": "Red paper under white light",
+          "problem": "Why does red paper look red under white light?",
+          "solution": "It reflects more red wavelengths and absorbs much of the rest.",
+          "explanation": "The reflected red light reaches the eyes."
+        },
+        {
+          "title": "White paper under white light",
+          "problem": "Why does white paper look bright or white?",
+          "solution": "It reflects many visible wavelengths.",
+          "explanation": "Many wavelengths return to the eyes together."
+        },
+        {
+          "title": "Red paper under blue light",
+          "problem": "Why can red paper look dark under blue light?",
+          "solution": "Little red light is available for it to reflect.",
+          "explanation": "The light source changes which wavelengths can reach the eyes after reflection."
+        }
+      ],
+      "guided_practice": [
+        {"id": "sci-g1", "prompt": "Why does a green leaf usually appear green under white light? Use the words reflect and absorb.", "hint": "Name green light and what happens to much of the other visible light."},
+        {"id": "sci-g2", "prompt": "Why does black cloth usually look dark under white light? Avoid the word all unless you explain it as an approximation.", "hint": "Compare the amount absorbed with the amount reflected."},
+        {"id": "sci-g3", "prompt": "Why does white paper usually look bright under white light?", "hint": "Think about how many visible wavelengths are reflected."}
+      ],
+      "independent_practice": [
+        {"id": "sci-i4", "prompt": "A blue object is illuminated only with red light. Why might it look dark?", "hint": "Consider whether blue light is available to reflect."},
+        {"id": "sci-i5", "prompt": "Explain the difference between the color of an object and the color of the light illuminating it."}
+      ],
+      "exit_ticket": [
+        {
+          "id": "sci-e1",
+          "prompt": "Complete: A red object looks red under white light because it reflects more ______ light and absorbs much of the ______ visible light.",
+          "answer": "red; other",
+          "rubric": "Identify red as the light reflected more strongly and other visible light as largely absorbed."
+        },
+        {
+          "id": "sci-e2",
+          "prompt": "Why can the same object appear different under a different-colored light source?",
+          "answer": "A different source supplies different wavelengths, changing which light is available for the object to reflect toward the eyes.",
+          "rubric": "Connect available wavelengths in the source to reflected light reaching the eyes."
+        }
+      ],
+      "mastery_threshold": 75,
+      "materials": ["Thursday packet"],
+      "estimated_minutes": 40,
+      "voice_prompt": "Wednesday showed that Atticus knows light reflects from an object to the eye, but he does not yet consistently explain which colors are reflected or absorbed. Teach: a red object appears red under white light because it reflects more red light toward the eyes and absorbs much of the other visible light. Then change the light source: under only blue light, a red object may look dark because little red light is available to reflect.",
+      "teacher_notes": "Require the specific reflected or absorbed colors. Treat 'all light' as an approximation requiring clarification.",
+      "answer_key": {
+        "sci-g1": "A green leaf reflects more green light toward the eyes and absorbs much of the other visible light.",
+        "sci-g2": "Black cloth absorbs most visible light and reflects relatively little, so it usually looks dark.",
+        "sci-g3": "White paper reflects many visible wavelengths toward the eyes.",
+        "sci-i4": "Little blue light is available to reflect under red illumination, and the object may absorb much of the red light.",
+        "sci-i5": "Object color describes which wavelengths the material tends to reflect, while illumination color describes which wavelengths the source makes available."
+      },
+      "source_references": ["Atticus_Grade6_Day8_Thursday_Packet_2026-09-03.pdf"],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-03-literature",
+      "date": "2026-09-03",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "literature",
+      "course": "Grade 6 Literature / Drama",
+      "unit_id": "literature-drama-analysis",
+      "unit_title": "Reading Drama",
+      "lesson_number": 4,
+      "lesson_title": "Motivation through dialogue and stage directions",
+      "standards": ["RL.6.1", "RL.6.2", "RL.6.3", "RL.6.5"],
+      "previous_learning": "Plot understanding is strong. Motivation is improving, while consequence and theme evidence still require precise explanation.",
+      "course_context": "Infer motivation and conflict from a dramatic scene's dialogue, pauses, actions, and stage directions.",
+      "learning_objectives": [
+        "Infer character motivation from dialogue and stage directions.",
+        "Use an exact line or action as evidence.",
+        "Explain how a pause contributes to tension.",
+        "Identify conflict, compromise, and a universal theme."
+      ],
+      "why_it_matters": "Plays reveal character not only through spoken words but also through pauses, movement, expression, and subtext.",
+      "vocabulary": [
+        {"term": "dialogue", "definition": "the words characters speak"},
+        {"term": "stage direction", "definition": "a written instruction describing action, movement, or expression"},
+        {"term": "subtext", "definition": "meaning or feeling underneath the literal words"},
+        {"term": "motivation", "definition": "why a character chooses an action"},
+        {"term": "conflict", "definition": "a struggle between goals, people, or choices"},
+        {"term": "evidence", "definition": "a line or stage direction that supports an interpretation"}
+      ],
+      "written_instruction": "Original scene — The Empty Chair. Characters: Maya and Leo, members of a student design team. [A classroom after school. Three chairs surround a table. One chair is empty. A finished model bridge sits in the center.] MAYA: We should present without him. LEO: The presentation starts in twenty minutes. MAYA: Exactly. [Leo looks toward the door, then at the empty chair.] LEO: Jonah built half the support system. MAYA: And Jonah said he'd be here at four. LEO: He texted that his bus broke down. MAYA: Five minutes ago. [A pause.] LEO: You're angry because he is late, not because the bridge is unfinished. MAYA: I'm angry because I don't want the judges to think we can't organize ourselves. LEO: Then an empty chair might say more than a late teammate. [Maya looks at the bridge. She moves the empty chair closer to the table.] MAYA: Fine. We wait ten minutes. Then we start. LEO: That's all I was asking.",
+      "worked_examples": [
+        {
+          "title": "Dialogue evidence",
+          "problem": "How can a reader infer motivation in a play?",
+          "solution": "Identify what the character wants, then cite the exact line or action that reveals it.",
+          "explanation": "A plot summary says what happened; motivation explains why the character chooses an action."
+        }
+      ],
+      "guided_practice": [
+        {"id": "lit-g1", "prompt": "What does Maya want to protect when she argues that the team should present without Jonah?", "hint": "Use Maya's statement about what the judges might think."},
+        {"id": "lit-g2", "prompt": "What does Leo appear to value most? Use one exact line or stage direction as evidence.", "hint": "Consider what he says about Jonah's contribution and where he looks."},
+        {"id": "lit-g3", "prompt": "What does the stage direction '[A pause.]' add to the scene? Explain what it suggests about the tension.", "hint": "Explain what the silence allows the characters or audience to feel."},
+        {"id": "lit-g4", "prompt": "Why is Maya's final decision a compromise?", "hint": "Explain what Leo receives and what limit Maya keeps."}
+      ],
+      "independent_practice": [
+        {"id": "lit-i5", "prompt": "Write one sentence describing the central conflict of the scene."},
+        {"id": "lit-i6", "prompt": "Write one possible universal theme statement. Do not use a character's name."}
+      ],
+      "exit_ticket": [
+        {
+          "id": "lit-e1",
+          "prompt": "Choose ONE line from 'The Empty Chair.' Explain what the line reveals about a character's motivation.",
+          "answer": "Responses vary but must quote an accurate line and explain what it reveals about Maya's or Leo's reason for acting.",
+          "rubric": "Use one exact line and connect it to a character's motivation rather than summarizing the plot."
+        }
+      ],
+      "mastery_threshold": 75,
+      "materials": ["Thursday packet"],
+      "estimated_minutes": 40,
+      "voice_prompt": "Teach that plays reveal character through dialogue, stage directions, pauses, and what characters avoid saying. Read the scene aloud. Ask Atticus to infer motivation using an exact line or stage direction. Do not accept plot summary as motivation.",
+      "teacher_notes": "Maya protects the team's image. Leo values fairness and Jonah's contribution. The pause shows tension. The final decision is a compromise: wait ten minutes, then start.",
+      "answer_key": {
+        "lit-g1": "Maya wants to protect the team's image and prevent the judges from thinking the team is disorganized.",
+        "lit-g2": "Leo values fairness and recognizing Jonah's contribution; for example, he says, 'Jonah built half the support system.'",
+        "lit-g3": "The pause heightens tension by creating silence after Maya dismisses the timing of Jonah's message and before Leo directly challenges her real reason.",
+        "lit-g4": "They will wait for Jonah as Leo wants, but only for ten minutes before starting as Maya wants.",
+        "lit-i5": "Maya wants to protect the team's presentation and image by starting without Jonah, while Leo wants to wait for a contributing teammate whose bus broke down."
+      },
+      "source_references": ["Atticus_Grade6_Day8_Thursday_Packet_2026-09-03.pdf"],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-03-french",
+      "date": "2026-09-03",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "french",
+      "course": "Grade 6 French",
+      "unit_id": "fr-core-verbs",
+      "unit_title": "High-Frequency Present Tense",
+      "lesson_number": 5,
+      "lesson_title": "Meaning before form",
+      "standards": ["ACTFL-Interpersonal", "ACTFL-Presentational"],
+      "previous_learning": "Possession with avoir is improving, but descriptions still sometimes use avoir. Negative possession still needs ne or n'...pas de.",
+      "course_context": "Continue targeted repair by classifying each meaning as description or possession before selecting and conjugating the verb.",
+      "learning_objectives": [
+        "Classify sentences as description or possession.",
+        "Choose and conjugate être or avoir from meaning.",
+        "Form negative possession with ne or n'...pas de.",
+        "Produce complete spoken French sentences."
+      ],
+      "why_it_matters": "Meaning determines the verb, and accurate negation makes spoken and written French clear.",
+      "vocabulary": [
+        {"term": "description", "definition": "what someone or something is like"},
+        {"term": "possession", "definition": "having or owning something"},
+        {"term": "être", "definition": "to be"},
+        {"term": "avoir", "definition": "to have"},
+        {"term": "negation", "definition": "ne...pas or n'...pas"},
+        {"term": "de after negation", "definition": "many un, une, or des possession phrases become de after ne...pas"}
+      ],
+      "written_instruction": "Decide first whether the sentence expresses a description or state, or possession. Descriptions use être; possession uses avoir. In negative possession, place ne or n' and pas around the verb and usually change un, une, or des to de.",
+      "worked_examples": [
+        {
+          "title": "Description",
+          "problem": "They are tired.",
+          "solution": "Ils sont fatigués.",
+          "explanation": "Tired is a description, so use être."
+        },
+        {
+          "title": "Possession",
+          "problem": "They have three books.",
+          "solution": "Ils ont trois livres.",
+          "explanation": "Having books is possession, so use avoir."
+        },
+        {
+          "title": "Negative possession",
+          "problem": "Nous avons des livres.",
+          "solution": "Nous n'avons pas de livres.",
+          "explanation": "Use n'...pas around avons and change des to de."
+        }
+      ],
+      "guided_practice": [
+        {"id": "fr-g1", "prompt": "Choose être or avoir: Elles ______ heureuses.", "hint": "Decide whether this is a description or possession."},
+        {"id": "fr-g2", "prompt": "Choose être or avoir: Nous ______ deux stylos.", "hint": "The sentence expresses possession."},
+        {"id": "fr-g3", "prompt": "Choose être or avoir: Vous ______ fatigués.", "hint": "The sentence describes a state."},
+        {"id": "fr-g4", "prompt": "Make negative: J'ai un livre.", "hint": "Use n'ai pas de."},
+        {"id": "fr-g5", "prompt": "Make negative: Ils ont des devoirs.", "hint": "Place ne and pas around ont and change des to de."},
+        {"id": "fr-g6", "prompt": "Make negative: Elle a une calculatrice.", "hint": "Use n'a pas de."}
+      ],
+      "independent_practice": [
+        {"id": "fr-i7", "prompt": "Answer in a complete French sentence: Est-ce que tu as des devoirs aujourd'hui?"},
+        {"id": "fr-i8", "prompt": "Answer in a complete French sentence: Est-ce que tu es fatigué maintenant?"},
+        {"id": "fr-i9", "prompt": "Oral check: Say eight short sentences—four with être and four with avoir. Include three negative possession sentences using de."}
+      ],
+      "exit_ticket": [],
+      "mastery_threshold": 75,
+      "materials": ["Thursday packet"],
+      "estimated_minutes": 35,
+      "voice_prompt": "Do not advance yet. Wednesday still showed 'Ils ont fatigués' and negative-possession errors. Make Atticus decide whether each sentence expresses DESCRIPTION or STATE or POSSESSION before choosing the verb. Model 'Ils sont fatigués' versus 'Ils ont trois livres.' Drill ne or n'...pas de.",
+      "teacher_notes": "Do not advance beyond targeted être, avoir, and negative possession repair.",
+      "answer_key": {
+        "fr-g1": "sont",
+        "fr-g2": "avons",
+        "fr-g3": "êtes",
+        "fr-g4": "Je n'ai pas de livre.",
+        "fr-g5": "Ils n'ont pas de devoirs.",
+        "fr-g6": "Elle n'a pas de calculatrice."
+      },
+      "source_references": ["Atticus_Grade6_Day8_Thursday_Packet_2026-09-03.pdf"],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-03-writing",
+      "date": "2026-09-03",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "writing",
+      "course": "Grade 6 Writing / Language",
+      "unit_id": "writing-analytical",
+      "unit_title": "Analytical Writing",
+      "lesson_number": 6,
+      "lesson_title": "Evidence, reasoning, and sentence clarity",
+      "standards": ["W.6.2", "W.6.9", "L.6.1", "L.6.2"],
+      "previous_learning": "Wednesday's analytical paragraph had a clear main idea and useful evidence, but some evidence was vague. Sentence boundaries and evidence quality remain the main targets.",
+      "course_context": "Strengthen claim, evidence, and reasoning by making evidence exact and controlling sentence boundaries.",
+      "learning_objectives": [
+        "Replace vague evidence with an exact quotation or action.",
+        "Explain what evidence reveals about motivation.",
+        "Repair sentence boundaries.",
+        "Write a coherent analytical paragraph with two evidence-reasoning pairs."
+      ],
+      "why_it_matters": "Precise evidence and complete sentences make analytical reasoning visible and convincing.",
+      "vocabulary": [
+        {"term": "claim", "definition": "the point you are proving"},
+        {"term": "evidence", "definition": "a specific detail that supports the claim"},
+        {"term": "reasoning", "definition": "why the evidence supports the claim"},
+        {"term": "precise", "definition": "specific and exact rather than vague"},
+        {"term": "sentence boundary", "definition": "where one complete sentence ends and another begins"},
+        {"term": "revision", "definition": "improving meaning, organization, wording, or clarity"}
+      ],
+      "written_instruction": "Ask two questions while revising analysis: What exact event or line am I citing? What does that evidence prove? Keep each complete thought within a controlled sentence boundary.",
+      "worked_examples": [
+        {
+          "title": "Weak evidence",
+          "problem": "Evidence: The team tested the robot.",
+          "solution": "This evidence needs revision.",
+          "explanation": "It is too vague because it does not identify what happened or what the test revealed."
+        },
+        {
+          "title": "Strong evidence and reasoning",
+          "problem": "Evidence: The arm dropped the cube because the timing value had been changed to 0.2 seconds.",
+          "solution": "Reasoning: The final test uncovered a hidden code error that could have caused failure during the showcase.",
+          "explanation": "The exact detail is followed by a clear statement of significance."
+        }
+      ],
+      "guided_practice": [
+        {"id": "wr-g1", "prompt": "Improve this vague evidence: 'Maya was upset.' Rewrite it using one exact line or stage direction from 'The Empty Chair.'", "hint": "Choose Maya's statement about the judges or one of her actions."},
+        {"id": "wr-g2", "prompt": "Write one sentence of reasoning explaining what Maya's exact evidence reveals about her motivation.", "hint": "Explain what she wants to protect."},
+        {"id": "wr-g3", "prompt": "Repair the sentence boundary: 'Maya wants to protect the team's image Leo wants to wait for Jonah they disagree about what matters most.'", "hint": "Separate or correctly join the three complete thoughts."}
+      ],
+      "independent_practice": [
+        {"id": "wr-i1", "prompt": "Write 8-10 sentences answering: Why is Maya's final decision a compromise rather than a complete victory for either character? Include a clear claim, TWO exact details from 'The Empty Chair,' reasoning after each detail, and a conclusion."}
+      ],
+      "exit_ticket": [],
+      "mastery_threshold": 75,
+      "materials": ["Thursday packet", "Pencil"],
+      "estimated_minutes": 45,
+      "voice_prompt": "Wednesday's analytical paragraph had a clear main idea and useful evidence, but some evidence was vague and sentence boundaries still need attention. Teach Atticus to ask: What exact event am I citing? What does that event prove? Model one strong evidence and reasoning pair and one weak pair. Then write about Maya's compromise.",
+      "teacher_notes": "Require exact evidence and reasoning. Score mechanics separately.",
+      "answer_key": {
+        "wr-g1": "Responses vary; the evidence must quote an exact line or stage direction, such as Maya saying she does not want the judges to think the team cannot organize itself.",
+        "wr-g2": "The reasoning should explain that Maya wants to protect the team's organized, reliable image in front of the judges.",
+        "wr-g3": "Maya wants to protect the team's image. Leo wants to wait for Jonah. They disagree about what matters most."
+      },
+      "source_references": ["Atticus_Grade6_Day8_Thursday_Packet_2026-09-03.pdf"],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-03-computer_science",
+      "date": "2026-09-03",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "computer_science",
+      "course": "Grade 6 Computer Science / AI",
+      "unit_id": "cs-ai-classification",
+      "unit_title": "Data and Image Classification",
+      "lesson_number": 7,
+      "lesson_title": "Overfitting and fair testing",
+      "standards": ["CSTA 2-AP-11", "CSTA 2-IC-20"],
+      "previous_learning": "Training versus test data improved. Generalization and overfitting are closer, but the definitions are not stable enough to advance.",
+      "course_context": "Hold the topic for targeted reinforcement on transfer to unseen data, overfitting, and fair evaluation.",
+      "learning_objectives": [
+        "Define generalization as performance on new examples.",
+        "Define overfitting using the training-test performance gap.",
+        "Explain why test data must remain separate.",
+        "Interpret training and test accuracy.",
+        "Propose varied training data."
+      ],
+      "why_it_matters": "A model is useful only if its performance transfers beyond the exact examples used to train it.",
+      "vocabulary": [
+        {"term": "training data", "definition": "examples used to teach a model"},
+        {"term": "test data", "definition": "separate unseen examples used to evaluate the trained model"},
+        {"term": "generalization", "definition": "performing well on new examples or conditions not seen exactly during training"},
+        {"term": "overfitting", "definition": "performing very well on training examples but poorly on new examples because learning was too narrow"},
+        {"term": "fair evaluation", "definition": "testing on examples not already used for training"},
+        {"term": "variation", "definition": "differences in angle, background, lighting, distance, or object example"}
+      ],
+      "written_instruction": "Practice problems teach; new quiz questions test whether learning transfers. Likewise, training data teaches a model, while separate test data evaluates generalization. Overfitting occurs when a model learns narrow training patterns and fails on new examples.",
+      "worked_examples": [
+        {
+          "title": "Possible overfitting",
+          "problem": "Training accuracy is 100%, while new-image accuracy is 55%.",
+          "solution": "The model shows weak generalization and possible overfitting.",
+          "explanation": "Excellent training performance did not transfer to new examples."
+        },
+        {
+          "title": "Unfair evaluation",
+          "problem": "The exact same images are used for training and testing.",
+          "solution": "The evaluation is not fair.",
+          "explanation": "It does not measure performance on unseen examples."
+        },
+        {
+          "title": "Varied training",
+          "problem": "A cup classifier depends on one background.",
+          "solution": "Train on cups with varied backgrounds, angles, distances, and lighting.",
+          "explanation": "Variation makes the cup itself a more reliable feature."
+        }
+      ],
+      "guided_practice": [
+        {"id": "cs-g1", "prompt": "Define generalization without using the phrase 'takes in data.'", "hint": "Describe performance on new examples."},
+        {"id": "cs-g2", "prompt": "Define overfitting in one complete sentence.", "hint": "Compare training performance with performance on new examples."},
+        {"id": "cs-g3", "prompt": "Why must test data stay separate from training data until evaluation?", "hint": "A fair test should use examples the model has not learned from."}
+      ],
+      "independent_practice": [
+        {"id": "cs-i4", "prompt": "A model gets 98% on training images and 96% on new test images. What does this suggest about generalization?"},
+        {"id": "cs-i5", "prompt": "A model gets 100% on training images and 40% on new test images. What does this suggest? Name the likely problem."},
+        {"id": "cs-i6", "prompt": "Name THREE kinds of variation you could add to cup training photos to reduce background dependence."}
+      ],
+      "exit_ticket": [
+        {
+          "id": "cs-e1",
+          "prompt": "Complete: Training data ______ the model; test data ______ the model.",
+          "answer": "teaches; evaluates",
+          "rubric": "Identify training as teaching and testing as evaluation."
+        },
+        {
+          "id": "cs-e2",
+          "prompt": "Explain why overfitting can make training performance look excellent even when the model is not useful on new examples.",
+          "answer": "An overfit model learns the training examples or their narrow patterns extremely well, but those patterns do not transfer to new examples.",
+          "rubric": "Connect excellent training fit to weak transfer or generalization."
+        }
+      ],
+      "mastery_threshold": 75,
+      "materials": ["Thursday packet"],
+      "estimated_minutes": 40,
+      "voice_prompt": "Hold this topic one more day. Wednesday showed Atticus can describe training versus test data, but his generalization definition was still 'taking in data.' Teach the exact distinction with a school analogy: practice problems teach; new quiz questions test transfer. Explain overfitting as memorizing narrow training patterns.",
+      "teacher_notes": "Do not advance until generalization and overfitting definitions are stable.",
+      "answer_key": {
+        "cs-g1": "Generalization is performing well on new examples or conditions not seen exactly during training.",
+        "cs-g2": "Overfitting is performing very well on training examples but poorly on new examples because the learned pattern is too narrow.",
+        "cs-g3": "Separate test data measures whether performance transfers to unseen examples rather than measuring fit or memory of training examples.",
+        "cs-i4": "It suggests strong generalization because performance remains high on new test images.",
+        "cs-i5": "It suggests weak generalization and likely overfitting.",
+        "cs-i6": "Any three relevant variations, including background, angle, lighting, distance, or different cup examples."
+      },
+      "source_references": ["Atticus_Grade6_Day8_Thursday_Packet_2026-09-03.pdf"],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-03-theatre",
+      "date": "2026-09-03",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "art_design",
+      "course": "Grade 6 Theatre",
+      "unit_id": "theatre-performance",
+      "unit_title": "Motivation in Performance",
+      "lesson_number": 8,
+      "lesson_title": "Same words, different intention",
+      "standards": ["TH:Pr4.1.6", "TH:Pr6.1.6", "SL.6.4"],
+      "previous_learning": "Wednesday Theatre was not assessed because football shortened the afternoon. Thursday Theatre is ordinary enrichment, not makeup punishment.",
+      "course_context": "Perform lines from 'The Empty Chair' with contrasting objectives and subtext.",
+      "learning_objectives": [
+        "Identify a character objective.",
+        "Use emphasis, pace, posture, tone, and pause to communicate subtext.",
+        "Perform the same words with two different intentions.",
+        "Explain which performance choices changed the meaning."
+      ],
+      "why_it_matters": "Performance choices reveal motivation and subtext even when the spoken words stay exactly the same.",
+      "vocabulary": [
+        {"term": "objective", "definition": "what a character wants in the scene"},
+        {"term": "tactic", "definition": "the method a character uses to get what they want"},
+        {"term": "subtext", "definition": "the feeling or intention underneath the literal words"},
+        {"term": "pace", "definition": "how quickly or slowly a performer speaks"},
+        {"term": "pause", "definition": "a deliberate moment of silence"},
+        {"term": "emphasis", "definition": "extra stress placed on an important word or phrase"}
+      ],
+      "written_instruction": "Use 'The Empty Chair.' Perform Maya's line, 'Fine. We wait ten minutes. Then we start,' first as reluctant compromise and then as calm leadership. Change pace, emphasis, posture, tone, or pause rather than changing the words. Then perform Leo's line, 'That's all I was asking,' as relieved and as slightly annoyed.",
+      "worked_examples": [
+        {
+          "title": "Same line, different subtext",
+          "problem": "How can the same words communicate reluctant compromise and calm leadership?",
+          "solution": "Change pace, pause, emphasis, posture, and tone while preserving the line.",
+          "explanation": "Delivery choices communicate the intention beneath the literal words."
+        }
+      ],
+      "guided_practice": [
+        {"id": "theatre-g1", "prompt": "For Maya's first performance of 'Fine. We wait ten minutes. Then we start,' what is her objective?"},
+        {"id": "theatre-g2", "prompt": "Which word or phrase will you emphasize to show reluctant compromise?"},
+        {"id": "theatre-g3", "prompt": "For Maya's second performance, what changes in pace, posture, or tone will show calm leadership?"}
+      ],
+      "independent_practice": [
+        {"id": "theatre-i4", "prompt": "Perform Leo's final line, 'That's all I was asking,' once as relieved and once as slightly annoyed. What changed besides the words?"}
+      ],
+      "exit_ticket": [
+        {
+          "id": "theatre-e1",
+          "prompt": "Performance check: Use one deliberate pause, make one word noticeably emphasized, keep the line understandable and audible, and explain the character objective after the performance.",
+          "answer": "Performance evidence should satisfy all four criteria.",
+          "rubric": "Assess deliberate pause, audible emphasis, clarity, and an accurate explanation of the character objective."
+        }
+      ],
+      "mastery_threshold": 75,
+      "materials": ["Thursday packet", "The Empty Chair scene"],
+      "estimated_minutes": 30,
+      "voice_prompt": "This is normal Thursday enrichment, not makeup punishment for football. Use 'The Empty Chair.' Have Atticus perform Maya's line 'Fine. We wait ten minutes. Then we start.' as reluctant compromise and then as calm leadership. Discuss how pace, emphasis, posture, and pause change meaning. Then perform Leo's final line as relieved and as slightly annoyed.",
+      "teacher_notes": "Assess performance choices, not memorization.",
+      "answer_key": {},
+      "source_references": ["Atticus_Grade6_Day8_Thursday_Packet_2026-09-03.pdf"],
+      "status": "scheduled"
+    }
+  ]
+}
