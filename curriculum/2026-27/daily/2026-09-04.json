@@ -1,0 +1,605 @@
+{
+  "date": "2026-09-04",
+  "school_year": "2026-27",
+  "grade_level": 6,
+  "day_number": 9,
+  "school_day_label": "Friday, September 4, 2026",
+  "todays_goal": "Use precise vocabulary and complete explanations while continuing normal Grade 6 progression. Finish the week with independent evidence of current skills.",
+  "lessons": [
+    {
+      "id": "2026-09-04-science",
+      "date": "2026-09-04",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "science",
+      "course": "Grade 6 Science",
+      "unit_id": "science-light",
+      "unit_title": "Light and Materials",
+      "lesson_number": 1,
+      "lesson_title": "Light filters and available wavelengths",
+      "standards": ["MS-PS4-2"],
+      "previous_learning": "Thursday's color-and-light explanations improved and now use available light, reflection, and absorption more accurately.",
+      "course_context": "Extend selective reflection to filters that selectively transmit wavelengths and change the light available to illuminate an object.",
+      "learning_objectives": [
+        "Explain a filter as a selective transmitter.",
+        "Identify which light is available after a colored filter.",
+        "Predict an object's appearance under filtered light.",
+        "Distinguish selective reflection from selective transmission."
+      ],
+      "why_it_matters": "Filters change the wavelengths available before light reaches an object, so they can change how colors appear.",
+      "vocabulary": [
+        {"term": "filter", "definition": "a material that transmits some wavelengths of light more than others"},
+        {"term": "transmit", "definition": "allow light to pass through"},
+        {"term": "absorb", "definition": "take in light energy"},
+        {"term": "available light", "definition": "the wavelengths or colors present before light reaches an object"},
+        {"term": "selective transmission", "definition": "letting some wavelengths through more strongly than others"},
+        {"term": "prediction", "definition": "what you expect to happen based on a model"}
+      ],
+      "written_instruction": "A colored filter selectively transmits some wavelengths and absorbs much of the rest. First identify the light available after the filter, then predict which of those wavelengths an object can reflect toward the eyes.",
+      "worked_examples": [
+        {
+          "title": "White light through a red filter",
+          "problem": "What light leaves a red filter when white light enters it?",
+          "solution": "Mostly red light is transmitted, so the exiting light looks red.",
+          "explanation": "The filter transmits red wavelengths more strongly and absorbs much of the other visible light."
+        },
+        {
+          "title": "White card under green-filtered light",
+          "problem": "How can a white card look under green-filtered light?",
+          "solution": "The card can look green.",
+          "explanation": "Green light is available and the white card reflects it."
+        },
+        {
+          "title": "Red object under blue-filtered light",
+          "problem": "How can a red object look under blue-filtered light?",
+          "solution": "The red object may look dark.",
+          "explanation": "Little red light is available for the object to reflect."
+        }
+      ],
+      "guided_practice": [
+        {"id": "sci-g1", "prompt": "White light passes through a blue filter. Which color of light is transmitted most strongly?", "hint": "A colored filter transmits its named color more strongly."},
+        {"id": "sci-g2", "prompt": "A white sheet of paper is illuminated only by blue-filtered light. Why can the paper look blue?", "hint": "Name the light available and what white paper does with it."},
+        {"id": "sci-g3", "prompt": "A red apple is illuminated only by green-filtered light. Why might the apple look dark?", "hint": "Consider whether red light is available to reflect."}
+      ],
+      "independent_practice": [
+        {"id": "sci-i4", "prompt": "Explain the difference between selective reflection by an object and selective transmission by a filter."},
+        {"id": "sci-i5", "prompt": "Predict what happens when white light passes through a red filter and then shines on a red card. Explain using available light and reflection."}
+      ],
+      "exit_ticket": [
+        {
+          "id": "sci-e1",
+          "prompt": "What does a colored light filter do to the wavelengths in white light?",
+          "answer": "It transmits some wavelengths more strongly and absorbs much of the other visible light.",
+          "rubric": "Explain selective transmission and absorption rather than saying the filter creates color."
+        },
+        {
+          "id": "sci-e2",
+          "prompt": "Why must you know the color of the light source before predicting an object's appearance?",
+          "answer": "The source determines which wavelengths are available for the object to reflect toward the eyes.",
+          "rubric": "Connect source color, available wavelengths, and reflection."
+        }
+      ],
+      "mastery_threshold": 75,
+      "materials": ["Friday packet"],
+      "estimated_minutes": 50,
+      "voice_prompt": "Teach filters as selective transmitters. Connect to Thursday's idea of available light: a red filter transmits more red light and absorbs much of the other visible light. Work three examples before practice: white light through a red filter; a red object viewed through a blue filter; a white card illuminated by light that has passed through a green filter. Make Atticus name what light is available after the filter before predicting what the object will look like.",
+      "teacher_notes": "Require the student to name the available light after the filter before predicting appearance.",
+      "answer_key": {
+        "sci-g1": "Blue light.",
+        "sci-g2": "Blue light is available after the filter, and white paper reflects the available blue light toward the eyes.",
+        "sci-g3": "Little or no red light is available to reflect, and the apple may absorb much of the green light.",
+        "sci-i4": "Selective reflection occurs when an object sends some incident wavelengths back more strongly; selective transmission occurs when a filter allows some wavelengths to pass through more strongly.",
+        "sci-i5": "The red filter supplies mostly red light, and the red card reflects that available red light strongly, so it looks red."
+      },
+      "source_references": ["Atticus_Grade6_Day9_Friday_Packet_2026-09-04.pdf"],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-04-mathematics",
+      "date": "2026-09-04",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "mathematics",
+      "course": "Grade 6 Mathematics",
+      "unit_id": "math-ratios",
+      "unit_title": "Ratios, Rates, and Percent",
+      "lesson_number": 2,
+      "lesson_title": "Percent applications",
+      "standards": ["6.RP.A.3"],
+      "previous_learning": "Benchmark percents were strong on Thursday. Fraction-decimal-percent conversion still requires precision, especially 18% = 0.18.",
+      "course_context": "Extend beyond benchmark percents to find parts, wholes, percents, and discounts using multiple strategies.",
+      "learning_objectives": [
+        "Convert among fractions out of 100, decimals, and percents.",
+        "Find a part when the whole and percent are known.",
+        "Find a percent or whole from a part-whole relationship.",
+        "Calculate a discount and sale price.",
+        "Compare percent expressions for reasonableness."
+      ],
+      "why_it_matters": "Percent applications support accurate decisions about prices, quantities, comparisons, and data.",
+      "vocabulary": [
+        {"term": "percent", "definition": "a rate per 100"},
+        {"term": "part", "definition": "the portion being considered"},
+        {"term": "whole", "definition": "the complete quantity"},
+        {"term": "benchmark percent", "definition": "a familiar percent such as 10%, 25%, or 50%"},
+        {"term": "discount", "definition": "an amount subtracted from an original price"},
+        {"term": "equivalent", "definition": "equal in value even when written differently"}
+      ],
+      "written_instruction": "Use one of three strategies: convert the percent to a decimal, build from benchmark percents such as 10% and 5%, or form a proportion out of 100. Identify the part, whole, and percent, include units, and check whether the result is reasonable.",
+      "worked_examples": [
+        {
+          "title": "Build from benchmarks",
+          "problem": "Find 15% of 80.",
+          "solution": "12.",
+          "explanation": "Ten percent of 80 is 8 and five percent is 4, so fifteen percent is 12."
+        },
+        {
+          "title": "Use a decimal",
+          "problem": "Find 30% of 70.",
+          "solution": "21.",
+          "explanation": "Convert 30% to 0.30 and multiply 0.30 × 70."
+        },
+        {
+          "title": "Find the whole",
+          "problem": "18 is 30% of what whole?",
+          "solution": "60.",
+          "explanation": "Since 30% is 0.30, divide 18 by 0.30."
+        }
+      ],
+      "guided_practice": [],
+      "independent_practice": [
+        {"id": "math-i1", "prompt": "Write 37% as a fraction with denominator 100 and as a decimal."},
+        {"id": "math-i2", "prompt": "Write 0.64 as a percent and as a fraction with denominator 100."},
+        {"id": "math-i3", "prompt": "Find 15% of 80."},
+        {"id": "math-i4", "prompt": "Find 30% of 70."},
+        {"id": "math-i5", "prompt": "Find 60% of 45."},
+        {"id": "math-i6", "prompt": "12 is what percent of 48? Show your reasoning."},
+        {"id": "math-i7", "prompt": "18 is 30% of what whole? Show your reasoning."},
+        {"id": "math-i8", "prompt": "A $50 jacket is discounted by 20%. Find the discount amount and the sale price."},
+        {"id": "math-i9", "prompt": "Which is larger: 40% of 60 or 30% of 90? Calculate both."},
+        {"id": "math-i10", "prompt": "Explain why 25%, 0.25, and 25/100 name the same value."}
+      ],
+      "exit_ticket": [],
+      "mastery_threshold": 75,
+      "materials": ["Friday packet", "Hundred grids", "Pencil"],
+      "estimated_minutes": 60,
+      "voice_prompt": "Review the exact conversion 18% = 18/100 = 0.18, then extend beyond benchmark percents. Teach three strategies: convert percent to decimal, build from 10% and 5% benchmarks, and use a proportion out of 100. Work three complete examples: 15% of 80 = 12; 30% of 70 = 21; 18 is 30% of 60. Then Atticus completes the 10-question set independently. Require units in word problems and reasonableness checks.",
+      "teacher_notes": "The 10-question set is independent. Require units in word problems and reasonableness checks.",
+      "answer_key": {
+        "math-i1": "37/100 and 0.37.",
+        "math-i2": "64% and 64/100.",
+        "math-i3": "12.",
+        "math-i4": "21.",
+        "math-i5": "27.",
+        "math-i6": "25%.",
+        "math-i7": "60.",
+        "math-i8": "$10 discount and $40 sale price.",
+        "math-i9": "40% of 60 is 24; 30% of 90 is 27, so 30% of 90 is larger.",
+        "math-i10": "They are equivalent to one fourth: 25/100 simplifies to 1/4 and equals the decimal 0.25."
+      },
+      "source_references": ["Atticus_Grade6_Day9_Friday_Packet_2026-09-04.pdf"],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-04-french",
+      "date": "2026-09-04",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "french",
+      "course": "Grade 6 French",
+      "unit_id": "fr-core-verbs",
+      "unit_title": "High-Frequency Present Tense",
+      "lesson_number": 3,
+      "lesson_title": "Être or avoir decision practice",
+      "standards": ["ACTFL-Interpersonal", "ACTFL-Presentational"],
+      "previous_learning": "Descriptions still need être, possession needs avoir, and negative possession needs de, as in Je n'ai pas de livre.",
+      "course_context": "Keep the focus narrow and oral-first while repairing ont versus sont, avez versus êtes, and pas de in negative possession.",
+      "learning_objectives": [
+        "Classify a sentence as description or possession.",
+        "Choose and conjugate être or avoir.",
+        "Distinguish ont from sont and avez from êtes.",
+        "Form negative possession with ne or n'...pas de.",
+        "Answer orally in complete French sentences."
+      ],
+      "why_it_matters": "Choosing the verb from meaning and forming negation accurately makes French clear and natural.",
+      "vocabulary": [
+        {"term": "description", "definition": "what someone or something is like"},
+        {"term": "possession", "definition": "having or owning something"},
+        {"term": "être", "definition": "to be"},
+        {"term": "avoir", "definition": "to have"},
+        {"term": "negation", "definition": "ne...pas or n'...pas"},
+        {"term": "de after negation", "definition": "many un, une, or des possession phrases become de after ne...pas"}
+      ],
+      "written_instruction": "Before every answer, decide whether the sentence expresses a description or state, or possession. Use être for descriptions and avoir for possession. In negative possession, place ne or n' and pas around the verb and change un, une, or des to de.",
+      "worked_examples": [
+        {
+          "title": "Description",
+          "problem": "You are tired.",
+          "solution": "Vous êtes fatigués.",
+          "explanation": "Tired is a description, so use être."
+        },
+        {
+          "title": "Possession",
+          "problem": "You have three books.",
+          "solution": "Vous avez trois livres.",
+          "explanation": "Having books is possession, so use avoir."
+        },
+        {
+          "title": "Negative possession",
+          "problem": "Elle a une calculatrice.",
+          "solution": "Elle n'a pas de calculatrice.",
+          "explanation": "Use n'...pas around a and change une to de."
+        }
+      ],
+      "guided_practice": [
+        {"id": "fr-g1", "prompt": "Choose être or avoir and conjugate: Elles ______ heureuses.", "hint": "Is this a description or possession?"},
+        {"id": "fr-g2", "prompt": "Choose être or avoir and conjugate: Vous ______ trois cahiers.", "hint": "This expresses possession."},
+        {"id": "fr-g3", "prompt": "Choose être or avoir and conjugate: Ils ______ fatigués.", "hint": "This describes a state."},
+        {"id": "fr-g4", "prompt": "Make negative: J'ai un livre.", "hint": "Use n'ai pas de."},
+        {"id": "fr-g5", "prompt": "Make negative: Nous avons des devoirs.", "hint": "Use n'avons pas de."},
+        {"id": "fr-g6", "prompt": "Make negative: Elle a une calculatrice.", "hint": "Use n'a pas de."}
+      ],
+      "independent_practice": [
+        {"id": "fr-i7", "prompt": "Answer in a complete French sentence: Est-ce que tu es fatigué aujourd'hui?"},
+        {"id": "fr-i8", "prompt": "Answer in a complete French sentence: Est-ce que tu as des devoirs aujourd'hui?"},
+        {"id": "fr-i9", "prompt": "Oral check: Say eight short sentences—four descriptions with être and four possession sentences with avoir. Make three possession sentences negative using de."}
+      ],
+      "exit_ticket": [],
+      "mastery_threshold": 75,
+      "materials": ["Friday packet"],
+      "estimated_minutes": 40,
+      "voice_prompt": "Keep the focus narrow and oral-first. Before every answer, ask: 'Is this a DESCRIPTION or STATE or POSSESSION?' Model: Elles sont heureuses; Elles ont deux chiens; Je n'ai pas de livre; Je ne suis pas fatigué. Correct the exact common confusions: ont versus sont, avez versus êtes, and pas de in negative possession.",
+      "teacher_notes": "Keep the lesson oral-first and focused on the recurring verb-choice and negative-de errors.",
+      "answer_key": {
+        "fr-g1": "sont",
+        "fr-g2": "avez",
+        "fr-g3": "sont",
+        "fr-g4": "Je n'ai pas de livre.",
+        "fr-g5": "Nous n'avons pas de devoirs.",
+        "fr-g6": "Elle n'a pas de calculatrice.",
+        "fr-i7": "A likely response is Je ne suis pas fatigué aujourd'hui; personal responses vary.",
+        "fr-i8": "Responses vary."
+      },
+      "source_references": ["Atticus_Grade6_Day9_Friday_Packet_2026-09-04.pdf"],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-04-history_geography",
+      "date": "2026-09-04",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "history_geography",
+      "course": "Grade 6 History",
+      "unit_id": "hist-greece",
+      "unit_title": "Ancient Greece",
+      "lesson_number": 4,
+      "lesson_title": "Persian Wars: rival poleis and common defense",
+      "standards": ["C3.D2.His.1.6-8", "C3.D2.His.14.6-8", "C3.D2.Geo.2.6-8"],
+      "previous_learning": "The direct and representative democracy comparison is secure enough to progress chronologically.",
+      "course_context": "Study how independent and rival Greek poleis cooperated against Persian invasions without becoming one unified country.",
+      "learning_objectives": [
+        "Explain why cooperation among Greek poleis was notable.",
+        "Compare strategies at Marathon, Thermopylae, and Salamis.",
+        "Explain how geography affected Salamis.",
+        "Distinguish temporary cooperation from political unification.",
+        "Sequence the events presented in the reading."
+      ],
+      "why_it_matters": "Political rivals can cooperate against a shared threat while remaining separate and later returning to rivalry.",
+      "vocabulary": [
+        {"term": "Persian Empire", "definition": "a large empire that controlled territories across parts of Asia, Africa, and Europe"},
+        {"term": "invasion", "definition": "an organized entry of armed forces into another territory"},
+        {"term": "alliance", "definition": "an agreement to cooperate for a shared purpose"},
+        {"term": "strategy", "definition": "a plan for achieving a goal"},
+        {"term": "naval", "definition": "related to ships or warfare at sea"},
+        {"term": "significance", "definition": "why an event matters in a larger story"}
+      ],
+      "written_instruction": "From Rival Poleis to Common Defense: In the early fifth century BCE, the Persian Empire attempted to extend its control into the Greek world. The Greek poleis were not one country. They had separate governments and often competed with one another. When Persian forces threatened Greece, several poleis cooperated. At Marathon, Athenian-led forces defeated a Persian army on land. Later, a small Greek force that included Spartans resisted a much larger Persian army at Thermopylae. The defenders were defeated, but their resistance delayed the Persian advance. At sea, Athens had developed a strong navy. During the later invasion, Greek ships defeated the Persian fleet at Salamis. Geography mattered: narrow waters limited how freely the larger Persian fleet could maneuver. The wars did not erase differences among the Greek poleis. Athens and Sparta remained politically independent and eventually became rivals again. The Persian Wars therefore show both cooperation and division in the Greek world.",
+      "worked_examples": [
+        {
+          "title": "Cooperation without unification",
+          "problem": "Several independent poleis cooperate against an invading empire.",
+          "solution": "They form a common defense while retaining separate governments.",
+          "explanation": "An alliance for one purpose does not automatically create one unified country."
+        }
+      ],
+      "guided_practice": [
+        {"id": "hist-g1", "prompt": "Why was cooperation among Greek poleis notable during the Persian Wars?", "hint": "Describe their normal political relationship before the shared threat."},
+        {"id": "hist-g2", "prompt": "What different kinds of military strategy are illustrated by Marathon, Thermopylae, and Salamis?", "hint": "Compare land battle, delaying resistance, and naval strategy."},
+        {"id": "hist-g3", "prompt": "How did geography help the Greek fleet at Salamis?", "hint": "Focus on the narrow waters and the larger Persian fleet."}
+      ],
+      "independent_practice": [
+        {"id": "hist-i4", "prompt": "What does the Persian Wars story show about the relationship between cooperation and political independence?"},
+        {"id": "hist-i5", "prompt": "Put these events in the order presented in the reading: Salamis, Thermopylae, Marathon."}
+      ],
+      "exit_ticket": [
+        {
+          "id": "hist-e1",
+          "prompt": "In 3-4 sentences, explain why the Persian Wars do NOT prove that the Greek poleis had become one unified country.",
+          "answer": "Several poleis cooperated against a common Persian threat, but they retained separate governments and political independence. The wars did not erase their differences, and Athens and Sparta later returned to rivalry.",
+          "rubric": "Distinguish temporary military cooperation from lasting political unification."
+        }
+      ],
+      "mastery_threshold": 75,
+      "materials": ["Friday packet"],
+      "estimated_minutes": 40,
+      "voice_prompt": "Teach a concise, chronological overview of the Persian Wars at Grade 6 level. Greece was divided into independent poleis, but some cooperated when the Persian Empire invaded. Introduce Marathon, Thermopylae, and Salamis as examples of different strategies and outcomes, without turning the lesson into memorizing dates. Emphasize the larger idea: political rivals can cooperate against a common threat and later return to rivalry.",
+      "teacher_notes": "Emphasize chronology, strategy, geography, and cooperation without political unification rather than date memorization.",
+      "answer_key": {
+        "hist-g1": "The poleis had separate governments and often competed, so cooperation against a shared threat was unusual and significant.",
+        "hist-g2": "Marathon shows a successful land battle; Thermopylae shows a smaller defensive force delaying a larger army; Salamis shows naval strategy in narrow waters.",
+        "hist-g3": "The narrow waters restricted the larger Persian fleet's movement and helped the Greek naval strategy.",
+        "hist-i4": "Independent states can cooperate for a shared purpose without surrendering political independence.",
+        "hist-i5": "Marathon, Thermopylae, Salamis."
+      },
+      "source_references": ["Atticus_Grade6_Day9_Friday_Packet_2026-09-04.pdf"],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-04-literature",
+      "date": "2026-09-04",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "literature",
+      "course": "Grade 6 Literature / Reading",
+      "unit_id": "literature-argument",
+      "unit_title": "Comparing Arguments",
+      "lesson_number": 5,
+      "lesson_title": "Comparing two arguments",
+      "standards": ["RI.6.1", "RI.6.8", "RI.6.9"],
+      "previous_learning": "Motivation and conflict were identified accurately from Thursday's dialogue and stage directions. Friday shifts genre to argument analysis.",
+      "course_context": "Identify claims, reasons, evidence, counterarguments, and rebuttals in two texts that take opposing positions.",
+      "learning_objectives": [
+        "State each author's main claim.",
+        "Distinguish reasons from examples or evidence.",
+        "Identify a counterargument and rebuttal.",
+        "Compare the strength of reasons using evidence."
+      ],
+      "why_it_matters": "Analyzing both sides before choosing a position supports fair, evidence-based reasoning.",
+      "vocabulary": [
+        {"term": "claim", "definition": "the main position an author wants the reader to accept"},
+        {"term": "reason", "definition": "an explanation supporting the claim"},
+        {"term": "evidence", "definition": "a fact, example, or detail supporting a reason"},
+        {"term": "counterargument", "definition": "an opposing viewpoint or objection"},
+        {"term": "rebuttal", "definition": "a response to a counterargument"},
+        {"term": "credible", "definition": "worthy of trust or belief"}
+      ],
+      "written_instruction": "Viewpoint A — Use Individual Accountability Logs: Group projects should include a short individual accountability log. In a team, it can be difficult to see who completed which task. A simple log makes responsibilities visible and can help a teacher distinguish between a student who contributed consistently and a student who depended on teammates. Logs can also help groups notice unfinished tasks before a deadline. Critics may say logs create extra paperwork, but a brief two-minute record is a small cost if it prevents confusion about who is responsible for what. Viewpoint B — Do Not Require Individual Logs: Group projects should not require individual accountability logs. The purpose of teamwork is to solve a problem together, not to make every action individually measurable. Students may spend time documenting work instead of doing the work, and a written log may not capture important contributions such as explaining an idea or helping a teammate revise. If a team has problems, teachers can use checkpoints and short conferences instead. These methods keep the focus on collaboration rather than paperwork.",
+      "worked_examples": [
+        {
+          "title": "Argument structure",
+          "problem": "How should an argument be analyzed?",
+          "solution": "Identify the claim, then its reasons and evidence; identify any counterargument and rebuttal.",
+          "explanation": "A reason explains why the claim should be accepted, while an example or fact supports that reason."
+        }
+      ],
+      "guided_practice": [
+        {"id": "lit-g1", "prompt": "State the main claim of Viewpoint A in one sentence.", "hint": "What policy does the author want group projects to use?"},
+        {"id": "lit-g2", "prompt": "State the main claim of Viewpoint B in one sentence.", "hint": "What policy does the second author reject?"},
+        {"id": "lit-g3", "prompt": "Give TWO reasons Viewpoint A uses to support its claim.", "hint": "Look for visible responsibility and unfinished work."},
+        {"id": "lit-g4", "prompt": "Give TWO reasons Viewpoint B uses to support its claim.", "hint": "Look for lost work time and contributions that logs may miss."}
+      ],
+      "independent_practice": [
+        {"id": "lit-i5", "prompt": "What counterargument does Viewpoint A acknowledge, and how does it respond?"},
+        {"id": "lit-i6", "prompt": "Which reason in either text is strongest? Explain WHY that reason is strong rather than simply saying you agree with it."}
+      ],
+      "exit_ticket": [
+        {
+          "id": "lit-e1",
+          "prompt": "Explain the difference between a CLAIM and a REASON using one of today's viewpoints.",
+          "answer": "A claim is the author's main position, while a reason explains why the reader should accept that position. Responses should apply this distinction accurately to Viewpoint A or B.",
+          "rubric": "Define both terms and connect them to one of the two texts."
+        }
+      ],
+      "mastery_threshold": 75,
+      "materials": ["Friday packet"],
+      "estimated_minutes": 45,
+      "voice_prompt": "Teach argument structure before reading: claim -> reasons -> evidence; counterargument -> rebuttal. The two short texts take different positions on individual accountability logs in group projects. Ask Atticus to identify each author's claim and the strongest reason. Make him separate a reason from an example. Do not ask whether he agrees until after he analyzes both texts.",
+      "teacher_notes": "Do not ask for the student's opinion until both arguments have been analyzed.",
+      "answer_key": {
+        "lit-g1": "Group projects should include a short individual accountability log.",
+        "lit-g2": "Group projects should not require individual accountability logs.",
+        "lit-g3": "Logs make responsibilities visible and help groups notice unfinished tasks before a deadline.",
+        "lit-g4": "Logs may take time away from the work and may miss contributions such as explaining ideas or helping with revision.",
+        "lit-i5": "It acknowledges that logs create extra paperwork and responds that a two-minute record is a small cost if it prevents confusion.",
+        "lit-i6": "Responses vary but must judge a specific reason using relevance, logic, or support rather than personal agreement."
+      },
+      "source_references": ["Atticus_Grade6_Day9_Friday_Packet_2026-09-04.pdf"],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-04-writing",
+      "date": "2026-09-04",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "writing",
+      "course": "Grade 6 Writing / Language",
+      "unit_id": "writing-argument",
+      "unit_title": "Argument Writing",
+      "lesson_number": 6,
+      "lesson_title": "Argument paragraph with evidence and counterclaim",
+      "standards": ["W.6.1", "W.6.4", "W.6.9", "L.6.1", "L.6.2"],
+      "previous_learning": "Evidence is becoming more specific and reasoning is clearer. Each sentence should add new information rather than repeating the same reason.",
+      "course_context": "Use the two accountability-log viewpoints as source material for a compact Grade 6 argument with a counterclaim and rebuttal.",
+      "learning_objectives": [
+        "Write a clear claim.",
+        "Support two distinct reasons with source-based details and reasoning.",
+        "State a reasonable counterclaim and rebuttal.",
+        "Conclude the argument and revise sentence boundaries."
+      ],
+      "why_it_matters": "A fair argument supports its own position while accurately addressing a reasonable opposing view.",
+      "vocabulary": [
+        {"term": "argument", "definition": "a position supported by reasons and evidence"},
+        {"term": "claim", "definition": "the position you are arguing for"},
+        {"term": "counterclaim", "definition": "a reasonable opposing position"},
+        {"term": "rebuttal", "definition": "your response to the counterclaim"},
+        {"term": "evidence", "definition": "specific support for a reason"},
+        {"term": "reasoning", "definition": "why the support matters to the claim"}
+      ],
+      "written_instruction": "Use this structure: claim; reason one with evidence and reasoning; reason two with evidence and reasoning; counterclaim with rebuttal; conclusion. Use the two reading viewpoints as the evidence source, and ensure every sentence adds new information.",
+      "worked_examples": [
+        {
+          "title": "Structure only",
+          "problem": "Should school clubs publish meeting agendas?",
+          "solution": "Claim: School clubs should publish meeting agendas. Reason: Agendas help members prepare. Evidence: Members can see what decisions will be discussed. Reasoning: Preparation makes meetings more efficient.",
+          "explanation": "Counterclaim: Agendas take time to write. Rebuttal: A short agenda can be created in a few minutes."
+        }
+      ],
+      "guided_practice": [
+        {"id": "wr-g1", "prompt": "Choose your position: Should group projects require a short individual accountability log? Write your claim.", "hint": "State one clear, arguable position."},
+        {"id": "wr-g2", "prompt": "Write Reason 1 and one supporting detail from the reading.", "hint": "Use one specific idea from the two viewpoints."},
+        {"id": "wr-g3", "prompt": "Explain why that detail supports your claim.", "hint": "State the significance rather than repeating the detail."},
+        {"id": "wr-g4", "prompt": "Write Reason 2 and one supporting detail.", "hint": "Use a reason that adds new information."},
+        {"id": "wr-g5", "prompt": "State one reasonable counterclaim and your rebuttal.", "hint": "Represent the opposing position fairly before responding."}
+      ],
+      "independent_practice": [
+        {"id": "wr-i1", "prompt": "Write a 9-11 sentence final argument paragraph. Include your claim, two reasons, evidence and reasoning for both, one counterclaim with rebuttal, and a conclusion. Revise sentence boundaries before you finish."}
+      ],
+      "exit_ticket": [],
+      "mastery_threshold": 75,
+      "materials": ["Friday packet", "Pencil"],
+      "estimated_minutes": 40,
+      "voice_prompt": "Teach one compact Grade 6 argument structure: claim, reason 1 with evidence and reasoning, reason 2 with evidence and reasoning, counterclaim and rebuttal, conclusion. Use the two reading viewpoints as the evidence source. Model a paragraph about a different school-policy question before Atticus writes. Require one counterclaim; do not write his paragraph for him.",
+      "teacher_notes": "Evaluate claim clarity, two source-based reasons, evidence and reasoning, counterclaim and rebuttal, and mechanics separately.",
+      "answer_key": {},
+      "source_references": ["Atticus_Grade6_Day9_Friday_Packet_2026-09-04.pdf"],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-04-computer_science",
+      "date": "2026-09-04",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "computer_science",
+      "course": "Grade 6 Computer Science / AI",
+      "unit_id": "cs-ai-classification",
+      "unit_title": "Model Evaluation",
+      "lesson_number": 7,
+      "lesson_title": "Evaluating a test set",
+      "standards": ["CSTA 2-AP-11", "CSTA 2-IC-20"],
+      "previous_learning": "The student now recognizes strong versus weak generalization and can identify overfitting from training and test performance.",
+      "course_context": "Advance to calculating test accuracy from unseen examples and identifying error patterns.",
+      "learning_objectives": [
+        "Compare actual labels with model predictions.",
+        "Calculate test accuracy as a fraction and percent.",
+        "Describe an error pattern without overstating it.",
+        "Explain why test examples must remain unseen during training."
+      ],
+      "why_it_matters": "Accuracy on a separate test set provides evidence about how a model performs on new examples.",
+      "vocabulary": [
+        {"term": "test set", "definition": "a group of unseen examples used to evaluate a trained model"},
+        {"term": "accuracy", "definition": "the fraction or percent of test examples predicted correctly"},
+        {"term": "actual label", "definition": "the correct category for a test example"},
+        {"term": "prediction", "definition": "the category chosen by the model"},
+        {"term": "error pattern", "definition": "a repeated type of mistake"},
+        {"term": "evaluation", "definition": "measuring how well a model performs"}
+      ],
+      "written_instruction": "Accuracy equals correct predictions divided by total test examples. Test-set table: 1 Actual Cup, Prediction Cup. 2 Actual Book, Prediction Book. 3 Actual Pencil, Prediction Pencil. 4 Actual Cup, Prediction Book. 5 Actual Book, Prediction Book. 6 Actual Pencil, Prediction Pencil. 7 Actual Cup, Prediction Cup. 8 Actual Book, Prediction Cup. 9 Actual Pencil, Prediction Pencil. 10 Actual Cup, Prediction Cup.",
+      "worked_examples": [
+        {
+          "title": "Ten-example accuracy",
+          "problem": "A model predicts 8 of 10 unseen test examples correctly.",
+          "solution": "8/10 = 80% accuracy.",
+          "explanation": "Divide correct predictions by all test examples and convert the fraction to a percent."
+        },
+        {
+          "title": "Training versus test accuracy",
+          "problem": "A model has high training accuracy and lower test accuracy.",
+          "solution": "Use test accuracy to judge performance on new examples.",
+          "explanation": "The test examples were not used to teach the model."
+        }
+      ],
+      "guided_practice": [
+        {"id": "cs-g1", "prompt": "Mark each prediction in the 10-row test-set table correct or incorrect.", "hint": "Compare each actual label directly with its prediction."},
+        {"id": "cs-g2", "prompt": "How many of the 10 predictions are correct?", "hint": "Count the rows where actual label and prediction match."},
+        {"id": "cs-g3", "prompt": "What is the test accuracy as a fraction and as a percent?", "hint": "Correct predictions divided by 10."}
+      ],
+      "independent_practice": [
+        {"id": "cs-i4", "prompt": "Which actual class was confused with another class more than once, if any? Describe the error pattern."},
+        {"id": "cs-i5", "prompt": "Why would it be unfair to include these exact 10 test images in the training data before computing this accuracy?"}
+      ],
+      "exit_ticket": [
+        {
+          "id": "cs-e1",
+          "prompt": "Define test accuracy in one sentence.",
+          "answer": "Test accuracy is the fraction or percent of unseen test examples that a model predicts correctly.",
+          "rubric": "Include correct predictions, all test examples, and that the examples are unseen."
+        },
+        {
+          "id": "cs-e2",
+          "prompt": "If a model gets 18 correct out of 20 unseen test examples, what is its accuracy?",
+          "answer": "18/20 = 90%.",
+          "rubric": "Calculate the fraction of correct predictions and convert it to a percent."
+        }
+      ],
+      "mastery_threshold": 75,
+      "materials": ["Friday packet"],
+      "estimated_minutes": 40,
+      "voice_prompt": "Build on Thursday's understanding of overfitting. Introduce accuracy as correct predictions divided by total test examples. Use a 10-example test set so the percent is transparent. Model 8 correct out of 10 = 80%. Then have Atticus compare predictions with actual labels and identify one error pattern. Reinforce that the test examples must be unseen during training.",
+      "teacher_notes": "Rows 4 and 8 are incorrect. Do not claim one actual class was repeatedly confused; the Cup and Book errors occur in opposite directions.",
+      "answer_key": {
+        "cs-g1": "Rows 1, 2, 3, 5, 6, 7, 9, and 10 are correct. Rows 4 and 8 are incorrect.",
+        "cs-g2": "8 predictions.",
+        "cs-g3": "8/10 and 80%.",
+        "cs-i4": "No single actual class was confused more than once. There is Cup and Book confusion in two directions: one Cup was predicted as Book, and one Book was predicted as Cup.",
+        "cs-i5": "The images would no longer be unseen, so the result would not fairly measure performance on new examples."
+      },
+      "source_references": ["Atticus_Grade6_Day9_Friday_Packet_2026-09-04.pdf"],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-04-art_design",
+      "date": "2026-09-04",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "art_design",
+      "course": "Grade 6 Art / Design",
+      "unit_id": "art-information-design",
+      "unit_title": "Visual Communication",
+      "lesson_number": 8,
+      "lesson_title": "Percent infographic",
+      "standards": ["VA:Cr2.1.6", "VA:Cr3.1.6", "VA:Re7.2.6"],
+      "previous_learning": "The student can calculate benchmark percents and is ready to communicate one accurate percent fact visually.",
+      "course_context": "Turn a percent relationship into a clear one-page visual explanation of the part and whole.",
+      "learning_objectives": [
+        "Select one accurate percent fact.",
+        "Create a visual hierarchy.",
+        "Show the part and whole clearly.",
+        "Use labels and a concise explanatory caption."
+      ],
+      "why_it_matters": "Effective information design makes a numerical relationship understandable at a glance without sacrificing accuracy.",
+      "vocabulary": [
+        {"term": "infographic", "definition": "a visual that combines information, numbers, and design"},
+        {"term": "visual hierarchy", "definition": "the order in which a viewer notices information"},
+        {"term": "data label", "definition": "text identifying a value or category"},
+        {"term": "contrast", "definition": "a visible difference that helps information stand out"},
+        {"term": "annotation", "definition": "a short explanatory note"}
+      ],
+      "written_instruction": "Create a one-page infographic explaining one percent fact from Friday's Math. It may use a hundred grid, a large percent numeral, a small illustration, and a short caption. The final piece needs a clear title, one large percent value, a visual showing part and whole, at least two useful labels, a two-sentence caption, name, and date.",
+      "worked_examples": [
+        {
+          "title": "Part and whole",
+          "problem": "How can an infographic prove 25% visually?",
+          "solution": "Show 25 clearly distinguished parts out of a labeled whole of 100.",
+          "explanation": "The viewer can verify the percent by seeing both the part and the whole."
+        }
+      ],
+      "guided_practice": [
+        {"id": "art-g1", "prompt": "What percent fact from today's Math will your infographic explain?"},
+        {"id": "art-g2", "prompt": "What should the viewer notice first?", "hint": "Choose the most important number or message for the visual hierarchy."},
+        {"id": "art-g3", "prompt": "What visual will show the part and the whole?", "hint": "Consider a hundred grid or another clearly labeled model."},
+        {"id": "art-g4", "prompt": "Write a 2-sentence caption that explains the percent accurately."}
+      ],
+      "independent_practice": [
+        {"id": "art-i1", "prompt": "Create the final one-page percent infographic with a clear title, one large percent value, a visual showing part and whole, at least two useful labels, a 2-sentence caption, your name, and the date."}
+      ],
+      "exit_ticket": [],
+      "mastery_threshold": 75,
+      "materials": ["Friday packet", "Hundred grid or drawing paper", "Art supplies"],
+      "estimated_minutes": 25,
+      "voice_prompt": "Help Atticus design a one-page infographic that explains ONE percent fact from today's Math. He may use a hundred grid, a large percent numeral, a small illustration, and a short caption. Ask what the viewer should notice first, then what visual proves the percentage. Do not design the piece for him.",
+      "teacher_notes": "Check percent accuracy and whether the visual clearly shows part versus whole. Do not score artistic polish above clarity.",
+      "answer_key": {},
+      "source_references": ["Atticus_Grade6_Day9_Friday_Packet_2026-09-04.pdf"],
+      "status": "scheduled"
+    }
+  ]
+}
