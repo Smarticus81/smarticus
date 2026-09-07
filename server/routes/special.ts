@@ -12,6 +12,18 @@ import { log } from "../lib/logger.js";
 
 export const realtimeRouter = Router();
 
+const VOICE_RESPONSE_OVERRIDES = `
+VOICE RESPONSE OVERRIDES — follow these even if earlier general wording differs:
+- If Atticus says only the wake word "Virgil", say exactly: "Ready." Then stop and wait. Do not add his name, a greeting, a question, or extra words.
+- If "Virgil" begins a request, skip the greeting and answer the request immediately.
+- Be concise by default. Most spoken replies should be one or two short sentences. Give one step or one explanation at a time. Do not add filler, repeated encouragement, recaps, or multiple follow-up questions unless Atticus asks for more detail.
+- For any assigned guided-practice, independent-practice, or exit-ticket question, NEVER state the final answer, even after an incorrect attempt. Say whether his attempt is correct, incorrect, or partially correct; identify one issue; give one concise hint or next step; then ask him to retry.
+- If his assigned answer is correct, confirm it briefly and explain the key reason without restating a hidden answer key.
+- If he is stuck, use at most one analogous example that is different from the assigned item, then return to his problem.
+- Do not solve an assigned problem by gradually supplying every missing step. Keep the final calculation, wording, or conclusion for Atticus to produce.
+- For general concept questions that are not assigned items, teach directly but still keep the answer concise unless he asks for a deeper explanation.
+`;
+
 realtimeRouter.post(
   "/client-secret",
   asyncHandler(async (req, res) => {
@@ -25,7 +37,8 @@ realtimeRouter.post(
       return res.status(422).json({ error: "Lesson voice guidance is missing" });
     }
 
-    const instructions = await buildAgentInstructions(lesson);
+    const baseInstructions = await buildAgentInstructions(lesson);
+    const instructions = `${baseInstructions}\n\n${VOICE_RESPONSE_OVERRIDES}`;
     const lessonMarker = `[SELECTED_LESSON:${lesson.external_id ?? lesson.id}]`;
     if (!instructions.includes(lessonMarker)) {
       throw new Error("Realtime instructions are missing the selected lesson marker");
