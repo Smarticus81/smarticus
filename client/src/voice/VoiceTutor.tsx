@@ -8,12 +8,16 @@ import { api } from "../lib/api";
 import { createTutorTools } from "./tools";
 import { Icon } from "../components/Icon";
 import { createSessionPayload, type TranscriptLine } from "./sessionPayload";
+import { VirgilAvatar } from "./VirgilAvatar";
+import { playbackState } from "./speechSignal";
+import { withLearningFocus } from "./learningFocus";
 
 type ConnectionState = "idle" | "connecting" | "connected" | "error";
 
 interface VoiceTutorProps {
   lessonId: string;
   lessonTitle: string;
+  learningFocus?: string;
   onBusyChange?: (busy: boolean) => void;
 }
 
@@ -153,6 +157,7 @@ function voiceStartupError(error: unknown): string {
 export function VoiceTutor({
   lessonId,
   lessonTitle,
+  learningFocus = "",
   onBusyChange,
 }: VoiceTutorProps) {
   const [connection, setConnection] = useState<ConnectionState>("idle");
@@ -190,15 +195,38 @@ export function VoiceTutor({
     return () => window.removeEventListener("beforeunload", beforeUnload);
   }, [connection, saving, saveFailed]);
 
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const [currentUtterance, setCurrentUtterance] = useState("");
+  const utteranceItemRef = useRef("");
+  const savedUtterancesRef = useRef(new Set<string>());
+  const baseInstructionsRef = useRef("");
+  const focusRef = useRef(learningFocus);
+  useEffect(() => {
+    focusRef.current = learningFocus;
+  }, [learningFocus]);
+  useEffect(() => {
+    if (connection !== "connected") return;
+    // Send settled model changes, not one configuration update for every slider frame.
+    const timer = window.setTimeout(() => {
+      if (
+        sessionRef.current?.transport.status === "connected" &&
+        baseInstructionsRef.current
+      ) {
+        sessionRef.current.transport.updateSessionConfig({
+          instructions: withLearningFocus(
+            baseInstructionsRef.current,
+            learningFocus,
+          ),
+        });
+      }
+    }, 150);
+    return () => window.clearTimeout(timer);
+  }, [learningFocus, connection]);
   const sessionRef = useRef<RealtimeSession | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const mediaStreamRef = useRef<MediaStream | null>(null);
   const tutorSessionIdRef = useRef<string | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
-  const inputAnalyserRef = useRef<AnalyserNode | null>(null);
   const outputAnalyserRef = useRef<AnalyserNode | null>(null);
-  const animationRef = useRef<number | null>(null);
   const outputProbeRef = useRef<number | null>(null);
   const isSpeakingRef = useRef(false);
   const isAwakeRef = useRef(false);
@@ -237,105 +265,30 @@ export function VoiceTutor({
     [],
   );
 
-  const drawWaveform = useCallback(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const context = canvas.getContext("2d");
-    if (!context) return;
-
-    const bounds = canvas.getBoundingClientRect();
-    const ratio = Math.min(window.devicePixelRatio || 1, 2);
-    const width = Math.max(1, Math.floor(bounds.width));
-    const height = Math.max(1, Math.floor(bounds.height));
-    if (canvas.width !== width * ratio || canvas.height !== height * ratio) {
-      canvas.width = width * ratio;
-      canvas.height = height * ratio;
-      context.setTransform(ratio, 0, 0, ratio, 0, 0);
-    }
-
-    context.clearRect(0, 0, width, height);
-    const analyser = isSpeakingRef.current
-      ? (outputAnalyserRef.current ?? inputAnalyserRef.current)
-      : inputAnalyserRef.current;
-    const points = analyser?.fftSize ?? 1024;
-    const samples = new Uint8Array(points);
-
-    if (analyser) {
-      analyser.getByteTimeDomainData(samples);
-    } else {
-      samples.fill(128);
-    }
-
-    const gradient = context.createLinearGradient(0, 0, width, 0);
-    gradient.addColorStop(0, "rgba(117, 246, 217, 0.12)");
-    gradient.addColorStop(0.22, "rgba(117, 246, 217, 0.92)");
-    gradient.addColorStop(0.5, "rgba(240, 255, 250, 1)");
-    gradient.addColorStop(0.78, "rgba(117, 246, 217, 0.92)");
-    gradient.addColorStop(1, "rgba(117, 246, 217, 0.12)");
-
-    context.beginPath();
-    context.lineWidth = width < 600 ? 2 : 2.5;
-    context.strokeStyle = gradient;
-    context.shadowColor = isSpeakingRef.current
-      ? "rgba(139, 125, 255, 0.85)"
-      : "rgba(79, 238, 202, 0.75)";
-    context.shadowBlur = isSpeakingRef.current ? 24 : 16;
-
-    const center = height / 2;
-    const amplitude = Math.min(height * 0.4, 170);
-    for (let index = 0; index < samples.length; index += 1) {
-      const x = (index / (samples.length - 1)) * width;
-      const normalized = (samples[index] - 128) / 128;
-      const edgeEnvelope = Math.sin(Math.PI * (index / (samples.length - 1)));
-      const y = center + normalized * amplitude * edgeEnvelope;
-      if (index === 0) context.moveTo(x, y);
-      else context.lineTo(x, y);
-    }
-    context.stroke();
-    context.shadowBlur = 0;
-    animationRef.current = window.matchMedia("(prefers-reduced-motion: reduce)")
-      .matches
-      ? null
-      : requestAnimationFrame(drawWaveform);
-  }, []);
-
   const startVisualizer = useCallback(
-    (inputStream: MediaStream, audioElement: HTMLAudioElement) => {
-      const AudioContextClass = window.AudioContext;
-      const audioContext = new AudioContextClass({
-        latencyHint: "interactive",
-      });
-      audioContextRef.current = audioContext;
-
-      const inputAnalyser = audioContext.createAnalyser();
-      inputAnalyser.fftSize = 2048;
-      inputAnalyser.smoothingTimeConstant = 0.72;
-      audioContext.createMediaStreamSource(inputStream).connect(inputAnalyser);
-      inputAnalyserRef.current = inputAnalyser;
-
+    (_inputStream: MediaStream, audioElement: HTMLAudioElement) => {
+      // Inspect the remote audio without routing or duplicating playback.
+      const context = new AudioContext({ latencyHint: "interactive" });
+      audioContextRef.current = context;
+      void context.resume().catch(() => undefined);
       outputProbeRef.current = window.setInterval(() => {
-        const outputStream = audioElement.srcObject;
-        if (!(outputStream instanceof MediaStream) || outputAnalyserRef.current)
+        const stream = audioElement.srcObject;
+        if (
+          !(stream instanceof MediaStream) ||
+          !stream.getAudioTracks().length ||
+          outputAnalyserRef.current
+        )
           return;
-        const outputAnalyser = audioContext.createAnalyser();
-        outputAnalyser.fftSize = 2048;
-        outputAnalyser.smoothingTimeConstant = 0.72;
-        audioContext
-          .createMediaStreamSource(outputStream)
-          .connect(outputAnalyser);
-        outputAnalyserRef.current = outputAnalyser;
-        if (outputProbeRef.current !== null) {
+        const analyser = context.createAnalyser();
+        analyser.fftSize = 512;
+        context.createMediaStreamSource(stream).connect(analyser);
+        outputAnalyserRef.current = analyser;
+        if (outputProbeRef.current !== null)
           window.clearInterval(outputProbeRef.current);
-          outputProbeRef.current = null;
-        }
-      }, 100);
-
-      if (animationRef.current === null) {
-        animationRef.current = requestAnimationFrame(drawWaveform);
-      }
+        outputProbeRef.current = null;
+      }, 80);
     },
-    [drawWaveform],
+    [],
   );
 
   const cleanup = useCallback(async () => {
@@ -355,7 +308,7 @@ export function VoiceTutor({
     if (outputProbeRef.current !== null)
       window.clearInterval(outputProbeRef.current);
     outputProbeRef.current = null;
-    inputAnalyserRef.current = null;
+
     outputAnalyserRef.current = null;
     await audioContextRef.current?.close().catch(() => undefined);
     audioContextRef.current = null;
@@ -395,6 +348,9 @@ export function VoiceTutor({
     if (connection === "connecting" || connection === "connected") return;
     setError(null);
     setTranscript([]);
+    setCurrentUtterance("");
+    utteranceItemRef.current = "";
+    savedUtterancesRef.current.clear();
     setEnded(false);
     setWakeState(false);
     inputItemRef.current = null;
@@ -430,10 +386,11 @@ export function VoiceTutor({
       audioRef.current = audioElement;
       startVisualizer(mediaStream, audioElement);
 
+      baseInstructionsRef.current = secret.instructions;
       const transport = new OpenAIRealtimeWebRTC({ mediaStream, audioElement });
       const agent = new RealtimeAgent({
         name: "Atticus Tutor",
-        instructions: secret.instructions,
+        instructions: withLearningFocus(secret.instructions, focusRef.current),
         tools: createTutorTools(lessonId),
       });
       const session = new RealtimeSession(agent, {
@@ -488,24 +445,41 @@ export function VoiceTutor({
           logprobs?: TranscriptionLogprob[] | null;
         }) => {
           const type = event.type ?? "";
+          const playing = playbackState(isSpeakingRef.current, type);
+          if (playing !== isSpeakingRef.current) {
+            isSpeakingRef.current = playing;
+            setIsSpeaking(playing);
+          }
+          if (type === "response.created") setCurrentUtterance("");
           if (
-            type === "response.output_audio.delta" ||
-            type === "response.audio.delta"
+            [
+              "response.output_audio_transcript.delta",
+              "response.audio_transcript.delta",
+            ].includes(type) &&
+            event.delta
           ) {
-            setIsSpeaking(true);
+            const item = event.item_id ?? "current-output";
+            if (utteranceItemRef.current !== item) {
+              utteranceItemRef.current = item;
+              setCurrentUtterance(event.delta);
+            } else
+              setCurrentUtterance((previous) =>
+                (previous + event.delta).slice(-10000),
+              );
           }
           if (
-            type === "response.done" ||
-            type === "response.output_audio.done" ||
-            type === "response.audio.done"
-          ) {
-            setIsSpeaking(false);
-          }
-          if (
-            type.includes("output_audio_transcript.done") &&
+            [
+              "response.output_audio_transcript.done",
+              "response.audio_transcript.done",
+            ].includes(type) &&
             event.transcript
           ) {
-            appendTranscript("assistant", event.transcript);
+            const key = event.item_id ?? event.transcript;
+            if (!savedUtterancesRef.current.has(key)) {
+              savedUtterancesRef.current.add(key);
+              appendTranscript("assistant", event.transcript);
+            }
+            setCurrentUtterance(event.transcript);
           }
           if (
             type === "conversation.item.input_audio_transcription.delta" &&
@@ -566,6 +540,10 @@ export function VoiceTutor({
         },
       );
 
+      session.on("audio_interrupted", () => {
+        isSpeakingRef.current = false;
+        setIsSpeaking(false);
+      });
       sessionRef.current = session;
       let connectTimeout = 0;
       try {
@@ -627,14 +605,11 @@ export function VoiceTutor({
 
   useEffect(() => {
     mountedRef.current = true;
-    animationRef.current = requestAnimationFrame(drawWaveform);
     return () => {
       mountedRef.current = false;
-      if (animationRef.current !== null)
-        cancelAnimationFrame(animationRef.current);
       void cleanup();
     };
-  }, [cleanup, drawWaveform]);
+  }, [cleanup]);
 
   const status =
     connection === "connecting"
@@ -662,14 +637,30 @@ export function VoiceTutor({
         <span className="eyebrow">YOUR AI THINKING PARTNER</span>
         <Icon name="headphones" size={18} />
       </div>
-      <div className={`virgil-face ${isSpeaking ? "talking" : ""}`}>
-        <i />
-        <i />
-      </div>
-      <h2>Let’s talk it through.</h2>
-      <div className="wave-surface" aria-hidden="true">
-        <canvas ref={canvasRef} className="voice-waveform" />
-      </div>
+      <VirgilAvatar
+        state={
+          connection === "connecting"
+            ? "connecting"
+            : connection === "error"
+              ? "error"
+              : isSpeaking
+                ? "speaking"
+                : isMuted
+                  ? "muted"
+                  : connection === "connected"
+                    ? "listening"
+                    : "idle"
+        }
+        analyser={outputAnalyserRef}
+        active={connection === "connected"}
+      />
+      <h2>One thought at a time.</h2>
+      {currentUtterance && (
+        <div className="live-utterance" aria-label="Virgil’s latest words">
+          <span>VIRGIL</span>
+          <p>{currentUtterance}</p>
+        </div>
+      )}
       <div className="voice-hud" role="status">
         <span className={`voice-status-dot voice-status-dot--${connection}`} />
         <span>{status}</span>

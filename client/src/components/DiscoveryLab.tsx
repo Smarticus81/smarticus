@@ -46,7 +46,7 @@ export function DiscoveryLab() {
     </>
   );
 }
-function LightLab() {
+export function LightLab() {
   const [angle, setAngle] = useState(40);
   const [revealed, setRevealed] = useState(false);
   const radians = (angle * Math.PI) / 180;

@@ -1,4 +1,6 @@
 import {
+  lazy,
+  Suspense,
   useCallback,
   useEffect,
   useRef,
@@ -9,8 +11,13 @@ import { api, ApiError } from "./lib/api";
 import type { LessonView, ScheduleView, StudentSnapshot } from "./lib/types";
 import { friendlyDate, localDate, subjectInfo } from "./lib/subjects";
 import { Icon, type IconName } from "./components/Icon";
-import { LessonWorkspace } from "./components/LessonWorkspace";
 import { DiscoveryLab } from "./components/DiscoveryLab";
+
+const LessonWorkspace = lazy(() =>
+  import("./components/LessonWorkspace").then((module) => ({
+    default: module.LessonWorkspace,
+  })),
+);
 
 type Page = "today" | "subjects" | "lab" | "progress";
 const navigation: Array<{ id: Page; label: string; icon: IconName }> = [
@@ -244,12 +251,20 @@ export default function App() {
             </p>
           )}
           {lesson ? (
-            <LessonWorkspace
-              key={lesson.id}
-              lesson={lesson}
-              onBack={closeLesson}
-              onBusyChange={setVoiceBusy}
-            />
+            <Suspense
+              fallback={
+                <p className="session-notice" role="status">
+                  Opening a little space to learn…
+                </p>
+              }
+            >
+              <LessonWorkspace
+                key={lesson.id}
+                lesson={lesson}
+                onBack={closeLesson}
+                onBusyChange={setVoiceBusy}
+              />
+            </Suspense>
           ) : (
             <>
               <div className="page-heading">
