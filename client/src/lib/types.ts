@@ -74,3 +74,24 @@ export interface AnswerSupport {
   answer?: string;
   reason?: string;
 }
+
+export interface StudentSnapshot {
+  student: { id: string; preferredName: string; gradeLevel: number };
+  mastery: Array<{
+    id: string;
+    subject: string;
+    standard: string;
+    status: string;
+    score: number | null;
+    evidence: string | null;
+  }>;
+  recentSessions: Array<{
+    id: string;
+    lessonTitle: string;
+    subject: string;
+    startedAt: string;
+    endedAt: string | null;
+    summary: string | null;
+  }>;
+  attendance: Array<{ date: string; status: string }>;
+}

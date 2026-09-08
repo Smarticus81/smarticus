@@ -1,6 +1,23 @@
-# Atticus Tutor
+# Smarticus
 
-A private, voice-first tutoring application built with React, Express, PostgreSQL/Prisma, and the OpenAI Realtime API.
+A private learning studio for Atticus, built with React, Express, PostgreSQL/Prisma, and the OpenAI Realtime API.
+
+## Learning experience
+
+- **My day:** a daily learning path using the real schedule, with available curriculum dates when today has no lessons.
+- **My subjects:** searchable, filterable subject cards that open the lesson studio.
+- **Lesson studio:** learning goals, instructions, worked examples, practice drafts, vocabulary cards, and a focus view.
+- **Discovery lab:** interactive light-reflection and equivalent-fraction experiments that work without a voice connection.
+- **My progress:** recent recorded skills and tutor sessions, with no simulated scores or streaks.
+- **Virgil:** optional voice chat with explicit microphone controls, a readable transcript, and recoverable session-save errors. The voice SDK loads only when voice setup is opened.
+
+The selected learning date and section are preserved in the URL. Practice answers stay on the current device using the existing `virgil-response` storage keys, so answers saved before the redesign remain available. Scratchpad notes stay in the current browser tab. Drafts are not submitted, graded, or synced. The lesson completion button and existing tutor tools record completion; mastery remains a separate learning record. On long voice sessions, the saved transcript keeps the most recent conversation that fits within the server's request limit.
+
+The redesigned studio preserves the current repository’s selected-lesson synchronization, question lookup and web-search tools, protected guidance, and confidence-aware wake-word and goodbye-to-standby behavior. Available learning dates include checked-in curriculum that will be ingested on demand.
+
+The interface supports keyboard navigation, phone and tablet layouts, and reduced-motion preferences. Fonts use the system stack, so the app makes no third-party font requests.
+
+Dependency overrides keep `pdf2json` on its compatible 3.x release without the vulnerable bundled XML parser, and `qs` on its patched 6.x release. PDF extraction is verified against the existing curriculum packet when these overrides change.
 
 ## Local development
 

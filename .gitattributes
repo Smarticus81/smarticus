@@ -1,0 +1,4 @@
+# Keep migration checksums identical on Windows and deployment hosts.
+prisma/migrations/**/*.sql text eol=lf
+# The historical baseline is UTF-16 and must remain byte-for-byte intact.
+prisma/migrations/20260827120000_init/migration.sql -text

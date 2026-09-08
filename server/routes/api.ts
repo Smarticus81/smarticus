@@ -2,6 +2,7 @@ import { Router } from "express";
 import { asyncHandler } from "../middleware/http.js";
 import {
   getTodaySchedule,
+  getScheduleDates,
   getCurrentLesson,
   getStudentSnapshot,
   getPreviousLessonFeedback,
@@ -62,6 +63,13 @@ function studentSearchFilter(subject?: string) {
 }
 
 export const apiRouter = Router();
+
+apiRouter.get(
+  "/schedule/dates",
+  asyncHandler(async (_req, res) => {
+    res.json(await getScheduleDates());
+  }),
+);
 
 apiRouter.get(
   "/schedule/today",
@@ -135,7 +143,12 @@ apiRouter.post(
   "/tools/verbal-check",
   asyncHandler(async (req, res) => {
     const body = VerbalCheckSchema.parse(req.body);
-    log({ message: "Tool call", toolName: "record_verbal_check", requestId: req.ctx.requestId, lessonId: body.lesson_id });
+    log({
+      message: "Tool call",
+      toolName: "record_verbal_check",
+      requestId: req.ctx.requestId,
+      lessonId: body.lesson_id,
+    });
     res.json(await recordVerbalCheck(body));
   }),
 );
@@ -144,7 +157,12 @@ apiRouter.post(
   "/tools/misconception",
   asyncHandler(async (req, res) => {
     const body = MisconceptionSchema.parse(req.body);
-    log({ message: "Tool call", toolName: "record_misconception", requestId: req.ctx.requestId, lessonId: body.lesson_id });
+    log({
+      message: "Tool call",
+      toolName: "record_misconception",
+      requestId: req.ctx.requestId,
+      lessonId: body.lesson_id,
+    });
     res.json(await recordMisconception(body));
   }),
 );
@@ -153,7 +171,12 @@ apiRouter.post(
   "/tools/mastery",
   asyncHandler(async (req, res) => {
     const body = MasteryRecordSchema.parse(req.body);
-    log({ message: "Tool call", toolName: "record_mastery", requestId: req.ctx.requestId, lessonId: body.lesson_id });
+    log({
+      message: "Tool call",
+      toolName: "record_mastery",
+      requestId: req.ctx.requestId,
+      lessonId: body.lesson_id,
+    });
     res.json(await recordMastery(body));
   }),
 );
@@ -162,7 +185,12 @@ apiRouter.post(
   "/tools/tutor-note",
   asyncHandler(async (req, res) => {
     const body = TutorNoteSchema.parse(req.body);
-    log({ message: "Tool call", toolName: "save_tutor_note", requestId: req.ctx.requestId, lessonId: body.lesson_id });
+    log({
+      message: "Tool call",
+      toolName: "save_tutor_note",
+      requestId: req.ctx.requestId,
+      lessonId: body.lesson_id,
+    });
     res.json(await saveTutorNote(body));
   }),
 );
@@ -171,7 +199,12 @@ apiRouter.post(
   "/tools/lesson-started",
   asyncHandler(async (req, res) => {
     const { lesson_id } = LessonActionSchema.parse(req.body);
-    log({ message: "Tool call", toolName: "mark_lesson_started", requestId: req.ctx.requestId, lessonId: lesson_id });
+    log({
+      message: "Tool call",
+      toolName: "mark_lesson_started",
+      requestId: req.ctx.requestId,
+      lessonId: lesson_id,
+    });
     const result = await markLessonStarted(lesson_id);
     req.session.tutorSessionId = result.sessionId;
     res.json(result);
@@ -182,7 +215,12 @@ apiRouter.post(
   "/tools/lesson-completed",
   asyncHandler(async (req, res) => {
     const { lesson_id } = LessonActionSchema.parse(req.body);
-    log({ message: "Tool call", toolName: "mark_lesson_completed", requestId: req.ctx.requestId, lessonId: lesson_id });
+    log({
+      message: "Tool call",
+      toolName: "mark_lesson_completed",
+      requestId: req.ctx.requestId,
+      lessonId: lesson_id,
+    });
     res.json(await markLessonCompleted(lesson_id));
   }),
 );
@@ -197,8 +235,11 @@ apiRouter.get(
 apiRouter.get(
   "/tools/assignment/:assignmentId",
   asyncHandler(async (req, res) => {
-    const assignment = await getAssignmentInstructions(param(req.params.assignmentId));
-    if (!assignment) return res.status(404).json({ error: "Assignment not found" });
+    const assignment = await getAssignmentInstructions(
+      param(req.params.assignmentId),
+    );
+    if (!assignment)
+      return res.status(404).json({ error: "Assignment not found" });
     res.json(assignment);
   }),
 );
@@ -206,7 +247,12 @@ apiRouter.get(
 apiRouter.get(
   "/tools/answer-support/:lessonId/:itemId",
   asyncHandler(async (req, res) => {
-    res.json(await getAllowedAnswerSupport(param(req.params.lessonId), param(req.params.itemId)));
+    res.json(
+      await getAllowedAnswerSupport(
+        param(req.params.lessonId),
+        param(req.params.itemId),
+      ),
+    );
   }),
 );
 
@@ -214,8 +260,14 @@ apiRouter.post(
   "/search/curriculum",
   asyncHandler(async (req, res) => {
     const body = SearchCurriculumSchema.parse(req.body);
-    log({ message: "Tool call", toolName: "search_curriculum", requestId: req.ctx.requestId });
-    const query = body.unit ? `${body.query}\nUnit context: ${body.unit}` : body.query;
+    log({
+      message: "Tool call",
+      toolName: "search_curriculum",
+      requestId: req.ctx.requestId,
+    });
+    const query = body.unit
+      ? `${body.query}\nUnit context: ${body.unit}`
+      : body.query;
     const results = await searchVectorStore({
       query,
       filters: studentSearchFilter(body.subject),

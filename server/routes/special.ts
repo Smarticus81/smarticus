@@ -1,6 +1,9 @@
 import { Router } from "express";
 import { asyncHandler } from "../middleware/http.js";
-import { ClientSecretRequestSchema, EndSessionSchema } from "../../shared/schemas/api.js";
+import {
+  ClientSecretRequestSchema,
+  EndSessionSchema,
+} from "../../shared/schemas/api.js";
 import { getLessonById } from "../services/academic.js";
 import { buildAgentInstructions } from "../services/review.js";
 import { mintRealtimeClientSecret } from "../lib/openai.js";
@@ -64,9 +67,15 @@ realtimeRouter.post(
         instructions,
       });
     } catch (error) {
-      const message = error instanceof Error ? error.message : "Failed to mint client secret";
+      const message =
+        error instanceof Error ? error.message : "Failed to mint client secret";
       if (message.includes("OPENAI_API_KEY")) {
-        return res.status(503).json({ error: "OpenAI not configured", devNote: "Set OPENAI_API_KEY for live voice sessions" });
+        return res
+          .status(503)
+          .json({
+            error: "OpenAI not configured",
+            devNote: "Set OPENAI_API_KEY for live voice sessions",
+          });
       }
       throw error;
     }
@@ -91,7 +100,25 @@ realtimeRouter.post(
     });
 
     if (result.count === 0) {
-      return res.status(404).json({ error: "Active tutor session not found" });
+      // A retry after a lost HTTP response must not make an already-saved session fail.
+      const saved = await prisma.tutorSession.findFirst({
+        where: {
+          id: body.session_id,
+          studentId: student.id,
+          endedAt: { not: null },
+        },
+        select: { id: true, transcript: true },
+      });
+      if (!saved)
+        return res
+          .status(404)
+          .json({ error: "Active tutor session not found" });
+      if (req.session.tutorSessionId === body.session_id)
+        delete req.session.tutorSessionId;
+      return res.json({
+        ended: true,
+        transcriptRetained: saved.transcript !== null,
+      });
     }
     if (req.session.tutorSessionId === body.session_id) {
       delete req.session.tutorSessionId;

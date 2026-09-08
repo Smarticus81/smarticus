@@ -1,4 +1,9 @@
-import type { AnswerSupport, LessonView, ScheduleView } from "./types";
+import type {
+  AnswerSupport,
+  LessonView,
+  ScheduleView,
+  StudentSnapshot,
+} from "./types";
 
 const API_BASE = "";
 
@@ -39,15 +44,20 @@ export const api = {
       body: JSON.stringify({ password }),
     }),
   todaySchedule: (date?: string) =>
-    request<ScheduleView>(`/api/schedule/today${date ? `?date=${encodeURIComponent(date)}` : ""}`),
+    request<ScheduleView>(
+      `/api/schedule/today${date ? `?date=${encodeURIComponent(date)}` : ""}`,
+    ),
+  scheduleDates: () => request<string[]>("/api/schedule/dates"),
   currentLesson: (subject?: string) =>
-    request<LessonView | null>(`/api/lessons/current${subject ? `/${encodeURIComponent(subject)}` : ""}`),
+    request<LessonView | null>(
+      `/api/lessons/current${subject ? `/${encodeURIComponent(subject)}` : ""}`,
+    ),
   selectLesson: (lesson_id: string) =>
     request<LessonView>("/api/lessons/select", {
       method: "POST",
       body: JSON.stringify({ lesson_id }),
     }),
-  studentSnapshot: () => request("/api/student/snapshot"),
+  studentSnapshot: () => request<StudentSnapshot>("/api/student/snapshot"),
   previousFeedback: (subject: string) =>
     request(`/api/feedback/previous/${encodeURIComponent(subject)}`),
   masteryState: (subject: string, standard?: string) =>
@@ -55,35 +65,77 @@ export const api = {
       `/api/mastery/${encodeURIComponent(subject)}${standard ? `?standard=${encodeURIComponent(standard)}` : ""}`,
     ),
   clientSecret: (lesson_id: string) =>
-    request<{ value: string; lessonId: string; sessionModel: string; instructions: string }>("/api/realtime/client-secret", {
+    request<{
+      value: string;
+      lessonId: string;
+      sessionModel: string;
+      instructions: string;
+    }>("/api/realtime/client-secret", {
       method: "POST",
       body: JSON.stringify({ lesson_id }),
     }),
-  endSession: (payload: { session_id: string; summary?: string; transcript?: unknown[] }) =>
-    request("/api/realtime/session/end", { method: "POST", body: JSON.stringify(payload) }),
+  endSession: (payload: {
+    session_id: string;
+    summary?: string;
+    transcript?: unknown[];
+  }) =>
+    request("/api/realtime/session/end", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
   tool: {
     lessonStarted: (lesson_id: string) =>
-      request<{ sessionId: string }>("/api/tools/lesson-started", { method: "POST", body: JSON.stringify({ lesson_id }) }),
+      request<{ sessionId: string }>("/api/tools/lesson-started", {
+        method: "POST",
+        body: JSON.stringify({ lesson_id }),
+      }),
     lessonCompleted: (lesson_id: string) =>
-      request("/api/tools/lesson-completed", { method: "POST", body: JSON.stringify({ lesson_id }) }),
-    verbalCheck: (body: unknown) => request("/api/tools/verbal-check", { method: "POST", body: JSON.stringify(body) }),
-    misconception: (body: unknown) => request("/api/tools/misconception", { method: "POST", body: JSON.stringify(body) }),
-    mastery: (body: unknown) => request("/api/tools/mastery", { method: "POST", body: JSON.stringify(body) }),
-    tutorNote: (body: unknown) => request("/api/tools/tutor-note", { method: "POST", body: JSON.stringify(body) }),
-    searchCurriculum: (body: unknown) => request("/api/search/curriculum", { method: "POST", body: JSON.stringify(body) }),
+      request("/api/tools/lesson-completed", {
+        method: "POST",
+        body: JSON.stringify({ lesson_id }),
+      }),
+    verbalCheck: (body: unknown) =>
+      request("/api/tools/verbal-check", {
+        method: "POST",
+        body: JSON.stringify(body),
+      }),
+    misconception: (body: unknown) =>
+      request("/api/tools/misconception", {
+        method: "POST",
+        body: JSON.stringify(body),
+      }),
+    mastery: (body: unknown) =>
+      request("/api/tools/mastery", {
+        method: "POST",
+        body: JSON.stringify(body),
+      }),
+    tutorNote: (body: unknown) =>
+      request("/api/tools/tutor-note", {
+        method: "POST",
+        body: JSON.stringify(body),
+      }),
+    searchCurriculum: (body: unknown) =>
+      request("/api/search/curriculum", {
+        method: "POST",
+        body: JSON.stringify(body),
+      }),
     searchWeb: (query: string) =>
       request("/api/search/web", {
         method: "POST",
         body: JSON.stringify({ query }),
       }),
-    workedExamples: (lessonId: string) => request(`/api/tools/worked-examples/${encodeURIComponent(lessonId)}`),
+    workedExamples: (lessonId: string) =>
+      request(`/api/tools/worked-examples/${encodeURIComponent(lessonId)}`),
     answerSupport: (lessonId: string, itemId: string) =>
-      request<AnswerSupport>(`/api/tools/answer-support/${encodeURIComponent(lessonId)}/${encodeURIComponent(itemId)}`),
+      request<AnswerSupport>(
+        `/api/tools/answer-support/${encodeURIComponent(lessonId)}/${encodeURIComponent(itemId)}`,
+      ),
     lessonQuestions: (body: unknown) =>
       request("/api/lessons/questions", {
         method: "POST",
         body: JSON.stringify(body),
       }),
-    assignment: (assignmentId: string) => request(`/api/tools/assignment/${encodeURIComponent(assignmentId)}`),
+    assignment: (assignmentId: string) =>
+      request(`/api/tools/assignment/${encodeURIComponent(assignmentId)}`),
   },
 };

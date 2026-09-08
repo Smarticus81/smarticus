@@ -7,6 +7,27 @@ import {
 } from "./student.js";
 import { ingestDailyDate } from "../ingest/curriculum.js";
 import type { Subject } from "@prisma/client";
+import { readdir } from "node:fs/promises";
+import path from "node:path";
+
+export async function getScheduleDates() {
+  const dates = await prisma.lesson.findMany({
+    select: { date: true },
+    distinct: ["date"],
+    orderBy: { date: "desc" },
+  });
+  // Include checked-in days before their first on-demand database ingestion.
+  const files = await readdir(
+    path.join(process.cwd(), "curriculum", "2026-27", "daily"),
+  ).catch(() => [] as string[]);
+  const available = files.flatMap((file) => {
+    const match = file.match(/(\d{4}-\d{2}-\d{2})\.(?:json|pdf)$/i);
+    return match ? [match[1]] : [];
+  });
+  return [...new Set([...dates.map(({ date }) => formatDate(date)), ...available])]
+    .sort()
+    .reverse();
+}
 
 export async function getTodaySchedule(dateStr?: string) {
   const student = await getDefaultStudent();
