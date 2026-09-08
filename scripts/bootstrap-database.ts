@@ -4,14 +4,6 @@ import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { Client } from "pg";
-import { disconnectSeedDatabase, seedDatabase } from "../prisma/seed.js";
-
-const databaseUrl = process.env.DATABASE_URL;
-if (!databaseUrl) throw new Error("DATABASE_URL is required");
-
-const targetUrl = new URL(databaseUrl);
-const databaseName = decodeURIComponent(targetUrl.pathname.slice(1));
-if (!databaseName) throw new Error("DATABASE_URL must include a database name");
 const MAX_CONNECTION_ATTEMPTS = 12;
 
 function quoteIdentifier(value: string) {
@@ -80,7 +72,8 @@ async function connectWithRetry(connectionString: string, label: string) {
   );
 }
 
-async function ensureDatabase() {
+async function ensureDatabase(targetUrl: URL) {
+  const databaseName = decodeURIComponent(targetUrl.pathname.slice(1));
   const maintenanceUrl = new URL(targetUrl);
   maintenanceUrl.pathname = "/postgres";
   maintenanceUrl.searchParams.delete("schema");
@@ -102,7 +95,7 @@ async function ensureDatabase() {
   }
 }
 
-async function applyMigrations() {
+async function applyMigrations(targetUrl: URL) {
   const migrationsRoot = path.join(process.cwd(), "prisma", "migrations");
   const entries = await readdir(migrationsRoot, { withFileTypes: true });
   const migrationNames = entries
@@ -181,7 +174,7 @@ async function applyMigrations() {
   }
 }
 
-async function seedIfEmpty() {
+async function seedIfEmpty(targetUrl: URL) {
   const client = await connectWithRetry(targetUrl.toString(), "PostgreSQL");
   let ready = false;
   try {
@@ -198,6 +191,7 @@ async function seedIfEmpty() {
   if (ready) return;
 
   console.log("Production database is empty; loading the initial curriculum.");
+  const { seedDatabase, disconnectSeedDatabase } = await import("../prisma/seed.js");
   try {
     await seedDatabase();
   } finally {
@@ -208,12 +202,17 @@ async function seedIfEmpty() {
 export async function bootstrapDatabase(
   options: { ensureDatabase?: boolean; seedIfEmpty?: boolean } = {},
 ) {
+  const databaseUrl = process.env.DATABASE_URL;
+  if (!databaseUrl) throw new Error("DATABASE_URL is required");
+  const targetUrl = new URL(databaseUrl);
+  if (!targetUrl.pathname.slice(1)) throw new Error("DATABASE_URL must include a database name");
+
   if (options.ensureDatabase !== false) {
-    await ensureDatabase();
+    await ensureDatabase(targetUrl);
   }
-  await applyMigrations();
+  await applyMigrations(targetUrl);
   if (options.seedIfEmpty) {
-    await seedIfEmpty();
+    await seedIfEmpty(targetUrl);
   }
 }
 
