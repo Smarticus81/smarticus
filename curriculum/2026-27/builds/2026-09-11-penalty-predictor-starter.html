@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Penalty Predictor</title>
+<style>
+:root{--ink:#eaf7f1;--glass:rgba(7,24,20,.72);--line:rgba(255,255,255,.14);--lime:#7CFF77;--gold:#FFD45A;--danger:#ff7373}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:Inter,system-ui,sans-serif;color:var(--ink);background:radial-gradient(circle at 50% 18%,rgba(124,255,119,.17),transparent 24%),linear-gradient(180deg,#071710 0 48%,#0d472d 48% 100%);overflow-x:hidden}
+body:before{content:"";position:fixed;inset:48% 0 0;background:linear-gradient(90deg,transparent 49.7%,rgba(255,255,255,.18) 49.7% 50.3%,transparent 50.3%),linear-gradient(0deg,transparent 72%,rgba(255,255,255,.18) 72% 73%,transparent 73%);pointer-events:none}
+.wrap{width:min(980px,94vw);margin:0 auto;padding:28px 0 50px}.top{display:flex;justify-content:space-between;align-items:end;gap:20px}h1{font-size:clamp(34px,6vw,68px);line-height:.9;margin:0;letter-spacing:-.05em}.tag{color:#b8d7c7;margin-top:10px}.badge{padding:10px 14px;border:1px solid var(--line);background:var(--glass);border-radius:999px;font-weight:800}.arena{margin-top:24px;display:grid;grid-template-columns:1.45fr .85fr;gap:18px}.card{background:var(--glass);border:1px solid var(--line);border-radius:22px;backdrop-filter:blur(12px);box-shadow:0 18px 60px rgba(0,0,0,.23)}.pitch{padding:22px;min-height:420px;position:relative;overflow:hidden}.goal{width:72%;height:210px;border:5px solid rgba(255,255,255,.9);border-bottom-width:8px;margin:45px auto 0;position:relative;background:repeating-linear-gradient(90deg,transparent 0 32px,rgba(255,255,255,.08) 32px 34px),repeating-linear-gradient(0deg,transparent 0 32px,rgba(255,255,255,.08) 32px 34px)}.keeper{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);font-size:68px;transition:.25s}.keeper.left{left:18%}.keeper.center{left:50%}.keeper.right{left:82%}.ball{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);font-size:44px;transition:.4s}.ball.left{left:28%;bottom:220px}.ball.center{left:50%;bottom:220px}.ball.right{left:72%;bottom:220px}.controls{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}button{border:0;border-radius:14px;padding:16px;font-weight:900;font-size:16px;cursor:pointer;background:#f7fff9;color:#092116}button:hover{transform:translateY(-1px)}.side{padding:20px}.score{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:rgba(255,255,255,.07);padding:14px;border-radius:14px;text-align:center}.stat b{display:block;font-size:28px}.brain{margin-top:16px;padding:16px;border-radius:16px;background:rgba(124,255,119,.09);border:1px solid rgba(124,255,119,.18)}.brain h3{margin:0 0 8px}#message{font-size:20px;font-weight:900;min-height:54px;margin-top:18px}.bar{height:10px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:9px}.fill{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--lime));transition:.3s}.small{color:#b8d7c7;font-size:13px}.reset{margin-top:16px;background:#193f31;color:white;width:100%}@media(max-width:760px){.arena{grid-template-columns:1fr}.goal{width:88%}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><div><h1>PENALTY<br>PREDICTOR</h1><div class="tag">Can the keeper learn your habits before you outsmart it?</div></div><div class="badge">DAY 13 BUILD</div></div>
+  <div class="arena">
+    <section class="card pitch"><div class="goal"><div id="keeper" class="keeper">🧤</div></div><div id="ball" class="ball">⚽</div><div id="message">Pick a corner.</div><div class="controls"><button onclick="kick('left')">LEFT</button><button onclick="kick('center')">CENTER</button><button onclick="kick('right')">RIGHT</button></div></section>
+    <aside class="card side"><div class="score"><div class="stat"><b id="goals">0</b><span>Goals</span></div><div class="stat"><b id="saves">0</b><span>Saves</span></div><div class="stat"><b id="kicks">0</b><span>Kicks</span></div></div><div class="brain"><h3>KEEPER BRAIN</h3><div id="brainText">No memory yet. The keeper is guessing.</div><div class="bar"><div id="brainBar" class="fill"></div></div><div id="counts" class="small" style="margin-top:10px">L 0 · C 0 · R 0</div></div><button class="reset" onclick="resetGame()">RESET MATCH</button><p class="small">Starter mode: random keeper. Your job is to make it adaptive.</p></aside>
+  </div>
+</div>
+<script>
+const DIRECTIONS=["left","center","right"];let goals=0;let saves=0;let kicks=0;let playerHistory=[];
+function randomDirection(){return DIRECTIONS[Math.floor(Math.random()*DIRECTIONS.length)];}
+function countDirections(){const counts={left:0,center:0,right:0};/* TODO 1: loop through playerHistory and add 1 to the matching direction. */return counts;}
+function favoriteDirection(){const counts=countDirections();/* TODO 2: return the direction with the largest count. */return "center";}
+function chooseKeeper(){/* TODO 3: after at least 4 kicks, 70% favoriteDirection(), 30% randomDirection(). Before 4 kicks stay random. */return randomDirection();}
+function renderBrain(){const counts=countDirections();document.getElementById("counts").textContent=`L ${counts.left} · C ${counts.center} · R ${counts.right}`;/* TODO 4: show learning message before 4 kicks, then favorite direction. BONUS: update brainBar. */}
+function kick(direction){kicks+=1;/* TODO 5: save direction into playerHistory. */const keeperDirection=chooseKeeper();const isGoal=direction!==keeperDirection;if(isGoal){goals+=1;document.getElementById("message").textContent=`GOAL! You went ${direction.toUpperCase()}; keeper went ${keeperDirection.toUpperCase()}.`;}else{saves+=1;document.getElementById("message").textContent=`SAVED! Keeper read ${direction.toUpperCase()}.`;}animate(direction,keeperDirection);render();}
+function animate(playerDirection,keeperDirection){const keeper=document.getElementById("keeper");const ball=document.getElementById("ball");keeper.className=`keeper ${keeperDirection}`;ball.className=`ball ${playerDirection}`;setTimeout(()=>{keeper.className="keeper";ball.className="ball";},550);}
+function render(){document.getElementById("goals").textContent=goals;document.getElementById("saves").textContent=saves;document.getElementById("kicks").textContent=kicks;renderBrain();}
+function resetGame(){goals=0;saves=0;kicks=0;playerHistory=[];document.getElementById("message").textContent="Pick a corner.";document.getElementById("brainText").textContent="No memory yet. The keeper is guessing.";document.getElementById("brainBar").style.width="0%";render();}
+render();
+</script>
+</body>
+</html>
