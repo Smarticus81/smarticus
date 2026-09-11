@@ -1,0 +1,78 @@
+{
+  "date": "2026-09-11",
+  "school_year": "2026-27",
+  "grade_level": 6,
+  "day_number": 13,
+  "school_day_label": "Friday, September 11, 2026",
+  "todays_goal": "Build, test, debug, and improve a playful adaptive penalty-kick game while explaining the important code decisions.",
+  "lessons": [
+    {
+      "id": "2026-09-11-computer_science",
+      "date": "2026-09-11",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "computer_science",
+      "course": "Grade 6 Computer Science / AI Builder Lab",
+      "unit_id": "cs-ai-builder",
+      "unit_title": "Future Builder Lab",
+      "lesson_number": 1,
+      "lesson_title": "Penalty Predictor: Build an Adaptive Goalkeeper",
+      "standards": ["CSTA 2-AP-10", "CSTA 2-AP-11", "CSTA 2-AP-13", "CSTA 2-AP-17"],
+      "previous_learning": "Atticus already understands that systems can use data, rules, and testing. The prior Builder Lab was too theory-heavy in theme, so today's lesson shifts decisively toward a creative, playable build.",
+      "course_context": "Use JavaScript in a browser game to learn state, arrays, events, functions, conditions, randomness, prediction, testing, debugging, and UX through a product Atticus can actually play and improve.",
+      "learning_objectives": [
+        "Run and inspect a working browser game before modifying it.",
+        "Store player choices in an array so the game remembers behavior.",
+        "Count repeated choices and identify the player's most-used direction.",
+        "Use conditionals and randomness to make the goalkeeper adapt without becoming completely predictable.",
+        "Playtest at least three strategies and use observations to improve the game.",
+        "Add one creative feature and explain one important function in his own words."
+      ],
+      "why_it_matters": "The goal is to develop the habits of an AI-native creative technologist: imagine a product, understand its parts, modify code, test behavior, debug failures, improve UX, and ship something that works.",
+      "vocabulary": [
+        {"term":"state","definition":"information the program remembers while it is running"},
+        {"term":"array","definition":"a list that can store multiple values"},
+        {"term":"event","definition":"something the user does that the program responds to, such as clicking LEFT"},
+        {"term":"function","definition":"a reusable block of instructions"},
+        {"term":"condition","definition":"an if/else rule that changes what the program does"},
+        {"term":"randomness","definition":"allowing an unpredictable choice inside a program"},
+        {"term":"prediction","definition":"using past behavior to make a guess about what comes next"},
+        {"term":"debugging","definition":"finding and fixing why a program does not behave as intended"}
+      ],
+      "written_instruction": "Open the Penalty Predictor starter game and play six kicks before editing code. The goalkeeper begins by choosing LEFT, CENTER, or RIGHT randomly. First, give the game memory by saving every player kick in playerHistory and counting LEFT, CENTER, and RIGHT. Next, identify the player's most-used direction. After at least four kicks, make the keeper dive toward that favorite direction about 70% of the time and stay random about 30% of the time. Then playtest a predictable strategy, a changing strategy, and a strategy designed to fool the keeper. Finish by adding one creative upgrade such as a streak counter, commentator, mind-read meter, difficulty mode, fakeout control, or visual redesign. This is an adaptive rule-based algorithm, not a full machine-learning model; the important skills are building, testing, debugging, explaining, and improving.",
+      "worked_examples": [
+        {"title":"Remembering a kick","problem":"How can the game remember that the player clicked LEFT?","solution":"Store the string 'left' in playerHistory.","explanation":"The array becomes the game's memory of earlier player choices."},
+        {"title":"Finding a tendency","problem":"History is LEFT, LEFT, RIGHT, LEFT, CENTER. What is the current favorite direction?","solution":"LEFT","explanation":"LEFT appears more often than CENTER or RIGHT, so it is the strongest current tendency."},
+        {"title":"Keeping the game fun","problem":"Why should the keeper still make some random choices?","solution":"Randomness prevents the keeper from becoming completely predictable.","explanation":"A smart-feeling game should adapt to the player while still leaving room for surprise and strategy."}
+      ],
+      "guided_practice": [
+        {"id":"cs-g1","prompt":"Play six kicks before editing. Describe how the baseline goalkeeper behaves."},
+        {"id":"cs-g2","prompt":"Add the player's direction to playerHistory inside kick(direction), then prove that the history changes."},
+        {"id":"cs-g3","prompt":"Complete countDirections() so the game can count LEFT, CENTER, and RIGHT."},
+        {"id":"cs-g4","prompt":"Complete favoriteDirection() so it returns the player's most-used direction."}
+      ],
+      "independent_practice": [
+        {"id":"cs-i1","prompt":"Upgrade chooseKeeper(): before four kicks stay random; after that, predict favoriteDirection about 70% of the time and choose randomly about 30% of the time."},
+        {"id":"cs-i2","prompt":"Upgrade the Keeper Brain panel so it displays the current LEFT/CENTER/RIGHT counts and names the direction it thinks the player favors."},
+        {"id":"cs-i3","prompt":"Playtest A: kick LEFT at least six times. Record whether the keeper begins diving LEFT more often."},
+        {"id":"cs-i4","prompt":"Playtest B: alternate LEFT and RIGHT for eight kicks. Record how the keeper responds when your strategy changes."},
+        {"id":"cs-i5","prompt":"Playtest C: invent a strategy designed to score five goals in a row against the adaptive keeper. Describe the strategy and result."},
+        {"id":"cs-i6","prompt":"Choose and build one creative upgrade: streak mode, commentator, mind-read meter, difficulty levels, fakeout, or visual redesign."},
+        {"id":"cs-i7","prompt":"Describe one bug or unexpected behavior you encountered and how you fixed or investigated it."}
+      ],
+      "exit_ticket": [
+        {"id":"cs-e1","prompt":"Show the working Penalty Predictor and demonstrate that the goalkeeper can respond differently after observing player history.","answer":"Working demo showing stored history, tendency detection, and adaptive keeper behavior."},
+        {"id":"cs-e2","prompt":"Choose one function in the project. Explain what goes in, what the function does, and what comes out.","answer":"Accurate explanation of one function's input, behavior, and output."},
+        {"id":"cs-e3","prompt":"Explain one test you used to prove the game works and one creative improvement you made.","answer":"Specific playtest plus one implemented creative upgrade."}
+      ],
+      "mastery_threshold": 80,
+      "materials": ["Penalty Predictor starter HTML", "web browser", "text/code editor", "Virgil as coding coach"],
+      "estimated_minutes": 45,
+      "voice_prompt": "This is a CREATIVE BUILD session, not a theory lecture. Start with: 'Open the Penalty Predictor starter and play six kicks. Tell me what you notice.' Keep spoken replies short and energetic. Coach one build step at a time: run, observe, predict, edit, run again. Never dump the complete finished solution or rewrite the whole project. You may explain syntax and show a tiny code snippet of roughly 2-6 lines when Atticus needs a concept, but leave the important decision and final implementation to him. Before suggesting a bug fix, ask what he expected, what actually happened, and whether there is an error message. Ask him to predict what a code change will do before running it. Treat experimentation, visual design, game feel, and creative upgrades as real engineering work. Do not falsely call the adaptive rule-based goalkeeper machine learning; explain that it uses memory, counts, rules, probability, and prediction. If Atticus gets excited and wants to add something creative, help him scope it into a small shippable feature rather than redirecting him back to theory.",
+      "teacher_notes": "Build-first lab. Assess the working product, testing/debugging habits, explanation of important logic, and creative improvement. Do not grade on memorizing JavaScript syntax.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    }
+  ]
+}
