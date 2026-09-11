@@ -1,0 +1,376 @@
+{
+  "date": "2026-09-11",
+  "school_year": "2026-27",
+  "grade_level": 6,
+  "day_number": 13,
+  "school_day_label": "Friday, September 11, 2026",
+  "todays_goal": "Raise accuracy and completion standards while advancing science, history, reading, writing, French, and practical AI building.",
+  "lessons": [
+    {
+      "id": "2026-09-11-mathematics",
+      "date": "2026-09-11",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "mathematics",
+      "course": "Grade 6 Mathematics",
+      "unit_id": "math-ratios",
+      "unit_title": "Ratios, Rates, and Percent",
+      "lesson_number": 4,
+      "lesson_title": "Accuracy Lab: Percent mastery",
+      "standards": ["6.RP.A.3"],
+      "previous_learning": "Day 12 showed that percent concepts are partly secure, but arithmetic accuracy, multi-part completion, units, and verification are not yet consistent enough for advancement.",
+      "course_context": "Today's designated cumulative-review subject. Accuracy and completeness matter more than speed.",
+      "learning_objectives": ["Solve all three percent problem types.", "Use benchmark estimates before exact calculation.", "Verify multi-step answers and complete every requested part.", "Analyze and repair percent errors."],
+      "why_it_matters": "Selective-school-level work requires reliable execution, complete responses, and self-checking in addition to conceptual understanding.",
+      "vocabulary": [
+        {"term":"part","definition":"the amount being compared with the whole"},
+        {"term":"whole","definition":"the complete amount"},
+        {"term":"percent","definition":"a rate per 100"},
+        {"term":"benchmark","definition":"a familiar value used for a quick estimate"},
+        {"term":"verification","definition":"a second check that supports accuracy"}
+      ],
+      "written_instruction": "Use the Accuracy Protocol on every problem: READ the exact task; LABEL part, percent, whole, and unknown; ESTIMATE; SOLVE with visible setup; VERIFY against the estimate; COMPLETE every requested part, unit, label, and explanation. A correct number with missing required work is incomplete.",
+      "worked_examples": [
+        {"title":"Find the part","problem":"Find 32% of 250.","solution":"80","explanation":"0.32 x 250 = 80. Check: 30% of 250 is 75, so 80 is reasonable."},
+        {"title":"Find the percent","problem":"42 is what percent of 120?","solution":"35%","explanation":"42/120 = 0.35 = 35%."},
+        {"title":"Find the whole","problem":"63 is 35% of what whole?","solution":"180","explanation":"63/0.35 = 180."},
+        {"title":"Multi-part price problem","problem":"A $120 item is discounted 25%. Find discount and sale price.","solution":"$30 discount; $90 sale price","explanation":"The question asks for two outputs; stopping after the discount is incomplete."}
+      ],
+      "guided_practice": [],
+      "independent_practice": [
+        {"id":"math-i1","prompt":"Find 18% of 300. Show an estimate using 20% first."},
+        {"id":"math-i2","prompt":"Find 42% of 150. Show the decimal multiplication."},
+        {"id":"math-i3","prompt":"Find 75% of 84. Also show a benchmark method using three-fourths."},
+        {"id":"math-i4","prompt":"32 is what percent of 80? Show division and conversion to percent."},
+        {"id":"math-i5","prompt":"27 is what percent of 120? Answer with the % symbol."},
+        {"id":"math-i6","prompt":"84 is 35% of what whole? Label the unknown before solving."},
+        {"id":"math-i7","prompt":"A 160-page book is 35% complete. How many pages have been read? Include units."},
+        {"id":"math-i8","prompt":"A $96 jacket is discounted by 25%. Find BOTH the discount and the sale price."},
+        {"id":"math-i9","prompt":"A survey has 72 yes responses out of 90. What percent answered yes? Explain one check."},
+        {"id":"math-i10","prompt":"A collection has 45 red cards, which is 30% of the entire collection. How many cards are in the collection?"},
+        {"id":"math-i11","prompt":"ERROR ANALYSIS: A student writes 18% of 250 = 450. Identify the first error and calculate the correct value."},
+        {"id":"math-i12","prompt":"ERROR ANALYSIS: A student says 40% of 60 = 240. Explain why the answer is unreasonable and repair it."}
+      ],
+      "exit_ticket": [
+        {"id":"math-e1","prompt":"36 is what percent of 90?","answer":"40%"},
+        {"id":"math-e2","prompt":"48 is 30% of what whole?","answer":"160"},
+        {"id":"math-e3","prompt":"Find 22% of 250.","answer":"55"},
+        {"id":"math-e4","prompt":"A $150 item is discounted 18%. Find the discount AND sale price.","answer":"$27 discount and $123 sale price"},
+        {"id":"math-e5","prompt":"Explain why estimating before calculating can improve accuracy.","answer":"An estimate predicts approximate size and can expose setup or arithmetic errors."}
+      ],
+      "mastery_threshold": 90,
+      "materials": ["Day 13 packet", "large-box grid paper", "pencil"],
+      "estimated_minutes": 70,
+      "voice_prompt": "Be demanding but calm. Keep replies short. For assigned work, require the requested method, units, labels, explanation, and every part. If the number is right but the response is incomplete, say the number is right but the work is incomplete. Never give the final answer. Identify the first error only, give one concise cue, then require a retry.",
+      "teacher_notes": "Cumulative review. Advance only after at least 90% mastery with complete multi-part responses.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-11-science",
+      "date": "2026-09-11",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "science",
+      "course": "Grade 6 Science",
+      "unit_id": "science-light",
+      "unit_title": "Light and Materials",
+      "lesson_number": 3,
+      "lesson_title": "Refraction Lab: observation, ray models, and apparent position",
+      "standards": ["MS-PS4-2"],
+      "previous_learning": "Day 12 showed strong conceptual understanding of refraction, but ray-model fluency and observation-to-explanation reasoning need strengthening.",
+      "course_context": "Consolidate refraction experimentally before progressing to lenses.",
+      "learning_objectives": ["Observe refraction in water.", "Construct labeled ray models.", "Explain apparent bending or displacement.", "Distinguish reflection from refraction."],
+      "why_it_matters": "Scientific understanding becomes durable when an observation can be connected to a model and mechanism.",
+      "vocabulary": [
+        {"term":"refraction","definition":"a change in light direction when it crosses between media"},
+        {"term":"medium","definition":"a material light travels through"},
+        {"term":"boundary","definition":"where two media meet"},
+        {"term":"apparent position","definition":"where an object seems to be because of the light path"},
+        {"term":"ray diagram","definition":"a model using lines and arrows to show light direction"}
+      ],
+      "written_instruction": "The object does not physically bend or move. Light from the object travels through one medium, changes direction at the boundary, and then reaches the eye. The changed ray path produces an apparent shift.",
+      "worked_examples": [
+        {"title":"Bent straw","problem":"Why can a straight straw appear bent in water?","solution":"Light from the submerged part refracts at the water-air boundary.","explanation":"The changed light path shifts the apparent position of the submerged part."}
+      ],
+      "guided_practice": [],
+      "independent_practice": [
+        {"id":"sci-i1","prompt":"Bent-pencil lab: describe exactly what you observe at the water surface."},
+        {"id":"sci-i2","prompt":"Move your viewing position. Does the apparent bend change? Record the observation."},
+        {"id":"sci-i3","prompt":"Draw a ray model: submerged pencil -> water -> air -> eye. Mark the boundary and show direction change."},
+        {"id":"sci-i4","prompt":"Explain why the pencil only APPEARS bent."},
+        {"id":"sci-i5","prompt":"Coin reveal lab: record what happens when water is added without moving your head."},
+        {"id":"sci-i6","prompt":"The coin did not move. Explain why it can become visible after water is added."},
+        {"id":"sci-i7","prompt":"Draw a before/after ray model showing why light from the coin can reach the eye after water is added."}
+      ],
+      "exit_ticket": [
+        {"id":"sci-e1","prompt":"State the difference between reflection and refraction precisely.","answer":"Reflection sends light back from a surface; refraction changes light direction across media."},
+        {"id":"sci-e2","prompt":"Explain apparent position using the coin or pencil lab.","answer":"Refraction changes the path of rays reaching the eye, so the object appears displaced from its actual position."}
+      ],
+      "mastery_threshold": 85,
+      "materials": ["clear cup", "water", "pencil or straw", "coin", "ruler", "Day 13 packet"],
+      "estimated_minutes": 40,
+      "voice_prompt": "Teach first, then run the lab. Do not accept vague statements such as 'water bends it.' Require a light-path explanation through the media and boundary. Do not draw assigned diagrams. Identify only the missing or incorrect boundary, ray direction, arrow, or eye and have Atticus repair it.",
+      "teacher_notes": "Require mechanism, not vocabulary-only answers.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-11-french",
+      "date": "2026-09-11",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "french",
+      "course": "Grade 6 French",
+      "unit_id": "fr-core-verbs",
+      "unit_title": "High-Frequency Present Tense",
+      "lesson_number": 6,
+      "lesson_title": "Precision Drill: Être, avoir, and negative possession",
+      "standards": ["ACTFL-Interpersonal", "ACTFL-Presentational"],
+      "previous_learning": "Être/avoir selection is improving, but negative possession with de is not automatic.",
+      "course_context": "Isolate the remaining grammar gap instead of reteaching the entire verb system.",
+      "learning_objectives": ["Choose être or avoir from meaning.", "Produce ne/n'...pas de accurately.", "Use the structures orally without notes."],
+      "why_it_matters": "Automatic control of high-frequency structures supports fluent speaking and accurate writing.",
+      "vocabulary": [
+        {"term":"description","definition":"what someone or something is like"},
+        {"term":"possession","definition":"having or owning something"},
+        {"term":"negative possession","definition":"ne/n' + avoir + pas + de + noun"}
+      ],
+      "written_instruction": "Description/state uses être. Possession uses avoir. For most negative possession phrases, put ne/n' and pas around avoir and change un/une/des to de.",
+      "worked_examples": [
+        {"title":"Negative possession","problem":"J'ai un livre -> negative","solution":"Je n'ai pas de livre.","explanation":"Un becomes de after pas."},
+        {"title":"Negative plural","problem":"Elle a des devoirs -> negative","solution":"Elle n'a pas de devoirs.","explanation":"Des becomes de."}
+      ],
+      "guided_practice": [],
+      "independent_practice": [
+        {"id":"fr-i1","prompt":"Elles ______ prêtes. (être / avoir)"},
+        {"id":"fr-i2","prompt":"Nous ______ deux stylos. (être / avoir)"},
+        {"id":"fr-i3","prompt":"Ils ______ fatigués. (être / avoir)"},
+        {"id":"fr-i4","prompt":"Vous ______ trois livres. (être / avoir)"},
+        {"id":"fr-i5","prompt":"Make negative: J'ai une calculatrice."},
+        {"id":"fr-i6","prompt":"Make negative: Elle a des cahiers."},
+        {"id":"fr-i7","prompt":"Make negative: Nous avons un chien."},
+        {"id":"fr-i8","prompt":"Make negative: Ils ont des devoirs."},
+        {"id":"fr-i9","prompt":"Write one true sentence about yourself using être."},
+        {"id":"fr-i10","prompt":"Write one true sentence about yourself using avoir, then make it negative."}
+      ],
+      "exit_ticket": [
+        {"id":"fr-e1","prompt":"Oral: produce four negative possession sentences without notes.","answer":"Four grammatically correct ne/n'...pas de possession sentences."}
+      ],
+      "mastery_threshold": 90,
+      "materials": ["Day 13 packet"],
+      "estimated_minutes": 30,
+      "voice_prompt": "Move fast. Atticus says the answer aloud before writing. If de is omitted after negative possession, do not call the sentence almost correct; say the grammar is incomplete and cue him to check the noun phrase after pas. Do not provide the finished assigned sentence.",
+      "teacher_notes": "Target 4/4 oral negative-possession sentences.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-11-history_geography",
+      "date": "2026-09-11",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "history_geography",
+      "course": "Grade 6 History & Geography",
+      "unit_id": "hist-ancient-greece",
+      "unit_title": "Ancient Greece",
+      "lesson_number": 8,
+      "lesson_title": "After the Persian Wars: Delian League and Athenian power",
+      "standards": ["C3-D2.His.2.6-8", "C3-D2.His.14.6-8"],
+      "previous_learning": "Atticus understands geography, strategy, temporary alliances, and political independence during the Persian Wars.",
+      "course_context": "Advance from wartime cooperation to postwar power, alliances, imperial control, and tension with Sparta.",
+      "learning_objectives": ["Explain why the Delian League formed.", "Describe how Athens gained influence.", "Distinguish alliance from coercive control.", "Build a cause-and-effect chain toward tension with Sparta."],
+      "why_it_matters": "This develops historical reasoning about how institutions and alliances change over time.",
+      "vocabulary": [
+        {"term":"Delian League","definition":"an alliance led by Athens after the Persian Wars"},
+        {"term":"tribute","definition":"money or resources contributed to a larger group or power"},
+        {"term":"alliance","definition":"an agreement to cooperate for a shared purpose"},
+        {"term":"empire","definition":"a state that controls other territories or peoples"},
+        {"term":"influence","definition":"power to affect decisions or behavior"}
+      ],
+      "written_instruction": "After the Persian Wars, many poleis joined an Athenian-led alliance for defense. Athens controlled a large fleet and eventually the league treasury. When Athens used force to prevent members leaving, cooperation increasingly resembled imperial control, contributing to tension with Sparta.",
+      "worked_examples": [
+        {"title":"Cause/effect","problem":"Athens controls a large fleet and league resources.","solution":"Athens gains greater influence over other members.","explanation":"Military and financial resources create leverage over smaller poleis."}
+      ],
+      "guided_practice": [],
+      "independent_practice": [
+        {"id":"hist-i1","prompt":"Why was the Delian League originally formed?"},
+        {"id":"hist-i2","prompt":"Name TWO ways member poleis could contribute to the alliance."},
+        {"id":"hist-i3","prompt":"How did controlling the fleet and treasury increase Athenian power?"},
+        {"id":"hist-i4","prompt":"Why might forcing a polis to remain in an alliance make the alliance look more like an empire?"},
+        {"id":"hist-i5","prompt":"Explain one reason Sparta could become concerned about Athenian growth."},
+        {"id":"hist-i6","prompt":"Write a cause-and-effect chain with at least FOUR links: Persian threat -> ____ -> ____ -> ____ -> tension with Sparta."}
+      ],
+      "exit_ticket": [
+        {"id":"hist-e1","prompt":"In four sentences, answer: When can cooperation become control? Use the Delian League as evidence.","answer":"A strong response explains that an alliance can become coercive when a dominant member controls shared resources and prevents others from leaving."}
+      ],
+      "mastery_threshold": 85,
+      "materials": ["Day 13 packet"],
+      "estimated_minutes": 45,
+      "voice_prompt": "Demand causal reasoning. Do not accept 'Athens got stronger' without asking how and because of what resources, decisions, or relationships. Require evidence from the reading and do not write the causal chain for him.",
+      "teacher_notes": "Advance if causal explanations are specific and complete.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-11-literature",
+      "date": "2026-09-11",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "literature",
+      "course": "Grade 6 Literature / Reading",
+      "unit_id": "lit-close-reading",
+      "unit_title": "Close Reading and Evidence",
+      "lesson_number": 5,
+      "lesson_title": "Close Reading: Diction, inference, and theme",
+      "standards": ["RL.6.1", "RL.6.2", "RL.6.3", "RL.6.4"],
+      "previous_learning": "Literal comprehension and theme work are improving; the next standard is more precise analysis of diction, turning points, and significance.",
+      "course_context": "Increase rigor by requiring why a word, event, or line matters rather than accepting plot summary.",
+      "learning_objectives": ["Analyze diction and connotation.", "Infer motivation from evidence.", "Identify a turning point.", "Support a universal theme with two evidence-significance chains."],
+      "why_it_matters": "Selective schools expect students to move beyond what happened toward how language and structure create meaning.",
+      "vocabulary": [
+        {"term":"diction","definition":"an author's choice of words"},
+        {"term":"connotation","definition":"the feeling or association a word carries"},
+        {"term":"inference","definition":"a conclusion based on evidence and reasoning"},
+        {"term":"turning point","definition":"a moment when the direction of a story changes"}
+      ],
+      "written_instruction": "Read The Third Attempt closely. Plot summary answers what happened. Analysis explains what a detail reveals, why a turning point matters, or how a word choice shapes meaning. Evidence must be followed by significance.",
+      "worked_examples": [
+        {"title":"Inference","problem":"Samir says, 'We don't know why theirs works.'","solution":"He is cautious about copying without understanding.","explanation":"The line shows he values mechanism and evidence more than the appearance of success."}
+      ],
+      "guided_practice": [],
+      "independent_practice": [
+        {"id":"lit-i1","prompt":"What is the central problem at the beginning of The Third Attempt?"},
+        {"id":"lit-i2","prompt":"Why does Jonah want to copy another team's design? State his immediate motivation."},
+        {"id":"lit-i3","prompt":"What does Samir infer from the fact that the failure moved after the joint was strengthened?"},
+        {"id":"lit-i4","prompt":"Why is 'removing material instead of adding it' a turning point?"},
+        {"id":"lit-i5","prompt":"What does the word 'apparently' suggest in the sentence describing the other team's bridge?"},
+        {"id":"lit-i6","prompt":"Explain what Samir means by 'I wanted it to survive the test, not the photograph.'"},
+        {"id":"lit-i7","prompt":"Write one universal theme statement."},
+        {"id":"lit-i8","prompt":"Give TWO strong pieces of evidence for your theme. After each, explain its significance."},
+        {"id":"lit-i9","prompt":"Write a 3-sentence objective summary."}
+      ],
+      "exit_ticket": [
+        {"id":"lit-e1","prompt":"Choose one sentence whose diction matters. Identify one important word and explain how that word shapes meaning.","answer":"Answers vary; response must identify a meaningful word and explain its effect on interpretation."}
+      ],
+      "mastery_threshold": 85,
+      "materials": ["Day 13 packet", "The Third Attempt passage"],
+      "estimated_minutes": 45,
+      "voice_prompt": "Do not accept plot summary as analysis. If Atticus tells what happened when asked why it matters, say that he has named the event and now must explain its significance. Require quoted or precisely paraphrased evidence. Never provide the theme for an assigned question.",
+      "teacher_notes": "Score comprehension and analysis separately.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-11-writing",
+      "date": "2026-09-11",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "writing",
+      "course": "Grade 6 Writing",
+      "unit_id": "writing-explanatory",
+      "unit_title": "Evidence-Based Explanatory Writing",
+      "lesson_number": 5,
+      "lesson_title": "Revision Workshop: precision, reasoning, and sentence control",
+      "standards": ["W.6.2", "W.6.5", "W.6.9", "L.6.1", "L.6.2"],
+      "previous_learning": "Claims and evidence are improving, but writing needs stricter control of precision, sentence boundaries, non-repetition, and visible revision.",
+      "course_context": "Shift from first-draft production to disciplined revision.",
+      "learning_objectives": ["Revise vague language.", "Repair run-ons.", "Add reasoning after evidence.", "Remove repetition.", "Complete a visible revision pass."],
+      "why_it_matters": "Strong writing is revised until meaning, logic, and mechanics are clear.",
+      "vocabulary": [
+        {"term":"claim","definition":"the point being argued or explained"},
+        {"term":"evidence","definition":"a specific supporting detail"},
+        {"term":"reasoning","definition":"why the evidence supports the claim"},
+        {"term":"revision","definition":"deliberate improvement after a draft exists"},
+        {"term":"precision","definition":"specific and exact language"}
+      ],
+      "written_instruction": "Use a strict revision pass: underline the claim; box two evidence points; label reasoning; replace vague words; inspect sentence boundaries; remove repetition; revise the conclusion. A first draft is not finished work.",
+      "worked_examples": [
+        {"title":"Before revision","problem":"The bridge worked because they fixed it. They made it better and then it worked.","solution":"Too vague and repetitive.","explanation":"The sentences do not name what changed or why it mattered."},
+        {"title":"After revision","problem":"Revise the vague explanation.","solution":"The team realized the reinforced joint was not the only problem because the fracture moved inward. They changed the load path rather than simply adding more material, allowing the bridge to distribute weight more effectively.","explanation":"The revision identifies evidence, mechanism, and reasoning."}
+      ],
+      "guided_practice": [],
+      "independent_practice": [
+        {"id":"write-i1","prompt":"Replace the vague wording: 'Samir did a good thing when he changed the bridge.'"},
+        {"id":"write-i2","prompt":"Repair the run-on: 'The joint was stronger the beam still failed the team had to reconsider its explanation.'"},
+        {"id":"write-i3","prompt":"Add reasoning: Evidence: 'The fracture moved after the joint was strengthened.' Why does that matter?"},
+        {"id":"write-i4","prompt":"Combine without creating a run-on: 'The bridge looked less impressive. It held more weight.'"},
+        {"id":"write-i5","prompt":"Write 8-10 sentences answering why understanding the failure was more valuable than copying another team's successful-looking design. Use TWO exact details, reasoning after each, and a conclusion."},
+        {"id":"write-i6","prompt":"Complete the revision checklist and write the one sentence you improved the most, then explain what changed."}
+      ],
+      "exit_ticket": [
+        {"id":"write-e1","prompt":"Submit the revised paragraph, not the unrevised first draft.","answer":"Revised 8-10 sentence paragraph with claim, two evidence-reasoning chains, sentence control, reduced vagueness/repetition, and conclusion."}
+      ],
+      "mastery_threshold": 85,
+      "materials": ["Day 13 packet", "The Third Attempt passage"],
+      "estimated_minutes": 40,
+      "voice_prompt": "Be specific, not generous. If a sentence is vague, identify the vague word. If reasoning repeats evidence, say so. If a run-on appears, ask where one complete thought ends. Do not rewrite the paragraph. Require a visible revision pass before calling the assignment complete.",
+      "teacher_notes": "Score claim 0-2, evidence 0-3, reasoning 0-3, mechanics/revision 0-2.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-11-computer_science",
+      "date": "2026-09-11",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "computer_science",
+      "course": "Grade 6 Computer Science / AI",
+      "unit_id": "cs-ai-builder",
+      "unit_title": "AI Builder Lab",
+      "lesson_number": 1,
+      "lesson_title": "AI Builder Lab 1: Model Evaluation Dashboard",
+      "standards": ["CSTA 2-AP-10", "CSTA 2-AP-13", "CSTA 2-AP-17"],
+      "previous_learning": "Atticus has learned core ideas about training data, test data, generalization, and overfitting. The curriculum now shifts from theory-heavy work to building practical tools.",
+      "course_context": "Use prior AI theory inside a working browser application that calculates model performance and applies decision logic.",
+      "learning_objectives": ["Write a product specification.", "Build a simple browser UI.", "Use JavaScript variables, functions, arithmetic, and conditions.", "Test three cases and debug incorrect behavior.", "Explain one part of the code in his own words."],
+      "why_it_matters": "Future technical value comes from being able to specify, build, test, debug, and improve working systems rather than only describing technology.",
+      "vocabulary": [
+        {"term":"specification","definition":"a precise description of what a product must do"},
+        {"term":"input","definition":"data a user gives a program"},
+        {"term":"output","definition":"information a program returns"},
+        {"term":"variable","definition":"a named value stored by a program"},
+        {"term":"function","definition":"a reusable block of code that performs a task"},
+        {"term":"condition","definition":"a rule controlling what happens when something is true or false"},
+        {"term":"debugging","definition":"finding and fixing why a program does not behave as intended"}
+      ],
+      "written_instruction": "Build a Model Evaluation Dashboard. Inputs: training correct, training total, test correct, test total. Outputs: training accuracy, test accuracy, gap in percentage points, and interpretation. Rules: gap 0-10 = Strong generalization signal; 11-19 = Investigate further; 20+ = Possible overfitting. Complete the JavaScript TODOs in the provided starter file and test after each small change.",
+      "worked_examples": [
+        {"title":"Product logic","problem":"Training 98/100 and test 96/100.","solution":"98%, 96%, gap 2, Strong generalization signal.","explanation":"The app converts ratios to percentages and applies a condition."},
+        {"title":"Overfitting signal","problem":"Training 100/100 and test 72/100.","solution":"100%, 72%, gap 28, Possible overfitting.","explanation":"A large training-test gap suggests weak transfer to new data."}
+      ],
+      "guided_practice": [],
+      "independent_practice": [
+        {"id":"cs-i1","prompt":"Write the product specification: user, problem, four inputs, three outputs, and decision rules."},
+        {"id":"cs-i2","prompt":"Complete the percent(correct, total) function in the starter file."},
+        {"id":"cs-i3","prompt":"Complete the interpretation(gap) function."},
+        {"id":"cs-i4","prompt":"Add input validation so totals must be greater than zero and correct values cannot exceed totals."},
+        {"id":"cs-i5","prompt":"Calculate training accuracy, test accuracy, and the absolute gap."},
+        {"id":"cs-i6","prompt":"Render the results in the result box."},
+        {"id":"cs-i7","prompt":"Test Case A: training 98/100; test 96/100. Record the outputs."},
+        {"id":"cs-i8","prompt":"Test Case B: training 100/100; test 72/100. Record the outputs."},
+        {"id":"cs-i9","prompt":"Test Case C: training 18/20; test 17/20. Record the outputs."},
+        {"id":"cs-i10","prompt":"Make one useful UX improvement and explain why it helps the user."}
+      ],
+      "exit_ticket": [
+        {"id":"cs-e1","prompt":"Show the working Model Evaluation Dashboard.","answer":"Working browser tool with correct calculations, gap logic, and results display."},
+        {"id":"cs-e2","prompt":"Explain one function or condition in your own words.","answer":"Accurate explanation of a function or conditional used in the project."},
+        {"id":"cs-e3","prompt":"Describe one bug encountered or one test used to prove the tool works.","answer":"Specific debugging or testing evidence."}
+      ],
+      "mastery_threshold": 85,
+      "materials": ["Day 13 packet", "Atticus_AI_Builder_Lab_Day13_Starter.html", "browser or code editor"],
+      "estimated_minutes": 45,
+      "voice_prompt": "This is a BUILD session, not a vocabulary lesson. Coach one step at a time. You may explain HTML/JavaScript syntax and show small snippets, but do not take over the whole project. Ask Atticus to predict what code should do before running it. When something breaks, have him read the error or describe the behavior before suggesting a fix. Grade specification, functioning behavior, testing, debugging, and explanation rather than syntax memorization.",
+      "teacher_notes": "Portfolio artifact. Save the finished file with name/date.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    }
+  ]
+}
