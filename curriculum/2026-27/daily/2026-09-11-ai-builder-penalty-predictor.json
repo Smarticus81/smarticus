@@ -4,7 +4,7 @@
   "grade_level": 6,
   "day_number": 13,
   "school_day_label": "Friday, September 11, 2026",
-  "todays_goal": "Build, test, debug, and improve a playful adaptive penalty-kick game while explaining the important code decisions.",
+  "todays_goal": "Use AI as a creative building partner: specify a playful product, direct the build in natural language, test it, debug it through behavior, improve the experience, and ship a working prototype.",
   "lessons": [
     {
       "id": "2026-09-11-computer_science",
@@ -16,60 +16,87 @@
       "unit_id": "cs-ai-builder",
       "unit_title": "Future Builder Lab",
       "lesson_number": 1,
-      "lesson_title": "Penalty Predictor: Build an Adaptive Goalkeeper",
-      "standards": ["CSTA 2-AP-10", "CSTA 2-AP-11", "CSTA 2-AP-13", "CSTA 2-AP-17"],
-      "previous_learning": "Atticus already understands that systems can use data, rules, and testing. The prior Builder Lab was too theory-heavy in theme, so today's lesson shifts decisively toward a creative, playable build.",
-      "course_context": "Use JavaScript in a browser game to learn state, arrays, events, functions, conditions, randomness, prediction, testing, debugging, and UX through a product Atticus can actually play and improve.",
+      "lesson_title": "Vibe Build: Penalty Predictor",
+      "standards": [
+        "CSTA 2-AP-10",
+        "CSTA 2-AP-13",
+        "CSTA 2-AP-15",
+        "CSTA 2-AP-17"
+      ],
+      "previous_learning": "Atticus has used AI tools and understands that software can remember data, make decisions, and be tested. He is a vibe coder, not a syntax-first programmer. Today's lab uses an AI coding agent as the implementation partner.",
+      "course_context": "Atticus works in natural language with a coding agent. The learning target is not manual JavaScript syntax. It is product specification, decomposition, iterative prompting, testing, debugging by observed behavior, creative direction, and explaining the important system ideas in plain language.",
       "learning_objectives": [
-        "Run and inspect a working browser game before modifying it.",
-        "Store player choices in an array so the game remembers behavior.",
-        "Count repeated choices and identify the player's most-used direction.",
-        "Use conditionals and randomness to make the goalkeeper adapt without becoming completely predictable.",
-        "Playtest at least three strategies and use observations to improve the game.",
-        "Add one creative feature and explain one important function in his own words."
+        "Describe a product idea clearly enough that an AI coding agent can build a first version.",
+        "Break the product into features and acceptance criteria before asking the agent to build.",
+        "Direct an AI coding agent through small iterative changes instead of asking for one giant final build.",
+        "Test the product as a user and identify bugs or weak behavior from evidence.",
+        "Describe a bug precisely and request a targeted repair.",
+        "Add one creative feature based on personal taste and product judgment.",
+        "Explain in plain language how the finished game remembers behavior and adapts."
       ],
-      "why_it_matters": "The goal is to develop the habits of an AI-native creative technologist: imagine a product, understand its parts, modify code, test behavior, debug failures, improve UX, and ship something that works.",
+      "why_it_matters": "Future builders will increasingly create software by directing powerful AI systems. The valuable skill is turning imagination into precise specifications, judging outputs, testing behavior, debugging failures, and improving a product until it works and feels good.",
       "vocabulary": [
-        {"term":"state","definition":"information the program remembers while it is running"},
-        {"term":"array","definition":"a list that can store multiple values"},
-        {"term":"event","definition":"something the user does that the program responds to, such as clicking LEFT"},
-        {"term":"function","definition":"a reusable block of instructions"},
-        {"term":"condition","definition":"an if/else rule that changes what the program does"},
-        {"term":"randomness","definition":"allowing an unpredictable choice inside a program"},
-        {"term":"prediction","definition":"using past behavior to make a guess about what comes next"},
-        {"term":"debugging","definition":"finding and fixing why a program does not behave as intended"}
+        {"term": "vibe coding", "definition": "building software by directing an AI coding system in natural language and iterating on the result"},
+        {"term": "specification", "definition": "a clear description of what the product should do and how success will be judged"},
+        {"term": "feature", "definition": "a capability the product gives the user"},
+        {"term": "acceptance criteria", "definition": "specific observable conditions that must be true for a feature to count as working"},
+        {"term": "iteration", "definition": "a build-test-improve cycle"},
+        {"term": "bug", "definition": "behavior that differs from what the product is supposed to do"},
+        {"term": "debugging", "definition": "finding the cause of a bug and changing the product so the intended behavior works"},
+        {"term": "state", "definition": "information the product remembers while it is running"}
       ],
-      "written_instruction": "Open the Penalty Predictor starter game and play six kicks before editing code. The goalkeeper begins by choosing LEFT, CENTER, or RIGHT randomly. First, give the game memory by saving every player kick in playerHistory and counting LEFT, CENTER, and RIGHT. Next, identify the player's most-used direction. After at least four kicks, make the keeper dive toward that favorite direction about 70% of the time and stay random about 30% of the time. Then playtest a predictable strategy, a changing strategy, and a strategy designed to fool the keeper. Finish by adding one creative upgrade such as a streak counter, commentator, mind-read meter, difficulty mode, fakeout control, or visual redesign. This is an adaptive rule-based algorithm, not a full machine-learning model; the important skills are building, testing, debugging, explaining, and improving.",
+      "written_instruction": "Build Penalty Predictor with an AI coding agent. Do not manually write or study JavaScript syntax unless you become curious about a specific piece. Start by writing a short product brief: a browser penalty-kick game with LEFT, CENTER, and RIGHT choices; scorekeeping; a goalkeeper that begins random; a visible Keeper Brain; and an adaptive mode that notices the player's most-used direction and begins predicting it while keeping some randomness. Give the coding agent the brief and ask it to create a playable first version. Then work through the product like a real builder: play it, record what works and what feels wrong, describe one change at a time in natural language, test each change, and continue until the acceptance criteria pass. Add one creative feature such as commentary, streak mode, difficulty modes, fakeouts, a mind-read meter, dramatic animations, sound, player names, or another idea you invent. The final goal is a product you can demonstrate and explain, not code you typed yourself.",
       "worked_examples": [
-        {"title":"Remembering a kick","problem":"How can the game remember that the player clicked LEFT?","solution":"Store the string 'left' in playerHistory.","explanation":"The array becomes the game's memory of earlier player choices."},
-        {"title":"Finding a tendency","problem":"History is LEFT, LEFT, RIGHT, LEFT, CENTER. What is the current favorite direction?","solution":"LEFT","explanation":"LEFT appears more often than CENTER or RIGHT, so it is the strongest current tendency."},
-        {"title":"Keeping the game fun","problem":"Why should the keeper still make some random choices?","solution":"Randomness prevents the keeper from becoming completely predictable.","explanation":"A smart-feeling game should adapt to the player while still leaving room for surprise and strategy."}
+        {
+          "title": "Good first build request",
+          "problem": "How should a vibe coder ask for version 1?",
+          "solution": "Ask for one playable browser game with three kick buttons, visible score, random goalkeeper, simple stadium styling, and a Keeper Brain area reserved for later adaptation. Ask the agent to make it run immediately and keep the structure easy to modify.",
+          "explanation": "A strong request specifies the user experience and the first milestone without trying to cram every future feature into one giant prompt."
+        },
+        {
+          "title": "Good iteration request",
+          "problem": "The first version works, but the keeper never learns.",
+          "solution": "Tell the agent: 'Add memory of every LEFT/CENTER/RIGHT kick. Show the counts in Keeper Brain. Do not change the visual design yet. After you make the change, tell me exactly what I should test.'",
+          "explanation": "Small targeted iterations are easier to test and debug than vague requests such as 'make it smarter.'"
+        },
+        {
+          "title": "Good bug report",
+          "problem": "The score sometimes increments twice.",
+          "solution": "Describe the exact behavior, the action that triggers it, what you expected, and ask the agent to reproduce and fix only that issue before adding features.",
+          "explanation": "Precise behavioral evidence gives an AI coding agent much better information than 'the app is broken.'"
+        }
       ],
       "guided_practice": [
-        {"id":"cs-g1","prompt":"Play six kicks before editing. Describe how the baseline goalkeeper behaves."},
-        {"id":"cs-g2","prompt":"Add the player's direction to playerHistory inside kick(direction), then prove that the history changes."},
-        {"id":"cs-g3","prompt":"Complete countDirections() so the game can count LEFT, CENTER, and RIGHT."},
-        {"id":"cs-g4","prompt":"Complete favoriteDirection() so it returns the player's most-used direction."}
+        {"id": "cs-g1", "prompt": "Write a 5-7 sentence product brief for Penalty Predictor in your own words: what the player sees, what the player can do, what the goalkeeper does at first, and what should eventually make the goalkeeper feel smarter."},
+        {"id": "cs-g2", "prompt": "Write 5 acceptance criteria for version 1. Each criterion must be observable, such as 'Clicking LEFT sends the ball left' or 'The scoreboard updates after every kick.'"},
+        {"id": "cs-g3", "prompt": "Give your coding agent the version-1 brief. When it finishes, play at least 8 kicks before asking for changes. Record three things that work and one thing you want improved."},
+        {"id": "cs-g4", "prompt": "Ask the coding agent for ONE targeted improvement: make the game remember how many times you choose LEFT, CENTER, and RIGHT and display the counts in Keeper Brain. Test the change before adding anything else."}
       ],
       "independent_practice": [
-        {"id":"cs-i1","prompt":"Upgrade chooseKeeper(): before four kicks stay random; after that, predict favoriteDirection about 70% of the time and choose randomly about 30% of the time."},
-        {"id":"cs-i2","prompt":"Upgrade the Keeper Brain panel so it displays the current LEFT/CENTER/RIGHT counts and names the direction it thinks the player favors."},
-        {"id":"cs-i3","prompt":"Playtest A: kick LEFT at least six times. Record whether the keeper begins diving LEFT more often."},
-        {"id":"cs-i4","prompt":"Playtest B: alternate LEFT and RIGHT for eight kicks. Record how the keeper responds when your strategy changes."},
-        {"id":"cs-i5","prompt":"Playtest C: invent a strategy designed to score five goals in a row against the adaptive keeper. Describe the strategy and result."},
-        {"id":"cs-i6","prompt":"Choose and build one creative upgrade: streak mode, commentator, mind-read meter, difficulty levels, fakeout, or visual redesign."},
-        {"id":"cs-i7","prompt":"Describe one bug or unexpected behavior you encountered and how you fixed or investigated it."}
+        {"id": "cs-i1", "prompt": "Iteration 2: Ask the coding agent to make the goalkeeper adapt after enough kicks by favoring the player's most-used direction while retaining some randomness. Do not tell the agent exactly how to code it; describe the behavior you want."},
+        {"id": "cs-i2", "prompt": "Playtest predictable behavior: choose the same direction at least six times. Record whether the goalkeeper begins reacting to the pattern."},
+        {"id": "cs-i3", "prompt": "Playtest a changing strategy: switch directions repeatedly and observe whether the goalkeeper remains stuck on an old pattern. If the behavior feels unfair or stupid, describe the problem to the coding agent and request a repair."},
+        {"id": "cs-i4", "prompt": "Create one adversarial test: deliberately try to fool or confuse the goalkeeper. Explain the strategy and what happened."},
+        {"id": "cs-i5", "prompt": "Choose one creative upgrade that makes the game more fun or expressive: commentary, streak mode, mind-read meter, difficulty levels, fakeout controls, sound, animations, player identity, stadium redesign, or your own idea. Direct the coding agent to build it."},
+        {"id": "cs-i6", "prompt": "Run a final acceptance test. Check every original criterion plus the adaptive behavior and creative upgrade. If anything fails, send the coding agent a precise bug report and retest after the repair."},
+        {"id": "cs-i7", "prompt": "Save a final version and give the product a name, one-sentence description, and a 20-second demo pitch."}
       ],
       "exit_ticket": [
-        {"id":"cs-e1","prompt":"Show the working Penalty Predictor and demonstrate that the goalkeeper can respond differently after observing player history.","answer":"Working demo showing stored history, tendency detection, and adaptive keeper behavior."},
-        {"id":"cs-e2","prompt":"Choose one function in the project. Explain what goes in, what the function does, and what comes out.","answer":"Accurate explanation of one function's input, behavior, and output."},
-        {"id":"cs-e3","prompt":"Explain one test you used to prove the game works and one creative improvement you made.","answer":"Specific playtest plus one implemented creative upgrade."}
+        {"id": "cs-e1", "prompt": "Demonstrate the finished Penalty Predictor. Show one baseline feature, one adaptive behavior, and your creative upgrade.", "answer": "A working demo showing the requested baseline game, an adaptive behavior based on player history, and one creative feature."},
+        {"id": "cs-e2", "prompt": "Explain in plain language how the goalkeeper becomes more informed after you play several kicks. Do not explain programming syntax.", "answer": "A clear explanation that the system records prior kick choices, detects a tendency or pattern, and uses that information to influence later goalkeeper choices while preserving some randomness."},
+        {"id": "cs-e3", "prompt": "Describe one prompt you gave the coding agent that produced a useful change, one prompt that needed improvement, and what you learned about directing an AI builder.", "answer": "Specific evidence of iterative prompting, evaluation of the result, and improved specification."},
+        {"id": "cs-e4", "prompt": "Describe one bug you found, the evidence that showed it was a bug, and how you asked the coding agent to fix it.", "answer": "A concrete bug report describing expected versus actual behavior and a targeted repair request."}
       ],
-      "mastery_threshold": 80,
-      "materials": ["Penalty Predictor starter HTML", "web browser", "text/code editor", "Virgil as coding coach"],
+      "mastery_threshold": 85,
+      "materials": [
+        "AI coding agent or vibe-coding environment",
+        "web browser/preview",
+        "Day 13 Builder Lab brief",
+        "Virgil as product coach"
+      ],
       "estimated_minutes": 45,
-      "voice_prompt": "This is a CREATIVE BUILD session, not a theory lecture. Start with: 'Open the Penalty Predictor starter and play six kicks. Tell me what you notice.' Keep spoken replies short and energetic. Coach one build step at a time: run, observe, predict, edit, run again. Never dump the complete finished solution or rewrite the whole project. You may explain syntax and show a tiny code snippet of roughly 2-6 lines when Atticus needs a concept, but leave the important decision and final implementation to him. Before suggesting a bug fix, ask what he expected, what actually happened, and whether there is an error message. Ask him to predict what a code change will do before running it. Treat experimentation, visual design, game feel, and creative upgrades as real engineering work. Do not falsely call the adaptive rule-based goalkeeper machine learning; explain that it uses memory, counts, rules, probability, and prediction. If Atticus gets excited and wants to add something creative, help him scope it into a small shippable feature rather than redirecting him back to theory.",
-      "teacher_notes": "Build-first lab. Assess the working product, testing/debugging habits, explanation of important logic, and creative improvement. Do not grade on memorizing JavaScript syntax.",
+      "voice_prompt": "Atticus is VIBE CODING. Do not assume he uses an IDE, knows JavaScript syntax, or should manually type code. You are his creative product coach, not his coding lecturer. Start with: 'Tell me the game you want to make in your own words. What should the player be able to do?' Help him turn ideas into a short specification, features, and acceptance criteria. Encourage him to give the coding agent one focused request at a time, then preview and test the result. When something fails, ask: 'What did you expect? What actually happened? Can you make it happen again?' Help him write a precise natural-language bug report. Do not require him to read source code or explain syntax unless he asks. You may explain a software idea such as state, event, condition, or randomness in plain language tied to the visible product. Treat visual design, game feel, creativity, testing, product judgment, and iteration as core technical skills. Do not build the whole product on his behalf; help him direct the coding agent and make decisions. If he asks what to prompt next, first ask what behavior he wants changed, then help him phrase a concise build request. Keep spoken replies short and energetic.",
+      "teacher_notes": "Vibe-coding lab. Assess specification quality, iterative prompting, testing discipline, bug-report quality, product judgment, creativity, and ability to explain system behavior in plain language. Do not assess JavaScript syntax knowledge or manual coding ability.",
       "answer_key": {},
       "source_references": [],
       "status": "scheduled"
