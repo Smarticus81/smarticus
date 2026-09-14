@@ -1,0 +1,99 @@
+{
+  "date": "2026-09-14",
+  "school_year": "2026-27",
+  "grade_level": 6,
+  "day_number": 14,
+  "school_day_label": "Monday, September 14, 2026",
+  "todays_goal": "Teach refraction and convex lenses explicitly before independent work, using written instruction, ray models, worked examples, misconception repair, and coordinated voice tutoring.",
+  "lessons": [
+    {
+      "id": "2026-09-14-science",
+      "date": "2026-09-14",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "science",
+      "course": "Grade 6 Science",
+      "unit_id": "science-light",
+      "unit_title": "Light and Materials",
+      "lesson_number": 4,
+      "lesson_title": "From Refraction to Lenses - Teach, Model, Then Practice",
+      "standards": ["MS-PS4-2"],
+      "previous_learning": "Day 13 showed Atticus understands the bent-pencil refraction phenomenon and can draw a useful air-water-eye ray model, but his written explanation was too brief and the coin-reveal investigation was incomplete. He now needs explicit teaching that connects refraction at boundaries to curved lenses.",
+      "course_context": "This lesson deliberately teaches the mechanism before asking Atticus to answer questions. It moves from prior refraction knowledge to curved transparent boundaries, convex lenses, focus, focal point, magnification, and applications in cameras and eyes.",
+      "learning_objectives": [
+        "Explain refraction as a change in light direction when light crosses between media.",
+        "Explain why curved lens boundaries cause different rays to change direction by different amounts.",
+        "Explain how a convex lens redirects parallel rays toward a focal region.",
+        "Explain magnification as a change in ray paths and apparent image rather than a physical change in the object.",
+        "Use a labeled ray diagram to communicate the mechanism."
+      ],
+      "why_it_matters": "Lenses are controlled applications of refraction. Understanding how they redirect light explains magnifying glasses, cameras, the eye, microscopes, telescopes, and many optical technologies.",
+      "vocabulary": [
+        {"term":"refraction","definition":"a change in the direction of light when it crosses between materials"},
+        {"term":"medium","definition":"a material through which light travels, such as air, water, or glass"},
+        {"term":"boundary","definition":"the surface where two media meet"},
+        {"term":"lens","definition":"a transparent object shaped so its boundaries refract light in useful ways"},
+        {"term":"convex lens","definition":"a lens thicker in the middle than at the edges"},
+        {"term":"principal axis","definition":"an imaginary center line through a lens"},
+        {"term":"focus","definition":"the region where refracted rays come together"},
+        {"term":"focal point","definition":"the point where parallel rays meet in a simple ray model"},
+        {"term":"focal length","definition":"the distance from the center of a lens to its focal point"},
+        {"term":"apparent image","definition":"where or how large an object appears because of the paths of light reaching the eye"}
+      ],
+      "written_instruction": "TEACHING SEQUENCE. 1) REVIEW REFRACTION: Light normally travels in straight lines through one uniform medium. When it crosses from one medium into another, such as water to air or air to glass, its speed changes. If it reaches the boundary at an angle, its direction usually changes too. That change in direction is refraction. The object itself has not moved; only the path of the light has changed. 2) WHY CURVATURE MATTERS: A flat sheet of glass has mostly parallel surfaces. A lens has curved surfaces. Because the surface is curved, different rays strike the boundary at different angles, so different rays are refracted by different amounts. 3) CONVEX LENS: A convex lens is thicker in the middle. In a simplified Grade 6 ray model, rays arriving parallel to the principal axis are redirected toward one another after passing through the lens. The rays change direction at BOTH boundaries: air-to-glass and glass-to-air. 4) FOCUS AND FOCAL POINT: After the lens, parallel rays can come together near a focal point. The focal length is the distance from the center of the lens to that point. The lens does not pull light inward; its curved boundaries redirect the rays through refraction. 5) MAGNIFICATION: A magnifying glass does not physically enlarge printed letters. Light reflected from the letters enters the curved lens, the lens changes the ray directions, and the eye receives those rays at different angles. The brain traces the rays backward and forms an apparent image that can look larger. 6) APPLICATIONS: Cameras, eyes, microscopes, telescopes, and projectors all use controlled refraction to direct light. A camera lens redirects light from points in a scene toward corresponding places on a sensor. 7) SCIENTIFIC EXPLANATION STANDARD: 'Because of refraction' is a label, not a complete mechanism. A complete explanation should identify the media, the boundary, the direction change, and the effect on the rays or apparent image.",
+      "worked_examples": [
+        {
+          "title":"Worked Example 1 - Parallel rays through a convex lens",
+          "problem":"Three parallel rays approach a convex lens from the left. What happens and why?",
+          "solution":"The top and bottom rays change direction toward the principal axis; the simplified center ray changes very little. The rays come together near a focal point.",
+          "explanation":"Step 1: before the lens the rays travel straight through air. Step 2: they enter glass at different points on a curved surface. Step 3: because the surface angles differ, the rays refract by different amounts. Step 4: they cross the second curved boundary and refract again when leaving glass for air. Result: the ray paths converge toward a focal region."
+        },
+        {
+          "title":"Worked Example 2 - Why an edge ray changes more",
+          "problem":"Why does a ray near the edge of a convex lens usually change direction more than a ray through the center in the simplified model?",
+          "solution":"The edge ray meets a more strongly sloped part of the curved boundary, while the central ray meets the surface closer to straight-on.",
+          "explanation":"Different entry points on a curved lens create different boundary angles. That is why the rays do not all leave in the same direction."
+        },
+        {
+          "title":"Worked Example 3 - Magnifying glass",
+          "problem":"Why can a magnifying glass make printed text look larger?",
+          "solution":"The lens changes the directions of rays before they reach the eye, so the eye forms a larger apparent image.",
+          "explanation":"Step 1: light reflects from the printed letter. Step 2: the rays enter the curved lens. Step 3: the lens changes their directions. Step 4: the eye receives rays arriving at different angles than without the lens. Step 5: the brain traces those rays backward and the text can appear larger. The printed letters did not physically change size."
+        },
+        {
+          "title":"Worked Example 4 - Camera or eye connection",
+          "problem":"How is a lens useful in a camera or eye?",
+          "solution":"The lens redirects light from points in a scene so an image can form on a sensor or retina.",
+          "explanation":"Light from each point in the scene reaches the lens from a particular direction. The curved boundaries refract those rays and redirect them toward corresponding locations where the image can be detected."
+        }
+      ],
+      "guided_practice": [
+        {"id":"sci-g1","prompt":"Using the teaching pages, explain what happens to the top and bottom rays after three parallel rays pass through a convex lens, and why."},
+        {"id":"sci-g2","prompt":"Explain why curvature matters: compare a ray near the lens edge with a ray near the center."},
+        {"id":"sci-g3","prompt":"Draw and label a convex lens, principal axis, three parallel incoming rays, refracted rays, and focal point."},
+        {"id":"sci-g4","prompt":"Repair this statement scientifically: The magnifying glass made the letters physically bigger."}
+      ],
+      "independent_practice": [
+        {"id":"sci-i1","prompt":"What is a lens, and what property of light makes lenses useful?"},
+        {"id":"sci-i2","prompt":"Explain how a convex lens can bring parallel rays toward one focal region."},
+        {"id":"sci-i3","prompt":"Why is the statement the lens bends light because it is curved incomplete? Give the full mechanism using media, boundaries, and refraction."},
+        {"id":"sci-i4","prompt":"Explain why a magnifying glass can make text APPEAR larger although the text has not changed size."},
+        {"id":"sci-i5","prompt":"How is a lens an application of refraction rather than a completely new light phenomenon?"},
+        {"id":"sci-i6","prompt":"Name two technologies that depend on lenses and explain what the lens does in one of them."}
+      ],
+      "exit_ticket": [
+        {"id":"sci-e1","prompt":"In 2-3 sentences, explain how a convex lens changes the paths of parallel light rays.","answer":"The rays cross curved air-glass and glass-air boundaries and refract by different amounts. In a convex lens the redirected parallel rays can converge toward a focal region."},
+        {"id":"sci-e2","prompt":"In 2 sentences, explain why saying a magnifying glass makes things bigger is scientifically incomplete.","answer":"The object does not physically change size. The lens changes the paths and angles of the light rays reaching the eye, which changes the apparent image."},
+        {"id":"sci-e3","prompt":"Draw one labeled ray diagram showing parallel rays -> convex lens -> focal point.","answer":"Diagram should show a convex lens, principal axis, parallel incoming rays, refracted rays converging, and a labeled focal point."}
+      ],
+      "mastery_threshold": 85,
+      "materials": ["Expanded Day 14 Science teaching packet", "pencil", "optional magnifying glass"],
+      "estimated_minutes": 55,
+      "voice_prompt": "TEACH FIRST. Do not begin by quizzing Atticus. Follow this sequence: (1) ask him for one sentence recalling the bent-pencil observation; (2) explicitly teach that a lens has curved transparent boundaries and that refraction occurs at the air-glass and glass-air boundaries; (3) explain why curvature matters because different rays meet different surface angles; (4) verbally walk through Worked Example 1 one step at a time; (5) ask Atticus to predict what an edge ray will do before confirming the model; (6) teach focus and focal point with the three-ray model; (7) teach the magnifying-glass example; (8) ask Atticus to teach the mechanism back in his own words; (9) only after the teach-back is adequate should guided and independent practice begin. Keep explanations concise but complete. Do not ask him to infer a concept that has not yet been taught. If he says because of refraction, ask: What exactly happens to the ray, at which boundary, and what is the result? During independent practice do not reveal final answers; give one cue, then retry.",
+      "teacher_notes": "This replaces the earlier too-thin science instruction. Require actual teaching before practice. Mechanism standard: medium change -> boundary -> refraction -> changed ray direction -> focus/apparent image. Do not accept vocabulary labels alone as explanations.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    }
+  ]
+}
