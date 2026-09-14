@@ -1,0 +1,96 @@
+{
+  "date": "2026-09-14",
+  "school_year": "2026-27",
+  "grade_level": 6,
+  "day_number": 14,
+  "school_day_label": "Monday, September 14, 2026",
+  "todays_goal": "Teach the causes of the Peloponnesian War comprehensively before guided and independent analysis, with explicit distinction between long-term causes and immediate triggers.",
+  "lessons": [
+    {
+      "id": "2026-09-14-history_geography",
+      "date": "2026-09-14",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "history_geography",
+      "course": "Grade 6 History & Geography",
+      "unit_id": "hist-ancient-greece",
+      "unit_title": "Ancient Greece",
+      "lesson_number": 9,
+      "lesson_title": "Why Did Athens and Sparta Go to War? Causes of the Peloponnesian War",
+      "standards": ["C3-D2.His.2.6-8", "C3-D2.His.14.6-8"],
+      "previous_learning": "Day 13 history was strong: Atticus understood why the Delian League formed, how Athens controlled the fleet and treasury, how forcing members to remain made the league look more imperial, and how Athenian growth could create tension with Sparta.",
+      "course_context": "This lesson moves from the growth of Athenian power to a full multi-cause historical explanation of the Peloponnesian War. Teach the system first; questions come only after Atticus understands the background, long-term causes, alliance escalation, and immediate triggers.",
+      "learning_objectives": [
+        "Explain why the Peloponnesian War cannot be understood with a one-cause answer.",
+        "Distinguish long-term causes from immediate triggers.",
+        "Explain how Athenian growth and Spartan fear/security concerns interacted.",
+        "Explain how rival alliance systems could escalate local disputes.",
+        "Use evidence to defend which cause mattered most while acknowledging another cause."
+      ],
+      "why_it_matters": "Strong historical reasoning is not memorizing names and dates. It is explaining how power, fear, alliances, interests, and immediate events interact to produce major outcomes.",
+      "vocabulary": [
+        {"term":"Peloponnesian War","definition":"a long war beginning in 431 BCE between Athens and its allies and Sparta and its allies"},
+        {"term":"rivalry","definition":"competition between powers seeking security, influence, or advantage"},
+        {"term":"alliance","definition":"an agreement between states to cooperate, often for defense"},
+        {"term":"Delian League","definition":"the alliance led by Athens after the Persian Wars"},
+        {"term":"Peloponnesian League","definition":"the alliance led by Sparta"},
+        {"term":"hegemony","definition":"dominant influence or leadership over other states"},
+        {"term":"escalation","definition":"a process in which a conflict becomes more serious or widespread"},
+        {"term":"long-term cause","definition":"a condition that builds pressure over time"},
+        {"term":"trigger","definition":"an event or dispute that helps turn existing tension into open conflict"}
+      ],
+      "written_instruction": "TEACHING SEQUENCE. 1) After the Persian Wars, Athens and Sparta had cooperated against Persia, but victory did not create one unified Greek state. Sparta remained the strongest land power and led the Peloponnesian League. Athens became the strongest naval power and led the Delian League. 2) Athenian power grew through its fleet, tribute, trade, and control of the Delian League. Some allied poleis were no longer free to leave without consequences. Historians therefore ask not only whether Athens was powerful, but whether its power was growing and changing the balance of power. 3) Thucydides famously argued that the growth of Athenian power and the fear this caused in Sparta was a fundamental cause of the war. Treat this as an important interpretation, not as the only cause. 4) Alliance systems increased risk because a local dispute involving one smaller polis could pull a larger power into conflict. A promise to support allies can make backing down politically difficult and can widen a dispute. 5) Immediate disputes in the late 430s BCE included Corcyra and Corinth, Potidaea, and the Megarian Decree. These are best understood as triggers inside an already tense system rather than isolated one-cause explanations. 6) Distinguish long-term causes from triggers: long-term causes build pressure over years; triggers push an already tense situation closer to open war. 7) A strong explanation combines Athenian growth, Spartan fear/security concerns, alliance systems, competing interests, and immediate disputes rather than saying simply that Athens and Sparta were different.",
+      "worked_examples": [
+        {
+          "title":"Worked Example 1 - Why one cause is not enough",
+          "problem":"Why did the Peloponnesian War begin?",
+          "solution":"The war grew from interacting causes: Athenian expansion, Spartan fear/security concerns, rival alliance systems, and immediate disputes that made compromise harder.",
+          "explanation":"Start by rejecting the weak answer 'Athens and Sparta were different.' Ask what differences created pressure. Athens had growing naval power and influence; Sparta was a major land power and feared losing security or influence. Both led alliances, so smaller disputes could spread. Immediate crises involving Corinth, Corcyra, Potidaea, and Megara then added pressure."
+        },
+        {
+          "title":"Worked Example 2 - Long-term cause versus trigger",
+          "problem":"Was the conflict over Corcyra THE cause of the war?",
+          "solution":"Corcyra was an immediate trigger inside a larger dangerous system, not a complete one-cause explanation.",
+          "explanation":"The Corcyra dispute sharpened conflict between Athens and Corinth, but Athens and Sparta were already rival powers with competing alliance systems. Without the larger tension, the local dispute might have remained more limited."
+        },
+        {
+          "title":"Worked Example 3 - How alliances escalate conflict",
+          "problem":"A smaller ally of Sparta has a serious dispute with Athens. How can the alliance widen the conflict?",
+          "solution":"The smaller state asks Sparta for support; refusing can weaken alliance credibility, while supporting the ally can make Athens see Sparta as a direct threat.",
+          "explanation":"Alliance commitments can make compromise politically harder and turn a local dispute into a wider conflict."
+        },
+        {
+          "title":"Worked Example 4 - Weighing the most important cause",
+          "problem":"Argue that the growth of Athenian power was the most important long-term cause.",
+          "solution":"Athens controlled a large fleet, tribute, and an alliance network while limiting some members' freedom to leave; this changed the balance of power and made later disputes seem more threatening to Sparta and its allies.",
+          "explanation":"A strong historical claim uses evidence and reasoning but also qualifies itself: Athenian power alone did not cause the war; alliance pressures and immediate disputes helped turn tension into fighting."
+        }
+      ],
+      "guided_practice": [
+        {"id":"hist-g1","prompt":"Using the teaching material, name TWO specific long-term changes after the Persian Wars that made Athens more powerful."},
+        {"id":"hist-g2","prompt":"Explain why Sparta might see Athenian growth as a security problem even before open war began."},
+        {"id":"hist-g3","prompt":"Use the alliance-escalation model to explain how a dispute between a smaller polis and Athens could involve Sparta."},
+        {"id":"hist-g4","prompt":"Classify these as mostly LONG-TERM CAUSE or IMMEDIATE TRIGGER: Athenian naval growth; Corcyra/Corinth dispute; Spartan fear of Athenian power; Megarian Decree. Explain one classification."}
+      ],
+      "independent_practice": [
+        {"id":"hist-i1","prompt":"Why is the statement 'Athens and Sparta were different' an incomplete explanation for the war?"},
+        {"id":"hist-i2","prompt":"Build a five-link cause chain beginning with the Persian Wars and ending with open conflict."},
+        {"id":"hist-i3","prompt":"Explain why an alliance can BOTH increase security and increase the risk that a local dispute becomes a larger war."},
+        {"id":"hist-i4","prompt":"Which was more important in causing the war: Athenian growth, Spartan fear/security concerns, alliance systems, or immediate disputes? Make a claim, use TWO pieces of evidence, and include one sentence acknowledging another cause."}
+      ],
+      "exit_ticket": [
+        {"id":"hist-e1","prompt":"In 5-6 sentences, explain why historians should avoid a one-cause explanation of the Peloponnesian War. Use at least one long-term cause and one immediate trigger.","answer":"A strong answer explains interacting causes such as Athenian growth, Spartan fear/security concerns, alliance systems, and one immediate dispute such as Corcyra/Corinth, Potidaea, or the Megarian Decree."},
+        {"id":"hist-e2","prompt":"In one sentence, distinguish a long-term cause from a trigger.","answer":"A long-term cause builds pressure over time, while a trigger is an event or dispute that pushes an already tense situation closer to open conflict."},
+        {"id":"hist-e3","prompt":"Complete the chain: Athenian power grows -> ______ -> alliance tensions increase -> ______ -> war.","answer":"One defensible chain is: Spartan fear/security concerns -> immediate disputes escalate."}
+      ],
+      "mastery_threshold": 85,
+      "materials": ["Day 14 History teaching packet", "pencil"],
+      "estimated_minutes": 50,
+      "voice_prompt": "TEACH BEFORE TESTING. Follow this sequence: (1) retrieve prior learning about the Delian League and how Athens gained power; (2) teach the two-power-bloc background - Athens as major naval power and Sparta as major land power; (3) teach Athenian growth and Spartan fear/security concerns as a long-term cause; (4) have Atticus explain that cause back in his own words; (5) teach how alliance systems can escalate a local dispute; (6) introduce Corcyra/Corinth, Potidaea, and the Megarian Decree as examples of immediate disputes, not as a memorization list; (7) explicitly teach the difference between long-term cause and trigger; (8) walk through Worked Examples 1 and 2 aloud; (9) ask Atticus to build a cause chain verbally; (10) only then begin guided practice. Do not open the lesson with unexplained names or events. If Atticus gives one cause only, ask what other pressure made the situation more dangerous. If he says Sparta was jealous, redirect toward security, fear, alliances, and balance of power. Do not give the final independent answer; give one prompt that helps him identify the missing link. Require evidence when he argues that one cause mattered more than another.",
+      "teacher_notes": "History content is strong enough to advance, but instruction must precede analysis. Require multi-cause reasoning, evidence, and distinction between background conditions and triggers.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    }
+  ]
+}
