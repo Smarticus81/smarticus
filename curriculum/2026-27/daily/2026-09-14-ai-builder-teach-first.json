@@ -1,0 +1,113 @@
+{
+  "date": "2026-09-14",
+  "school_year": "2026-27",
+  "grade_level": 6,
+  "day_number": 14,
+  "school_day_label": "Monday, September 14, 2026",
+  "todays_goal": "Teach the product-thinking and vibe-coding concepts Atticus needs before he builds the Penalty Predictor, then guide him through a creative build-test-debug-ship cycle without requiring manual code or an IDE.",
+  "lessons": [
+    {
+      "id": "2026-09-14-computer_science",
+      "date": "2026-09-14",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "computer_science",
+      "course": "Future Builder Lab",
+      "unit_id": "cs-ai-builder",
+      "unit_title": "Creative Technology and AI Builder Lab",
+      "lesson_number": 7,
+      "lesson_title": "Penalty Predictor - Teach First, Then Vibe Build",
+      "standards": ["CSTA-2-AP-13", "CSTA-2-AP-17"],
+      "previous_learning": "Atticus has not yet completed the Penalty Predictor build. He vibe codes with an AI coding agent and is not expected to know JavaScript syntax, type code manually, or use an IDE. Previous Builder Lab work became too theory-heavy, so this lesson explicitly teaches the product-building concepts first and then applies them through a fun build.",
+      "course_context": "Protected practical Builder Lab. Teach specification, acceptance criteria, state, iteration, behavioral testing, debugging, product judgment, and shipping before the build begins. Concepts are learned through the product rather than through syntax drills.",
+      "learning_objectives": [
+        "Explain the human builder role versus the AI coding-agent role.",
+        "Turn a creative idea into a clear natural-language specification.",
+        "Write observable acceptance criteria before building.",
+        "Explain state as information the product remembers while running.",
+        "Explain why adaptive behavior can combine remembered tendencies with randomness.",
+        "Use one-change-at-a-time iterations and behavioral playtesting.",
+        "Write a four-part behavioral bug report: expected, actual, steps to reproduce, retest.",
+        "Direct an AI coding agent to build, improve, test, and ship a playable Penalty Predictor without manual coding requirements."
+      ],
+      "why_it_matters": "High-leverage technologists increasingly create software by combining imagination, clear specifications, AI tools, product judgment, testing, debugging, and iteration. The scarce skill is not memorizing syntax; it is reliably turning an idea into a working system and knowing when the system is actually good.",
+      "vocabulary": [
+        {"term":"vibe coding","definition":"building software by directing an AI coding agent mainly through natural-language instructions"},
+        {"term":"specification","definition":"a clear description of what a product should do"},
+        {"term":"feature","definition":"something the user can see or do"},
+        {"term":"acceptance criteria","definition":"observable tests that prove a feature works"},
+        {"term":"state","definition":"information the product remembers while it is running"},
+        {"term":"iteration","definition":"one build-test-improve cycle"},
+        {"term":"bug","definition":"behavior that does not match the intended product"},
+        {"term":"debugging","definition":"finding, describing, fixing, and retesting unwanted behavior"},
+        {"term":"edge case","definition":"an unusual situation that can reveal a problem"},
+        {"term":"ship","definition":"finish a version that works well enough to demo or share"}
+      ],
+      "written_instruction": "TEACH FIRST. A strong vibe coder does not type a vague idea and accept whatever the AI produces. The human builder decides what should exist, what the user should be able to do, what good feels like, and how to prove each feature works. The AI coding agent is the fast implementation partner. Use this sequence: IMAGINE -> SPECIFY -> DEFINE DONE -> BUILD -> PLAY -> OBSERVE -> ITERATE ONE CHANGE -> TEST AGAIN -> SHIP. A useful specification names the product, user actions, rules, visible feedback, design feel, scope, and what should remain unchanged. Acceptance criteria are testable observations such as 'After a goal, Goals increases by exactly 1 while Saves does not change.' State is remembered information, such as a history of LEFT/CENTER/RIGHT kicks. An adaptive goalkeeper can count that history, identify the strongest tendency, and use it for some future dives while keeping randomness so the game stays interesting. For iteration, change one important behavior at a time so Atticus can tell whether the change helped or hurt. A strong behavioral bug report has EXPECTED behavior, ACTUAL behavior, STEPS TO REPRODUCE, and a RETEST that proves the repair worked. Atticus does not need to know code syntax to complete this lesson; he needs to direct the AI coding agent precisely, test behavior, make product judgments, and explain how the resulting system behaves.",
+      "worked_examples": [
+        {
+          "title":"Vague request versus useful build brief",
+          "problem":"Atticus wants a soccer game and tells the AI: 'Make me a cool soccer game.'",
+          "solution":"A stronger request names the product, player actions, game rules, scoreboard, visual feel, scope, and request for a playable preview.",
+          "explanation":"The AI should not have to guess the core product. Clear behavioral detail gives the agent a better target while leaving implementation choices to the agent."
+        },
+        {
+          "title":"Acceptance criteria before building",
+          "problem":"How do we decide whether version 1 actually works?",
+          "solution":"Examples: LEFT/CENTER/RIGHT all respond; the keeper chooses one direction every kick; matching directions produce a save; nonmatching directions produce a goal; Goals, Saves, and Total Kicks update correctly.",
+          "explanation":"Each statement can be tested. 'Make it fun' cannot be verified in the same precise way."
+        },
+        {
+          "title":"State turns a random keeper into an adaptive keeper",
+          "problem":"Kick history is LEFT, LEFT, RIGHT, LEFT, CENTER.",
+          "solution":"The game remembers the five kicks, counts LEFT=3, CENTER=1, RIGHT=1, and identifies LEFT as the strongest tendency.",
+          "explanation":"State lets later behavior depend on earlier behavior. The system can now change its future decisions instead of treating every kick as if nothing happened before."
+        },
+        {
+          "title":"Adaptive behavior with randomness",
+          "problem":"The player heavily favors LEFT. Should the keeper always dive LEFT?",
+          "solution":"No. A possible design is to favor the player's strongest tendency most of the time while still choosing randomly some of the time.",
+          "explanation":"If the keeper is perfectly predictable, the player can exploit it. Randomness keeps the game playable and creates a design trade-off between intelligence and fun."
+        },
+        {
+          "title":"Behavioral bug report",
+          "problem":"A save incorrectly increases the Goals counter.",
+          "solution":"Expected: Saves +1. Actual: Goals +1. Steps: reset -> choose LEFT -> keeper also LEFT -> scoreboard changes Goals. Retest: repeat matching-direction kicks three times and confirm only Saves increases.",
+          "explanation":"A precise bug report gives the AI coding agent enough behavioral evidence to repair the correct problem and gives Atticus a way to prove the fix."
+        }
+      ],
+      "guided_practice": [
+        {"id":"cs-g1","prompt":"Teach-back: explain the difference between the human product-builder role and the AI coding-agent role."},
+        {"id":"cs-g2","prompt":"Explain the difference between a specification and an acceptance criterion."},
+        {"id":"cs-g3","prompt":"Using the sample kick history RIGHT, RIGHT, CENTER, RIGHT, LEFT, identify the strongest tendency and explain what the game must remember to know this."},
+        {"id":"cs-g4","prompt":"Explain why 'make the keeper smarter' is not yet a strong iteration request, then rewrite it as one focused behavioral request with a test."},
+        {"id":"cs-g5","prompt":"Recite the four parts of a behavioral bug report: expected, actual, steps to reproduce, retest."}
+      ],
+      "independent_practice": [
+        {"id":"cs-i1","prompt":"Describe the desired visual vibe and user experience for Penalty Predictor."},
+        {"id":"cs-i2","prompt":"Write five observable acceptance criteria for version 1 before sending a build request."},
+        {"id":"cs-i3","prompt":"Write the natural-language version-1 build request using Product, User, Rules, Visible Feedback, Design, Scope, and Test Request."},
+        {"id":"cs-i4","prompt":"Play at least eight kicks and record three things that work and one thing that is weak, confusing, boring, ugly, or broken."},
+        {"id":"cs-i5","prompt":"Write one focused request that adds player-history memory, LEFT/CENTER/RIGHT counts, a visible Keeper Brain, and adaptive goalkeeper behavior while retaining some randomness."},
+        {"id":"cs-i6","prompt":"Playtest the adaptive keeper: repeat one direction at least six times, change strategy, then try to fool the keeper. Record evidence from each test."},
+        {"id":"cs-i7","prompt":"Choose one creative upgrade such as streak mode, commentator, mind-read meter, difficulty modes, fakeout, club customization, drama, or an original idea. Write one focused request that does not change unrelated parts."},
+        {"id":"cs-i8","prompt":"Find one bug or disappointing behavior and write an EXPECTED -> ACTUAL -> STEPS -> RETEST report. After the AI fixes it, perform the retest."},
+        {"id":"cs-i9","prompt":"Ship the version only after the required features, playtests, one repair, and one creative upgrade work. Give the final version a name and one-sentence pitch."}
+      ],
+      "exit_ticket": [
+        {"id":"cs-e1","prompt":"What is one important decision the HUMAN builder must make that the AI coding agent cannot make for you?","answer":"A valid answer names product intent or judgment such as what problem to solve, what behavior is desirable, what good UX feels like, what trade-off to choose, or when the product is done."},
+        {"id":"cs-e2","prompt":"What makes an acceptance criterion different from a vague goal?","answer":"It describes observable, testable behavior that can prove whether a feature works."},
+        {"id":"cs-e3","prompt":"Why is changing one feature at a time useful?","answer":"It makes it easier to know which change caused an improvement or a new problem and simplifies retesting."},
+        {"id":"cs-e4","prompt":"Give the four parts of a strong behavioral bug report.","answer":"Expected behavior, actual behavior, steps to reproduce, and retest after the fix."}
+      ],
+      "mastery_threshold": 80,
+      "materials": ["AI coding agent with live preview", "Day 14 AI Builder teaching packet"],
+      "estimated_minutes": 75,
+      "voice_prompt": "TEACH BEFORE BUILDING. Do not begin by asking Atticus to write a build prompt. First explain the human builder role versus the AI coding-agent role. Then teach specification using the weak and strong Penalty Predictor request. Teach acceptance criteria and have him create one testable criterion. Teach state using a short LEFT/CENTER/RIGHT history. Teach why remembered tendency plus some randomness can create an adaptive but still fun goalkeeper. Teach the one-change-at-a-time iteration rule. Teach the four-part behavioral bug report: EXPECTED, ACTUAL, STEPS TO REPRODUCE, RETEST. Ask Atticus to teach the vibe-coding loop back in his own words. Only after that teach-back should the build begin. During the build, act as a concise product coach, not a coding lecturer. Do not require an IDE, manual code editing, or syntax knowledge. If Atticus asks what to prompt next, first ask what behavior HE wants changed, then help make the request precise and testable. After every agent-built change, ask what he expected, what actually happened, and how he will test it. Do not take over the full build.",
+      "teacher_notes": "Assess product thinking, clarity of specification, testability of acceptance criteria, focused iteration, behavioral testing, debugging quality, creativity, and whether the working product is shipped. Do not grade syntax knowledge.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    }
+  ]
+}
