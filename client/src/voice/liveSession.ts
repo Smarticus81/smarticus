@@ -3,6 +3,7 @@ import {
   responseFinishedFromEvent,
   serializeToolOutput,
   ToolTurnTracker,
+  withToolTimeout,
   type LiveFunctionCall,
 } from "./liveEvents";
 
@@ -37,6 +38,8 @@ export type LiveStatus = "idle" | "connecting" | "connected" | "closed";
 
 const DATA_CHANNEL = "oai-events";
 const ICE_GATHER_TIMEOUT_MS = 1_500;
+/** Backend complaints that mean our tool bookkeeping and its own drifted apart. */
+const TOOL_PROTOCOL_ERROR = /function call output|response\.create/i;
 
 /**
  * A GPT-Live WebRTC session driven from the browser. Audio flows over the peer
@@ -49,6 +52,8 @@ export class LiveVoiceSession {
   private readonly tracker = new ToolTurnTracker();
   private readonly listeners = new Map<EventName, Set<(...args: never[]) => void>>();
   private eventCounter = 0;
+  /** A continuation asked for while outputs were still owed. */
+  private continuationQueued = false;
   status: LiveStatus = "idle";
   sessionId: string | null = null;
 
@@ -123,7 +128,17 @@ export class LiveVoiceSession {
     return this.send({ type: "response.item.create", item, event_id: this.nextEventId("item") });
   }
 
-  requestResponse() {
+  /**
+   * Ask the backend to continue. The backend rejects `response.create` while any
+   * function call output is still owed, so a request that arrives early is held
+   * and sent by the tool call that settles the turn.
+   */
+  requestResponse(): boolean {
+    if (this.tracker.busy) {
+      this.continuationQueued = true;
+      return false;
+    }
+    this.continuationQueued = false;
     return this.send({ type: "response.create", event_id: this.nextEventId("response") });
   }
 
@@ -241,7 +256,17 @@ export class LiveVoiceSession {
       }
       case "error": {
         const error = event.error as { message?: string; code?: string } | undefined;
-        this.emit("error", error?.message ?? "The voice session reported an error.");
+        const message = error?.message ?? "The voice session reported an error.";
+        if (TOOL_PROTOCOL_ERROR.test(message)) {
+          // The turn the backend is complaining about is already lost. Drop our
+          // bookkeeping for it so the next turn starts clean, and keep the
+          // recovered hiccup out of the learner's face.
+          console.warn("Recovered from a Live tool-protocol error", message);
+          this.tracker.reset();
+          this.continuationQueued = false;
+          return;
+        }
+        this.emit("error", message);
         return;
       }
       case "session.closed":
@@ -263,6 +288,7 @@ export class LiveVoiceSession {
   }
 
   private async runTool(call: LiveFunctionCall) {
+    // A repeated event for a call we already answered must not run twice.
     if (!this.tracker.begin(call)) return;
     this.emit("tool_call", call);
     let output: unknown;
@@ -276,18 +302,24 @@ export class LiveVoiceSession {
       } catch {
         throw new Error("Tool arguments were not valid JSON.");
       }
-      output = await executor(args, call);
+      // Every call must produce an output, so a stalled tool fails loudly
+      // instead of leaving the backend waiting on it forever.
+      output = await withToolTimeout(
+        Promise.resolve(executor(args, call)),
+        call.name,
+      );
     } catch (error) {
       ok = false;
       output = { error: error instanceof Error ? error.message : "Tool failed" };
     }
     this.emit("tool_result", call, ok);
-    this.addBackendItem({
+    const submitted = this.addBackendItem({
       type: "function_call_output",
       call_id: call.callId,
       output: serializeToolOutput(output),
     });
-    if (this.tracker.complete(call)) this.requestResponse();
+    const continueNow = this.tracker.complete(call, submitted);
+    if (continueNow || this.continuationQueued) this.requestResponse();
   }
 
   private finish(reason: string) {

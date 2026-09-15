@@ -10,6 +10,7 @@ import {
   ToolTurnTracker,
   TranscriptAccumulator,
   wakeGreetingCommentary,
+  withToolTimeout,
 } from "../client/src/voice/liveEvents.js";
 
 describe("wake word and farewell detection", () => {
@@ -77,6 +78,53 @@ describe("delegated function calls", () => {
     tracker.begin(call);
     assert.equal(tracker.complete(call), false);
     assert.equal(tracker.finish("dlg_1"), true);
+  });
+  it("keeps waiting when another call starts after an early output", () => {
+    const tracker = new ToolTurnTracker();
+    const first = functionCallFromEvent(callEvent)!;
+    const second = { ...first, callId: "call_2" };
+    assert.equal(tracker.begin(first), true);
+    assert.equal(tracker.complete(first), false, "the stream has not ended yet");
+    assert.equal(tracker.begin(second), true, "the same response emitted another call");
+    assert.equal(tracker.busy, true);
+    assert.equal(tracker.finish("dlg_1"), false, "call_2 still owes an output");
+    assert.equal(tracker.complete(second), true, "continue once every output is sent");
+    assert.equal(tracker.busy, false);
+  });
+  it("never runs or re-answers a call it already handled", () => {
+    const tracker = new ToolTurnTracker();
+    const call = functionCallFromEvent(callEvent)!;
+    tracker.begin(call);
+    tracker.complete(call);
+    tracker.finish("dlg_1");
+    assert.equal(tracker.begin(call), false, "a repeated event is ignored");
+    assert.equal(tracker.busy, false);
+  });
+  it("does not continue a response whose output could not be sent", () => {
+    const tracker = new ToolTurnTracker();
+    const first = functionCallFromEvent(callEvent)!;
+    const second = { ...first, callId: "call_2" };
+    tracker.begin(first);
+    tracker.begin(second);
+    tracker.finish("dlg_1");
+    assert.equal(tracker.complete(first, false), false);
+    assert.equal(tracker.complete(second), false, "the backend is missing an output");
+  });
+  it("forgets turn state after a protocol error so the next turn is clean", () => {
+    const tracker = new ToolTurnTracker();
+    const call = functionCallFromEvent(callEvent)!;
+    tracker.begin(call);
+    assert.equal(tracker.busy, true);
+    tracker.reset();
+    assert.equal(tracker.busy, false);
+    assert.equal(tracker.finish("dlg_1"), false);
+  });
+  it("fails a stalled tool instead of leaving the backend waiting", async () => {
+    await assert.rejects(
+      withToolTimeout(new Promise(() => {}), "look_at_screen", 10),
+      /look_at_screen did not finish/,
+    );
+    assert.equal(await withToolTimeout(Promise.resolve("ok"), "navigate_lesson", 1_000), "ok");
   });
 });
 
