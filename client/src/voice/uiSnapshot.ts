@@ -41,11 +41,20 @@ export interface UiSnapshotOptions {
   maxChars?: number;
   /** Extra lines appended by the caller, e.g. whiteboard contents. */
   extra?: string[];
+  /**
+   * Trim the bulky, low-signal sections (surrounding prose, control lists) while
+   * keeping the lines that matter: the question, the learner's own writing, and
+   * the caller's extras. Used where the backend's bounded input history is paying
+   * for every byte, so that a hard truncation never eats the important tail.
+   */
+  compact?: boolean;
 }
 
 export function captureUiSnapshot(options: UiSnapshotOptions = {}): string {
   const root = options.root ?? document;
-  const maxChars = options.maxChars ?? 6_000;
+  const compact = options.compact ?? false;
+  const maxChars = options.maxChars ?? (compact ? 2_000 : 6_000);
+  const limit = <T,>(list: T[], full: number) => list.slice(0, compact ? Math.ceil(full / 3) : full);
   const lines: string[] = [];
   const page = new URLSearchParams(window.location.search).get("view") ?? "today";
   lines.push(`Page: ${page}. Viewport ${window.innerWidth}×${window.innerHeight}, scrolled ${Math.round(window.scrollY)}px.`);
@@ -76,24 +85,31 @@ export function captureUiSnapshot(options: UiSnapshotOptions = {}): string {
   }
 
   const fields = [...root.querySelectorAll("textarea, input[type='text'], input[type='number']")].filter(visible);
-  for (const field of fields.slice(0, 6)) {
-    const value = field instanceof HTMLTextAreaElement || field instanceof HTMLInputElement ? field.value : "";
-    const status = value.trim() ? `"${clean(value, 1_200)}"` : "(empty)";
+  const fieldValue = (field: Element) =>
+    field instanceof HTMLTextAreaElement || field instanceof HTMLInputElement ? field.value : "";
+  // What the learner has actually written is the most valuable thing on screen,
+  // so compact mode keeps every field with content and sheds the empty ones.
+  const shown = compact
+    ? [...fields.filter((field) => fieldValue(field).trim()), ...fields.filter((field) => !fieldValue(field).trim())].slice(0, 4)
+    : fields.slice(0, 6);
+  for (const field of shown) {
+    const value = fieldValue(field);
+    const status = value.trim() ? `"${clean(value, compact ? 500 : 1_200)}"` : "(empty)";
     lines.push(`Field "${labelFor(field)}": ${status}`);
   }
 
   const main = root.querySelector(".lesson-main") ?? root.querySelector("main") ?? document.body;
   const headings = [...main.querySelectorAll("h2, h3")].filter((heading) => visible(heading) && inViewport(heading));
   if (headings.length) {
-    lines.push(`Visible headings: ${headings.slice(0, 8).map((heading) => clean(heading.textContent, 90)).join(" | ")}`);
+    lines.push(`Visible headings: ${limit(headings, 8).map((heading) => clean(heading.textContent, compact ? 60 : 90)).join(" | ")}`);
   }
   const model = root.querySelector(".model-card");
   if (model && visible(model)) {
-    lines.push(`Interactive model on screen: ${clean(model.textContent, 700)}`);
+    lines.push(`Interactive model on screen: ${clean(model.textContent, compact ? 220 : 700)}`);
   }
   const reading = [...main.querySelectorAll("p")].filter((paragraph) => visible(paragraph) && inViewport(paragraph));
   if (reading.length) {
-    lines.push(`Visible text: ${reading.slice(0, 6).map((paragraph) => clean(paragraph.textContent, 260)).join(" ¶ ")}`);
+    lines.push(`Visible text: ${limit(reading, 6).map((paragraph) => clean(paragraph.textContent, compact ? 140 : 260)).join(" ¶ ")}`);
   }
 
   const buttons = [...root.querySelectorAll("button")].filter(
@@ -101,7 +117,7 @@ export function captureUiSnapshot(options: UiSnapshotOptions = {}): string {
   );
   if (buttons.length) {
     const names = [...new Set(buttons.map((button) => labelFor(button)).filter(Boolean))];
-    lines.push(`Available controls: ${names.slice(0, 18).join(", ")}.`);
+    lines.push(`Available controls: ${limit(names, 18).join(", ")}.`);
   }
 
   const active = document.activeElement;
@@ -112,7 +128,7 @@ export function captureUiSnapshot(options: UiSnapshotOptions = {}): string {
   if (selection) lines.push(`Highlighted text: "${selection}"`);
 
   const utterance = root.querySelector(".live-utterance p");
-  if (utterance) lines.push(`Virgil's latest words on screen: "${clean(utterance.textContent, 300)}"`);
+  if (utterance) lines.push(`Virgil's latest words on screen: "${clean(utterance.textContent, compact ? 120 : 300)}"`);
   const status = root.querySelector(".voice-hud");
   if (status) lines.push(`Voice status: ${clean(status.textContent, 80)}.`);
 
@@ -121,9 +137,4 @@ export function captureUiSnapshot(options: UiSnapshotOptions = {}): string {
   let text = lines.join("\n");
   if (text.length > maxChars) text = `${text.slice(0, maxChars)}…`;
   return text;
-}
-
-/** Short version for silent context notes (kept under ~500 tokens). */
-export function captureUiNote(options: UiSnapshotOptions = {}): string {
-  return captureUiSnapshot({ ...options, maxChars: options.maxChars ?? 1_400 });
 }

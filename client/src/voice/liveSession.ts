@@ -1,9 +1,14 @@
 import {
+  BackendHistoryBudget,
+  DEFAULT_TOOL_OUTPUT_BYTES,
   functionCallFromEvent,
+  HISTORY_MIN_USEFUL_BYTES,
   responseFinishedFromEvent,
   serializeToolOutput,
   ToolTurnTracker,
+  utf8Bytes,
   withToolTimeout,
+  type HistoryUsage,
   type LiveFunctionCall,
 } from "./liveEvents";
 
@@ -21,6 +26,7 @@ export interface LiveSessionEvents {
   tool_call: (call: LiveFunctionCall) => void;
   tool_result: (call: LiveFunctionCall, ok: boolean) => void;
   delegation: (target: "client" | "responses") => void;
+  history_full: (usage: HistoryUsage) => void;
   server_event: (event: Record<string, unknown>) => void;
 }
 
@@ -40,6 +46,9 @@ const DATA_CHANNEL = "oai-events";
 const ICE_GATHER_TIMEOUT_MS = 1_500;
 /** Backend complaints that mean our tool bookkeeping and its own drifted apart. */
 const TOOL_PROTOCOL_ERROR = /function call output|response\.create/i;
+/** The delegated backend refusing more input history. */
+const HISTORY_FULL_ERROR = /input history is limited|history is full/i;
+
 
 /**
  * A GPT-Live WebRTC session driven from the browser. Audio flows over the peer
@@ -54,6 +63,7 @@ export class LiveVoiceSession {
   private eventCounter = 0;
   /** A continuation asked for while outputs were still owed. */
   private continuationQueued = false;
+  private readonly history = new BackendHistoryBudget();
   status: LiveStatus = "idle";
   sessionId: string | null = null;
 
@@ -123,9 +133,35 @@ export class LiveVoiceSession {
     });
   }
 
-  /** Add an item (developer note, user message, tool output) to the backend conversation. */
-  addBackendItem(item: Record<string, unknown>) {
-    return this.send({ type: "response.item.create", item, event_id: this.nextEventId("item") });
+  /**
+   * Add an item (developer note, user message, tool output) to the backend
+   * conversation, if the session's bounded input history can still hold it.
+   *
+   * `required` marks an item the turn cannot proceed without — a function call
+   * output — which may draw on the reserve that optional notes cannot touch.
+   * Returns false when the item was not sent.
+   */
+  addBackendItem(item: Record<string, unknown>, options: { required?: boolean } = {}): boolean {
+    const required = options.required ?? false;
+    const event = { type: "response.item.create", item, event_id: this.nextEventId("item") };
+    const size = utf8Bytes(JSON.stringify(event));
+    if (size > this.history.allowance(required)) {
+      this.emit("history_full", this.history.usage);
+      return false;
+    }
+    if (!this.send(event)) return false;
+    this.history.record(size);
+    return true;
+  }
+
+  /** Bytes an image could still use, so tools can skip pointless captures. */
+  get imageAllowance(): number {
+    return this.history.imageAllowance;
+  }
+
+  /** How much of the backend's bounded input history this session has spent. */
+  get historyUsage(): HistoryUsage {
+    return this.history.usage;
   }
 
   /**
@@ -257,6 +293,14 @@ export class LiveVoiceSession {
       case "error": {
         const error = event.error as { message?: string; code?: string } | undefined;
         const message = error?.message ?? "The voice session reported an error.";
+        if (HISTORY_FULL_ERROR.test(message)) {
+          // Our accounting and the backend's disagree; believe the backend and
+          // stop adding to the history so the rest of the session still works.
+          console.warn("Backend input history is full", message, this.history.usage);
+          this.history.markFull();
+          this.emit("history_full", this.history.usage);
+          return;
+        }
         if (TOOL_PROTOCOL_ERROR.test(message)) {
           // The turn the backend is complaining about is already lost. Drop our
           // bookkeeping for it so the next turn starts clean, and keep the
@@ -313,11 +357,28 @@ export class LiveVoiceSession {
       output = { error: error instanceof Error ? error.message : "Tool failed" };
     }
     this.emit("tool_result", call, ok);
-    const submitted = this.addBackendItem({
-      type: "function_call_output",
-      call_id: call.callId,
-      output: serializeToolOutput(output),
-    });
+    // Fit the answer to whatever history is left rather than dropping it: an
+    // unanswered call stalls the turn, a shortened one does not.
+    const allowance = this.history.allowance(true);
+    const maxBytes = Math.min(
+      DEFAULT_TOOL_OUTPUT_BYTES,
+      Math.max(0, allowance - HISTORY_MIN_USEFUL_BYTES),
+    );
+    const submitted =
+      allowance >= HISTORY_MIN_USEFUL_BYTES &&
+      this.addBackendItem(
+        {
+          type: "function_call_output",
+          call_id: call.callId,
+          // The same allowance the tools consulted before capturing, so the two
+          // never disagree about whether an image was worth producing.
+          output: serializeToolOutput(output, {
+            maxBytes,
+            imageBytes: this.history.imageAllowance,
+          }),
+        },
+        { required: true },
+      );
     const continueNow = this.tracker.complete(call, submitted);
     if (continueNow || this.continuationQueued) this.requestResponse();
   }
