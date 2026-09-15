@@ -2,19 +2,30 @@ import { test, expect, type Page } from "@playwright/test";
 import { readFileSync, readdirSync } from "node:fs";
 import type { LessonView, ScheduleView } from "../../client/src/lib/types";
 
-const days: ScheduleView[] = readdirSync("curriculum/2026-27/daily")
-  .filter((file) => file.endsWith(".json"))
-  .map((file) => {
-    const day = JSON.parse(
+/**
+ * Mirror the server's ingest: daily files are processed in descending name
+ * order and lessons are upserted by id, so several files can share a date and a
+ * later file replaces an earlier lesson with the same id.
+ */
+const days: ScheduleView[] = (() => {
+  const byDate = new Map<string, { day: ScheduleView; lessons: Map<string, LessonView> }>();
+  const files = readdirSync("curriculum/2026-27/daily")
+    .filter((file) => file.endsWith(".json"))
+    .sort((a, b) => b.localeCompare(a));
+  for (const file of files) {
+    const day: ScheduleView = JSON.parse(
       readFileSync(`curriculum/2026-27/daily/${file}`, "utf8"),
     );
-    return {
-      ...day,
-      lessons: day.lessons.map((lesson: LessonView) => ({
+    const entry = byDate.get(day.date) ?? { day, lessons: new Map<string, LessonView>() };
+    for (const lesson of day.lessons) {
+      entry.lessons.set(lesson.id, {
         ...lesson,
         status: "planned",
         answer_key: {},
         teacher_notes: "",
+        // The ingest schema defaults these when a curriculum file omits them.
+        source_references: lesson.source_references ?? [],
+        mastery_threshold: lesson.mastery_threshold ?? 75,
         guided_practice: lesson.guided_practice.map(({ id, prompt, hint }) => ({
           id,
           prompt,
@@ -27,9 +38,14 @@ const days: ScheduleView[] = readdirSync("curriculum/2026-27/daily")
           id,
           prompt,
         })),
-      })),
-    };
-  });
+      });
+    }
+    byDate.set(day.date, entry);
+  }
+  return [...byDate.values()]
+    .map(({ day, lessons }) => ({ ...day, lessons: [...lessons.values()] }))
+    .sort((a, b) => a.date.localeCompare(b.date));
+})();
 const all = days.flatMap((day) => day.lessons);
 const latest = days.find((day) => day.date === "2026-09-08")!;
 async function mockApi(page: Page) {
@@ -91,9 +107,8 @@ test.beforeEach(async ({ page }) => {
   await mockApi(page);
 });
 
-for (const [dayIndex, day] of days.entries()) {
-  // Several curriculum files can share a date, so include the position to keep titles unique.
-  test(`all sections preserve the ${day.date} curriculum (file ${dayIndex + 1})`, async ({ page }) => {
+for (const day of days) {
+  test(`all sections preserve the ${day.date} curriculum`, async ({ page }) => {
     const errors: string[] = [];
     page.on("pageerror", (error) => errors.push(error.message));
     for (const lesson of day.lessons) {
