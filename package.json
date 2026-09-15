@@ -34,7 +34,6 @@
     "qs": "6.16.0"
   },
   "dependencies": {
-    "@openai/agents": "^0.17.0",
     "@prisma/adapter-pg": "^6.19.3",
     "@prisma/client": "^6.5.0",
     "compression": "^1.8.1",
@@ -45,7 +44,7 @@
     "express-session": "^1.18.1",
     "helmet": "^8.0.0",
     "motion": "^13.2.0",
-    "openai": "^7.8.0",
+    "openai": "^7.15.0",
     "pdf-parse": "^1.1.1",
     "pdfreader": "^3.0.8",
     "pg": "^8.23.0",

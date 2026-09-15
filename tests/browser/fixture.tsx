@@ -3,6 +3,10 @@ import { createRoot } from "react-dom/client";
 import App from "../../client/src/App";
 import { VirgilAvatar } from "../../client/src/voice/VirgilAvatar";
 import { speechEnergy } from "../../client/src/voice/speechSignal";
+import { lessonNavigator, whiteboard } from "../../client/src/voice/whiteboardStore";
+import { captureUiSnapshot } from "../../client/src/voice/uiSnapshot";
+import { createToolExecutors } from "../../client/src/voice/tools";
+import { ScreenShare } from "../../client/src/voice/screenShare";
 import "../../client/src/styles/global.css";
 import "../../client/src/styles/lessons.css";
 
@@ -118,6 +122,28 @@ function AudioFixture() {
     </main>
   );
 }
+// Test-only hooks so browser checks can drive the tutor's tools without any AI service.
+declare global {
+  interface Window {
+    __smarticus?: {
+      whiteboard: typeof whiteboard;
+      lessonNavigator: typeof lessonNavigator;
+      captureUiSnapshot: typeof captureUiSnapshot;
+      runTool: (name: string, args: Record<string, unknown>) => Promise<unknown>;
+    };
+  }
+}
+window.__smarticus = {
+  whiteboard,
+  lessonNavigator,
+  captureUiSnapshot,
+  runTool: (name, args) => {
+    const executors = createToolExecutors({ lessonId: "test-lesson", screenShare: new ScreenShare() });
+    const executor = executors[name];
+    if (!executor) throw new Error(`no executor for ${name}`);
+    return executor(args, { callId: "test", name, arguments: JSON.stringify(args), delegationId: null, responseId: null });
+  },
+};
 createRoot(document.getElementById("root")!).render(
   new URLSearchParams(location.search).get("fixture") === "avatar" ? (
     <AudioFixture />

@@ -64,15 +64,19 @@ export const api = {
     request(
       `/api/mastery/${encodeURIComponent(subject)}${standard ? `?standard=${encodeURIComponent(standard)}` : ""}`,
     ),
-  clientSecret: (lesson_id: string) =>
+  liveSession: (lesson_id: string, sdp: string) =>
     request<{
-      value: string;
+      sdp: string;
+      sessionId: string;
       lessonId: string;
-      sessionModel: string;
-      instructions: string;
-    }>("/api/realtime/client-secret", {
+      lessonMarker: string;
+      voiceModel: string;
+      backendModel: string;
+      voice: string;
+    }>("/api/realtime/live", {
       method: "POST",
-      body: JSON.stringify({ lesson_id }),
+      body: JSON.stringify({ lesson_id, sdp }),
+      signal: AbortSignal.timeout(45_000),
     }),
   endSession: (payload: {
     session_id: string;

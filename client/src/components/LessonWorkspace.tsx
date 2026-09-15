@@ -21,6 +21,13 @@ import {
 } from "./lessons/LessonPanels";
 import { useLearningJournal } from "./lessons/useLearningJournal";
 import { VirgilAvatar } from "../voice/VirgilAvatar";
+import { Whiteboard } from "../voice/Whiteboard";
+import {
+  lessonNavigator,
+  useWhiteboard,
+  whiteboard,
+  type LessonSection,
+} from "../voice/whiteboardStore";
 import "../styles/lessons.css";
 
 const VoiceTutor = lazy(() =>
@@ -58,6 +65,10 @@ export function LessonWorkspace({
   );
   const tutorRef = useRef<HTMLElement>(null);
   const journeyRef = useRef<HTMLElement>(null);
+  const board = useWhiteboard();
+  const [practiceSelection, setPracticeSelection] = useState<
+    { index: number; nonce: number } | undefined
+  >(undefined);
   const journal = useLearningJournal(lesson.id);
   const info = subjectInfo(lesson.subject);
   const [initialDraft] = useState(() => {
@@ -143,6 +154,35 @@ export function LessonWorkspace({
       `Learning section: ${sections.find((section) => section.id === next)?.title}. Lesson: ${lesson.lesson_title}.`,
     );
   };
+  const changeSectionRef = useRef(changeSection);
+  changeSectionRef.current = changeSection;
+  const practiceCount =
+    lesson.guided_practice.length +
+    lesson.independent_practice.length +
+    lesson.exit_ticket.length;
+  useEffect(() => {
+    // Let the voice tutor move the interface: open a section, jump to a question.
+    lessonNavigator.register(({ section, questionNumber }) => {
+      const target = sections.find((entry) => entry.id === (section as LessonSection));
+      if (!target) return `Unknown section "${section}".`;
+      changeSectionRef.current(target.id);
+      let detail = `Opened the ${target.title} section.`;
+      if (questionNumber && target.id === "practice") {
+        if (questionNumber > practiceCount || practiceCount === 0) {
+          detail += ` This lesson has ${practiceCount} practice questions, so question ${questionNumber} does not exist.`;
+        } else {
+          setPracticeSelection({ index: questionNumber - 1, nonce: Date.now() });
+          detail += ` Showing practice question ${questionNumber} of ${practiceCount}.`;
+        }
+      }
+      requestAnimationFrame(() =>
+        journeyRef.current?.scrollIntoView({ behavior: "auto", block: "start" }),
+      );
+      return detail;
+    });
+    return () => lessonNavigator.register(null);
+  }, [practiceCount]);
+  useEffect(() => () => whiteboard.setOpen(false), []);
   const onQuestionFocus = useCallback(
     (value: string) => setLearningFocus(value),
     [],
@@ -184,15 +224,25 @@ export function LessonWorkspace({
             <Icon name="back" size={16} />
             My learning day
           </button>
-          <button
-            className="focus-switch"
-            aria-pressed={focus}
-            disabled={voiceBusy}
-            onClick={() => setFocus(!focus)}
-          >
-            <Icon name="compass" size={15} />
-            {focus ? "Bring Virgil back" : "Quiet focus"}
-          </button>
+          <div className="lesson-topline-actions">
+            <button
+              className="focus-switch"
+              aria-pressed={board.open}
+              onClick={() => whiteboard.setOpen(!board.open)}
+            >
+              <Icon name="pen" size={15} />
+              {board.open ? "Hide whiteboard" : "Whiteboard"}
+            </button>
+            <button
+              className="focus-switch"
+              aria-pressed={focus}
+              disabled={voiceBusy}
+              onClick={() => setFocus(!focus)}
+            >
+              <Icon name="compass" size={15} />
+              {focus ? "Bring Virgil back" : "Quiet focus"}
+            </button>
+          </div>
         </div>
         {voiceBusy && (
           <p className="session-notice">
@@ -236,6 +286,7 @@ export function LessonWorkspace({
                 </button>
               ))}
             </nav>
+            {board.open && <Whiteboard onClose={() => whiteboard.setOpen(false)} />}
             <Scene id={tab}>
               {tab === "learn" ? (
                 <UnderstandPanel
@@ -259,6 +310,7 @@ export function LessonWorkspace({
                   }
                   onFocus={onQuestionFocus}
                   onDiscuss={discuss}
+                  selection={practiceSelection}
                 />
               ) : tab === "words" ? (
                 <WordsPanel lesson={lesson} journal={journal} />

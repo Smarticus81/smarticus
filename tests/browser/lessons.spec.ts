@@ -91,8 +91,9 @@ test.beforeEach(async ({ page }) => {
   await mockApi(page);
 });
 
-for (const day of days) {
-  test(`all sections preserve the ${day.date} curriculum`, async ({ page }) => {
+for (const [dayIndex, day] of days.entries()) {
+  // Several curriculum files can share a date, so include the position to keep titles unique.
+  test(`all sections preserve the ${day.date} curriculum (file ${dayIndex + 1})`, async ({ page }) => {
     const errors: string[] = [];
     page.on("pageerror", (error) => errors.push(error.message));
     for (const lesson of day.lessons) {

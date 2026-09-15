@@ -28,8 +28,12 @@ export const envSchema = z
     NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
     PORT: z.coerce.number().int().min(1).max(65535).default(3000),
     OPENAI_API_KEY: optionalString,
-    REALTIME_MODEL: z.string().default("gpt-realtime-2.1"),
+    REALTIME_MODEL: z.string().default("gpt-live-1"),
     REALTIME_VOICE: z.string().default("marin"),
+    LIVE_BACKEND_MODEL: z.string().default("gpt-6-astra"),
+    LIVE_BACKEND_REASONING: z
+      .enum(["none", "minimal", "low", "medium", "high", "xhigh"])
+      .default("low"),
     WEB_SEARCH_MODEL: z.string().default("gpt-5.6"),
     OPENAI_VECTOR_STORE_ID: optionalString,
     DATABASE_URL: z

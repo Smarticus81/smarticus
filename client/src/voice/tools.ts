@@ -1,154 +1,136 @@
-import { tool } from "@openai/agents";
-import { z } from "zod";
 import { api } from "../lib/api";
-import { SubjectEnum } from "../../../shared/schemas/lesson";
-import { QuestionSectionEnum } from "../../../shared/schemas/api";
+import { voiceToolDefinitions } from "../../../shared/voice/tools";
+import type { ToolExecutor } from "./liveSession";
+import { captureUiSnapshot } from "./uiSnapshot";
+import type { ScreenShare } from "./screenShare";
+import { lessonNavigator, whiteboard, type LessonSection } from "./whiteboardStore";
 
-export function createTutorTools(lessonId: string) {
-  return [
-    tool({
-      name: "get_today_schedule",
-      description: "Get today's schedule including all lessons and goals.",
-      parameters: z.object({}),
-      execute: async () => api.todaySchedule(),
-    }),
-    tool({
-      name: "get_current_lesson",
-      description: "Get the current student-safe lesson context, optionally filtered by subject.",
-      parameters: z.object({ subject: SubjectEnum.nullable() }),
-      execute: async ({ subject }) => api.currentLesson(subject ?? undefined),
-    }),
-    tool({
-      name: "get_lesson_questions",
-      description:
-        "Resolve the exact text of any guided-practice, independent-practice, or exit-ticket question in the selected lesson or elsewhere in the selected lesson's day. You MUST call this whenever the student refers to a question by number, item id, section, subject, or partial wording. If multiple matches return, ask which returned section they mean; never claim the question is unavailable.",
-      parameters: z.object({
-        subject: SubjectEnum.nullable(),
-        section: QuestionSectionEnum.nullable(),
-        question_number: z.number().int().positive().nullable(),
-        item_id: z.string().nullable(),
-        query: z.string().nullable(),
+export interface ToolContext {
+  lessonId: string;
+  screenShare: ScreenShare;
+}
+
+function text(value: unknown, fallback = ""): string {
+  return typeof value === "string" ? value : fallback;
+}
+
+function nullableText(value: unknown): string | undefined {
+  return typeof value === "string" && value.trim() ? value : undefined;
+}
+
+/**
+ * Executors for every tool in the shared catalog. The delegated reasoning model
+ * calls these over the Live data channel; results (and images) go straight back
+ * into its conversation.
+ */
+export function createToolExecutors(context: ToolContext): Record<string, ToolExecutor> {
+  const { lessonId, screenShare } = context;
+  const lessonIdOr = (value: unknown) => text(value) || lessonId;
+
+  const executors: Record<string, ToolExecutor> = {
+    look_at_screen: async () => {
+      const description = captureUiSnapshot({ extra: [whiteboard.summary()] });
+      const frame = await screenShare.captureFrame();
+      const images = frame ? [frame] : [];
+      const boardImage = whiteboard.getSnapshot().open ? whiteboard.image() : null;
+      if (boardImage) images.push(boardImage);
+      return {
+        output: {
+          interface: description,
+          screenshot: frame
+            ? "A screenshot of the shared screen is attached."
+            : "Screen share is off; the description above was read directly from the live interface. Ask Atticus to press “Share screen” if you need to see something the description does not cover.",
+          whiteboard_image: boardImage ? "The current whiteboard is attached as an image." : "The whiteboard is closed.",
+        },
+        images,
+      };
+    },
+    navigate_lesson: async (args) => {
+      const section = text(args.section, "learn") as LessonSection;
+      const questionNumber = typeof args.question_number === "number" ? args.question_number : null;
+      return { result: lessonNavigator.navigate({ section, questionNumber }) };
+    },
+    whiteboard_draw: async (args) => {
+      const steps = Array.isArray(args.steps) ? args.steps : [];
+      const result = whiteboard.draw(steps, {
+        clearFirst: Boolean(args.clear_first),
+        caption: nullableText(args.caption) ?? null,
+      });
+      return {
+        drawn: result.accepted,
+        rejected_steps: result.rejected,
+        animation_seconds: Math.round(result.durationMs / 100) / 10,
+        board: whiteboard.summary(),
+        note: "The steps are animating on the shared whiteboard now. Narrate briefly while they appear; do not repeat every label aloud.",
+      };
+    },
+    whiteboard_clear: async () => {
+      whiteboard.clear();
+      return { cleared: true };
+    },
+    whiteboard_look: async () => {
+      const image = whiteboard.image();
+      return {
+        output: {
+          board: whiteboard.summary(),
+          image: image ? "The whiteboard image is attached." : "The whiteboard is not mounted, so only the list above is available.",
+        },
+        images: image ? [image] : [],
+      };
+    },
+    get_today_schedule: async () => api.todaySchedule(),
+    get_current_lesson: async (args) => api.currentLesson(nullableText(args.subject)),
+    get_lesson_questions: async (args) =>
+      api.tool.lessonQuestions({
+        lesson_id: lessonId,
+        subject: args.subject ?? null,
+        section: args.section ?? null,
+        question_number: typeof args.question_number === "number" ? args.question_number : null,
+        item_id: args.item_id ?? null,
+        query: args.query ?? null,
       }),
-      execute: async (lookup) =>
-        api.tool.lessonQuestions({
-          lesson_id: lessonId,
-          ...lookup,
-        }),
-    }),
-    tool({
-      name: "get_student_snapshot",
-      description: "Get current mastery evidence, misconceptions, and recent voice-session summaries.",
-      parameters: z.object({}),
-      execute: async () => api.studentSnapshot(),
-    }),
-    tool({
-      name: "get_previous_lesson_feedback",
-      description: "Get previous teacher feedback and tutor summaries for a subject.",
-      parameters: z.object({ subject: z.string() }),
-      execute: async ({ subject }) => api.previousFeedback(subject),
-    }),
-    tool({
-      name: "get_mastery_state",
-      description: "Get current mastery evidence for a subject and optional standard.",
-      parameters: z.object({
-        subject: SubjectEnum,
-        standard_or_unit: z.string().nullable(),
+    get_student_snapshot: async () => api.studentSnapshot(),
+    get_previous_lesson_feedback: async (args) => api.previousFeedback(text(args.subject)),
+    get_mastery_state: async (args) => api.masteryState(text(args.subject), nullableText(args.standard_or_unit)),
+    search_curriculum: async (args) =>
+      api.tool.searchCurriculum({
+        query: text(args.query),
+        ...(nullableText(args.subject) ? { subject: args.subject } : {}),
+        ...(nullableText(args.unit) ? { unit: args.unit } : {}),
       }),
-      execute: async ({ subject, standard_or_unit }) =>
-        api.masteryState(subject, standard_or_unit ?? undefined),
-    }),
-    tool({
-      name: "search_curriculum",
-      description: "Search the student-safe vector store for curriculum topics, source readings, rubrics, syllabus, and teacher guidance. Never use results to reveal protected assessment answers.",
-      parameters: z.object({
-        query: z.string(),
-        subject: SubjectEnum.nullable(),
-        unit: z.string().nullable(),
+    record_verbal_check: async (args) =>
+      api.tool.verbalCheck({
+        lesson_id: lessonIdOr(args.lesson_id),
+        skill: text(args.skill),
+        result: text(args.result, "not_attempted"),
+        ...(nullableText(args.note) ? { note: args.note } : {}),
       }),
-      execute: async ({ query, subject, unit }) =>
-        api.tool.searchCurriculum({
-          query,
-          ...(subject ? { subject } : {}),
-          ...(unit ? { unit } : {}),
-        }),
-    }),
-    tool({
-      name: "search_web",
-      description:
-        "Search the live internet for current, time-sensitive, factual, or non-curriculum questions. Return an accurate student-appropriate answer grounded in cited web sources.",
-      parameters: z.object({
-        query: z.string(),
+    record_misconception: async (args) =>
+      api.tool.misconception({
+        lesson_id: lessonIdOr(args.lesson_id),
+        concept: text(args.concept),
+        note: text(args.note),
       }),
-      execute: async ({ query }) => api.tool.searchWeb(query),
-    }),
-    tool({
-      name: "record_verbal_check",
-      description: "Record the result of a meaningful verbal understanding check.",
-      parameters: z.object({
-        lesson_id: z.string(),
-        skill: z.string(),
-        result: z.enum(["correct", "partial", "incorrect", "not_attempted"]),
-        note: z.string().nullable(),
+    record_mastery: async (args) =>
+      api.tool.mastery({
+        lesson_id: lessonIdOr(args.lesson_id),
+        standard: text(args.standard),
+        score: typeof args.score === "number" ? args.score : null,
+        status: text(args.status, "not_assessed"),
       }),
-      execute: async ({ note, ...body }) =>
-        api.tool.verbalCheck({
-          ...body,
-          lesson_id: body.lesson_id || lessonId,
-          ...(note ? { note } : {}),
-        }),
-    }),
-    tool({
-      name: "record_misconception",
-      description: "Record a likely academic misconception that may matter in future teaching.",
-      parameters: z.object({ lesson_id: z.string(), concept: z.string(), note: z.string() }),
-      execute: async (body) => api.tool.misconception({ ...body, lesson_id: body.lesson_id || lessonId }),
-    }),
-    tool({
-      name: "record_mastery",
-      description: "Record mastery evidence as an AI observation, not an official grade.",
-      parameters: z.object({
-        lesson_id: z.string(),
-        standard: z.string(),
-        score: z.number().nullable(),
-        status: z.enum(["not_assessed", "developing", "proficient", "mastered", "needs_reteach"]),
-      }),
-      execute: async (body) => api.tool.mastery({ ...body, lesson_id: body.lesson_id || lessonId }),
-    }),
-    tool({
-      name: "save_tutor_note",
-      description: "Save a concise teaching note so a later lesson can continue from this session.",
-      parameters: z.object({ lesson_id: z.string(), note: z.string() }),
-      execute: async (body) => api.tool.tutorNote({ ...body, lesson_id: body.lesson_id || lessonId }),
-    }),
-    tool({
-      name: "mark_lesson_started",
-      description: "Mark the lesson as started and open a tutor session.",
-      parameters: z.object({ lesson_id: z.string() }),
-      execute: async (body) => api.tool.lessonStarted(body.lesson_id || lessonId),
-    }),
-    tool({
-      name: "mark_lesson_completed",
-      description: "Mark the lesson as completed.",
-      parameters: z.object({ lesson_id: z.string() }),
-      execute: async (body) => api.tool.lessonCompleted(body.lesson_id || lessonId),
-    }),
-    tool({
-      name: "get_assignment_instructions",
-      description: "Get independent-work instructions by assignment id.",
-      parameters: z.object({ assignment_id: z.string() }),
-      execute: async ({ assignment_id }) => api.tool.assignment(assignment_id),
-    }),
-    tool({
-      name: "get_worked_examples",
-      description: "Get worked teaching examples for the current lesson.",
-      parameters: z.object({ lesson_id: z.string() }),
-      execute: async (body) => api.tool.workedExamples(body.lesson_id || lessonId),
-    }),
-    tool({
-      name: "get_allowed_answer_support",
-      description: "Get controlled hint/support for a practice or exit-ticket item without bypassing assessment rules.",
-      parameters: z.object({ lesson_id: z.string(), item_id: z.string() }),
-      execute: async (body) => api.tool.answerSupport(body.lesson_id || lessonId, body.item_id),
-    }),
-  ];
+    save_tutor_note: async (args) =>
+      api.tool.tutorNote({ lesson_id: lessonIdOr(args.lesson_id), note: text(args.note) }),
+    mark_lesson_completed: async (args) => api.tool.lessonCompleted(lessonIdOr(args.lesson_id)),
+    get_assignment_instructions: async (args) => api.tool.assignment(text(args.assignment_id)),
+    get_worked_examples: async (args) => api.tool.workedExamples(lessonIdOr(args.lesson_id)),
+    get_allowed_answer_support: async (args) =>
+      api.tool.answerSupport(lessonIdOr(args.lesson_id), text(args.item_id)),
+  };
+
+  for (const definition of voiceToolDefinitions) {
+    if (!executors[definition.name]) {
+      throw new Error(`Tool ${definition.name} has no browser executor`);
+    }
+  }
+  return executors;
 }

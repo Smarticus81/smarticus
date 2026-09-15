@@ -1433,3 +1433,89 @@
     display: none;
   }
 }
+
+/* Shared whiteboard: Virgil draws live; the learner draws back. */
+.lesson-topline-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.whiteboard {
+  margin: 0 0 30px;
+  border: 1px solid var(--zen-border, #e0e6d6);
+  border-radius: 18px;
+  background: #fbfcf8;
+  padding: 14px 16px 16px;
+  box-shadow: 0 18px 40px -32px rgba(36, 42, 38, 0.45);
+}
+.whiteboard-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.whiteboard-top .eyebrow {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+}
+.whiteboard-caption {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: #56634d;
+  max-width: 62ch;
+  line-height: 1.5;
+}
+.whiteboard-tools {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.whiteboard-tools .text-button {
+  font-size: 11px;
+  padding: 6px 8px;
+}
+.pen-swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  padding: 0;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08) inset;
+}
+.pen-swatch[aria-pressed="true"] {
+  border-color: #fff;
+  box-shadow:
+    0 0 0 2px #242a26,
+    0 0 0 1px rgba(0, 0, 0, 0.08) inset;
+}
+.whiteboard-frame {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e3e8da;
+  background: #fbfcf8;
+}
+.whiteboard-frame canvas {
+  display: block;
+  cursor: crosshair;
+  max-width: 100%;
+}
+.voice-controls {
+  flex-wrap: wrap;
+}
+.voice-controls .button {
+  flex: 1 1 auto;
+}
+@media (max-width: 640px) {
+  .whiteboard {
+    padding: 10px;
+    border-radius: 14px;
+  }
+  .whiteboard-top {
+    flex-direction: column;
+  }
+}

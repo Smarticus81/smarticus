@@ -1,6 +1,6 @@
 # Smarticus
 
-A private learning studio for Atticus, built with React, Express, PostgreSQL/Prisma, and the OpenAI Realtime API.
+A private learning studio for Atticus, built with React, Express, PostgreSQL/Prisma, and OpenAI's GPT-Live voice API with a GPT-6 Astra reasoning backend.
 
 ## Learning experience
 
@@ -11,11 +11,14 @@ A private learning studio for Atticus, built with React, Express, PostgreSQL/Pri
 - **Remember and reflect:** recall-before-reveal word cards, teach-back prompts, real-world transfer, and self-assessment. Learning journals save locally without pretending that a filled field proves mastery.
 - **Discovery lab:** interactive light-reflection and equivalent-fraction experiments that work without a voice connection.
 - **My progress:** recent recorded skills and tutor sessions, with no simulated scores or streaks.
-- **Virgil:** optional voice chat with explicit microphone controls, streamed words, a readable transcript, and recoverable session-save errors. His avatar responds to the remote audio's actual energy and pauses; it never uses the learner's microphone to simulate his speech. WebRTC playback events keep the speaking state active until output drains. The tutor receives the selected question or live model context, and an explicit discussion action can share the learner's current draft or observation. The voice SDK loads only when voice setup is opened.
+- **Virgil:** optional voice chat with explicit microphone controls, streamed words, a readable transcript, and recoverable session-save errors. The voice is `gpt-live-1`, a full-duplex model that listens and speaks at the same time; it delegates reasoning, lesson lookups, records, web search, vision, and drawing to `gpt-6-astra` through the Live API's Responses delegation. The browser negotiates WebRTC directly with OpenAI after the server creates the session, so the API key never reaches the client. His avatar responds to the remote audio's actual energy; it never uses the learner's microphone to simulate his speech.
+- **Wake word with an instant greeting:** Virgil starts in silent standby. The moment the transcript contains "Virgil" (or a tap on Wake), the app appends speakable commentary to the Live session so he greets Atticus immediately, before any delegation happens. A clear goodbye returns him to standby.
+- **Virgil can see the interface:** a `look_at_screen` tool returns a structured description of the live lesson UI (open section, selected question, the learner's draft, focused control, visible text and controls, whiteboard contents). With the optional **Share screen** button, the tool also attaches a screenshot for the vision model. Every change of learning focus is sent silently to both models as context, and a `navigate_lesson` tool lets Virgil open a section or jump to a practice question.
+- **Live whiteboard:** a shared canvas in the lesson column. Astra draws through `whiteboard_draw` with text, lines and arrows, shapes, freehand paths, number lines, fraction bars, tables, highlights, and pauses; steps animate stroke by stroke while Virgil narrates. Atticus can draw back with the pen, and `whiteboard_look` sends the board image and an item list to the model. Reduced-motion preferences render steps instantly. Assigned answers stay protected: the model is instructed to draw analogous examples, not solutions.
 
 The selected learning date and section are preserved in the URL. Practice answers stay on the current device using the existing `virgil-response` storage keys, so answers saved before the redesign remain available. Scratchpad notes stay in the current browser tab. Drafts are not submitted, graded, or synced. The lesson completion button and existing tutor tools record completion; mastery remains a separate learning record. On long voice sessions, the saved transcript keeps the most recent conversation that fits within the server's request limit.
 
-The redesigned studio preserves the current repository’s selected-lesson synchronization, question lookup and web-search tools, protected guidance, and confidence-aware wake-word and goodbye-to-standby behavior. Available learning dates include checked-in curriculum that will be ingested on demand.
+The redesigned studio preserves the current repository’s selected-lesson synchronization, question lookup, protected guidance, and wake-word and goodbye-to-standby behavior; web search is now the Live backend's native tool. Available learning dates include checked-in curriculum that will be ingested on demand.
 
 The interface supports keyboard navigation, phone and tablet layouts, and reduced-motion preferences. Fonts use the system stack, so the app makes no third-party font requests.
 
@@ -34,7 +37,7 @@ npm run db:setup
 npm run dev
 ```
 
-The browser app runs at `http://localhost:5173`; Vite proxies API requests to port 3000. Set `OPENAI_API_KEY` to enable live voice sessions. Local development bypasses the access-password screen when `APP_ACCESS_PASSWORD` is empty. `db:setup` creates the configured database when needed, applies the checked-in migrations, and seeds the curriculum; it also works on Windows ARM64 where Prisma's native schema engine is unavailable.
+The browser app runs at `http://localhost:5173`; Vite proxies API requests to port 3000. Set `OPENAI_API_KEY` to enable live voice sessions; `REALTIME_MODEL`, `REALTIME_VOICE`, `LIVE_BACKEND_MODEL`, and `LIVE_BACKEND_REASONING` select the voice model, voice, delegated reasoning model, and its reasoning effort. Local development bypasses the access-password screen when `APP_ACCESS_PASSWORD` is empty. `db:setup` creates the configured database when needed, applies the checked-in migrations, and seeds the curriculum; it also works on Windows ARM64 where Prisma's native schema engine is unavailable.
 
 Before committing, run the same verification used by CI:
 
@@ -50,7 +53,7 @@ npx playwright install chromium
 npm run test:browser
 ```
 
-On Windows with Edge installed, `PLAYWRIGHT_CHANNEL=msedge` selects Edge instead of downloaded Chromium (PowerShell: `$env:PLAYWRIGHT_CHANNEL='msedge'`). Checks cover every curriculum day's lesson sections, model interactions, draft persistence, phone layouts, reduced motion, and avatar response to a real Web Audio MediaStream. A neutral local speech-synthesis recording exercises sentence pauses; it contains no learner audio. The avatar follows audio energy, not phoneme or word timestamps; streamed transcript text is not presented as word-aligned karaoke.
+On Windows with Edge installed, `PLAYWRIGHT_CHANNEL=msedge` selects Edge instead of downloaded Chromium (PowerShell: `$env:PLAYWRIGHT_CHANNEL='msedge'`). `PLAYWRIGHT_EXECUTABLE_PATH=/path/to/chrome` runs the checks against a preinstalled browser binary instead. Checks cover every curriculum day's lesson sections, model interactions, draft persistence, phone layouts, reduced motion, and avatar response to a real Web Audio MediaStream. A neutral local speech-synthesis recording exercises sentence pauses; it contains no learner audio. The avatar follows audio energy, not phoneme or word timestamps; streamed transcript text is not presented as word-aligned karaoke.
 
 ## Production deployment
 
