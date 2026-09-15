@@ -81,55 +81,139 @@ export function responseFinishedFromEvent(
   };
 }
 
+/** How long a tool may run before its output is answered with an error. */
+export const TOOL_TIMEOUT_MS = 20_000;
+
+/** Resolve with the promise, or reject once `ms` has passed. */
+export function withToolTimeout<T>(
+  promise: Promise<T>,
+  name: string,
+  ms = TOOL_TIMEOUT_MS,
+): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
+    const timer = setTimeout(
+      () => reject(new Error(`Tool ${name} did not finish within ${Math.round(ms / 1000)}s.`)),
+      ms,
+    );
+    promise.then(
+      (value) => {
+        clearTimeout(timer);
+        resolve(value);
+      },
+      (error: unknown) => {
+        clearTimeout(timer);
+        reject(error);
+      },
+    );
+  });
+}
+
+interface TurnState {
+  /** Calls whose output has not been put on the wire yet. */
+  pending: Set<string>;
+  /** Outputs successfully sent for this turn. */
+  answered: number;
+  /** The delegated response stream has ended. */
+  ended: boolean;
+  /** An output could not be sent, so the turn must not be continued. */
+  broken: boolean;
+}
+
+/** Remembered answered call ids, so a repeated event never runs a tool twice. */
+const HANDLED_CALL_MEMORY = 200;
+
 /**
  * Tracks which delegated responses are waiting on tool outputs so that
- * `response.create` is sent exactly once, after every call in that response
- * has been answered.
+ * `response.create` is sent exactly once per turn, and never before every call
+ * in that turn has its output on the wire.
+ *
+ * The backend rejects a `response.create` that arrives while an output is still
+ * owed ("Submit the pending function call outputs before response.create",
+ * "Missing function call outputs for: ..."), so a turn continues only when its
+ * stream has ended AND nothing is pending. Calls can still arrive after an
+ * earlier call in the same turn was answered, which is why the pending set —
+ * not a one-shot flag — decides.
  */
 export class ToolTurnTracker {
-  private readonly pending = new Map<string, Set<string>>();
-  private readonly finished = new Set<string>();
+  private readonly turns = new Map<string, TurnState>();
+  private readonly handled = new Set<string>();
 
   private key(delegationId: string | null) {
     return delegationId ?? "__none__";
   }
 
-  /** Register a call. Returns false when the call was already tracked. */
+  private state(key: string): TurnState {
+    const existing = this.turns.get(key);
+    if (existing) return existing;
+    const created: TurnState = { pending: new Set(), answered: 0, ended: false, broken: false };
+    this.turns.set(key, created);
+    return created;
+  }
+
+  private remember(callId: string) {
+    this.handled.add(callId);
+    while (this.handled.size > HANDLED_CALL_MEMORY) {
+      const oldest = this.handled.values().next().value;
+      if (oldest === undefined) break;
+      this.handled.delete(oldest);
+    }
+  }
+
+  /** Settle a turn: true when the response should be continued right now. */
+  private settle(key: string, turn: TurnState): boolean {
+    if (turn.pending.size > 0) return false;
+    // The stream may still emit more calls; continue when it ends.
+    if (!turn.ended) return false;
+    this.turns.delete(key);
+    return turn.answered > 0 && !turn.broken;
+  }
+
+  /** Register a call. Returns false when the call was already seen. */
   begin(call: LiveFunctionCall): boolean {
-    const key = this.key(call.delegationId);
-    const calls = this.pending.get(key) ?? new Set<string>();
-    if (calls.has(call.callId)) return false;
-    calls.add(call.callId);
-    this.pending.set(key, calls);
+    if (this.handled.has(call.callId)) return false;
+    const turn = this.state(this.key(call.delegationId));
+    if (turn.pending.has(call.callId)) return false;
+    // A fresh call means this delegation is streaming again.
+    turn.ended = false;
+    turn.pending.add(call.callId);
+    this.remember(call.callId);
     return true;
   }
 
-  /** Mark a call answered. Returns true when the response should continue now. */
-  complete(call: LiveFunctionCall): boolean {
+  /**
+   * Mark a call answered. Pass `submitted: false` when the output could not be
+   * sent, which keeps the turn from being continued without it. Returns true
+   * when the response should continue now.
+   */
+  complete(call: LiveFunctionCall, submitted = true): boolean {
     const key = this.key(call.delegationId);
-    const calls = this.pending.get(key);
-    if (!calls) return false;
-    calls.delete(call.callId);
-    if (calls.size > 0) return false;
-    this.pending.delete(key);
-    if (this.finished.delete(key)) return true;
-    // The response stream has not ended yet; continue when it does.
-    this.finished.add(`${key}:awaiting`);
-    return false;
+    const turn = this.turns.get(key);
+    if (!turn || !turn.pending.delete(call.callId)) return false;
+    if (submitted) turn.answered += 1;
+    else turn.broken = true;
+    return this.settle(key, turn);
   }
 
   /** Response stream ended. Returns true when all its calls were already answered. */
   finish(delegationId: string | null): boolean {
     const key = this.key(delegationId);
-    if (this.finished.delete(`${key}:awaiting`)) return true;
-    if (this.pending.has(key)) {
-      this.finished.add(key);
-    }
-    return false;
+    const turn = this.turns.get(key);
+    if (!turn) return false;
+    turn.ended = true;
+    return this.settle(key, turn);
   }
 
+  /** Drop turn state after a protocol error so the session cannot wedge. */
+  reset() {
+    this.turns.clear();
+  }
+
+  /** True while any tool output is still owed to the backend. */
   get busy(): boolean {
-    return this.pending.size > 0;
+    for (const turn of this.turns.values()) {
+      if (turn.pending.size > 0) return true;
+    }
+    return false;
   }
 }
 

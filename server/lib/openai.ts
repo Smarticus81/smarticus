@@ -93,7 +93,7 @@ export async function searchWeb(query: string) {
   const response = await getOpenAI().responses.create({
     model: env.WEB_SEARCH_MODEL,
     instructions:
-      "Answer for a Grade 6 student in clear, accurate language. Use live web search when it improves accuracy or freshness. Distinguish established facts from uncertainty, avoid unsafe or age-inappropriate detail, and never fabricate sources.",
+      "Answer for a Grade 6 student in clear, accurate language an 11-to-12-year-old can follow: everyday words, short sentences, and a quick plain-language meaning for any technical term you need. Use live web search when it improves accuracy or freshness. Distinguish established facts from uncertainty, avoid unsafe or age-inappropriate detail, and never fabricate sources.",
     input: query,
     tools: [{ type: "web_search", external_web_access: true }],
     tool_choice: "auto",
