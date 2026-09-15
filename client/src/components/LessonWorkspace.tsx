@@ -22,6 +22,8 @@ import {
 import { useLearningJournal } from "./lessons/useLearningJournal";
 import { VirgilAvatar } from "../voice/VirgilAvatar";
 import { Whiteboard } from "../voice/Whiteboard";
+import { Reader } from "../voice/Reader";
+import { reader, useReader } from "../voice/readerStore";
 import {
   lessonNavigator,
   useWhiteboard,
@@ -66,6 +68,7 @@ export function LessonWorkspace({
   const tutorRef = useRef<HTMLElement>(null);
   const journeyRef = useRef<HTMLElement>(null);
   const board = useWhiteboard();
+  const readerState = useReader();
   const [practiceSelection, setPracticeSelection] = useState<
     { index: number; nonce: number } | undefined
   >(undefined);
@@ -262,8 +265,8 @@ export function LessonWorkspace({
           <h1>{lesson.lesson_title}</h1>
           <p>{lesson.unit_title}</p>
         </header>
-        <div className="zen-lesson-layout">
-          <section className="lesson-main">
+        <div className="virgil-stage">
+          <section className="lesson-drawer">
             <nav
               ref={journeyRef}
               className="journey-nav"
@@ -286,7 +289,6 @@ export function LessonWorkspace({
                 </button>
               ))}
             </nav>
-            {board.open && <Whiteboard onClose={() => whiteboard.setOpen(false)} />}
             <Scene id={tab}>
               {tab === "learn" ? (
                 <UnderstandPanel
@@ -356,7 +358,7 @@ export function LessonWorkspace({
                 : "Your reflections couldn’t save. Copy them before leaving."}
             </div>
           </section>
-          <aside className="lesson-aside zen-companion" ref={tutorRef}>
+          <aside className="virgil-rail" ref={tutorRef}>
             <button
               className="text-button companion-return"
               onClick={() =>
@@ -368,6 +370,18 @@ export function LessonWorkspace({
             >
               ↑ Back to the idea
             </button>
+            <div className="stage-surfaces" data-empty={!board.open && !readerState.open}>
+              {board.open && <Whiteboard onClose={() => whiteboard.setOpen(false)} />}
+              {readerState.open && <Reader onClose={() => reader.close()} />}
+              {!board.open && !readerState.open && (
+                <div className="stage-empty">
+                  <p>The board and the reading panel open when Virgil needs them.</p>
+                  <button className="text-button" onClick={() => whiteboard.setOpen(true)}>
+                    Open the whiteboard
+                  </button>
+                </div>
+              )}
+            </div>
             <section className="voice-panel">
               {voiceLoaded ? (
                 <Suspense fallback={<p role="status">Getting Virgil ready…</p>}>

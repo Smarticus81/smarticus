@@ -79,8 +79,12 @@ interface RenderResult {
   pen: PenPosition | null;
 }
 
+/**
+ * Hand motion accelerates quickly and settles slowly; a symmetric ease reads
+ * mechanical. This starts fast and eases out, like a pen finishing a stroke.
+ */
 function ease(progress: number) {
-  return progress < 0.5 ? 2 * progress * progress : 1 - (-2 * progress + 2) ** 2 / 2;
+  return 1 - (1 - progress) ** 2.6;
 }
 
 function strokeStyle(ctx: CanvasRenderingContext2D, color: string | null | undefined, width: number) {
@@ -89,6 +93,10 @@ function strokeStyle(ctx: CanvasRenderingContext2D, color: string | null | undef
   ctx.lineWidth = width;
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
+  // A soft, tight shadow lifts ink off the paper without looking like a glow.
+  ctx.shadowColor = "rgba(31, 42, 36, 0.16)";
+  ctx.shadowBlur = Math.max(1.5, width * 0.5);
+  ctx.shadowOffsetY = 0.6;
 }
 
 /** Draw the first `progress` fraction of the current path using a dash trick. */
@@ -113,11 +121,17 @@ function drawLabel(
   color: string | null | undefined,
   align: CanvasTextAlign = "center",
 ) {
-  ctx.font = `500 ${size}px ${FONT}`;
+  ctx.font = `560 ${size}px ${FONT}`;
   ctx.textAlign = align;
   ctx.textBaseline = "middle";
   ctx.fillStyle = color || INK;
+  ctx.shadowColor = "rgba(31, 42, 36, 0.14)";
+  ctx.shadowBlur = 2;
+  ctx.shadowOffsetY = 0.6;
   ctx.fillText(text, x, y);
+  ctx.shadowColor = "transparent";
+  ctx.shadowBlur = 0;
+  ctx.shadowOffsetY = 0;
 }
 
 function pointAlongPolyline(points: number[], progress: number): PenPosition {
@@ -161,10 +175,13 @@ function drawStep(ctx: CanvasRenderingContext2D, op: BoardOp, progress: number):
       const size = step.size ?? 30;
       const visibleChars = Math.ceil(step.text.length * eased);
       const shown = step.text.slice(0, visibleChars);
-      ctx.font = `500 ${size}px ${FONT}`;
+      ctx.font = `600 ${size}px ${FONT}`;
       ctx.textAlign = "left";
       ctx.textBaseline = "alphabetic";
       ctx.fillStyle = step.color || INK;
+      ctx.shadowColor = "rgba(31, 42, 36, 0.14)";
+      ctx.shadowBlur = 2.2;
+      ctx.shadowOffsetY = 0.7;
       const lines = shown.split("\n");
       lines.forEach((line, index) => ctx.fillText(line, step.x, step.y + index * size * 1.3));
       const last = lines[lines.length - 1] ?? "";
@@ -352,14 +369,23 @@ export function renderBoard(
 ): RenderResult {
   ctx.save();
   ctx.clearRect(0, 0, width, height);
-  ctx.fillStyle = "#fbfcf8";
+  // Warm paper with a faint vignette, so the board reads as a surface in the
+  // room rather than a flat white rectangle.
+  const paper = ctx.createLinearGradient(0, 0, 0, height);
+  paper.addColorStop(0, "#fdfdfa");
+  paper.addColorStop(1, "#f6f7ef");
+  ctx.fillStyle = paper;
   ctx.fillRect(0, 0, width, height);
   const scale = Math.min(width / BOARD_WIDTH, height / BOARD_HEIGHT);
   ctx.scale(scale, scale);
   // Faint dotted grid so drawings feel anchored.
-  ctx.fillStyle = "#e3e8da";
+  ctx.fillStyle = "#e6ebdd";
   for (let x = 50; x < BOARD_WIDTH; x += 50)
-    for (let y = 50; y < BOARD_HEIGHT; y += 50) ctx.fillRect(x - 1, y - 1, 2, 2);
+    for (let y = 50; y < BOARD_HEIGHT; y += 50) {
+      ctx.beginPath();
+      ctx.arc(x, y, 1.1, 0, Math.PI * 2);
+      ctx.fill();
+    }
 
   let animating = false;
   let pen: PenPosition | null = null;
@@ -370,13 +396,27 @@ export function renderBoard(
     }
     const progress = opProgress(op, now);
     if (progress < 1) animating = true;
+    // Each step starts from a clean shadow so fills and highlights never
+    // inherit the ink lift from the stroke before them.
+    ctx.shadowColor = "transparent";
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetY = 0;
     const tip = drawStep(ctx, op, progress);
     if (tip && progress < 1) pen = tip;
   }
   if (pen) {
+    // A glow plus a solid nib, so the eye can follow where she is writing.
+    ctx.shadowColor = "transparent";
+    const halo = ctx.createRadialGradient(pen.x, pen.y, 1, pen.x, pen.y, 16);
+    halo.addColorStop(0, "rgba(194, 69, 43, 0.35)");
+    halo.addColorStop(1, "rgba(194, 69, 43, 0)");
+    ctx.fillStyle = halo;
+    ctx.beginPath();
+    ctx.arc(pen.x, pen.y, 16, 0, Math.PI * 2);
+    ctx.fill();
     ctx.beginPath();
     ctx.fillStyle = "#c2452b";
-    ctx.arc(pen.x, pen.y, 6, 0, Math.PI * 2);
+    ctx.arc(pen.x, pen.y, 5, 0, Math.PI * 2);
     ctx.fill();
   }
   ctx.restore();

@@ -96,6 +96,7 @@ test("the learner can draw back with the pen and the tutor sees the strokes", as
   const canvas = page.getByTestId("whiteboard-canvas");
   await expect(canvas).toBeVisible();
   const before = await canvasInk(page);
+  await canvas.scrollIntoViewIfNeeded();
   const box = (await canvas.boundingBox())!;
   await page.mouse.move(box.x + 40, box.y + 40);
   await page.mouse.down();

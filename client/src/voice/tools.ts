@@ -4,6 +4,7 @@ import type { ToolExecutor } from "./liveSession";
 import { captureUiSnapshot } from "./uiSnapshot";
 import type { ScreenShare } from "./screenShare";
 import { lessonNavigator, whiteboard, type LessonSection } from "./whiteboardStore";
+import { reader } from "./readerStore";
 
 export interface ToolContext {
   lessonId: string;
@@ -39,7 +40,10 @@ export function createToolExecutors(context: ToolContext): Record<string, ToolEx
       // Compact rather than truncated: this is the most-called tool and every
       // call is charged against a 32768-byte session history, but the learner's
       // draft and the whiteboard summary must survive the trim.
-      const description = captureUiSnapshot({ compact: true, extra: [whiteboard.summary()] });
+      const description = captureUiSnapshot({
+        compact: true,
+        extra: [whiteboard.summary(), reader.summary()],
+      });
       const withImages = canSendImage();
       const frame = withImages ? await screenShare.captureFrame() : null;
       const images = frame ? [frame] : [];
@@ -84,6 +88,46 @@ export function createToolExecutors(context: ToolContext): Record<string, ToolEx
     whiteboard_clear: async () => {
       whiteboard.clear();
       return { cleared: true };
+    },
+    whiteboard_open: async () => {
+      whiteboard.setOpen(true);
+      return { open: true, board: whiteboard.summary() };
+    },
+    whiteboard_close: async () => {
+      whiteboard.setOpen(false);
+      return { open: false };
+    },
+    browse_web: async (args) => {
+      const url = nullableText(args.url) ?? null;
+      const query = nullableText(args.query) ?? null;
+      const purpose = nullableText(args.purpose) ?? null;
+      if (!url && !query) {
+        return { error: "Give a url to open or a query to search for." };
+      }
+      reader.beginLoad(purpose ?? query);
+      try {
+        const found = await api.tool.readPage({ url, query });
+        reader.show(found.page);
+        return {
+          opened: found.page.url,
+          site: found.page.site,
+          title: found.page.title,
+          // The learner can see the panel; this is what it says, so Virgil can
+          // teach from the same words rather than guessing at them.
+          page_text: found.summary,
+          pictures: found.page.images.length,
+          note: "The page is on screen beside the whiteboard. Talk him through it; point at a heading or a picture rather than reading it out word for word.",
+          ...(found.searchNote ? { search_note: found.searchNote } : {}),
+        };
+      } catch (error) {
+        const message = error instanceof Error ? error.message : "That page could not be opened.";
+        reader.fail(message);
+        return { error: message };
+      }
+    },
+    close_browser: async () => {
+      reader.close();
+      return { closed: true };
     },
     whiteboard_look: async () => {
       const image = canSendImage() ? whiteboard.image() : null;
