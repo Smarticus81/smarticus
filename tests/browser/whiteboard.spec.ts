@@ -116,10 +116,14 @@ test("look_at_screen describes the real interface and navigate_lesson moves it",
     "aria-label",
     /Question 2/,
   );
-  // Section transitions animate; wait until only the selected question card remains.
+  // Section transitions animate, so the previous card can linger; scope to the card for question 2.
+  const second = [...lesson.guided_practice, ...lesson.independent_practice, ...lesson.exit_ticket][1];
+  const card = page.locator(".focused-question", {
+    has: page.getByRole("heading", { name: second.prompt, exact: true }),
+  });
+  await expect(card).toBeVisible();
   await expect(page.locator(".focused-question")).toHaveCount(1);
-  const prompt = (await page.locator(".focused-question h3").textContent())!.trim();
-  await page.getByRole("textbox", { name: prompt }).fill("I think the first step is to compare parts.");
+  await card.getByRole("textbox").fill("I think the first step is to compare parts.");
   const seen = (await page.evaluate(() => window.__smarticus!.runTool("look_at_screen", { reason: null }))) as {
     output: { interface: string; screenshot: string };
     images: string[];
