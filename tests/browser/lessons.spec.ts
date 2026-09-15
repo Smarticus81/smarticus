@@ -36,11 +36,13 @@ async function mockApi(page: Page) {
   await page.route("**/api/**", async (route) => {
     const url = new URL(route.request().url());
     let data: unknown = {};
-    if (url.pathname === "/api/schedule/today")
-      data = days.find((day) => day.date === url.searchParams.get("date")) ?? {
-        ...latest,
-        lessons: [],
-      };
+    if (url.pathname === "/api/schedule/today") {
+      // Several curriculum files can share a date; the real server merges them.
+      const sameDay = days.filter((day) => day.date === url.searchParams.get("date"));
+      data = sameDay.length
+        ? { ...sameDay[0], lessons: sameDay.flatMap((day) => day.lessons) }
+        : { ...latest, lessons: [] };
+    }
     else if (url.pathname === "/api/schedule/dates")
       data = days.map((day) => day.date);
     else if (url.pathname === "/api/student/snapshot")
