@@ -47,6 +47,15 @@ export const WebSearchSchema = z.object({
   query: z.string().trim().min(1).max(2_000),
 }).strict();
 
+export const ReadPageSchema = z
+  .object({
+    url: z.string().max(600).nullable(),
+    query: z.string().max(300).nullable(),
+  })
+  .refine((value) => Boolean(value.url?.trim() || value.query?.trim()), {
+    message: "Provide a url or a query",
+  });
+
 export const LessonActionSchema = z.object({
   lesson_id: IdSchema,
 }).strict();

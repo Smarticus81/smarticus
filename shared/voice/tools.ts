@@ -58,6 +58,35 @@ export const voiceToolDefinitions = [
     parameters: z.object({}).strict(),
   }),
   define({
+    name: "whiteboard_open",
+    description:
+      "Open the shared whiteboard so Atticus can see it, and give it the stage. Drawing opens it automatically, so use this when you want the board visible before you draw, or when he asks to see it.",
+    parameters: z.object({ reason: z.string().max(200).nullable() }).strict(),
+  }),
+  define({
+    name: "whiteboard_close",
+    description:
+      "Put the whiteboard away and give the space back to the lesson. Use it when the drawing is finished with, or when he asks you to clear the view.",
+    parameters: z.object({}).strict(),
+  }),
+  define({
+    name: "browse_web",
+    description:
+      "Open a page on the shared screen for Atticus to read with you. Give a url to open a specific page, or a query to search and open the best result. The page is fetched, cleaned up and shown beside the whiteboard, and the readable text comes back to you so you can teach from it and point things out. Use it for current facts, real sources, images of real places and things, and anything worth looking at together rather than just describing.",
+    parameters: z
+      .object({
+        url: z.string().max(600).nullable(),
+        query: z.string().max(300).nullable(),
+        purpose: z.string().max(200).nullable(),
+      })
+      .strict(),
+  }),
+  define({
+    name: "close_browser",
+    description: "Close the shared reading panel and give the space back.",
+    parameters: z.object({}).strict(),
+  }),
+  define({
     name: "whiteboard_look",
     description:
       "Look at the whiteboard, including anything Atticus drew with the pen. Returns an image of the board and a list of its contents. Call this when he says he drew or wrote something, or before building on existing work.",

@@ -1,3 +1,4 @@
+import type { ReaderPage } from "../voice/readerStore";
 import type {
   AnswerSupport,
   LessonView,
@@ -128,6 +129,11 @@ export const api = {
         method: "POST",
         body: JSON.stringify({ query }),
       }),
+    readPage: (body: { url: string | null; query: string | null }) =>
+      request<{ page: ReaderPage; summary: string; searchNote: string | null }>(
+        "/api/read/page",
+        { method: "POST", body: JSON.stringify(body) },
+      ),
     workedExamples: (lessonId: string) =>
       request(`/api/tools/worked-examples/${encodeURIComponent(lessonId)}`),
     answerSupport: (lessonId: string, itemId: string) =>

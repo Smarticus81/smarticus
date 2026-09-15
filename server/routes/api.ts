@@ -29,6 +29,7 @@ import {
   TutorNoteSchema,
   SearchCurriculumSchema,
   WebSearchSchema,
+  ReadPageSchema,
   LessonActionSchema,
   TodayScheduleQuerySchema,
   SubjectParamsSchema,
@@ -37,6 +38,7 @@ import {
   LessonQuestionLookupSchema,
 } from "../../shared/schemas/api.js";
 import { searchVectorStore, searchWeb } from "../lib/openai.js";
+import { readPage, summarizeForTutor } from "../services/reader.js";
 import { log } from "../lib/logger.js";
 import type { Subject } from "@prisma/client";
 
@@ -273,6 +275,39 @@ apiRouter.post(
       filters: studentSearchFilter(body.subject),
     });
     res.json(results);
+  }),
+);
+
+/**
+ * Open a page for the shared reading panel. A query is resolved to a real URL
+ * through web search first, so the tutor can say "look this up" and still land
+ * on a specific page.
+ */
+apiRouter.post(
+  "/read/page",
+  asyncHandler(async (req, res) => {
+    const { url, query } = ReadPageSchema.parse(req.body);
+    log({ message: "Tool call", toolName: "browse_web", requestId: req.ctx.requestId });
+    let target = url?.trim() ?? "";
+    let searchNote: string | null = null;
+    if (!target && query?.trim()) {
+      const found = await searchWeb(
+        `${query.trim()}\n\nAnswer briefly, and cite the single best source page for a Grade 6 student to read.`,
+      );
+      target = found.sources[0] ?? "";
+      searchNote = found.answer?.slice(0, 600) ?? null;
+      if (!target) {
+        return res.status(422).json({ error: "That search did not turn up a page to open." });
+      }
+    }
+    try {
+      const page = await readPage(target);
+      res.json({ page, summary: summarizeForTutor(page), searchNote });
+    } catch (error) {
+      res.status(422).json({
+        error: error instanceof Error ? error.message : "That page could not be opened.",
+      });
+    }
   }),
 );
 
