@@ -273,13 +273,147 @@ export function stateNote(awake: boolean): string {
     : "[STATE: standby] Stay completely silent until you hear the wake word \"Virgil\".";
 }
 
+/**
+ * The delegated backend keeps a bounded input history: at most 128 items and
+ * 32768 UTF-8 bytes per session. Going over it fails the turn with "Backend
+ * response input history is limited to ...", so everything the browser adds is
+ * measured against this budget before it is sent.
+ */
+export const HISTORY_MAX_ITEMS = 128;
+export const HISTORY_MAX_BYTES = 32_768;
+/** Held back so a function call can always be answered, however chatty the UI was. */
+export const HISTORY_RESERVED_ITEMS = 24;
+export const HISTORY_RESERVED_BYTES = 12_288;
+/**
+ * Default ceiling for a single tool output. A session's whole history is 32768
+ * bytes, so this number decides how many tool calls a session affords. A
+ * measured look_at_screen payload is ~1000 bytes on a practice question, so this
+ * leaves headroom for a long written draft while still affording roughly twenty
+ * calls per session.
+ */
+export const DEFAULT_TOOL_OUTPUT_BYTES = 1_536;
+/**
+ * Most an image may take from the history. Measured data URLs: a 1280px
+ * screenshot is ~200KB, even a 384px one ~22KB, and a whiteboard PNG ~29KB —
+ * all beyond a 32768-byte session, so in practice the tutor's eyes are the text
+ * snapshot, which already carries the learner's drafts and the question. Raise
+ * this if the backend's history limit ever grows.
+ */
+export const MAX_IMAGE_HISTORY_BYTES = 8_192;
+/** Below this there is not enough room left for an answer worth sending. */
+export const HISTORY_MIN_USEFUL_BYTES = 256;
+
+export function utf8Bytes(value: string): number {
+  return new TextEncoder().encode(value).length;
+}
+
+/** Truncate to a UTF-8 byte budget without splitting a character or surrogate pair. */
+export function clipToBytes(text: string, maxBytes: number): string {
+  if (maxBytes <= 0) return "";
+  if (utf8Bytes(text) <= maxBytes) return text;
+  let low = 0;
+  let high = text.length;
+  while (low < high) {
+    const mid = Math.ceil((low + high) / 2);
+    if (utf8Bytes(text.slice(0, mid)) <= maxBytes) low = mid;
+    else high = mid - 1;
+  }
+  const code = low > 0 ? text.charCodeAt(low - 1) : 0;
+  return text.slice(0, code >= 0xd800 && code <= 0xdbff ? low - 1 : low);
+}
+
+export interface HistoryUsage {
+  items: number;
+  bytes: number;
+  maxItems: number;
+  maxBytes: number;
+  full: boolean;
+}
+
+/**
+ * Tracks what the browser has added to the delegated backend's input history.
+ *
+ * Items are append-only from here, so the budget cannot be reclaimed: the job
+ * is to spend it well. Optional context (what the learner is looking at) yields
+ * to required items (function call outputs), because an unanswered call stalls
+ * the turn while a missing UI note only costs the model a tool call.
+ */
+export class BackendHistoryBudget {
+  private items = 0;
+  private bytes = 0;
+  private declaredFull = false;
+
+  constructor(
+    private readonly maxItems = HISTORY_MAX_ITEMS,
+    private readonly maxBytes = HISTORY_MAX_BYTES,
+    private readonly reservedItems = HISTORY_RESERVED_ITEMS,
+    private readonly reservedBytes = HISTORY_RESERVED_BYTES,
+  ) {}
+
+  /** Bytes an item of this kind may still use; 0 means it cannot be sent. */
+  allowance(required: boolean): number {
+    if (this.declaredFull) return 0;
+    const itemsLeft = this.maxItems - this.items - (required ? 0 : this.reservedItems);
+    if (itemsLeft <= 0) return 0;
+    return Math.max(0, this.maxBytes - this.bytes - (required ? 0 : this.reservedBytes));
+  }
+
+  /** Bytes images may use right now, which is 0 unless one would genuinely fit. */
+  get imageAllowance(): number {
+    return Math.min(MAX_IMAGE_HISTORY_BYTES, this.allowance(false));
+  }
+
+  /** Record an item that was actually sent. */
+  record(byteSize: number) {
+    this.items += 1;
+    this.bytes += byteSize;
+  }
+
+  /** The backend reported the history is full; stop adding to it. */
+  markFull() {
+    this.declaredFull = true;
+  }
+
+  /** True once nothing worth sending would still fit. */
+  get full(): boolean {
+    return this.declaredFull || this.allowance(true) < HISTORY_MIN_USEFUL_BYTES;
+  }
+
+  get usage(): HistoryUsage {
+    return {
+      items: this.items,
+      bytes: this.bytes,
+      maxItems: this.maxItems,
+      maxBytes: this.maxBytes,
+      full: this.full,
+    };
+  }
+}
+
 /** Function outputs may carry text plus images for the vision-capable backend. */
 export interface ToolResult {
   output: unknown;
   images?: string[];
 }
 
-export function serializeToolOutput(result: unknown, maxChars = 24_000) {
+export interface ToolOutputLimits {
+  /** UTF-8 bytes the text may occupy. */
+  maxBytes?: number;
+  /** UTF-8 bytes images may occupy. Images are dropped when they do not fit. */
+  imageBytes?: number;
+}
+
+/**
+ * Turn a tool result into a backend item payload that fits the given budget.
+ *
+ * Images are data URLs measured in the hundreds of kilobytes, far more than a
+ * whole session's history allows, so they ride only when the caller grants
+ * enough image budget; otherwise the model is told the description is all it
+ * gets, rather than being left to wonder where the picture went.
+ */
+export function serializeToolOutput(result: unknown, limits: ToolOutputLimits | number = {}) {
+  const { maxBytes = DEFAULT_TOOL_OUTPUT_BYTES, imageBytes = 0 } =
+    typeof limits === "number" ? { maxBytes: limits, imageBytes: 0 } : limits;
   const normalized: ToolResult =
     result && typeof result === "object" && "output" in (result as ToolResult)
       ? (result as ToolResult)
@@ -288,11 +422,32 @@ export function serializeToolOutput(result: unknown, maxChars = 24_000) {
     typeof normalized.output === "string"
       ? normalized.output
       : JSON.stringify(normalized.output ?? null);
-  const clipped = text.length > maxChars ? `${text.slice(0, maxChars)}…[truncated]` : text;
-  if (!normalized.images?.length) return clipped;
+
+  const images: string[] = [];
+  let imagesLeft = imageBytes;
+  let dropped = 0;
+  for (const image of normalized.images ?? []) {
+    const cost = utf8Bytes(image);
+    if (cost <= imagesLeft) {
+      images.push(image);
+      imagesLeft -= cost;
+    } else {
+      dropped += 1;
+    }
+  }
+
+  const note = dropped
+    ? `\n[${dropped} image${dropped > 1 ? "s" : ""} could not be attached: the backend history has no room for them. The description above is what you have to work with — call the tool again after the learner changes something rather than guessing at pixels.]`
+    : "";
+  const room = Math.max(0, maxBytes - utf8Bytes(note));
+  const clipped =
+    utf8Bytes(text) > room ? `${clipToBytes(text, Math.max(0, room - 16))}…[truncated]` : text;
+  const body = `${clipped}${note}`;
+
+  if (!images.length) return body;
   return [
-    { type: "input_text" as const, text: clipped },
-    ...normalized.images.map((image_url) => ({
+    { type: "input_text" as const, text: body },
+    ...images.map((image_url) => ({
       type: "input_image" as const,
       image_url,
       detail: "auto" as const,

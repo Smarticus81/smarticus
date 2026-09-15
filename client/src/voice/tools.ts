@@ -8,6 +8,12 @@ import { lessonNavigator, whiteboard, type LessonSection } from "./whiteboardSto
 export interface ToolContext {
   lessonId: string;
   screenShare: ScreenShare;
+  /**
+   * Bytes an image may take in the backend's bounded input history. Captures are
+   * skipped when this is 0, so we do not spend time building a 200KB data URL
+   * that cannot be sent.
+   */
+  imageAllowance?: () => number;
 }
 
 function text(value: unknown, fallback = ""): string {
@@ -26,21 +32,32 @@ function nullableText(value: unknown): string | undefined {
 export function createToolExecutors(context: ToolContext): Record<string, ToolExecutor> {
   const { lessonId, screenShare } = context;
   const lessonIdOr = (value: unknown) => text(value) || lessonId;
+  const canSendImage = () => (context.imageAllowance?.() ?? 0) > 0;
 
   const executors: Record<string, ToolExecutor> = {
     look_at_screen: async () => {
-      const description = captureUiSnapshot({ extra: [whiteboard.summary()] });
-      const frame = await screenShare.captureFrame();
+      // Compact rather than truncated: this is the most-called tool and every
+      // call is charged against a 32768-byte session history, but the learner's
+      // draft and the whiteboard summary must survive the trim.
+      const description = captureUiSnapshot({ compact: true, extra: [whiteboard.summary()] });
+      const withImages = canSendImage();
+      const frame = withImages ? await screenShare.captureFrame() : null;
       const images = frame ? [frame] : [];
-      const boardImage = whiteboard.getSnapshot().open ? whiteboard.image() : null;
+      const boardImage = withImages && whiteboard.getSnapshot().open ? whiteboard.image() : null;
       if (boardImage) images.push(boardImage);
       return {
         output: {
           interface: description,
           screenshot: frame
             ? "A screenshot of the shared screen is attached."
-            : "Screen share is off; the description above was read directly from the live interface. Ask Atticus to press “Share screen” if you need to see something the description does not cover.",
-          whiteboard_image: boardImage ? "The current whiteboard is attached as an image." : "The whiteboard is closed.",
+            : screenShare.active
+              ? "Atticus is sharing his screen, but the picture does not fit this session's backend history, so the description above is what you have. It is read from the live interface and includes his drafts, so trust it."
+              : "Screen share is off; the description above was read directly from the live interface. Ask Atticus to press “Share screen” if you need to see something the description does not cover.",
+          whiteboard_image: boardImage
+            ? "The current whiteboard is attached as an image."
+            : whiteboard.getSnapshot().open
+              ? "The whiteboard is open; the listed contents above describe it."
+              : "The whiteboard is closed.",
         },
         images,
       };
@@ -69,11 +86,13 @@ export function createToolExecutors(context: ToolContext): Record<string, ToolEx
       return { cleared: true };
     },
     whiteboard_look: async () => {
-      const image = whiteboard.image();
+      const image = canSendImage() ? whiteboard.image() : null;
       return {
         output: {
           board: whiteboard.summary(),
-          image: image ? "The whiteboard image is attached." : "The whiteboard is not mounted, so only the list above is available.",
+          image: image
+            ? "The whiteboard image is attached."
+            : "No image this time, so work from the listed contents above; they include anything Atticus drew with the pen.",
         },
         images: image ? [image] : [],
       };

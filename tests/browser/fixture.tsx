@@ -129,7 +129,11 @@ declare global {
       whiteboard: typeof whiteboard;
       lessonNavigator: typeof lessonNavigator;
       captureUiSnapshot: typeof captureUiSnapshot;
-      runTool: (name: string, args: Record<string, unknown>) => Promise<unknown>;
+      runTool: (
+      name: string,
+      args: Record<string, unknown>,
+      imageBytes?: number,
+    ) => Promise<unknown>;
     };
   }
 }
@@ -137,8 +141,12 @@ window.__smarticus = {
   whiteboard,
   lessonNavigator,
   captureUiSnapshot,
-  runTool: (name, args) => {
-    const executors = createToolExecutors({ lessonId: "test-lesson", screenShare: new ScreenShare() });
+  runTool: (name, args, imageBytes = 0) => {
+    const executors = createToolExecutors({
+      lessonId: "test-lesson",
+      screenShare: new ScreenShare(),
+      imageAllowance: () => imageBytes,
+    });
     const executor = executors[name];
     if (!executor) throw new Error(`no executor for ${name}`);
     return executor(args, { callId: "test", name, arguments: JSON.stringify(args), delegationId: null, responseId: null });

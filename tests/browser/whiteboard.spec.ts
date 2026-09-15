@@ -80,7 +80,14 @@ test("Virgil draws on the whiteboard live and can look at what was drawn", async
   };
   expect(look.output.board).toContain("fraction bar 3/4");
   expect(look.output.board).toContain("number line 0 to 1 marking 0.75");
-  expect(look.images[0]).toMatch(/^data:image\/png;base64,/);
+  // Images ride only on a granted budget; the board's listed contents are what
+  // the tutor normally works from, because a data URL does not fit the backend's
+  // 32768-byte session history.
+  expect(look.images).toEqual([]);
+  const withBudget = (await page.evaluate(() =>
+    window.__smarticus!.runTool("whiteboard_look", {}, 64_000),
+  )) as { images: string[] };
+  expect(withBudget.images[0]).toMatch(/^data:image\/png;base64,/);
 });
 
 test("the learner can draw back with the pen and the tutor sees the strokes", async ({ page }) => {
