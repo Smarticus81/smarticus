@@ -15,38 +15,59 @@ export function getOpenAI(): OpenAI {
   return client;
 }
 
-export async function mintRealtimeClientSecret(params: {
+export interface LiveSessionRequest {
+  sdp: string;
   safetyIdentifier: string;
-  instructions: string;
-  tools?: unknown[];
-}) {
-  getOpenAI();
-  const response = await fetch("https://api.openai.com/v1/realtime/client_secrets", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${env.OPENAI_API_KEY}`,
-      "Content-Type": "application/json",
-      "OpenAI-Safety-Identifier": params.safetyIdentifier,
-    },
-    body: JSON.stringify({
+  voiceInstructions: string;
+  backendInstructions: string;
+  tools: Array<{
+    type: "function";
+    name: string;
+    description: string;
+    parameters: Record<string, unknown>;
+    strict: true;
+  }>;
+}
+
+/**
+ * Create a GPT-Live WebRTC session. The browser's SDP offer is answered by
+ * OpenAI; the full-duplex voice model handles conversation and delegates
+ * reasoning, tools, vision, and whiteboard work to the configured backend model.
+ */
+export async function createLiveSession(params: LiveSessionRequest) {
+  const openai = getOpenAI();
+  const created = await openai.live.create(
+    {
       session: {
-        type: "realtime",
         model: env.REALTIME_MODEL,
-        instructions: params.instructions,
-        audio: {
-          output: { voice: env.REALTIME_VOICE },
+        instructions: params.voiceInstructions,
+        audio: { output: { voice: env.REALTIME_VOICE } },
+        delegation: {
+          type: "responses",
+          responses: {
+            model: env.LIVE_BACKEND_MODEL,
+            instructions: params.backendInstructions,
+            tools: [...params.tools, { type: "web_search" }],
+            tool_choice: "auto",
+            parallel_tool_calls: true,
+            reasoning: { effort: env.LIVE_BACKEND_REASONING },
+            text: { verbosity: "low" },
+            max_output_tokens: 1_600,
+          },
         },
-        tools: params.tools,
+        store: false,
       },
-    }),
-  });
-
-  if (!response.ok) {
-    const text = await response.text();
-    throw new Error(`Failed to mint client secret: ${response.status} ${text}`);
-  }
-
-  return response.json() as Promise<{ value: string }>;
+      transport: { type: "webrtc", sdp: params.sdp },
+    },
+    { headers: { "OpenAI-Safety-Identifier": params.safetyIdentifier } },
+  );
+  return {
+    sessionId: created.session.id,
+    sdp: created.transport.sdp,
+    voiceModel: env.REALTIME_MODEL,
+    backendModel: env.LIVE_BACKEND_MODEL,
+    voice: env.REALTIME_VOICE,
+  };
 }
 
 export async function searchVectorStore(params: {

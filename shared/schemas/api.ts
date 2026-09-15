@@ -47,11 +47,15 @@ export const WebSearchSchema = z.object({
   query: z.string().trim().min(1).max(2_000),
 }).strict();
 
-export const ClientSecretRequestSchema = z.object({
+export const LessonActionSchema = z.object({
   lesson_id: IdSchema,
 }).strict();
 
-export const LessonActionSchema = ClientSecretRequestSchema;
+export const LiveSessionRequestSchema = z.object({
+  lesson_id: IdSchema,
+  /** The browser's WebRTC SDP offer. */
+  sdp: z.string().min(20).max(64_000).regex(/^v=0/, "Expected an SDP offer"),
+}).strict();
 
 export const QuestionSectionEnum = z.enum([
   "guided_practice",

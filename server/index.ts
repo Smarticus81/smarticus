@@ -142,7 +142,7 @@ export function createApp() {
   );
 
   app.use(
-    "/api/realtime/client-secret",
+    "/api/realtime/live",
     rateLimit({
       windowMs: 15 * 60 * 1000,
       limit: 20,

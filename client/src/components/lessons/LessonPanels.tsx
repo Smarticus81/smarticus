@@ -187,12 +187,15 @@ export function PracticePanel({
   onAnswer,
   onFocus,
   onDiscuss,
+  selection,
 }: {
   lesson: LessonView;
   answers: Record<string, string>;
   onAnswer: (id: string, value: string) => void;
   onFocus: (focus: string) => void;
   onDiscuss: (focus: string) => void;
+  /** External selection (for example from the voice tutor); a new object re-applies it. */
+  selection?: { index: number; nonce: number };
 }) {
   const items: Array<PracticeItem & { key: string; group: string }> = [
     lesson.guided_practice,
@@ -206,6 +209,12 @@ export function PracticePanel({
     })),
   );
   const [index, setIndex] = useState(0);
+  useEffect(() => {
+    if (selection && items.length)
+      setIndex(Math.min(Math.max(0, selection.index), items.length - 1));
+    // Only re-apply when the tutor issues a new request.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selection]);
   const current = items[index];
   const count = items.filter((item) => answers[item.key]?.trim()).length;
   useEffect(() => {

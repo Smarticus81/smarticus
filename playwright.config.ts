@@ -7,6 +7,9 @@ export default defineConfig({
   use: {
     baseURL: "http://localhost:5176",
     channel: process.env.PLAYWRIGHT_CHANNEL || undefined,
+    launchOptions: process.env.PLAYWRIGHT_EXECUTABLE_PATH
+      ? { executablePath: process.env.PLAYWRIGHT_EXECUTABLE_PATH }
+      : undefined,
     viewport: { width: 1280, height: 900 },
     trace: "retain-on-failure",
   },
