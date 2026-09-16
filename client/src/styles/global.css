@@ -1660,6 +1660,30 @@ em {
 .voice-status-dot--error {
   background: #b97862;
 }
+.voice-fallback-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin: 0 0 18px;
+  padding: 11px 13px;
+  border: 1px solid #d8c49a;
+  border-radius: 10px;
+  background: #fdf6e6;
+  color: #7a6434;
+  text-align: left;
+}
+.voice-fallback-notice svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.voice-fallback-notice p {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.6;
+}
+.voice-fallback-notice strong {
+  font-weight: 600;
+}
 .voice-instruction {
   font-size: 11px;
   text-align: center;

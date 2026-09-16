@@ -24,7 +24,8 @@ export type IconName =
   | "headphones"
   | "sun"
   | "chevron"
-  | "pause";
+  | "pause"
+  | "alert";
 const paths: Record<IconName, React.ReactNode> = {
   home: (
     <>
@@ -141,6 +142,12 @@ const paths: Record<IconName, React.ReactNode> = {
   pause: (
     <>
       <path d="M8 5v14M16 5v14" />
+    </>
+  ),
+  alert: (
+    <>
+      <path d="M12 3 2 20h20L12 3Z" />
+      <path d="M12 10v4M12 17.5v.01" />
     </>
   ),
 };

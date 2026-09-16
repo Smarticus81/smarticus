@@ -7,32 +7,46 @@ import {
 import { toFunctionTools } from "../../shared/voice/tools.js";
 import { getLessonById } from "../services/academic.js";
 import { buildAgentInstructions } from "../services/review.js";
-import { buildVoiceInstructions } from "../services/voicePrompt.js";
+import {
+  buildVoiceInstructions,
+  RESPONSE_QUALITY_RULES,
+} from "../services/voicePrompt.js";
 import { createLiveSession } from "../lib/openai.js";
+import { geminiConfigured } from "../lib/gemini.js";
 import { hashSafetyIdentifier } from "../lib/auth.js";
 import { getDefaultStudent } from "../services/student.js";
 import { prisma } from "../lib/prisma.js";
 import { log } from "../lib/logger.js";
+import { env } from "../config/env.js";
 
 export const realtimeRouter = Router();
 
-const RESPONSE_QUALITY_RULES = `
-RESPONSE QUALITY RULES — follow these even if earlier general wording differs:
-- Be concise by default. Most spoken replies should be one or two short sentences. Give one step or one explanation at a time. Do not add filler, repeated encouragement, recaps, or multiple follow-up questions unless Atticus asks for more detail.
-- Keep every explanation inside the vocabulary of an 11-to-12-year-old: everyday words, short sentences, one idea at a time. Keep the real subject terms, but give a short plain-language meaning the first time each one comes up, and define any other hard word in six words or fewer right after you use it. Simpler wording never means a lower academic standard.
-- Hold a high academic standard while remaining calm and supportive. Do not lower the standard to make an answer feel successful.
-- Do not call a response complete when it omits a requested part, unit, label, setup, diagram, evidence, explanation, revision step, or second output. Say briefly what is missing and require Atticus to finish it.
-- If the numerical answer is correct but required work is missing, say: "The number is right, but the response is not complete yet." Then name one missing requirement.
-- Do not accept vague reasoning that merely restates the question or evidence. Ask what the evidence proves, why the step works, or what mechanism connects cause and effect.
-- For any assigned guided-practice, independent-practice, or exit-ticket question, NEVER state the final answer, even after an incorrect attempt. Say whether his attempt is correct, incorrect, partially correct, or incomplete; identify one issue; give one concise hint or next step; then ask him to retry.
-- If his assigned answer is fully correct and complete, confirm it briefly and explain the key reason without restating a hidden answer key.
-- If he is stuck, use at most one analogous example that is different from the assigned item, then return to his problem. The whiteboard is the right place for that example.
-- Do not solve an assigned problem by gradually supplying every missing step. Keep the final calculation, wording, diagram, or conclusion for Atticus to produce.
-- During writing, require actual revision when the assignment calls for revision. Do not rewrite the paragraph for him.
-- During build labs, coach specification, coding, testing, debugging, and explanation. You may teach syntax and show small snippets on the whiteboard, but do not take over the finished project.
-- For general concept questions that are not assigned items, teach directly and comprehensively enough for understanding, but still keep spoken chunks short unless Atticus asks for more detail.
-`;
+/**
+ * Errors that mean the OpenAI account cannot pay for this session, as opposed to
+ * a transient outage. Only these hand the lesson to the free fallback tier: a
+ * network blip should be retried on the good pipeline, not answered by the
+ * weaker one.
+ */
+const QUOTA_ERROR =
+  /insufficient_quota|exceeded your current quota|billing_hard_limit|quota exceeded|account is not active/i;
 
+function isQuotaError(error: unknown): boolean {
+  if (QUOTA_ERROR.test(error instanceof Error ? error.message : String(error))) return true;
+  // Deliberately not a bare 429: that is also how a transient rate limit
+  // arrives, and a burst of requests should be retried on the good pipeline
+  // rather than moving a child onto the weaker, less private one.
+  const { code, type } = (error ?? {}) as { code?: string; type?: string };
+  return code === "insufficient_quota" || type === "insufficient_quota";
+}
+
+/** What the studio can fall back to when the paid pipeline is unavailable. */
+realtimeRouter.get("/providers", (_req, res) => {
+  res.json({
+    fallback: geminiConfigured() ? "gemini" : null,
+    fallbackModel: geminiConfigured() ? env.GEMINI_LIVE_MODEL : null,
+    fallbackVoice: geminiConfigured() ? env.GEMINI_LIVE_VOICE : null,
+  });
+});
 realtimeRouter.post(
   "/live",
   asyncHandler(async (req, res) => {
@@ -88,6 +102,24 @@ realtimeRouter.post(
     } catch (error) {
       const message =
         error instanceof Error ? error.message : "Failed to create live session";
+      const exhausted = !env.OPENAI_API_KEY || isQuotaError(error);
+      if (exhausted && geminiConfigured()) {
+        log({
+          message: "Live voice session unavailable; offering the fallback tier",
+          requestId: req.ctx.requestId,
+          lessonId: lesson.id,
+          reason: env.OPENAI_API_KEY ? "quota" : "unconfigured",
+        });
+        // 402 rather than 503: the pipeline is healthy, the budget is not, and
+        // the client has somewhere else to go.
+        return res.status(402).json({
+          error: env.OPENAI_API_KEY
+            ? "The OpenAI voice budget is used up"
+            : "OpenAI not configured",
+          fallback: "gemini",
+          fallbackModel: env.GEMINI_LIVE_MODEL,
+        });
+      }
       if (message.includes("OPENAI_API_KEY")) {
         return res.status(503).json({
           error: "OpenAI not configured",
