@@ -1,4 +1,12 @@
 import {
+  developerNote,
+  type LiveStatus,
+  type ToolExecutor,
+  type TutorSession,
+  type TutorSessionEventName,
+  type TutorSessionEvents,
+} from "./session";
+import {
   BackendHistoryBudget,
   DEFAULT_TOOL_OUTPUT_BYTES,
   functionCallFromEvent,
@@ -12,25 +20,14 @@ import {
   type LiveFunctionCall,
 } from "./liveEvents";
 
-export type ToolExecutor = (
-  args: Record<string, unknown>,
-  call: LiveFunctionCall,
-) => Promise<unknown>;
+export type {
+  ToolExecutor,
+  TutorSession,
+  TutorSessionEvents as LiveSessionEvents,
+  LiveStatus,
+} from "./session";
 
-export interface LiveSessionEvents {
-  connected: (info: { sessionId: string }) => void;
-  disconnected: (reason: string) => void;
-  error: (message: string) => void;
-  input_transcript: (delta: string, startMs: number, endMs: number) => void;
-  output_transcript: (delta: string, startMs: number, endMs: number) => void;
-  tool_call: (call: LiveFunctionCall) => void;
-  tool_result: (call: LiveFunctionCall, ok: boolean) => void;
-  delegation: (target: "client" | "responses") => void;
-  history_full: (usage: HistoryUsage) => void;
-  server_event: (event: Record<string, unknown>) => void;
-}
-
-type EventName = keyof LiveSessionEvents;
+type EventName = TutorSessionEventName;
 
 export interface LiveSessionOptions {
   mediaStream: MediaStream;
@@ -39,8 +36,6 @@ export interface LiveSessionOptions {
   negotiate: (sdp: string) => Promise<{ sdp: string; sessionId: string }>;
   tools: Record<string, ToolExecutor>;
 }
-
-export type LiveStatus = "idle" | "connecting" | "connected" | "closed";
 
 const DATA_CHANNEL = "oai-events";
 const ICE_GATHER_TIMEOUT_MS = 1_500;
@@ -55,7 +50,8 @@ const HISTORY_FULL_ERROR = /input history is limited|history is full/i;
  * connection; Live events flow over the data channel. Function calls from the
  * delegated backend are executed here and answered on the same channel.
  */
-export class LiveVoiceSession {
+export class LiveVoiceSession implements TutorSession {
+  readonly provider = "openai" as const;
   private peer: RTCPeerConnection | null = null;
   private channel: RTCDataChannel | null = null;
   private readonly tracker = new ToolTurnTracker();
@@ -69,7 +65,7 @@ export class LiveVoiceSession {
 
   constructor(private readonly options: LiveSessionOptions) {}
 
-  on<K extends EventName>(event: K, handler: LiveSessionEvents[K]): () => void {
+  on<K extends EventName>(event: K, handler: TutorSessionEvents[K]): () => void {
     const set = this.listeners.get(event) ?? new Set();
     set.add(handler as (...args: never[]) => void);
     this.listeners.set(event, set);
@@ -78,10 +74,10 @@ export class LiveVoiceSession {
     };
   }
 
-  private emit<K extends EventName>(event: K, ...args: Parameters<LiveSessionEvents[K]>) {
+  private emit<K extends EventName>(event: K, ...args: Parameters<TutorSessionEvents[K]>) {
     for (const handler of this.listeners.get(event) ?? []) {
       try {
-        (handler as unknown as (...inner: Parameters<LiveSessionEvents[K]>) => void)(...args);
+        (handler as unknown as (...inner: Parameters<TutorSessionEvents[K]>) => void)(...args);
       } catch (error) {
         console.error(`Live listener for ${event} failed`, error);
       }
@@ -152,6 +148,11 @@ export class LiveVoiceSession {
     if (!this.send(event)) return false;
     this.history.record(size);
     return true;
+  }
+
+  /** A developer-role note for the delegated backend's bounded history. */
+  addDeveloperNote(text: string): boolean {
+    return this.addBackendItem(developerNote(text));
   }
 
   /** Bytes an image could still use, so tools can skip pointless captures. */

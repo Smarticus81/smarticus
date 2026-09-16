@@ -12,6 +12,8 @@ export class ApiError extends Error {
   constructor(
     message: string,
     readonly status: number,
+    /** The whole error body, so callers can read fields such as `fallback`. */
+    readonly body: Record<string, unknown> = {},
   ) {
     super(message);
     this.name = "ApiError";
@@ -31,7 +33,7 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 
   if (!res.ok) {
     const err = await res.json().catch(() => ({ error: res.statusText }));
-    throw new ApiError(err.error ?? "Request failed", res.status);
+    throw new ApiError(err.error ?? "Request failed", res.status, err);
   }
 
   if (res.status === 204) return undefined as T;
@@ -79,6 +81,12 @@ export const api = {
       body: JSON.stringify({ lesson_id, sdp }),
       signal: AbortSignal.timeout(45_000),
     }),
+  voiceProviders: () =>
+    request<{
+      fallback: "gemini" | null;
+      fallbackModel: string | null;
+      fallbackVoice: string | null;
+    }>("/api/realtime/providers"),
   endSession: (payload: {
     session_id: string;
     summary?: string;

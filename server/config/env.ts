@@ -35,6 +35,17 @@ export const envSchema = z
       .enum(["none", "minimal", "low", "medium", "high", "xhigh"])
       .default("low"),
     WEB_SEARCH_MODEL: z.string().default("gpt-5.6"),
+    /**
+     * Free-tier fallback for when the OpenAI quota runs out. Leave the key empty
+     * to disable the fallback entirely; the studio then reports the quota error
+     * as before.
+     */
+    GEMINI_API_KEY: optionalString,
+    GEMINI_LIVE_MODEL: z.string().default("gemini-2.5-flash-native-audio-preview-09-2025"),
+    GEMINI_LIVE_VOICE: z.string().default("Puck"),
+    GEMINI_ENABLE_SEARCH: booleanEnvironment("true"),
+    /** Concurrent fallback voice sessions allowed; this studio has one learner. */
+    GEMINI_MAX_SESSIONS: z.coerce.number().int().positive().max(20).default(2),
     OPENAI_VECTOR_STORE_ID: optionalString,
     DATABASE_URL: z
       .string()
