@@ -39,7 +39,7 @@ npm run db:setup
 npm run dev
 ```
 
-The browser app runs at `http://localhost:5173`; Vite proxies API requests to port 3000. Set `OPENAI_API_KEY` to enable live voice sessions; `REALTIME_MODEL`, `REALTIME_VOICE`, `LIVE_BACKEND_MODEL`, and `LIVE_BACKEND_REASONING` select the voice model, voice, delegated reasoning model, and its reasoning effort. `GEMINI_API_KEY` enables the free backup tutor described above, with `GEMINI_LIVE_MODEL` and `GEMINI_LIVE_VOICE` selecting its model and voice; without it a quota error is reported rather than worked around. Local development bypasses the access-password screen when `APP_ACCESS_PASSWORD` is empty. `db:setup` creates the configured database when needed, applies the checked-in migrations, and seeds the curriculum; it also works on Windows ARM64 where Prisma's native schema engine is unavailable.
+The browser app runs at `http://localhost:5173`; Vite proxies API requests to port 3000. Set `OPENAI_API_KEY` to enable live voice sessions; `REALTIME_MODEL`, `REALTIME_VOICE`, `LIVE_BACKEND_MODEL`, and `LIVE_BACKEND_REASONING` select the voice model, voice, delegated reasoning model, and its reasoning effort. `GEMINI_API_KEY` enables the free backup tutor described above, with `GEMINI_LIVE_MODEL` (default `gemini-3.8-live`) and `GEMINI_LIVE_VOICE` selecting its model and voice; without it a quota error is reported rather than worked around. Local development bypasses the access-password screen when `APP_ACCESS_PASSWORD` is empty. `db:setup` creates the configured database when needed, applies the checked-in migrations, and seeds the curriculum; it also works on Windows ARM64 where Prisma's native schema engine is unavailable.
 
 Before committing, run the same verification used by CI:
 

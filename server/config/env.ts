@@ -41,7 +41,7 @@ export const envSchema = z
      * as before.
      */
     GEMINI_API_KEY: optionalString,
-    GEMINI_LIVE_MODEL: z.string().default("gemini-2.5-flash-native-audio-preview-09-2025"),
+    GEMINI_LIVE_MODEL: z.string().default("gemini-3.8-live"),
     GEMINI_LIVE_VOICE: z.string().default("Puck"),
     GEMINI_ENABLE_SEARCH: booleanEnvironment("true"),
     /** Concurrent fallback voice sessions allowed; this studio has one learner. */

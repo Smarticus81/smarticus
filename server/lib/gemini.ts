@@ -70,6 +70,11 @@ export function buildGeminiSetup(params: GeminiSetupParams): Record<string, unkn
       // and saved session transcript work the same on either provider.
       inputAudioTranscription: {},
       outputAudioTranscription: {},
+      // Nothing is set for thinking level, proactive audio or affective dialogue:
+      // Gemini 3.8 Live either fixes those or rejects them outright. Turn
+      // coverage is left at its default too, which forwards every video frame —
+      // harmless here because the bridge only ever sends one when a tool
+      // returned a picture.
     },
   };
 }
