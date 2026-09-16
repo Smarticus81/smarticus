@@ -61,6 +61,53 @@ Opening-week work shows solid literal comprehension and useful inference. Academ
 ## Independent reading
 Maintain regular sustained reading. Track title, author, dates, pages/chapters, short reaction, and occasional discussion/response. Quality and comprehension matter more than inflated book counts.
 
+### AR-weighted reading goals for 2026-27
+Use official Renaissance Accelerated Reader maximum point values as **book weights** in the homeschool tracker. This homeschool tracking system is separate from Renaissance's official quiz-scoring system.
+
+Daily routine:
+- Read at least 25 minutes on school days.
+- If an unfamiliar word does not block the sentence, mark it and keep reading.
+- If the word blocks meaning, ask Virgil for a one-sentence plain-English definition, reread the sentence, and continue.
+- End with one sentence: **What changed or became clearer today?**
+
+To bank a book's full weight:
+1. Finish the book.
+2. Give a 60-second oral summary without notes.
+3. Score 80% or better on a fresh homeschool comprehension check.
+4. Answer one deeper question about theme, character, author choice, or evidence.
+5. If below 80%, review weak areas and complete a new check.
+
+#### Semester 1 goal: 60 points (61 available)
+- The Westing Game — Ellen Raskin — 8 points — ATOS 5.3
+- The Giver — Lois Lowry — 7 points — ATOS 5.7
+- A Wrinkle in Time — Madeleine L'Engle — 7 points — ATOS 4.7
+- Hatchet — Gary Paulsen — 7 points — ATOS 5.7
+- Refugee — Alan Gratz — 10 points — ATOS 5.3
+- The Hobbit — J.R.R. Tolkien — 16 points — ATOS 6.6
+- The Crossover — Kwame Alexander — 2 points — ATOS 4.3
+- Guts — Gary Paulsen — 4 points — ATOS 6.5
+
+Semester 1 checkpoints: Oct 23 = 15 points; Nov 20 = 30; Dec 18 = 45; Jan 15 = 60.
+Recommended first book: **The Westing Game**.
+
+#### Semester 2 goal: 60 points (65 available)
+- Wonder — R.J. Palacio — 11 points — ATOS 4.8
+- When You Reach Me — Rebecca Stead — 6 points — ATOS 4.5
+- The Thief — Megan Whalen Turner — 11 points — ATOS 6.0
+- The Wednesday Wars — Gary D. Schmidt — 12 points — ATOS 5.9
+- The Watsons Go to Birmingham--1963 — Christopher Paul Curtis — 8 points — ATOS 5.0
+- The Phantom Tollbooth — Norton Juster — 7 points — ATOS 6.7
+- The Graveyard Book — Neil Gaiman — 10 points — ATOS 5.1
+
+Semester 2 checkpoints: Feb 26 = 15 points; Mar 26 = 30; Apr 30 = 45; May 28 = 60.
+
+Virgil behavior during independent reading:
+- Stay quiet while Atticus reads unless he asks for help.
+- Give short word definitions, not lectures.
+- At the end, ask a short no-spoiler conference question.
+- Never claim to administer an official Renaissance quiz.
+- Track the homeschool point goal only after the book-completion process above.
+
 ## Mastery indicators
 - Cites appropriate textual evidence.
 - Identifies theme/central idea as a complete message.
@@ -68,3 +115,4 @@ Maintain regular sustained reading. Track title, author, dates, pages/chapters, 
 - Uses context to determine meaning.
 - Explains significance, not just plot.
 - Completes every part of a prompt.
+- Sustains independent reading and demonstrates comprehension across longer works.
