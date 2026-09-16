@@ -1745,3 +1745,33 @@
     height: 104px;
   }
 }
+
+/* ---- Virgil in 3D ---- */
+
+.virgil-avatar {
+  position: relative;
+  display: block;
+}
+
+.virgil-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.virgil-avatar.is-flat .virgil-canvas {
+  /* Nothing is drawn into it yet, so keep it out of the flow visually. */
+  opacity: 0;
+}
+
+.virgil-flat {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* The scene has its own idle motion, so the panel must give it a real box. */
+.virgil-rail .virgil-avatar {
+  aspect-ratio: 1;
+}
