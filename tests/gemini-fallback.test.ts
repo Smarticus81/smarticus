@@ -57,6 +57,18 @@ describe("Gemini fallback tool declarations", () => {
     }
   });
 
+  it("asks for blocking tool calls, which the browser executors assume", () => {
+    // Gemini 3.8 Live defaults to NON_BLOCKING: the model would keep talking
+    // through a tool call and could answer before look_at_screen came back.
+    for (const declaration of toGeminiFunctionDeclarations()) {
+      assert.equal(
+        declaration.behavior,
+        "BLOCKING",
+        `${declaration.name} must not inherit the asynchronous default`,
+      );
+    }
+  });
+
   it("emits only schema keywords Gemini understands", () => {
     for (const declaration of toGeminiFunctionDeclarations()) {
       walk(declaration.parameters, declaration.name, (node, path) => {

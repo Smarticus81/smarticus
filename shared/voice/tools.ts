@@ -261,6 +261,14 @@ export function toFunctionTools(
 export interface GeminiFunctionDeclaration {
   name: string;
   description: string;
+  /**
+   * Gemini 3.8 Live defaults to NON_BLOCKING, where the model keeps speaking
+   * while a tool runs and the reply may arrive before the result does. The
+   * studio's executors are written for the older synchronous contract — look at
+   * the screen, then answer about what is there — so the blocking mode is asked
+   * for explicitly rather than inherited.
+   */
+  behavior: "BLOCKING";
   parameters?: Record<string, unknown>;
 }
 
@@ -401,6 +409,7 @@ export function toGeminiFunctionDeclarations(
     return {
       name: definition.name,
       description: definition.description,
+      behavior: "BLOCKING",
       ...(hasParameters ? { parameters: schema } : {}),
     };
   });
