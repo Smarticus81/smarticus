@@ -32,15 +32,26 @@ const days: ScheduleView[] = readdirSync("curriculum/2026-27/daily")
   });
 const all = days.flatMap((day) => day.lessons);
 const latest = days.find((day) => day.date === "2026-09-08")!;
-async function mockApi(page: Page) {
+/**
+ * Serve the mocked API.
+ *
+ * `only` pins a single curriculum file as the day. Several files share a date —
+ * a combined day plus per-topic additions, some carrying the same lesson id — so
+ * resolving a date across all of them serves one file's lessons to every test
+ * for that date. The rest then waited the full timeout for a lesson button that
+ * was never going to render, which is most of the suite's running time.
+ */
+async function mockApi(page: Page, only?: ScheduleView) {
   await page.route("**/api/**", async (route) => {
     const url = new URL(route.request().url());
     let data: unknown = {};
-    if (url.pathname === "/api/schedule/today")
-      data = days.find((day) => day.date === url.searchParams.get("date")) ?? {
+    if (url.pathname === "/api/schedule/today") {
+      const date = url.searchParams.get("date");
+      data = (only?.date === date ? only : days.find((day) => day.date === date)) ?? {
         ...latest,
         lessons: [],
       };
+    }
     else if (url.pathname === "/api/schedule/dates")
       data = days.map((day) => day.date);
     else if (url.pathname === "/api/student/snapshot")
@@ -54,10 +65,11 @@ async function mockApi(page: Page) {
         recentSessions: [],
         attendance: [],
       };
-    else if (url.pathname === "/api/lessons/select")
-      data = all.find(
-        (lesson) => lesson.id === route.request().postDataJSON().lesson_id,
-      );
+    else if (url.pathname === "/api/lessons/select") {
+      const id = route.request().postDataJSON().lesson_id;
+      // The pinned file wins: ids repeat across files that share a date.
+      data = only?.lessons.find((lesson) => lesson.id === id) ?? all.find((lesson) => lesson.id === id);
+    }
     else if (url.pathname.includes("answer-support"))
       data = {
         hint: "Label the known quantities and decide what you need to find.",
@@ -103,6 +115,8 @@ test.beforeEach(async ({ page }) => {
 for (const [dayIndex, day] of days.entries()) {
   // Several curriculum files can share a date, so include the position to keep titles unique.
   test(`all sections preserve the ${day.date} curriculum (file ${dayIndex + 1})`, async ({ page }) => {
+    // A later route wins in Playwright, so this pins the day for this test only.
+    await mockApi(page, day);
     const errors: string[] = [];
     page.on("pageerror", (error) => errors.push(error.message));
     for (const lesson of day.lessons) {

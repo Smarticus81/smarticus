@@ -10,7 +10,10 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    # The browser suite alone runs about ten minutes, and the job also installs
+    # dependencies and a browser before it. At fifteen the job was being killed
+    # mid-suite and reporting "cancelled", so no run could ever go green.
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
