@@ -170,43 +170,9 @@ em {
   background: #d5eea7;
   color: #263c25;
 }
-.new-label {
-  font-size: 7px;
-  border: 1px solid #6b7b61;
-  color: #d9e9cb;
-  padding: 3px 4px;
-  border-radius: 4px;
-  margin-left: auto;
-  white-space: nowrap;
-}
-.nav-item.active .new-label {
-  color: #263c25;
-  border-color: #97b778;
-}
 .sidebar-bottom {
   margin-top: auto;
   padding-top: 70px;
-}
-.sidebar-note {
-  border: 1px solid #465344;
-  background: radial-gradient(ellipse at top right, #3b4934, transparent 75%);
-  padding: 23px 19px;
-  border-radius: 13px;
-  margin: 0 3px 32px;
-  color: #cee1b9;
-}
-.sidebar-note p {
-  margin: 12px 0 7px;
-  font-size: 15px;
-  line-height: 1.5;
-}
-.sidebar-note strong {
-  font-weight: 500;
-  color: #e7f1db;
-}
-.sidebar-note > span {
-  font-size: 11px;
-  color: #a9b5a7;
 }
 .profile {
   display: flex;
@@ -232,18 +198,11 @@ em {
   font-weight: 550;
   color: #e5ece1;
 }
-.profile span:not(.profile-dot) {
+.profile span {
   display: block;
   font-size: 9px;
   color: #94a293;
   margin-top: 5px;
-}
-.profile-dot {
-  height: 6px;
-  width: 6px;
-  background: #c2d999;
-  border-radius: 50%;
-  margin-left: auto;
 }
 .avatar-small {
   width: 31px;
@@ -314,13 +273,6 @@ em {
   font-weight: 600;
   margin: 12px 0 9px;
   letter-spacing: -1.65px;
-}
-.greeting-spark {
-  display: inline-block;
-  color: #879c59;
-  font-size: 37px;
-  margin-left: 16px;
-  vertical-align: middle;
 }
 .page-heading p {
   margin: 0;
@@ -669,9 +621,11 @@ em {
   font-size: 9px;
   color: #8a9281;
 }
+/* The promo and teaser cards that filled the second column were fixed copy
+   pointing at fixed content, so the plan now has the width to itself. */
 .content-grid {
   display: grid;
-  grid-template-columns: minmax(0, 2.45fr) minmax(230px, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: 22px;
   margin-top: 34px;
 }
@@ -817,110 +771,11 @@ em {
   border-radius: 50%;
   padding: 4px;
 }
-.home-aside {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding-top: 1px;
-}
-.tutor-promo,
 .voice-panel {
   border: 1px solid var(--line);
   background: #fff;
   border-radius: 15px;
   padding: 23px;
-}
-.tutor-promo .eyebrow {
-  font-size: 7px;
-  letter-spacing: 1px;
-}
-.tutor-promo .section-top > svg {
-  color: #8b917f;
-}
-.virgil-face {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  justify-content: center;
-  width: 71px;
-  height: 66px;
-  border-radius: 24px;
-  background: #e9eee0;
-  border: 1px solid #d8e2cb;
-  box-shadow: inset 0 -5px 0 #dce5d1;
-  margin: 24px 0 21px;
-  transform: rotate(-5deg);
-  position: relative;
-}
-.virgil-face:after {
-  content: "";
-  position: absolute;
-  width: 15px;
-  height: 6px;
-  border-bottom: 2px solid #6b7b54;
-  border-radius: 50%;
-  bottom: 13px;
-  left: 28px;
-}
-.virgil-face i {
-  height: 13px;
-  width: 6px;
-  border-radius: 8px;
-  background: #6b7b54;
-  margin-top: -5px;
-}
-.tutor-promo h3 {
-  font-size: 18px;
-  font-weight: 550;
-  margin-bottom: 10px;
-}
-.tutor-promo p {
-  font-size: 11px;
-  color: #808775;
-  line-height: 1.8;
-  margin-bottom: 20px;
-}
-.tutor-promo .button {
-  width: 100%;
-  font-size: 10px;
-  justify-content: space-between;
-}
-.lab-teaser {
-  position: relative;
-  text-align: left;
-  border: 1px solid #e2dced;
-  border-radius: 15px;
-  background: #eee9f6;
-  padding: 24px;
-  overflow: hidden;
-}
-.lab-teaser > .eyebrow {
-  font-size: 7px;
-  color: #8d7b9e;
-  letter-spacing: 1.1px;
-}
-.lab-teaser h3 {
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 1.4;
-  color: #554465;
-  margin: 20px 0;
-}
-.lab-teaser > span:last-child {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 9px;
-  color: #8b769c;
-}
-.mini-rays {
-  position: absolute;
-  top: 28px;
-  right: 13px;
-  font-size: 75px;
-  font-weight: 200;
-  color: #d0c1e3;
-  line-height: 1;
 }
 .page-footer {
   border-top: 1px solid var(--line);
@@ -1221,13 +1076,6 @@ em {
   font-size: 12px;
   padding: 18px 0;
 }
-.lesson-topline {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-  margin-bottom: 27px;
-}
 .lesson-header {
   display: flex;
   gap: 18px;
@@ -1251,116 +1099,11 @@ em {
   color: #89937c;
   margin: 0;
 }
-.lesson-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 290px;
-  gap: 26px;
-  align-items: start;
-}
-.lesson-aside {
-  display: flex;
-  flex-direction: column;
-  gap: 19px;
-}
-.lesson-tabs {
-  display: flex;
-  gap: 22px;
-  border-bottom: 1px solid var(--line);
-  margin-bottom: 23px;
-  overflow-x: auto;
-}
-.lesson-tabs button {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  white-space: nowrap;
-  background: transparent;
-  border: 0;
-  border-bottom: 2px solid transparent;
-  padding: 12px 0 16px;
-  font-size: 11px;
-  color: #89937b;
-}
-.lesson-tabs button.selected {
-  border-bottom-color: #607946;
-  color: #456132;
-}
-.lesson-pane {
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-}
-.learning-goals {
-  border-radius: 14px;
-  padding: 26px;
-}
-.learning-goals > .eyebrow {
-  color: inherit;
-  opacity: 0.8;
-}
-.learning-goals h2 {
-  font-size: 20px;
-  font-weight: 550;
-  margin: 10px 0 20px;
-  color: #3c4b33;
-}
-.learning-goals ul {
-  padding: 0;
-  list-style: none;
-  margin: 0;
-}
-.learning-goals li {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  font-size: 12px;
-  line-height: 1.8;
-  margin-top: 12px;
-  color: #515f48;
-}
-.learning-goals li span {
-  flex-shrink: 0;
-  background: #ffffff99;
-  border-radius: 50%;
-  width: 23px;
-  height: 23px;
-  text-align: center;
-  font-size: 10px;
-  padding-top: 3px;
-}
-.reading-card {
-  padding: 29px;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-}
-.reading-card h2 {
-  font-size: 24px;
-  font-weight: 550;
-  margin: 9px 0 20px;
-}
 .prose p {
   font-size: 14px;
   line-height: 1.95;
   color: #525e49;
   white-space: pre-wrap;
-}
-.why-callout {
-  display: flex;
-  gap: 12px;
-  border-top: 1px solid var(--line);
-  padding-top: 23px;
-  margin-top: 24px;
-  color: #687b4d;
-}
-.why-callout strong {
-  font-size: 12px;
-}
-.why-callout p {
-  font-size: 12px;
-  line-height: 1.8;
-  color: #7c876d;
-  margin: 7px 0 0;
 }
 .worked-example {
   border: 1px solid var(--line);
@@ -1378,17 +1121,6 @@ em {
 .worked-example summary::-webkit-details-marker {
   display: none;
 }
-.example-number {
-  font-size: 12px;
-  border-radius: 50%;
-  background: #eef2e6;
-  color: #758363;
-  width: 28px;
-  height: 28px;
-  display: grid;
-  place-items: center;
-  flex-shrink: 0;
-}
 .worked-example summary > span:nth-child(2) {
   flex: 1;
 }
@@ -1405,24 +1137,6 @@ em {
 }
 .worked-example[open] summary > svg {
   transform: rotate(90deg);
-}
-.example-content {
-  border-top: 1px solid var(--line);
-  margin: 0 17px;
-  padding: 20px 0 5px;
-}
-.example-content h3 {
-  font-size: 23px;
-  font-weight: 550;
-  margin: 10px 0;
-}
-.example-content p {
-  font-size: 13px;
-  line-height: 1.8;
-  color: #7a856e;
-}
-.voice-panel .virgil-face {
-  margin: 22px auto;
 }
 .voice-panel h2 {
   font-size: 21px;
@@ -1496,64 +1210,6 @@ em {
   color: #8c967f;
   margin: 13px 0;
 }
-.focus-mode .lesson-layout {
-  grid-template-columns: 1fr;
-}
-.focus-mode .lesson-aside {
-  display: none;
-}
-.focus-mode .lesson-main {
-  max-width: 850px;
-  margin: 0 auto;
-  width: 100%;
-}
-.practice-intro {
-  padding: 12px 0 5px;
-}
-.practice-intro h2 {
-  font-size: 24px;
-  font-weight: 550;
-  margin: 8px 0 12px;
-}
-.practice-intro p {
-  font-size: 12px;
-  color: #7c866e;
-}
-.practice-group h3 {
-  font-size: 17px;
-  font-weight: 550;
-  margin: 0 0 16px;
-}
-.practice-card {
-  border: 1px solid var(--line);
-  background: #fff;
-  padding: 23px;
-  border-radius: 13px;
-  margin-bottom: 15px;
-}
-.practice-card label {
-  display: block;
-}
-.practice-card label strong {
-  display: block;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.7;
-  margin: 9px 0 17px;
-}
-.practice-card textarea {
-  display: block;
-  width: 100%;
-  padding: 13px;
-  border: 1px solid #dfe5d6;
-  border-radius: 8px;
-  background: #fcfdf9;
-  font-size: 12px;
-  line-height: 1.8;
-  resize: vertical;
-  color: #4f5f42;
-  min-height: 110px;
-}
 .hint {
   margin-top: 13px;
   font-size: 11px;
@@ -1567,45 +1223,6 @@ em {
   border-left: 2px solid #c3d7a5;
   padding-left: 15px;
 }
-.word-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 17px;
-}
-.word-card {
-  border: 1px solid #ded8ed;
-  border-radius: 14px;
-  background: #eeebf5;
-  min-height: 210px;
-  padding: 25px;
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-  gap: 20px;
-  color: #69567b;
-}
-.word-card > .eyebrow {
-  font-size: 8px;
-  color: #8b789b;
-}
-.word-card strong {
-  font-size: 23px;
-  font-weight: 500;
-  margin: auto 0;
-  line-height: 1.6;
-  overflow-wrap: anywhere;
-}
-.word-card > span:last-child {
-  display: flex;
-  justify-content: space-between;
-  font-size: 10px;
-}
-.word-card.flipped {
-  background: #fff;
-}
-.word-card.flipped strong {
-  font-size: 14px;
-}
 .voice-stage {
   position: relative;
 }
@@ -1615,23 +1232,6 @@ em {
 }
 .voice-stage > .section-top > svg {
   color: #8b947c;
-}
-.voice-stage .virgil-face.talking {
-  animation: voice-breathe 1s ease-in-out infinite;
-}
-.wave-surface {
-  height: 58px;
-  width: 100%;
-  position: relative;
-  background: #273b2f;
-  border-radius: 9px;
-  margin-bottom: 15px;
-  overflow: hidden;
-}
-.voice-waveform {
-  width: 100%;
-  height: 100%;
-  display: block;
 }
 .voice-hud {
   display: flex;
@@ -2178,9 +1778,11 @@ em {
   .topbar {
     padding: 0 26px;
   }
-  .home-top-grid,
-  .content-grid {
+  .home-top-grid {
     grid-template-columns: minmax(0, 1fr) 235px;
+    gap: 18px;
+  }
+  .content-grid {
     gap: 18px;
   }
   .hero-copy {
@@ -2213,7 +1815,7 @@ em {
     gap: 10px;
   }
   .lesson-number,
-  .lesson-time {
+.lesson-time {
     display: none;
   }
   .subject-grid {
@@ -2225,18 +1827,8 @@ em {
   .subject-card h2 {
     font-size: 16px;
   }
-  .lesson-layout {
-    grid-template-columns: minmax(0, 1fr) 255px;
-    gap: 18px;
-  }
   .voice-panel {
     padding: 20px 17px;
-  }
-  .lesson-tabs {
-    gap: 15px;
-  }
-  .lesson-tabs button {
-    font-size: 10px;
   }
   .experiment {
     grid-template-columns: minmax(0, 1fr) 260px;
@@ -2268,10 +1860,8 @@ em {
     width: 40px;
   }
   .workspace-label,
-  .nav-item > span,
-  .sidebar-note,
-  .profile > div:not(.avatar),
-  .profile-dot {
+.nav-item > span,
+.profile > div:not(.avatar) {
     display: none;
   }
   .sidebar nav {
@@ -2292,8 +1882,7 @@ em {
   .main-shell {
     margin-left: 82px;
   }
-  .home-top-grid,
-  .content-grid {
+  .home-top-grid {
     grid-template-columns: minmax(0, 1fr) 235px;
   }
   .page-heading h1 {
@@ -2349,50 +1938,14 @@ em {
   .content-grid {
     grid-template-columns: 1fr;
   }
-  .home-aside {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-  }
-  .tutor-promo .virgil-face {
-    float: left;
-    width: 55px;
-    height: 53px;
-    margin: 20px 16px 15px 0;
-    border-radius: 19px;
-  }
-  .tutor-promo .virgil-face:after {
-    left: 21px;
-    bottom: 9px;
-  }
-  .tutor-promo h3 {
-    margin-top: 20px;
-    font-size: 17px;
-  }
-  .tutor-promo p {
-    clear: both;
-    font-size: 11px;
-  }
   .subject-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-  .lesson-layout {
-    grid-template-columns: 1fr;
-  }
-  .lesson-aside {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-  .lesson-aside .materials {
-    grid-column: 1/-1;
   }
   .voice-panel small {
     font-size: 10px;
   }
   .lesson-header h1 {
     font-size: 26px;
-  }
-  .lesson-tabs button {
-    font-size: 12px;
   }
   .experiment {
     grid-template-columns: 1fr;
@@ -2472,7 +2025,7 @@ em {
     height: calc(70px + env(safe-area-inset-bottom));
   }
   .sidebar > .brand,
-  .sidebar-bottom {
+.sidebar-bottom {
     display: none;
   }
   .sidebar nav {
@@ -2491,13 +2044,6 @@ em {
     width: 25%;
     padding: 7px 2px;
     border-radius: 9px;
-  }
-  .nav-item > span:not(.new-label) {
-    display: block;
-    font-size: 9px;
-  }
-  .nav-item .new-label {
-    display: none;
   }
   .nav-item.active {
     background: #d5eea7;
@@ -2532,10 +2078,6 @@ em {
   .page-heading h1 {
     font-size: 33px;
     margin: 10px 0;
-  }
-  .greeting-spark {
-    font-size: 30px;
-    margin-left: 13px;
   }
   .page-heading p {
     font-size: 11px;
@@ -2620,34 +2162,6 @@ em {
     width: 38px;
     height: 38px;
     border-radius: 10px;
-  }
-  .home-aside {
-    grid-template-columns: 1fr;
-  }
-  .tutor-promo {
-    padding: 23px;
-  }
-  .tutor-promo .virgil-face {
-    float: left;
-    margin-top: 20px;
-  }
-  .tutor-promo p {
-    clear: none;
-  }
-  .lab-teaser {
-    min-height: 180px;
-  }
-  .mini-rays {
-    font-size: 120px;
-    top: 10px;
-    right: 30px;
-  }
-  .lab-teaser h3 {
-    margin: 19px 0;
-    font-size: 25px;
-  }
-  .lab-teaser > span:last-child {
-    font-size: 10px;
   }
   .page-footer {
     align-items: flex-start;
@@ -2747,9 +2261,6 @@ em {
   .session-row .skill-status {
     margin-left: 53px;
   }
-  .lesson-topline {
-    margin-bottom: 24px;
-  }
   .lesson-header {
     gap: 12px;
   }
@@ -2771,31 +2282,6 @@ em {
     font-size: 10px;
     line-height: 1.8;
   }
-  .lesson-tabs {
-    gap: 18px;
-  }
-  .lesson-tabs button {
-    font-size: 10px;
-    gap: 5px;
-  }
-  .lesson-tabs svg {
-    width: 14px;
-  }
-  .learning-goals {
-    padding: 23px 19px;
-  }
-  .learning-goals h2 {
-    font-size: 19px;
-  }
-  .learning-goals li {
-    font-size: 12px;
-  }
-  .reading-card {
-    padding: 23px 19px;
-  }
-  .reading-card h2 {
-    font-size: 23px;
-  }
   .prose p {
     font-size: 13px;
   }
@@ -2805,34 +2291,6 @@ em {
   }
   .worked-example summary strong {
     font-size: 11px;
-  }
-  .lesson-aside {
-    grid-template-columns: 1fr;
-  }
-  .word-grid {
-    gap: 12px;
-  }
-  .word-card {
-    min-height: 210px;
-    padding: 20px 16px;
-  }
-  .word-card strong {
-    font-size: 21px;
-  }
-  .word-card.flipped strong {
-    font-size: 12px;
-  }
-  .word-card > .eyebrow {
-    font-size: 7px;
-  }
-  .practice-intro h2 {
-    font-size: 24px;
-  }
-  .practice-card {
-    padding: 20px;
-  }
-  .practice-card label strong {
-    font-size: 13px;
   }
   .lab-selector {
     gap: 11px;
@@ -2940,25 +2398,21 @@ em {
   .available-dates .button {
     font-size: 10px;
   }
-  .focus-mode .lesson-aside {
-    display: none;
-  }
 }
 @media (prefers-reduced-motion: reduce) {
   *,
-  *:before,
-  *:after {
+*:before,
+*:after {
     animation: none !important;
     transition: none !important;
     scroll-behavior: auto !important;
   }
 }
-/* Keep learning content comfortable to read, including on small screens. */
+/* Keep learning content comfortable to read,
+including on small screens. */
 .page-heading p,
 .hero-copy p,
-.tutor-promo p,
 .subject-card p,
-.practice-intro p,
 .empty-state p,
 .mastery-card p,
 .experiment-controls > p,
@@ -2966,8 +2420,7 @@ em {
   font-size: 13px;
   color: #67745b;
 }
-.lesson-row-copy strong,
-.practice-card label strong {
+.lesson-row-copy strong {
   font-size: 13px;
 }
 .lesson-row-copy > span,
@@ -2989,12 +2442,6 @@ em {
   font-size: 16px;
   line-height: 1.9;
 }
-.learning-goals li,
-.why-callout p,
-.example-content p {
-  font-size: 14px;
-}
-.practice-card textarea,
 .scratchpad textarea {
   font-size: 15px;
 }
@@ -3040,7 +2487,7 @@ em {
     font-size: 12px;
   }
   .hero-footnote,
-  .lesson-row-copy > span {
+.lesson-row-copy > span {
     font-size: 10px;
   }
   .section-heading p {
@@ -3055,20 +2502,16 @@ em {
   .prose p {
     font-size: 15px;
   }
-  .practice-card textarea,
   .scratchpad textarea,
-  .login-panel input,
-  .search-input input {
+.login-panel input,
+.search-input input {
     font-size: 16px;
   }
   .page-heading p {
     font-size: 12px;
   }
-  .learning-goals li {
-    font-size: 13px;
-  }
   .button,
-  .text-button {
+.text-button {
     font-size: 11px;
   }
 }
@@ -3077,14 +2520,6 @@ em {
   display: grid;
   place-items: center;
   padding: 25px;
-}
-.lesson-completion {
-  margin-top: 24px;
-}
-.lesson-completion > p {
-  color: var(--muted);
-  line-height: 1.65;
-  margin-bottom: 20px;
 }
 .recovery-screen .empty-state {
   max-width: 550px;

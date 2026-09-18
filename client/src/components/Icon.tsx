@@ -18,6 +18,7 @@ export type IconName =
   | "mic"
   | "mute"
   | "check"
+  | "camera"
   | "clock"
   | "search"
   | "close"
@@ -112,6 +113,12 @@ const paths: Record<IconName, React.ReactNode> = {
     </>
   ),
   check: <path d="m5 12 4 4L19 6" />,
+  camera: (
+    <>
+      <path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h2.2l1.1-2h8.4l1.1 2h2.2A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5Z" />
+      <circle cx="12" cy="13" r="3.4" />
+    </>
+  ),
   clock: (
     <>
       <circle cx="12" cy="12" r="9" />
