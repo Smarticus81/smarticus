@@ -11,6 +11,7 @@ import {
   buildVoiceInstructions,
   RESPONSE_QUALITY_RULES,
 } from "../services/voicePrompt.js";
+import { buildVoiceContext } from "../services/voiceContext.js";
 import { createLiveSession } from "../lib/openai.js";
 import { geminiConfigured } from "../lib/gemini.js";
 import { hashSafetyIdentifier } from "../lib/auth.js";
@@ -66,10 +67,15 @@ realtimeRouter.post(
     if (!backendInstructions.includes(lessonMarker)) {
       throw new Error("Backend instructions are missing the selected lesson marker");
     }
+    const context = await buildVoiceContext({
+      date: lesson.date,
+      selectedLessonId: lesson.id,
+    });
     const voiceInstructions = buildVoiceInstructions({
       studentName: student.preferredName,
       lessonTitle: lesson.lesson_title,
       subject: lesson.subject,
+      contextBrief: context.brief,
     });
 
     try {
@@ -78,6 +84,7 @@ realtimeRouter.post(
         safetyIdentifier: hashSafetyIdentifier(student.internalId),
         voiceInstructions,
         backendInstructions,
+        initialInput: context.initialItems,
         tools: toFunctionTools(),
       });
       log({

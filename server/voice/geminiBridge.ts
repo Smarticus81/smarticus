@@ -8,6 +8,7 @@ import { buildGeminiSetup, geminiConfigured, geminiSocketUrl } from "../lib/gemi
 import { getLessonById } from "../services/academic.js";
 import { buildAgentInstructions } from "../services/review.js";
 import { buildVoiceInstructions, RESPONSE_QUALITY_RULES } from "../services/voicePrompt.js";
+import { buildVoiceContext } from "../services/voiceContext.js";
 import { getDefaultStudent } from "../services/student.js";
 import {
   BRIDGE_PATH,
@@ -165,16 +166,22 @@ class GeminiSession {
       if (!lesson.voice_prompt.trim()) {
         return this.closeWith("lesson_unprepared", "This lesson has no voice guidance yet.");
       }
-      const baseInstructions = await buildAgentInstructions(lesson);
+      const [baseInstructions, context] = await Promise.all([
+        buildAgentInstructions(lesson),
+        buildVoiceContext({ date: lesson.date, selectedLessonId: lesson.id }),
+      ]);
       lessonMarker = `[SELECTED_LESSON:${lesson.external_id ?? lesson.id}]`;
       if (!baseInstructions.includes(lessonMarker)) {
         throw new Error("Backend instructions are missing the selected lesson marker");
       }
       setup = buildGeminiSetup({
+        // Gemini has one system instruction rather than a seeded history, so the
+        // day's brief rides along with the voice half of the prompt.
         voiceInstructions: buildVoiceInstructions({
           studentName: student.preferredName,
           lessonTitle: lesson.lesson_title,
           subject: lesson.subject,
+          contextBrief: context.brief,
         }),
         backendInstructions: `${baseInstructions}\n\n${RESPONSE_QUALITY_RULES}`,
       });

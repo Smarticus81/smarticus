@@ -83,8 +83,17 @@ async function openLesson(page: Page, lesson: LessonView) {
   await expect(
     page.getByRole("heading", { name: lesson.lesson_title, exact: true }),
   ).toBeVisible();
+  // The studio opens on Virgil and the board. The lesson text, its sections and
+  // the practice questions are behind the Lesson menu, so these checks open it.
+  await openLessonMenu(page);
+}
+async function openLessonMenu(page: Page) {
+  const toggle = page.getByRole("button", { name: "Lesson", exact: true });
+  if ((await toggle.getAttribute("aria-expanded")) !== "true") await toggle.click();
+  await expect(page.locator("#lesson-menu")).toBeVisible();
 }
 async function section(page: Page, name: string) {
+  await openLessonMenu(page);
   await page.getByRole("button", { name, exact: true }).click();
 }
 test.beforeEach(async ({ page }) => {

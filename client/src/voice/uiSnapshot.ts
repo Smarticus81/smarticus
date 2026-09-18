@@ -65,9 +65,22 @@ export function captureUiSnapshot(options: UiSnapshotOptions = {}): string {
       `Lesson: ${clean(header.querySelector("h1")?.textContent, 160)} — ${clean(header.querySelector("p")?.textContent, 160)}`,
     );
   }
+  // The studio shows Virgil and the shared board; the lesson itself lives
+  // behind a menu. Reporting the menu's state matters as much as its contents:
+  // without it the tutor would describe a question the learner cannot see.
+  const menu = root.querySelector("#lesson-menu");
+  const menuOpen = menu instanceof HTMLElement && !menu.hidden;
+  if (menu) {
+    lines.push(
+      menuOpen
+        ? "Lesson menu: OPEN over the stage, so the lesson section below is what he is reading."
+        : "Lesson menu: CLOSED. On screen right now are Virgil and the shared board only. The lesson section and question below are still where he left them, one tap away behind the Lesson button, but he is not looking at them.",
+    );
+  }
+  const stageFocus = root.querySelector(".studio-now");
+  if (stageFocus) lines.push(`On the stage: ${clean(stageFocus.textContent, 220)}`);
   const section = root.querySelector(".journey-nav button[aria-current='step']");
   if (section) lines.push(`Open section: ${clean(section.textContent, 60)}.`);
-  if (root.querySelector(".focus-mode")) lines.push("Quiet focus mode is on (companion panel hidden).");
 
   const currentQuestion = root.querySelector(".question-map button[aria-current='step']");
   if (currentQuestion) {

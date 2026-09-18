@@ -58,14 +58,19 @@ export function LessonWorkspace({
   const [tab, setTab] = useState<LessonTab>("learn");
   const [voiceLoaded, setVoiceLoaded] = useState(false),
     [voiceBusy, setVoiceBusy] = useState(false),
-    [focus, setFocus] = useState(false);
+    /**
+     * The lesson text, its sections, the scratchpad and the materials all live
+     * behind one menu, closed by default. Virgil and the shared board are the
+     * lesson; everything else is reference material you reach for.
+     */
+    [menuOpen, setMenuOpen] = useState(false);
   const [completed, setCompleted] = useState(lesson.status === "completed"),
     [completing, setCompleting] = useState(false);
   const [completionError, setCompletionError] = useState<string | null>(null);
   const [learningFocus, setLearningFocus] = useState(
     "Understanding the main idea.",
   );
-  const tutorRef = useRef<HTMLElement>(null);
+  const tutorRef = useRef<HTMLDivElement>(null);
   const journeyRef = useRef<HTMLElement>(null);
   const board = useWhiteboard();
   const readerState = useReader();
@@ -169,7 +174,10 @@ export function LessonWorkspace({
       const target = sections.find((entry) => entry.id === (section as LessonSection));
       if (!target) return `Unknown section "${section}".`;
       changeSectionRef.current(target.id);
-      let detail = `Opened the ${target.title} section.`;
+      // Opening a section the learner cannot see is not navigation. The menu
+      // comes forward with it, and the answer says so.
+      setMenuOpen(true);
+      let detail = `Opened the ${target.title} section in the lesson menu.`;
       if (questionNumber && target.id === "practice") {
         if (questionNumber > practiceCount || practiceCount === 0) {
           detail += ` This lesson has ${practiceCount} practice questions, so question ${questionNumber} does not exist.`;
@@ -192,7 +200,9 @@ export function LessonWorkspace({
   );
   const discuss = (value: string) => {
     setLearningFocus(value);
-    setFocus(false);
+    // "Talk this through with Virgil" means look at Virgil, so the menu that
+    // was covering him gets out of the way.
+    setMenuOpen(false);
     setVoiceLoaded(true);
     requestAnimationFrame(() =>
       tutorRef.current?.scrollIntoView({ behavior: "auto", block: "nearest" }),
@@ -216,9 +226,10 @@ export function LessonWorkspace({
       transition={{ type: "spring", stiffness: 240, damping: 30 }}
     >
       <div
-        className={`lesson-workspace zen-workspace ${focus ? "focus-mode" : ""}`}
+        className="lesson-workspace zen-workspace studio"
+        data-menu={menuOpen ? "open" : "closed"}
       >
-        <div className="lesson-topline">
+        <div className="studio-bar">
           <button
             className="text-button"
             disabled={voiceBusy || completing}
@@ -227,7 +238,17 @@ export function LessonWorkspace({
             <Icon name="back" size={16} />
             My learning day
           </button>
-          <div className="lesson-topline-actions">
+          <header className="zen-lesson-header">
+            <div className="lesson-kicker">
+              <span className={`subject-icon ${info.color}`}>
+                <Icon name={info.icon} size={17} />
+              </span>
+              {info.label}
+            </div>
+            <h1>{lesson.lesson_title}</h1>
+            <p>{lesson.unit_title}</p>
+          </header>
+          <div className="studio-bar-actions">
             <button
               className="focus-switch"
               aria-pressed={board.open}
@@ -237,13 +258,13 @@ export function LessonWorkspace({
               {board.open ? "Hide whiteboard" : "Whiteboard"}
             </button>
             <button
-              className="focus-switch"
-              aria-pressed={focus}
-              disabled={voiceBusy}
-              onClick={() => setFocus(!focus)}
+              className="studio-menu-toggle"
+              aria-expanded={menuOpen}
+              aria-controls="lesson-menu"
+              onClick={() => setMenuOpen(!menuOpen)}
             >
               <Icon name="compass" size={15} />
-              {focus ? "Bring Virgil back" : "Quiet focus"}
+              Lesson
             </button>
           </div>
         </div>
@@ -253,19 +274,74 @@ export function LessonWorkspace({
             before leaving this lesson.
           </p>
         )}
-        <header className="zen-lesson-header">
-          <div className="lesson-kicker">
-            <span className={`subject-icon ${info.color}`}>
-              <Icon name={info.icon} size={19} />
-            </span>
-            {info.label}
-            <span>·</span>
-            {lesson.estimated_minutes} min · at your pace
+        <div className="virgil-stage" ref={tutorRef}>
+          <div
+            className="stage-surfaces"
+            data-empty={!board.open && !readerState.open}
+          >
+            {board.open && <Whiteboard onClose={() => whiteboard.setOpen(false)} />}
+            {readerState.open && <Reader onClose={() => reader.close()} />}
+            {!board.open && !readerState.open && (
+              <div className="stage-empty">
+                <p>The board and the reading panel open when Virgil needs them.</p>
+                <button
+                  className="text-button"
+                  onClick={() => whiteboard.setOpen(true)}
+                >
+                  Open the whiteboard
+                </button>
+              </div>
+            )}
           </div>
-          <h1>{lesson.lesson_title}</h1>
-          <p>{lesson.unit_title}</p>
-        </header>
-        <div className="virgil-stage">
+          <section className="voice-panel">
+            {voiceLoaded ? (
+              <Suspense fallback={<p role="status">Getting Virgil ready…</p>}>
+                <VoiceTutor
+                  lessonId={lesson.id}
+                  lessonTitle={lesson.lesson_title}
+                  learningFocus={learningFocus}
+                  onBusyChange={setVoiceBusy}
+                />
+              </Suspense>
+            ) : (
+              <>
+                <div className="companion-heading">
+                  <span>VIRGIL</span>
+                  <span className="companion-ready">Here for you</span>
+                </div>
+                <VirgilAvatar state="idle" />
+                <h2>A little help, when you need it.</h2>
+                <p>Ask why. Try a different example. Think out loud.</p>
+                <button
+                  className="button dark"
+                  onClick={() => setVoiceLoaded(true)}
+                >
+                  <Icon name="mic" size={16} />
+                  Talk with Virgil
+                </button>
+                <small>Your microphone stays off until you connect.</small>
+              </>
+            )}
+          </section>
+          <p className="studio-now">
+            <span>Now</span> {learningFocus}
+          </p>
+        </div>
+        {menuOpen && (
+          <button
+            className="lesson-menu-scrim"
+            aria-label="Close the lesson menu"
+            onClick={() => setMenuOpen(false)}
+          />
+        )}
+        <aside id="lesson-menu" className="lesson-menu" hidden={!menuOpen}>
+          <div className="lesson-menu-head">
+            <h2>Lesson</h2>
+            <button className="text-button" onClick={() => setMenuOpen(false)}>
+              Close
+              <Icon name="check" size={15} />
+            </button>
+          </div>
           <section className="lesson-drawer">
             <nav
               ref={journeyRef}
@@ -358,101 +434,37 @@ export function LessonWorkspace({
                 : "Your reflections couldn’t save. Copy them before leaving."}
             </div>
           </section>
-          <aside className="virgil-rail" ref={tutorRef}>
-            <button
-              className="text-button companion-return"
-              onClick={() =>
-                journeyRef.current?.scrollIntoView({
-                  behavior: "auto",
-                  block: "start",
-                })
-              }
-            >
-              ↑ Back to the idea
-            </button>
-            <div className="stage-surfaces" data-empty={!board.open && !readerState.open}>
-              {board.open && <Whiteboard onClose={() => whiteboard.setOpen(false)} />}
-              {readerState.open && <Reader onClose={() => reader.close()} />}
-              {!board.open && !readerState.open && (
-                <div className="stage-empty">
-                  <p>The board and the reading panel open when Virgil needs them.</p>
-                  <button className="text-button" onClick={() => whiteboard.setOpen(true)}>
-                    Open the whiteboard
-                  </button>
-                </div>
-              )}
-            </div>
-            <section className="voice-panel">
-              {voiceLoaded ? (
-                <Suspense fallback={<p role="status">Getting Virgil ready…</p>}>
-                  <VoiceTutor
-                    lessonId={lesson.id}
-                    lessonTitle={lesson.lesson_title}
-                    learningFocus={learningFocus}
-                    onBusyChange={setVoiceBusy}
-                  />
-                </Suspense>
-              ) : (
-                <>
-                  <div className="companion-heading">
-                    <span>VIRGIL</span>
-                    <span className="companion-ready">Here for you</span>
-                  </div>
-                  <VirgilAvatar state="idle" />
-                  <h2>A little help, when you need it.</h2>
-                  <p>Ask why. Try a different example. Think out loud.</p>
-                  <button
-                    className="button dark"
-                    onClick={() => setVoiceLoaded(true)}
-                  >
-                    <Icon name="mic" size={16} />
-                    Talk with Virgil
-                  </button>
-                  <small>Your microphone stays off until you connect.</small>
-                </>
-              )}
-            </section>
-            <details className="zen-scratchpad">
+          <details className="zen-scratchpad">
+            <summary>
+              <Icon name="pen" size={16} />
+              My scratchpad
+            </summary>
+            <label className="sr-only" htmlFor="lesson-notes">
+              Scratchpad notes
+            </label>
+            <textarea
+              id="lesson-notes"
+              placeholder="A thought worth keeping…"
+              rows={6}
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+            />
+            <small role="status">{saveState}</small>
+          </details>
+          {lesson.materials.length > 0 && (
+            <details className="zen-materials">
               <summary>
-                <Icon name="pen" size={16} />
-                My scratchpad
+                Things to have nearby <span>{lesson.materials.length}</span>
               </summary>
-              <label className="sr-only" htmlFor="lesson-notes">
-                Scratchpad notes
-              </label>
-              <textarea
-                id="lesson-notes"
-                placeholder="A thought worth keeping…"
-                rows={6}
-                value={notes}
-                onChange={(e) => setNotes(e.target.value)}
-              />
-              <small role="status">{saveState}</small>
+              {lesson.materials.map((material, i) => (
+                <p key={i}>
+                  <Icon name="check" size={14} />
+                  {material}
+                </p>
+              ))}
             </details>
-            {lesson.materials.length > 0 && (
-              <details className="zen-materials">
-                <summary>
-                  Things to have nearby <span>{lesson.materials.length}</span>
-                </summary>
-                {lesson.materials.map((material, i) => (
-                  <p key={i}>
-                    <Icon name="check" size={14} />
-                    {material}
-                  </p>
-                ))}
-              </details>
-            )}
-            <p className="companion-note">There’s no timer on understanding.</p>
-          </aside>
-        </div>
-        <button
-          className="mobile-virgil"
-          onClick={() => discuss(learningFocus)}
-        >
-          <span aria-hidden="true">✳</span>
-          {voiceBusy ? "Voice session · Open controls" : "Virgil is here"}
-          <Icon name="headphones" size={15} />
-        </button>
+          )}
+        </aside>
       </div>
     </MotionConfig>
   );

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import type { LessonView, PracticeItem, WorkedExample } from "../../lib/types";
 import { instructionBeats } from "../../lib/learning";
@@ -208,13 +208,28 @@ export function PracticePanel({
       group: ["Warm up", "On your own", "Check understanding"][section],
     })),
   );
-  const [index, setIndex] = useState(0);
+  const clampIndex = (value: number) =>
+    Math.min(Math.max(0, value), Math.max(0, items.length - 1));
+  /**
+   * Honour the tutor's question on the very first render.
+   *
+   * Applying it in an effect instead meant this panel mounted on question one
+   * and only then jumped to the one Virgil had actually opened. The learner saw
+   * the wrong question flash past, and anything reading the screen in that
+   * moment — look_at_screen included — read the wrong question with it.
+   */
+  const [index, setIndex] = useState(() =>
+    selection && items.length ? clampIndex(selection.index) : 0,
+  );
+  const appliedSelection = useRef(selection?.nonce);
   useEffect(() => {
-    if (selection && items.length)
-      setIndex(Math.min(Math.max(0, selection.index), items.length - 1));
-    // Only re-apply when the tutor issues a new request.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selection]);
+    if (!selection || !items.length) return;
+    // A nonce marks a fresh request; re-running on the same one would undo a
+    // question the learner picked himself afterwards.
+    if (appliedSelection.current === selection.nonce) return;
+    appliedSelection.current = selection.nonce;
+    setIndex(Math.min(Math.max(0, selection.index), items.length - 1));
+  }, [selection, items.length]);
   const current = items[index];
   const count = items.filter((item) => answers[item.key]?.trim()).length;
   useEffect(() => {

@@ -20,6 +20,17 @@ export interface LiveSessionRequest {
   safetyIdentifier: string;
   voiceInstructions: string;
   backendInstructions: string;
+  /**
+   * Text-only history seeded before the session starts: today's schedule, the
+   * learner's open threads and recent feedback. It gives the speaking model the
+   * same day the reasoning backend has, and unlike a developer note mid-session
+   * it does not spend any of the backend's bounded input history.
+   */
+  initialInput?: Array<{
+    type: "message";
+    role: "developer";
+    content: Array<{ type: "input_text"; text: string }>;
+  }>;
   tools: Array<{
     type: "function";
     name: string;
@@ -42,6 +53,7 @@ export async function createLiveSession(params: LiveSessionRequest) {
         model: env.REALTIME_MODEL,
         instructions: params.voiceInstructions,
         audio: { output: { voice: env.REALTIME_VOICE } },
+        ...(params.initialInput?.length ? { input: params.initialInput } : {}),
         delegation: {
           type: "responses",
           responses: {
