@@ -1,14 +1,19 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import {
+  backgroundWorkNote,
   BackendHistoryBudget,
   clipToBytes,
   containsGoodbye,
   containsWakeWord,
+  FAST_TOOL_TIMEOUT_MS,
   functionCallFromEvent,
+  LESSON_TOOL_TIMEOUT_MS,
   responseFinishedFromEvent,
   serializeToolOutput,
   stateNote,
+  TOOL_TIMEOUT_MS,
+  toolTimeoutMs,
   ToolTurnTracker,
   TranscriptAccumulator,
   wakeGreetingCommentary,
@@ -128,6 +133,27 @@ describe("delegated function calls", () => {
       /look_at_screen did not finish/,
     );
     assert.equal(await withToolTimeout(Promise.resolve("ok"), "navigate_lesson", 1_000), "ok");
+  });
+  it("gives a local tool a shorter deadline than a page fetch", () => {
+    assert.equal(toolTimeoutMs("whiteboard_draw"), FAST_TOOL_TIMEOUT_MS);
+    assert.equal(toolTimeoutMs("navigate_lesson"), FAST_TOOL_TIMEOUT_MS);
+    assert.equal(toolTimeoutMs("browse_web"), TOOL_TIMEOUT_MS);
+    assert.equal(toolTimeoutMs("get_lesson_questions"), LESSON_TOOL_TIMEOUT_MS);
+    assert.ok(FAST_TOOL_TIMEOUT_MS < LESSON_TOOL_TIMEOUT_MS);
+    assert.ok(LESSON_TOOL_TIMEOUT_MS < TOOL_TIMEOUT_MS);
+  });
+});
+
+describe("background work note", () => {
+  it("names the activity and forbids the stall phrases", () => {
+    const note = backgroundWorkNote("Searching the curriculum");
+    assert.match(note, /searching the curriculum/);
+    assert.match(note, /Do not announce it/);
+    assert.match(note, /checking/);
+    assert.match(note, /one second/);
+  });
+  it("still reads naturally when no activity is known yet", () => {
+    assert.match(backgroundWorkNote(null), /working on that in the background/);
   });
 });
 
