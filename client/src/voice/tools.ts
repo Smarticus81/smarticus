@@ -45,9 +45,15 @@ export function createToolExecutors(context: ToolContext): Record<string, ToolEx
         extra: [whiteboard.summary(), reader.summary()],
       });
       const withImages = canSendImage();
-      const frame = withImages ? await screenShare.captureFrame() : null;
+      // Both captures at once: this tool holds the turn open, and the learner
+      // hears nothing while it runs, so the two waits should overlap.
+      const [frame, boardImage] = await Promise.all([
+        withImages ? screenShare.captureFrame() : Promise.resolve(null),
+        withImages && whiteboard.getSnapshot().open
+          ? Promise.resolve(whiteboard.image())
+          : Promise.resolve(null),
+      ]);
       const images = frame ? [frame] : [];
-      const boardImage = withImages && whiteboard.getSnapshot().open ? whiteboard.image() : null;
       if (boardImage) images.push(boardImage);
       return {
         output: {

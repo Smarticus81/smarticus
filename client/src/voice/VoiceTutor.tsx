@@ -8,6 +8,7 @@ import { LiveVoiceSession } from "./liveSession";
 import { GeminiVoiceSession } from "./geminiSession";
 import type { TutorSession, VoiceProvider } from "./session";
 import {
+  backgroundWorkNote,
   containsGoodbye,
   containsWakeWord,
   stateNote,
@@ -45,6 +46,12 @@ function focusHeadline(focus: string): string {
 }
 const SPEAKING_HOLD_MS = 900;
 const UTTERANCE_IDLE_MS = 1_500;
+/**
+ * How often the "do not announce the lookup" reminder may be repeated. Often
+ * enough to survive a long session's instruction drift, rarely enough that it
+ * is not sent on every one of a turn's parallel tool calls.
+ */
+const BACKGROUND_NOTE_INTERVAL_MS = 45_000;
 
 const ACTIVITY_LABELS: Record<string, string> = {
   look_at_screen: "Looking at your screen",
@@ -53,7 +60,7 @@ const ACTIVITY_LABELS: Record<string, string> = {
   whiteboard_clear: "Clearing the whiteboard",
   navigate_lesson: "Opening that for you",
   get_lesson_questions: "Reading the question",
-  search_curriculum: "Checking the curriculum",
+  search_curriculum: "Searching the curriculum",
   get_worked_examples: "Finding an example",
   get_allowed_answer_support: "Finding a nudge",
 };
@@ -197,6 +204,7 @@ export function VoiceTutor({
   const activityTimerRef = useRef<number | null>(null);
   const screenShareRef = useRef<ScreenShare | null>(null);
   const lastFocusNoteRef = useRef<string>("");
+  const lastBackgroundNoteRef = useRef(0);
   if (!screenShareRef.current) screenShareRef.current = new ScreenShare();
   useEffect(() => screenShareRef.current?.onChange(setScreenSharing), []);
 
@@ -269,14 +277,33 @@ export function VoiceTutor({
     }, SPEAKING_HOLD_MS);
   }, []);
 
-  const showActivity = useCallback((call: LiveFunctionCall | null) => {
-    if (activityTimerRef.current !== null) window.clearTimeout(activityTimerRef.current);
-    if (!call) {
-      activityTimerRef.current = window.setTimeout(() => setActivity(null), 1_200);
-      return;
-    }
-    setActivity(ACTIVITY_LABELS[call.name] ?? "Thinking");
+  /**
+   * Tell the voice model, silently, that work is running and it should keep
+   * teaching rather than narrate the wait. The status line below carries that
+   * information visually, which is what makes the silence acceptable.
+   */
+  const remindNotToStall = useCallback((label: string | null) => {
+    const session = sessionRef.current;
+    if (session?.status !== "connected") return;
+    const now = Date.now();
+    if (now - lastBackgroundNoteRef.current < BACKGROUND_NOTE_INTERVAL_MS) return;
+    lastBackgroundNoteRef.current = now;
+    session.appendThinking(backgroundWorkNote(label));
   }, []);
+
+  const showActivity = useCallback(
+    (call: LiveFunctionCall | null) => {
+      if (activityTimerRef.current !== null) window.clearTimeout(activityTimerRef.current);
+      if (!call) {
+        activityTimerRef.current = window.setTimeout(() => setActivity(null), 1_200);
+        return;
+      }
+      const label = ACTIVITY_LABELS[call.name] ?? "Thinking";
+      setActivity(label);
+      remindNotToStall(label);
+    },
+    [remindNotToStall],
+  );
 
   const startVisualizer = useCallback((audioElement: HTMLAudioElement) => {
     // Inspect the remote audio without routing or duplicating playback.
@@ -451,7 +478,9 @@ export function VoiceTutor({
         session.on("tool_call", (call) => showActivity(call));
         session.on("tool_result", () => showActivity(null));
         session.on("delegation", (target) => {
-          if (target === "responses") setActivity((current) => current ?? "Thinking");
+          if (target !== "responses") return;
+          setActivity((current) => current ?? "Thinking");
+          remindNotToStall(null);
         });
         session.on("history_full", (usage) => {
           // Skipping an optional UI note is routine; only a genuinely full history
@@ -532,7 +561,7 @@ export function VoiceTutor({
       setError(voiceStartupError(caught));
       setConnection("error");
     }
-  }, [appendTranscript, cleanup, connection, lessonId, markSpeaking, setWakeState, showActivity, startVisualizer]);
+  }, [appendTranscript, cleanup, connection, lessonId, markSpeaking, remindNotToStall, setWakeState, showActivity, startVisualizer]);
 
   const toggleMute = useCallback(async () => {
     const session = sessionRef.current;

@@ -83,12 +83,40 @@ export function responseFinishedFromEvent(
 
 /** How long a tool may run before its output is answered with an error. */
 export const TOOL_TIMEOUT_MS = 20_000;
+/** A tool that only touches the interface, the board or the reader panel. */
+export const FAST_TOOL_TIMEOUT_MS = 5_000;
+/** A tool that calls the studio's own API. */
+export const LESSON_TOOL_TIMEOUT_MS = 10_000;
+
+const FAST_TOOLS = new Set([
+  "navigate_lesson",
+  "whiteboard_draw",
+  "whiteboard_clear",
+  "whiteboard_open",
+  "whiteboard_close",
+  "whiteboard_look",
+  "close_browser",
+]);
+
+/**
+ * The deadline for one tool.
+ *
+ * A turn stays open until every call in it is answered, so the learner hears
+ * nothing while a call hangs. Only `browse_web` fetches a page from the open
+ * internet and deserves the full twenty seconds; a local one that has not
+ * answered in five is broken, and waiting out the difference is dead air.
+ */
+export function toolTimeoutMs(name: string): number {
+  if (FAST_TOOLS.has(name)) return FAST_TOOL_TIMEOUT_MS;
+  if (name === "browse_web") return TOOL_TIMEOUT_MS;
+  return LESSON_TOOL_TIMEOUT_MS;
+}
 
 /** Resolve with the promise, or reject once `ms` has passed. */
 export function withToolTimeout<T>(
   promise: Promise<T>,
   name: string,
-  ms = TOOL_TIMEOUT_MS,
+  ms = toolTimeoutMs(name),
 ): Promise<T> {
   return new Promise<T>((resolve, reject) => {
     const timer = setTimeout(
@@ -265,6 +293,20 @@ export class TranscriptAccumulator {
 /** Text the Live model should speak the instant the wake word lands. */
 export function wakeGreetingCommentary(studentName: string): string {
   return `${studentName} just said your wake word. Greet him right now in one short, warm sentence (vary the wording) and ask what he wants to work on. If his sentence already contained a request, greet in three words or fewer and handle the request immediately.`;
+}
+
+/**
+ * A silent reminder sent when background work starts.
+ *
+ * Instruction-following drifts over a long session, and the drift that shows
+ * up first is the stall phrase: "checking", "one second", "let me look". The
+ * studio already puts a status line on screen, so the spoken version buys the
+ * learner nothing and costs him the wait. This goes on the thinking channel,
+ * which is context rather than speech, so it never becomes a turn of its own.
+ */
+export function backgroundWorkNote(activity: string | null): string {
+  const doing = activity ? activity.toLowerCase() : "working on that";
+  return `[BACKGROUND] You are ${doing} in the background, and Atticus can see that on screen. Do not announce it: no "checking", no "one second", no "let me look at that". Keep talking about the subject itself, or say nothing until the answer lands, then carry on the thought you started.`;
 }
 
 export function stateNote(awake: boolean): string {
