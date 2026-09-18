@@ -46,7 +46,12 @@ export interface LessonView {
   voice_prompt: string;
   teacher_notes: string;
   answer_key: Record<string, string>;
-  source_references: string[];
+  /**
+   * Optional in the data even though it once was not: twenty lessons carry no
+   * sources, and the lesson column is nullable. Declaring it required meant the
+   * one place that read it crashed the whole Explore panel for those lessons.
+   */
+  source_references?: string[] | null;
   status: string;
   day_number?: number;
   todays_goal?: string;

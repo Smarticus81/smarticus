@@ -350,10 +350,11 @@ for (const width of [1280, 390, 320])
           () => document.documentElement.scrollWidth <= window.innerWidth + 1,
         ),
       ).toBeTruthy();
-      if (width < 950)
-        await expect(
-          page.getByRole("button", { name: "Virgil is here" }),
-        ).toBeVisible();
+      // Virgil is the stage now rather than a floating button, so what has to
+      // stay reachable at phone widths is the tutor panel itself.
+      await expect(
+        page.getByRole("button", { name: "Talk with Virgil", exact: true }),
+      ).toBeVisible();
       await page.screenshot({
         path: testInfo.outputPath(`${lesson.subject}-${width}.png`),
         fullPage: true,
