@@ -11,12 +11,72 @@ const WAKE_PATTERN = new RegExp(`\\b${WAKE_WORD}\\b`, "i");
 /** Transcripts occasionally spell the name phonetically. */
 const WAKE_VARIANTS = /\b(?:virgil|vergil|virgile|virgel|burgle)\b/i;
 
+/**
+ * A farewell is a short, deliberate thing to say. Matching the pattern anywhere
+ * in any transcript is too eager: a noisy line that happens to carry "bye" used
+ * to drop the session into standby, where the model is under orders to say
+ * nothing at all, and the learner was left talking to a tutor that had been
+ * told to ignore him. Requiring the farewell to be most of a short utterance
+ * keeps the real goodbye working and leaves the accidental one alone.
+ */
+export const MAX_GOODBYE_WORDS = 8;
+
+function wordCount(text: string): number {
+  const words = text.trim().match(/[\p{L}\p{N}']+/gu);
+  return words ? words.length : 0;
+}
+
 export function containsWakeWord(text: string): boolean {
   return WAKE_PATTERN.test(text) || WAKE_VARIANTS.test(text);
 }
 
 export function containsGoodbye(text: string): boolean {
-  return GOODBYE_PATTERN.test(text);
+  if (!GOODBYE_PATTERN.test(text)) return false;
+  const words = wordCount(text);
+  return words > 0 && words <= MAX_GOODBYE_WORDS;
+}
+
+/**
+ * How short an utterance has to be before it counts as a fragment rather than a
+ * sentence. Two words or fewer, with no sentence-ending punctuation, is what a
+ * breaking microphone produces; it is also what "yes" and "okay" look like, so
+ * one of these means nothing on its own and only a run of them is a signal.
+ */
+const FRAGMENT_MAX_WORDS = 2;
+
+/**
+ * Short answers that are answers. A tutoring session is full of "yes", "no",
+ * "twelve" and "not yet"; counting those as a broken microphone would have the
+ * tutor interrupt a working conversation to ask him to check his hardware.
+ */
+const SHORT_BUT_WHOLE =
+  /^(?:yes|yeah|yep|no|nope|nah|ok|okay|sure|right|correct|wrong|done|ready|maybe|stop|wait|pause|again|repeat|next|back|hi|hey|hello|bye|thanks|thank you|please|true|false|i think so|not yet|i don't know|dunno|got it|keep going|go on|move on|[\d][\d.,/%:-]*)$/i;
+
+export function looksLikeFragment(text: string): boolean {
+  const trimmed = text.trim();
+  if (!trimmed) return true;
+  if (/[.!?]$/.test(trimmed)) return false;
+  if (SHORT_BUT_WHOLE.test(trimmed.replace(/[.,!?]+$/, ""))) return false;
+  return wordCount(trimmed) <= FRAGMENT_MAX_WORDS;
+}
+
+/** Consecutive fragments before the studio tells the model the audio is broken. */
+export const FRAGMENT_RUN_BEFORE_WARNING = 3;
+
+/**
+ * Silent context for a microphone that is breaking up.
+ *
+ * Without it the model has only scraps to go on, and a model with scraps and a
+ * lesson in its prompt will reliably invent a question about that lesson. Said
+ * plainly, "I am only catching pieces" is the honest move and the one that gets
+ * the learner to fix his microphone.
+ */
+export function brokenAudioNote(studentName: string, samples: string[]): string {
+  const heard = samples
+    .slice(-FRAGMENT_RUN_BEFORE_WARNING)
+    .map((sample) => JSON.stringify(sample.slice(0, 40)))
+    .join(", ");
+  return `[AUDIO] The last ${FRAGMENT_RUN_BEFORE_WARNING} things ${studentName} said arrived as fragments (${heard}), so his microphone or connection is breaking up. Tell him plainly, in one sentence, that you are only catching pieces and ask him to repeat it or check his microphone. Do not guess what he meant, do not answer the fragment, and do not fall back to the current lesson for something to talk about.`;
 }
 
 export interface LiveFunctionCall {
@@ -252,13 +312,22 @@ export interface TranscriptSegment {
 }
 
 /**
+ * Silence that ends an utterance rather than punctuating one.
+ *
+ * At 1.1s an ordinary thinking pause split one sentence into several, which is
+ * how "Virgil, what does equivalent mean" reached the wake and farewell checks
+ * as three unrelated scraps.
+ */
+export const INPUT_UTTERANCE_GAP_MS = 1_800;
+
+/**
  * Live transcripts arrive as timed fragments with no turn boundaries. Group
  * fragments into utterances separated by silence gaps.
  */
 export class TranscriptAccumulator {
   private current: TranscriptSegment | null = null;
 
-  constructor(private readonly gapMs = 1_100) {}
+  constructor(private readonly gapMs = INPUT_UTTERANCE_GAP_MS) {}
 
   get text(): string {
     return this.current?.text ?? "";
@@ -309,10 +378,20 @@ export function backgroundWorkNote(activity: string | null): string {
   return `[BACKGROUND] You are ${doing} in the background, and Atticus can see that on screen. Do not announce it: no "checking", no "one second", no "let me look at that". Keep talking about the subject itself, or say nothing until the answer lands, then carry on the thought you started.`;
 }
 
-export function stateNote(awake: boolean): string {
+/**
+ * The session's wake state, written so the newest one wins.
+ *
+ * `session.instructions.append` is append-only: every toggle leaves its text in
+ * the session for good, so after a few of them the model is holding both "stay
+ * completely silent" and "respond normally" with nothing to say which is
+ * current. Numbering them and saying outright that the highest number governs
+ * turns a contradictory pile back into one readable state.
+ */
+export function stateNote(awake: boolean, sequence: number): string {
+  const head = `[STATE #${sequence}: ${awake ? "awake" : "standby"}] This replaces every earlier [STATE] line; only the highest-numbered one is in force.`;
   return awake
-    ? "[STATE: awake] Respond normally until Atticus says goodbye."
-    : "[STATE: standby] Stay completely silent until you hear the wake word \"Virgil\".";
+    ? `${head} Atticus is talking with you now. Respond normally until he clearly says goodbye.`
+    : `${head} Stay completely silent until you hear the wake word "Virgil" again.`;
 }
 
 /**

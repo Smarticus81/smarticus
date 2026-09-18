@@ -2,13 +2,17 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import {
   backgroundWorkNote,
+  brokenAudioNote,
   BackendHistoryBudget,
   clipToBytes,
   containsGoodbye,
   containsWakeWord,
   FAST_TOOL_TIMEOUT_MS,
+  FRAGMENT_RUN_BEFORE_WARNING,
   functionCallFromEvent,
   LESSON_TOOL_TIMEOUT_MS,
+  looksLikeFragment,
+  MAX_GOODBYE_WORDS,
   responseFinishedFromEvent,
   serializeToolOutput,
   stateNote,
@@ -33,10 +37,48 @@ describe("wake word and farewell detection", () => {
     assert.equal(containsGoodbye("that's all for today"), true);
     assert.equal(containsGoodbye("by the way"), false);
   });
-  it("asks for an immediate greeting and documents the standby state", () => {
+  it("ignores a farewell buried in a longer sentence", () => {
+    // Standby silences the tutor completely, so a stray word must never send it
+    // there: only a short, deliberate farewell counts.
+    assert.equal(
+      containsGoodbye("I wanted to say goodbye to my cousin in the story we read yesterday"),
+      false,
+    );
+    assert.equal(containsGoodbye("bye"), true);
+    assert.ok(MAX_GOODBYE_WORDS >= 4);
+  });
+  it("numbers the state so the newest instruction wins", () => {
     assert.match(wakeGreetingCommentary("Atticus"), /right now/);
-    assert.match(stateNote(false), /standby/i);
-    assert.match(stateNote(true), /awake/i);
+    assert.match(stateNote(false, 1), /standby/i);
+    assert.match(stateNote(true, 2), /awake/i);
+    assert.match(stateNote(true, 2), /#2/);
+    // Appended instructions are permanent, so the note has to say which one counts.
+    assert.match(stateNote(false, 3), /highest-numbered/i);
+  });
+});
+
+describe("broken audio", () => {
+  it("counts one-word scraps as fragments and whole sentences as speech", () => {
+    assert.equal(looksLikeFragment("State"), true);
+    assert.equal(looksLikeFragment("But his"), true);
+    assert.equal(looksLikeFragment(""), true);
+    assert.equal(looksLikeFragment("What is a ratio"), false);
+    assert.equal(looksLikeFragment("Go on."), false);
+  });
+  it("leaves real short answers alone", () => {
+    // A lesson is full of these; treating them as a broken microphone would
+    // interrupt a conversation that is working.
+    for (const reply of ["yes", "No", "okay", "12", "not yet", "3.5", "go on"]) {
+      assert.equal(looksLikeFragment(reply), false, `${reply} is an answer`);
+    }
+  });
+  it("tells the model to name the problem rather than guess at the lesson", () => {
+    const note = brokenAudioNote("Atticus", ["Well, Mister", "Wait", "State"]);
+    assert.match(note, /fragments/);
+    assert.match(note, /microphone/);
+    assert.match(note, /Do not guess/);
+    assert.match(note, /do not fall back to the current lesson/);
+    assert.ok(FRAGMENT_RUN_BEFORE_WARNING >= 2);
   });
 });
 

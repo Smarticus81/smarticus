@@ -9,8 +9,11 @@ import { GeminiVoiceSession } from "./geminiSession";
 import type { TutorSession, VoiceProvider } from "./session";
 import {
   backgroundWorkNote,
+  brokenAudioNote,
   containsGoodbye,
   containsWakeWord,
+  FRAGMENT_RUN_BEFORE_WARNING,
+  looksLikeFragment,
   stateNote,
   TranscriptAccumulator,
   wakeGreetingCommentary,
@@ -45,7 +48,20 @@ function focusHeadline(focus: string): string {
   return `${STUDENT_NAME} is now on: ${JSON.stringify(first.slice(0, 220))}.`;
 }
 const SPEAKING_HOLD_MS = 900;
-const UTTERANCE_IDLE_MS = 1_500;
+/**
+ * Silence after which an unfinished utterance is closed anyway. It has to sit
+ * above the accumulator's own gap, or this timer closes the sentence the gap was
+ * still willing to continue.
+ */
+const UTTERANCE_IDLE_MS = 2_200;
+/**
+ * The wake greeting may not repeat inside this window.
+ *
+ * The greeting is speakable context, so a wake word heard twice is a tutor that
+ * introduces itself twice in the middle of a lesson. One greeting per arrival is
+ * the whole point of it.
+ */
+const GREETING_COOLDOWN_MS = 60_000;
 /**
  * How often the "do not announce the lookup" reminder may be repeated. Often
  * enough to survive a long session's instruction drift, rarely enough that it
@@ -205,6 +221,9 @@ export function VoiceTutor({
   const screenShareRef = useRef<ScreenShare | null>(null);
   const lastFocusNoteRef = useRef<string>("");
   const lastBackgroundNoteRef = useRef(0);
+  const lastGreetingRef = useRef(0);
+  const wakeSequenceRef = useRef(0);
+  const fragmentRunRef = useRef<string[]>([]);
   if (!screenShareRef.current) screenShareRef.current = new ScreenShare();
   useEffect(() => screenShareRef.current?.onChange(setScreenSharing), []);
 
@@ -252,16 +271,50 @@ export function VoiceTutor({
 
   const setWakeState = useCallback((awake: boolean, options: { greet?: boolean } = {}) => {
     const session = sessionRef.current;
-    if (isAwakeRef.current !== awake) {
+    const changed = isAwakeRef.current !== awake;
+    if (changed) {
       isAwakeRef.current = awake;
       setIsAwake(awake);
-      session?.appendInstructions(stateNote(awake));
+      // Numbered, because appended instructions are permanent: the model needs
+      // to be told which of the [STATE] lines it is holding is the current one.
+      wakeSequenceRef.current += 1;
+      session?.appendInstructions(stateNote(awake, wakeSequenceRef.current));
     }
-    if (awake && options.greet) {
-      // The greeting must be immediate: commentary is speakable context the
-      // Live model voices at once, before any delegation happens.
-      session?.appendCommentary(wakeGreetingCommentary(STUDENT_NAME));
+    if (!awake) {
+      fragmentRunRef.current = [];
+      return;
     }
+    if (!options.greet) return;
+    // Greet on arrival, not on every stray match. The greeting is spoken at
+    // once, so a repeat lands as Virgil introducing himself mid-lesson.
+    const now = Date.now();
+    if (!changed && now - lastGreetingRef.current < GREETING_COOLDOWN_MS) return;
+    lastGreetingRef.current = now;
+    // Commentary is speakable context the Live model voices immediately,
+    // before any delegation happens.
+    session?.appendCommentary(wakeGreetingCommentary(STUDENT_NAME));
+  }, []);
+
+  /**
+   * Watch for a microphone that is breaking up.
+   *
+   * A run of one-word utterances is the shape of the failure: the model is left
+   * guessing, and a guessing model with a lesson in its prompt asks about that
+   * lesson over and over. Naming the real problem is what ends that loop.
+   */
+  const noteUtteranceQuality = useCallback((text: string) => {
+    if (!isAwakeRef.current) return;
+    if (!looksLikeFragment(text)) {
+      fragmentRunRef.current = [];
+      return;
+    }
+    const run = [...fragmentRunRef.current.slice(-8), text];
+    fragmentRunRef.current = run;
+    if (run.length < FRAGMENT_RUN_BEFORE_WARNING) return;
+    // Start the count again, so one warning follows each run rather than one
+    // per fragment once the run is long.
+    fragmentRunRef.current = [];
+    sessionRef.current?.appendThinking(brokenAudioNote(STUDENT_NAME, run));
   }, []);
 
   const markSpeaking = useCallback(() => {
@@ -395,6 +448,12 @@ export function VoiceTutor({
     setEnded(false);
     isAwakeRef.current = false;
     setIsAwake(false);
+    // A fresh session starts a fresh instruction timeline, so the [STATE]
+    // numbering and the greeting cooldown start over with it.
+    wakeSequenceRef.current = 0;
+    lastGreetingRef.current = 0;
+    lastBackgroundNoteRef.current = 0;
+    fragmentRunRef.current = [];
     inputRef.current = new TranscriptAccumulator();
     outputRef.current = new TranscriptAccumulator(700);
     setConnection("connecting");
@@ -445,22 +504,27 @@ export function VoiceTutor({
                 : "The connection ended. Your microphone is off. Try connecting again.",
           );
         });
+        // One settled utterance, whatever closed it: the display, the farewell
+        // check and the audio-quality watch must all see the same thing.
+        const settleUtterance = (text: string) => {
+          appendTranscript("user", text);
+          if (isAwakeRef.current && containsGoodbye(text)) {
+            setWakeState(false);
+            return;
+          }
+          noteUtteranceQuality(text);
+        };
         session.on("input_transcript", (delta, startMs, endMs) => {
           const accumulator = inputRef.current;
           const closed = accumulator.push(delta, startMs, endMs);
-          if (closed) {
-            appendTranscript("user", closed.text);
-            if (isAwakeRef.current && containsGoodbye(closed.text)) setWakeState(false);
-          }
+          if (closed) settleUtterance(closed.text);
           if (!isAwakeRef.current && containsWakeWord(accumulator.text)) {
             setWakeState(true, { greet: true });
           }
           if (inputIdleTimerRef.current !== null) window.clearTimeout(inputIdleTimerRef.current);
           inputIdleTimerRef.current = window.setTimeout(() => {
             const segment = inputRef.current.flush();
-            if (!segment) return;
-            appendTranscript("user", segment.text);
-            if (isAwakeRef.current && containsGoodbye(segment.text)) setWakeState(false);
+            if (segment) settleUtterance(segment.text);
           }, UTTERANCE_IDLE_MS);
         });
         session.on("output_transcript", (delta, startMs, endMs) => {
@@ -548,7 +612,10 @@ export function VoiceTutor({
         await cleanup();
         return;
       }
-      session.appendInstructions(stateNote(false));
+      // The session opens in standby, and that is [STATE #1]: every later
+      // toggle counts up from here so the newest one always wins.
+      wakeSequenceRef.current = 1;
+      session.appendInstructions(stateNote(false, wakeSequenceRef.current));
       const started = await api.tool.lessonStarted(lessonId);
       tutorSessionIdRef.current = started.sessionId;
       if (sessionRef.current !== session) {
@@ -561,7 +628,7 @@ export function VoiceTutor({
       setError(voiceStartupError(caught));
       setConnection("error");
     }
-  }, [appendTranscript, cleanup, connection, lessonId, markSpeaking, remindNotToStall, setWakeState, showActivity, startVisualizer]);
+  }, [appendTranscript, cleanup, connection, lessonId, markSpeaking, noteUtteranceQuality, remindNotToStall, setWakeState, showActivity, startVisualizer]);
 
   const toggleMute = useCallback(async () => {
     const session = sessionRef.current;
