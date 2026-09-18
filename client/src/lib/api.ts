@@ -155,5 +155,42 @@ export const api = {
       }),
     assignment: (assignmentId: string) =>
       request(`/api/tools/assignment/${encodeURIComponent(assignmentId)}`),
+    /**
+     * Hand the day's work in. Typed answers and photographs of paper travel the
+     * same route; `mode` records which, because it changes how the work reads.
+     */
+    submitWork: (body: SubmitWorkBody) =>
+      request<SubmissionView>("/api/lessons/submit", {
+        method: "POST",
+        body: JSON.stringify(body),
+      }),
+    submissions: (lessonId: string) =>
+      request<SubmissionView[]>(
+        `/api/lessons/${encodeURIComponent(lessonId)}/submissions`,
+      ),
   },
 };
+
+export interface SubmitWorkBody {
+  lesson_id: string;
+  mode: "platform" | "paper";
+  answers: Array<{
+    item_id: string;
+    section: "guided_practice" | "independent_practice" | "exit_ticket";
+    prompt: string;
+    answer: string;
+  }>;
+  photos: string[];
+  note?: string;
+}
+
+export interface SubmissionView {
+  id: string;
+  lesson_id: string;
+  mode: "platform" | "paper";
+  submitted_at: string;
+  answered: number;
+  total: number;
+  photos: number;
+  note: string | null;
+}

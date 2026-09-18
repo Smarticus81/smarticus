@@ -1167,7 +1167,7 @@ function EvidenceStudio({
       <details className="source-peek">
         <summary>Look back at the lesson</summary>
         <p>{lesson.written_instruction}</p>
-        {lesson.source_references.map((source, i) => (
+        {(lesson.source_references ?? []).map((source, i) => (
           <small key={i}>{source}</small>
         ))}
       </details>

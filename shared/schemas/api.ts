@@ -89,6 +89,45 @@ const DateStringSchema = z
     return Number.isFinite(timestamp) && new Date(timestamp).toISOString().slice(0, 10) === value;
   }, "Date must be a real calendar date");
 
+/**
+ * Handing work in.
+ *
+ * Two routes to the same place: typed on the platform, or done on paper and
+ * photographed. A submission always records which, because a page of working
+ * that only exists as a photograph is graded differently from a typed answer.
+ */
+export const SubmissionModeEnum = z.enum(["platform", "paper"]);
+
+const DataUrlSchema = z
+  .string()
+  .regex(/^data:image\/(jpeg|png);base64,[A-Za-z0-9+/=]+$/, "Expected an image data URL")
+  // A downscaled JPEG of a page of handwriting lands well under this.
+  .max(4_000_000);
+
+export const SubmitLessonWorkSchema = z
+  .object({
+    lesson_id: IdSchema,
+    mode: SubmissionModeEnum,
+    answers: z
+      .array(
+        z.object({
+          item_id: IdSchema,
+          section: QuestionSectionEnum,
+          prompt: z.string().trim().max(2_000),
+          answer: z.string().max(20_000),
+        }).strict(),
+      )
+      .max(100),
+    /** Photographs of work done away from the keyboard. */
+    photos: z.array(DataUrlSchema).max(6).default([]),
+    note: z.string().trim().max(2_000).optional(),
+  })
+  .strict()
+  .refine(
+    (value) => value.answers.some((entry) => entry.answer.trim()) || value.photos.length > 0,
+    { message: "Nothing to hand in yet" },
+  );
+
 export const TodayScheduleQuerySchema = z.object({
   date: DateStringSchema.optional(),
 }).strict();

@@ -188,28 +188,17 @@ export default function App() {
             >
               <Icon name={item.icon} />
               <span>{item.label}</span>
-              {item.id === "lab" && <span className="new-label">TRY IT</span>}
             </button>
           ))}
         </nav>
         <div className="sidebar-bottom">
-          <div className="sidebar-note">
-            <Icon name="star" size={23} />
-            <p>
-              Big ideas start with
-              <br />
-              <strong>“What if?”</strong>
-            </p>
-            <span>Keep asking, {name}.</span>
-          </div>
           <div className="profile">
             <div className="avatar">{name[0]}</div>
             <div>
               <strong>{name}’s space</strong>
               <span>Grade {snapshot?.student.gradeLevel ?? 6} · 2026–27</span>
             </div>
-            <span className="profile-dot" />
-          </div>
+              </div>
         </div>
       </aside>
       <div className="main-shell">
@@ -282,7 +271,7 @@ export default function App() {
                     {page === "today" ? (
                       <>
                         Hey, {name}
-                        <span className="greeting-spark">✳</span>
+                        
                       </>
                     ) : page === "subjects" ? (
                       "Find your next big idea."
@@ -401,7 +390,6 @@ export default function App() {
                           </span>
                         )}
                       </div>
-                      <OrbitArt />
                     </section>
                     <section className="day-card">
                       <div className="section-top">
@@ -483,55 +471,6 @@ export default function App() {
                         <EmptyPlan dates={dates} onDate={setDate} />
                       )}
                     </section>
-                    <aside className="home-aside">
-                      <section className="tutor-promo">
-                        <div className="section-top">
-                          <span className="eyebrow">
-                            MEET YOUR THINKING PARTNER
-                          </span>
-                          <Icon name="headphones" size={18} />
-                        </div>
-                        <div className="virgil-face">
-                          <i />
-                          <i />
-                        </div>
-                        <h3>A question? Ask Virgil.</h3>
-                        <p>
-                          Talk it through, get a fresh example, or untangle a
-                          tricky idea. Your AI tutor is here to help you think.
-                        </p>
-                        <button
-                          className="button outline"
-                          onClick={() =>
-                            nextLesson
-                              ? openLesson(nextLesson)
-                              : navigate("subjects")
-                          }
-                        >
-                          {nextLesson
-                            ? "Open lesson & talk"
-                            : "Find a learning day"}
-                          <Icon name="arrow" size={17} />
-                        </button>
-                      </section>
-                      <button
-                        className="lab-teaser"
-                        onClick={() => navigate("lab")}
-                      >
-                        <span className="eyebrow">THE CURIOSITY CORNER</span>
-                        <div className="mini-rays" aria-hidden="true">
-                          ↗
-                        </div>
-                        <h3>
-                          Can you bend
-                          <br />a beam of light?
-                        </h3>
-                        <span>
-                          Step into the reflection lab{" "}
-                          <Icon name="arrow" size={17} />
-                        </span>
-                      </button>
-                    </aside>
                   </div>
                 </>
               )}

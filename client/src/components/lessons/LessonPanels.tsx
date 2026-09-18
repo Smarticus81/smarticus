@@ -4,6 +4,7 @@ import type { LessonView, PracticeItem, WorkedExample } from "../../lib/types";
 import { instructionBeats } from "../../lib/learning";
 import { api } from "../../lib/api";
 import { ChoiceGroup, JournalPrompt, Scene } from "./LearningPrimitives";
+import { HandIn } from "./HandIn";
 
 type Journal = {
   entries: Record<string, string>;
@@ -306,9 +307,11 @@ export function PracticePanel({
           Next question →
         </button>
       </div>
+      <HandIn />
       <p className="learning-fineprint">
-        Your drafts stay on this device. A written answer isn’t automatically
-        graded or counted as mastery.
+        Your drafts save as you type, on this device. Handing them in sends them
+        to your record. Either way, a written answer isn’t automatically graded
+        or counted as mastery.
       </p>
     </div>
   );

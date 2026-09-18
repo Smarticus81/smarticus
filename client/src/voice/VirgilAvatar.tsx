@@ -102,6 +102,10 @@ export function VirgilAvatar({
       ref={hostRef}
       className={`virgil-avatar avatar-${state} ${live ? "is-3d" : "is-flat"}`}
       data-testid="virgil-avatar"
+      // The scene drops its idle breathing, sway and tassel when this is on.
+      // Reflecting it here makes an accessibility promise checkable from
+      // outside, which comparing two WebGL frames cannot do.
+      data-reduced-motion={reduced}
       aria-hidden="true"
     >
       <canvas ref={canvasRef} className="virgil-canvas" data-testid="virgil-canvas" />

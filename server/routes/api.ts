@@ -36,10 +36,12 @@ import {
   OptionalSubjectParamsSchema,
   MasteryQuerySchema,
   LessonQuestionLookupSchema,
+  SubmitLessonWorkSchema,
 } from "../../shared/schemas/api.js";
 import { searchVectorStore, searchWeb } from "../lib/openai.js";
 import { readPage, summarizeForTutor } from "../services/reader.js";
 import { log } from "../lib/logger.js";
+import { getLessonSubmissions, submitLessonWork } from "../services/submissions.js";
 import type { Subject } from "@prisma/client";
 
 function param(value: string | string[]): string {
@@ -317,5 +319,45 @@ apiRouter.post(
     const { query } = WebSearchSchema.parse(req.body);
     log({ message: "Tool call", toolName: "search_web", requestId: req.ctx.requestId });
     res.json(await searchWeb(query));
+  }),
+);
+
+/**
+ * Hand the day's work in.
+ *
+ * Typed answers and photographs of paper arrive the same way and are stored the
+ * same way; only `mode` distinguishes them, because how the work was done
+ * changes how it should be read, not whether it counts.
+ */
+apiRouter.post(
+  "/lessons/submit",
+  asyncHandler(async (req, res) => {
+    const body = SubmitLessonWorkSchema.parse(req.body);
+    const submission = await submitLessonWork({
+      lessonId: body.lesson_id,
+      mode: body.mode,
+      answers: body.answers,
+      photos: body.photos,
+      ...(body.note ? { note: body.note } : {}),
+    });
+    if (!submission) return res.status(404).json({ error: "Lesson not found" });
+    log({
+      message: "Lesson work submitted",
+      requestId: req.ctx.requestId,
+      lessonId: body.lesson_id,
+      mode: body.mode,
+      answered: submission.answered,
+      photos: submission.photos,
+    });
+    res.json(submission);
+  }),
+);
+
+apiRouter.get(
+  "/lessons/:lessonId/submissions",
+  asyncHandler(async (req, res) => {
+    const submissions = await getLessonSubmissions(param(req.params.lessonId));
+    if (!submissions) return res.status(404).json({ error: "Lesson not found" });
+    res.json(submissions);
   }),
 );

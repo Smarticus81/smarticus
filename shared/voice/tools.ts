@@ -223,6 +223,24 @@ export const voiceToolDefinitions = [
       .object({ lesson_id: z.string().max(128), item_id: z.string().max(128) })
       .strict(),
   }),
+  define({
+    name: "look_through_camera",
+    description:
+      "Look through Atticus's camera at what he is holding up: a page of working, a diagram he drew, a book, an object. Returns a photograph. Use it whenever the work is on paper rather than on screen — to check an answer he did by hand, to read his written method, or to see something he wants to show you. The camera is off until he turns it on; if it is off, ask him to press 'Camera' rather than guessing at what he has written.",
+    parameters: z.object({ reason: z.string().max(200).nullable() }).strict(),
+  }),
+  define({
+    name: "submit_lesson_work",
+    description:
+      "Hand in the day's work for Atticus so it is recorded. Use mode 'platform' for answers he typed into the lesson (they are collected from the interface automatically), and mode 'paper' to photograph what he did away from the keyboard — that takes a picture through the camera, so make sure the page is in view first with look_through_camera. Only submit when he has actually finished and says so, or agrees when you offer. Never submit an empty or half-finished page to move things along.",
+    parameters: z
+      .object({
+        lesson_id: z.string().max(128).nullable(),
+        mode: z.enum(["platform", "paper"]),
+        note: z.string().max(500).nullable(),
+      })
+      .strict(),
+  }),
 ];
 
 export type VoiceToolName = (typeof voiceToolDefinitions)[number]["name"];

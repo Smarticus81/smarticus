@@ -5,6 +5,8 @@ import { captureUiSnapshot } from "./uiSnapshot";
 import type { ScreenShare } from "./screenShare";
 import { lessonNavigator, whiteboard, type LessonSection } from "./whiteboardStore";
 import { reader } from "./readerStore";
+import { camera } from "./camera";
+import { lessonWork } from "./workStore";
 
 export interface ToolContext {
   lessonId: string;
@@ -42,7 +44,7 @@ export function createToolExecutors(context: ToolContext): Record<string, ToolEx
       // draft and the whiteboard summary must survive the trim.
       const description = captureUiSnapshot({
         compact: true,
-        extra: [whiteboard.summary(), reader.summary()],
+        extra: [whiteboard.summary(), reader.summary(), lessonWork.summary()],
       });
       const withImages = canSendImage();
       // Both captures at once: this tool holds the turn open, and the learner
@@ -68,6 +70,11 @@ export function createToolExecutors(context: ToolContext): Record<string, ToolEx
             : whiteboard.getSnapshot().open
               ? "The whiteboard is open; the listed contents above describe it."
               : "The whiteboard is closed.",
+          // Every byte here is charged against a bounded session history, so
+          // this says the fact and leaves the instructions to the prompt.
+          camera: camera.active
+            ? "Camera on: look_through_camera sees his page."
+            : "Camera off: his paper is not visible to you.",
         },
         images,
       };
@@ -194,6 +201,75 @@ export function createToolExecutors(context: ToolContext): Record<string, ToolEx
     get_worked_examples: async (args) => api.tool.workedExamples(lessonIdOr(args.lesson_id)),
     get_allowed_answer_support: async (args) =>
       api.tool.answerSupport(lessonIdOr(args.lesson_id), text(args.item_id)),
+    look_through_camera: async () => {
+      if (!camera.active) {
+        return {
+          error:
+            "The camera is off. Ask Atticus to press the Camera button under the board, then look again. Do not guess at what is on his page.",
+        };
+      }
+      const frame = canSendImage() ? await camera.captureFrame() : null;
+      return {
+        output: {
+          camera: frame
+            ? "A photograph through Atticus's camera is attached. Read what is actually on the page; say so plainly if it is blurred or cut off."
+            : "The camera is on, but this session's history has no room left for a picture. Ask him to read out what he wrote instead.",
+        },
+        images: frame ? [frame] : [],
+      };
+    },
+    submit_lesson_work: async (args) => {
+      const mode = args.mode === "paper" ? "paper" : "platform";
+      const note = nullableText(args.note);
+      if (!lessonWork.ready) {
+        return { error: "No lesson is open, so there is nothing to hand in." };
+      }
+      if (mode === "paper") {
+        if (!camera.active) {
+          return {
+            error:
+              "The camera is off, so there is no page to photograph. Ask Atticus to press Camera, check the page is in view with look_through_camera, then hand it in.",
+          };
+        }
+        const photo = await camera.captureFrame();
+        if (!photo) {
+          return { error: "The camera did not produce a picture. Ask him to try again." };
+        }
+        try {
+          const view = await lessonWork.submit({ mode, photos: [photo], ...(note ? { note } : {}) });
+          return {
+            submitted: true,
+            mode: view.mode,
+            photos: view.photos,
+            note: "The photograph is handed in and saved to his portfolio. Tell him briefly that it is in.",
+          };
+        } catch (error) {
+          return { error: error instanceof Error ? error.message : "That could not be handed in." };
+        }
+      }
+      const { answered, total } = lessonWork.progress();
+      if (answered === 0) {
+        return {
+          error:
+            "Nothing is written in the answer boxes yet, so there is nothing to hand in. Do not submit an empty page.",
+        };
+      }
+      try {
+        const view = await lessonWork.submit({ mode, ...(note ? { note } : {}) });
+        return {
+          submitted: true,
+          mode: view.mode,
+          answered: view.answered,
+          total: view.total,
+          note:
+            answered < total
+              ? `Handed in with ${answered} of ${total} questions written. Say which ones are still blank if he wants to keep going.`
+              : "All of it is in. Tell him briefly that it is handed in.",
+        };
+      } catch (error) {
+        return { error: error instanceof Error ? error.message : "That could not be handed in." };
+      }
+    },
   };
 
   for (const definition of voiceToolDefinitions) {

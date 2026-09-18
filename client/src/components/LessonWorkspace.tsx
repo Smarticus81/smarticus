@@ -23,6 +23,9 @@ import { useLearningJournal } from "./lessons/useLearningJournal";
 import { VirgilAvatar } from "../voice/VirgilAvatar";
 import { Whiteboard } from "../voice/Whiteboard";
 import { Reader } from "../voice/Reader";
+import { CameraView } from "../voice/CameraView";
+import { camera } from "../voice/camera";
+import { lessonWork } from "../voice/workStore";
 import { reader, useReader } from "../voice/readerStore";
 import {
   lessonNavigator,
@@ -74,6 +77,9 @@ export function LessonWorkspace({
   const journeyRef = useRef<HTMLElement>(null);
   const board = useWhiteboard();
   const readerState = useReader();
+  const [cameraOn, setCameraOn] = useState(camera.active);
+  useEffect(() => camera.onChange(setCameraOn), []);
+  useEffect(() => () => camera.stop(), []);
   const [practiceSelection, setPracticeSelection] = useState<
     { index: number; nonce: number } | undefined
   >(undefined);
@@ -116,7 +122,7 @@ export function LessonWorkspace({
   });
   const [notes, setNotes] = useState(initialDraft.notes),
     [answers, setAnswers] = useState(initialDraft.answers),
-    [saveState, setSaveState] = useState("Drafts stay on this device.");
+    [saveState, setSaveState] = useState("");
   useEffect(() => {
     let saved = true;
     try {
@@ -168,6 +174,44 @@ export function LessonWorkspace({
     lesson.guided_practice.length +
     lesson.independent_practice.length +
     lesson.exit_ticket.length;
+
+  /**
+   * Teach the Hand in button, and Virgil, how to read and send this lesson's
+   * answers. Both go through one path, so a submission Virgil makes and one
+   * Atticus makes are the same submission.
+   */
+  const answersRef = useRef(answers);
+  answersRef.current = answers;
+  useEffect(() => {
+    lessonWork.reset();
+    const sections = [
+      ["guided_practice", lesson.guided_practice],
+      ["independent_practice", lesson.independent_practice],
+      ["exit_ticket", lesson.exit_ticket],
+    ] as const;
+    const collect = () =>
+      sections.flatMap(([section, items], sectionIndex) =>
+        items.map((item) => ({
+          item_id: item.id,
+          section,
+          prompt: item.prompt,
+          answer: answersRef.current[`${sectionIndex}-${item.id}`] ?? "",
+        })),
+      );
+    lessonWork.register({
+      collect,
+      submit: async (request) =>
+        api.tool.submitWork({
+          lesson_id: lesson.id,
+          mode: request.mode,
+          // Paper work is the photograph; the typed boxes are not part of it.
+          answers: request.mode === "paper" ? [] : collect(),
+          photos: request.photos ?? [],
+          ...(request.note ? { note: request.note } : {}),
+        }),
+    });
+    return () => lessonWork.register(null);
+  }, [lesson.id, lesson.guided_practice, lesson.independent_practice, lesson.exit_ticket]);
   useEffect(() => {
     // Let the voice tutor move the interface: open a section, jump to a question.
     lessonNavigator.register(({ section, questionNumber }) => {
@@ -258,6 +302,16 @@ export function LessonWorkspace({
               {board.open ? "Hide whiteboard" : "Whiteboard"}
             </button>
             <button
+              className="focus-switch"
+              aria-pressed={cameraOn}
+              onClick={() =>
+                cameraOn ? camera.stop() : void camera.start().catch(() => undefined)
+              }
+            >
+              <Icon name="camera" size={15} />
+              {cameraOn ? "Close camera" : "Camera"}
+            </button>
+            <button
               className="studio-menu-toggle"
               aria-expanded={menuOpen}
               aria-controls="lesson-menu"
@@ -277,19 +331,31 @@ export function LessonWorkspace({
         <div className="virgil-stage" ref={tutorRef}>
           <div
             className="stage-surfaces"
-            data-empty={!board.open && !readerState.open}
+            data-empty={!board.open && !readerState.open && !cameraOn}
           >
             {board.open && <Whiteboard onClose={() => whiteboard.setOpen(false)} />}
+            {cameraOn && <CameraView onClose={() => camera.stop()} />}
             {readerState.open && <Reader onClose={() => reader.close()} />}
-            {!board.open && !readerState.open && (
+            {!board.open && !readerState.open && !cameraOn && (
               <div className="stage-empty">
-                <p>The board and the reading panel open when Virgil needs them.</p>
-                <button
-                  className="text-button"
-                  onClick={() => whiteboard.setOpen(true)}
-                >
-                  Open the whiteboard
-                </button>
+                <p>
+                  The board, the camera and the reading panel open when you or
+                  Virgil need them.
+                </p>
+                <div className="stage-empty-actions">
+                  <button
+                    className="text-button"
+                    onClick={() => whiteboard.setOpen(true)}
+                  >
+                    Open the whiteboard
+                  </button>
+                  <button
+                    className="text-button"
+                    onClick={() => void camera.start().catch(() => undefined)}
+                  >
+                    Show Virgil my paper
+                  </button>
+                </div>
               </div>
             )}
           </div>
@@ -339,7 +405,7 @@ export function LessonWorkspace({
             <h2>Lesson</h2>
             <button className="text-button" onClick={() => setMenuOpen(false)}>
               Close
-              <Icon name="check" size={15} />
+              <Icon name="close" size={15} />
             </button>
           </div>
           <section className="lesson-drawer">
