@@ -18,7 +18,7 @@ import {
   transmittedLight,
 } from "../../lib/learning";
 import { ChoiceGroup, JournalPrompt, Range, Scene } from "./LearningPrimitives";
-import { LightLab } from "../DiscoveryLab";
+import { LightLab } from "./LightLab";
 
 const ModelContext = createContext<(context: string) => void>(() => undefined);
 function useModelContext(context: string) {

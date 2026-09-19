@@ -622,7 +622,8 @@ em {
   color: #8a9281;
 }
 /* The promo and teaser cards that filled the second column were fixed copy
-   pointing at fixed content, so the plan now has the width to itself. */
+   pointing at fixed content,
+so the plan now has the width to itself. */
 .content-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -840,140 +841,6 @@ em {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
-}
-.subject-toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: space-between;
-  margin-bottom: 25px;
-}
-.filter-chips {
-  display: flex;
-  gap: 7px;
-  flex-wrap: wrap;
-  flex: 1;
-}
-.filter-chips button {
-  border: 1px solid #dfe4d7;
-  border-radius: 7px;
-  background: #fff;
-  color: #7c866f;
-  padding: 9px 12px;
-  min-height: 36px;
-  font-size: 10px;
-}
-.filter-chips button.selected {
-  background: #28392d;
-  border-color: #28392d;
-  color: #eef5e5;
-}
-.search-input {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  background: #fff;
-  border: 1px solid var(--line);
-  padding: 0 12px;
-  border-radius: 8px;
-  height: 39px;
-  color: #929b87;
-}
-.search-input input {
-  font-size: 11px;
-  border: 0;
-  width: 155px;
-  background: transparent;
-  padding: 8px 0;
-  min-width: 0;
-}
-.subject-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 22px;
-}
-.subject-card {
-  text-align: left;
-  padding: 0;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  overflow: hidden;
-  background: #fff;
-  display: flex;
-  flex-direction: column;
-}
-.subject-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px #3641280d;
-}
-.subject-art {
-  height: 158px;
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: 100%;
-  overflow: hidden;
-}
-.subject-art > svg {
-  z-index: 2;
-  transform: rotate(-12deg);
-}
-.art-circle {
-  position: absolute;
-  height: 110px;
-  width: 110px;
-  border: 1px solid currentColor;
-  border-radius: 50%;
-  opacity: 0.23;
-  transform: translate(29px, 10px);
-}
-.art-star {
-  position: absolute;
-  left: 23%;
-  top: 20%;
-  font-size: 20px;
-  opacity: 0.5;
-}
-.subject-status {
-  position: absolute;
-  right: 12px;
-  top: 12px;
-  font-size: 8px;
-  border: 1px solid #ffffff55;
-  background: #ffffff88;
-  border-radius: 5px;
-  padding: 5px 7px;
-}
-.subject-card-body {
-  padding: 23px;
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  width: 100%;
-}
-.subject-card-body .eyebrow {
-  font-size: 8px;
-}
-.subject-card h2 {
-  font-size: 18px;
-  line-height: 1.45;
-  font-weight: 550;
-  margin: 10px 0;
-}
-.subject-card p {
-  font-size: 11px;
-  color: #8b9380;
-  line-height: 1.7;
-  margin-bottom: 25px;
-}
-.subject-open {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 10px;
-  font-weight: 550;
-  margin-top: auto;
-  color: #667b4e;
 }
 .stats-grid {
   display: grid;
@@ -1353,44 +1220,6 @@ em {
   padding: 10px 15px;
   border-radius: 8px;
 }
-.lab-selector {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-  margin-bottom: 25px;
-}
-.lab-selector button {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  border: 1px solid var(--line);
-  background: #fff;
-  border-radius: 13px;
-  text-align: left;
-  padding: 18px;
-}
-.lab-selector button.selected {
-  border-color: #899e69;
-  box-shadow: 0 0 0 1px #899e69;
-  background: #fbfdf7;
-}
-.lab-selector button > span:nth-child(2) {
-  flex: 1;
-}
-.lab-selector strong {
-  font-size: 13px;
-  font-weight: 550;
-  display: block;
-}
-.lab-selector small {
-  font-size: 10px;
-  color: #88977a;
-  display: block;
-  margin-top: 6px;
-}
-.lab-selector button > svg {
-  color: #8d9e7b;
-}
 .experiment {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 300px;
@@ -1538,96 +1367,6 @@ em {
   padding: 16px;
   border-radius: 8px;
   margin-top: 16px;
-}
-.lab-bottom-note {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 23px 0;
-  color: #8a9978;
-}
-.lab-bottom-note p {
-  font-size: 11px;
-  margin: 0;
-}
-.lab-bottom-note strong {
-  font-weight: 600;
-}
-.fraction-stage {
-  background: #eee9f7;
-  color: #534167;
-}
-.fraction-stage .experiment-label {
-  color: #8e77a1;
-}
-.fraction-stage .tiny-dot {
-  background: #8c74a6;
-}
-.fraction-stage > p {
-  color: #9a85aa;
-}
-.fraction-value {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 30px;
-  margin: 40px 0;
-  color: #785d90;
-  font-size: 30px;
-}
-.fraction-value > strong {
-  font-size: 48px;
-  font-weight: 450;
-  text-align: center;
-  line-height: 1.2;
-}
-.fraction-value > strong > span {
-  display: block;
-  width: 60px;
-  height: 2px;
-  background: #ac95bc;
-  margin: 5px auto;
-}
-.fraction-value small {
-  font-size: 22px;
-}
-.fraction-pieces {
-  display: grid;
-  height: 96px;
-  border: 2px solid #9c81b3;
-  border-radius: 10px;
-  overflow: hidden;
-  gap: 2px;
-  background: #9c81b3;
-}
-.fraction-pieces button {
-  border: 0;
-  background: #f9f6fc;
-  min-width: 0;
-  color: #b69fc8;
-  padding: 0;
-  font-size: 10px;
-}
-.fraction-pieces button.filled {
-  background: #a68abd;
-  color: #fff;
-}
-.fraction-pieces button:hover {
-  background: #c7b3d8;
-}
-.fraction-scale {
-  display: flex;
-  justify-content: space-between;
-  font-size: 9px;
-  color: #9a82af;
-  margin: 13px 0;
-}
-.fraction-caption {
-  margin: auto 0 0;
-  text-align: center;
-  font-size: 11px;
-  color: #9d86b1;
-  padding-top: 30px;
 }
 .login-stage {
   min-height: 100dvh;
@@ -1818,15 +1557,6 @@ em {
 .lesson-time {
     display: none;
   }
-  .subject-grid {
-    gap: 15px;
-  }
-  .subject-card-body {
-    padding: 20px;
-  }
-  .subject-card h2 {
-    font-size: 16px;
-  }
   .voice-panel {
     padding: 20px 17px;
   }
@@ -1897,9 +1627,6 @@ em {
   .orbit-art {
     opacity: 0.85;
   }
-  .subject-card h2 {
-    font-size: 17px;
-  }
   .lesson-header h1 {
     font-size: 25px;
   }
@@ -1937,9 +1664,6 @@ em {
   }
   .content-grid {
     grid-template-columns: 1fr;
-  }
-  .subject-grid {
-    grid-template-columns: repeat(2, 1fr);
   }
   .voice-panel small {
     font-size: 10px;
@@ -1993,21 +1717,6 @@ em {
   }
   .mastery-card p {
     font-size: 11px;
-  }
-  .lab-selector button {
-    padding: 15px;
-    gap: 10px;
-  }
-  .lab-selector strong {
-    font-size: 11px;
-  }
-  .lab-selector button > svg {
-    display: none;
-  }
-  .lab-selector .subject-icon {
-    width: 37px;
-    height: 37px;
-    border-radius: 10px;
   }
 }
 @media (max-width: 600px) {
@@ -2174,56 +1883,6 @@ em {
   .page-footer > span {
     font-size: 8px;
   }
-  .subject-grid {
-    gap: 13px;
-  }
-  .subject-art {
-    height: 127px;
-  }
-  .subject-art > svg {
-    width: 42px;
-    height: 42px;
-  }
-  .subject-status {
-    font-size: 7px;
-    padding: 4px;
-    top: 9px;
-    right: 9px;
-  }
-  .art-circle {
-    width: 85px;
-    height: 85px;
-  }
-  .subject-card-body {
-    padding: 17px 13px;
-  }
-  .subject-card h2 {
-    font-size: 14px;
-  }
-  .subject-card p {
-    font-size: 10px;
-    line-height: 1.6;
-  }
-  .subject-card .eyebrow {
-    font-size: 7px;
-    letter-spacing: 1px;
-  }
-  .subject-open {
-    font-size: 9px;
-  }
-  .subject-toolbar {
-    gap: 15px;
-  }
-  .search-input {
-    width: 100%;
-  }
-  .search-input input {
-    width: 100%;
-  }
-  .filter-chips button {
-    font-size: 9px;
-    padding: 8px 10px;
-  }
   .stats-grid {
     grid-template-columns: 1fr;
     gap: 12px;
@@ -2292,21 +1951,6 @@ em {
   .worked-example summary strong {
     font-size: 11px;
   }
-  .lab-selector {
-    gap: 11px;
-  }
-  .lab-selector button {
-    padding: 14px 10px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
-  .lab-selector strong {
-    font-size: 11px;
-  }
-  .lab-selector small {
-    font-size: 8px;
-  }
   .experiment-stage {
     padding: 24px 18px;
     min-height: 390px;
@@ -2341,24 +1985,6 @@ em {
   }
   .range-label {
     font-size: 12px;
-  }
-  .lab-bottom-note {
-    align-items: flex-start;
-  }
-  .lab-bottom-note p {
-    font-size: 10px;
-  }
-  .fraction-value {
-    margin: 25px 0;
-  }
-  .fraction-value > strong {
-    font-size: 39px;
-  }
-  .fraction-pieces {
-    height: 75px;
-  }
-  .fraction-scale {
-    font-size: 8px;
   }
   .login-stage {
     grid-template-columns: 1fr;
@@ -2412,7 +2038,6 @@ em {
 including on small screens. */
 .page-heading p,
 .hero-copy p,
-.subject-card p,
 .empty-state p,
 .mastery-card p,
 .experiment-controls > p,
@@ -2466,12 +2091,6 @@ including on small screens. */
 .text-button {
   font-size: 12px;
 }
-.filter-chips button {
-  font-size: 11px;
-}
-.subject-open {
-  font-size: 12px;
-}
 @media (max-width: 600px) {
   .hero-copy p {
     max-width: 180px;
@@ -2493,18 +2112,11 @@ including on small screens. */
   .section-heading p {
     font-size: 10px;
   }
-  .subject-card h2 {
-    font-size: 15px;
-  }
-  .subject-card p {
-    font-size: 12px;
-  }
   .prose p {
     font-size: 15px;
   }
   .scratchpad textarea,
-.login-panel input,
-.search-input input {
+.login-panel input {
     font-size: 16px;
   }
   .page-heading p {

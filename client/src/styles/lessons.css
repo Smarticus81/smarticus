@@ -1797,11 +1797,11 @@ so
   height: 100%;
 }
 
-
 /* ---- Handing work in ---- */
 
 /* The answer boxes used to save to the device and stop there. These two
-   surfaces are the ones that make finished work real: typed answers, and a
+   surfaces are the ones that make finished work real: typed answers,
+and a
    photograph of the page for everything done away from the keyboard. */
 .hand-in {
   margin-top: 26px;
@@ -1864,7 +1864,8 @@ so
 
 /* ---- The camera ---- */
 
-/* Whatever the camera can see, Atticus sees at the same size for as long as it
+/* Whatever the camera can see,
+Atticus sees at the same size for as long as it
    is on. A tutor looking at his page while he cannot see the same picture
    would be a different and worse thing. */
 .camera-panel {
