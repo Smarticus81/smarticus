@@ -11,7 +11,6 @@ import { api, ApiError } from "./lib/api";
 import type { LessonView, ScheduleView, StudentSnapshot } from "./lib/types";
 import { friendlyDate, localDate, subjectInfo } from "./lib/subjects";
 import { Icon, type IconName } from "./components/Icon";
-import { DiscoveryLab } from "./components/DiscoveryLab";
 
 const LessonWorkspace = lazy(() =>
   import("./components/LessonWorkspace").then((module) => ({
@@ -19,11 +18,17 @@ const LessonWorkspace = lazy(() =>
   })),
 );
 
-type Page = "today" | "subjects" | "lab" | "progress";
+/**
+ * Two pages: the day's plan, and the record of how it is going.
+ *
+ * "My subjects" showed the same lessons as the day's plan, for the same date,
+ * as cards with a filter and a search over about seven items. The Discovery
+ * Lab was two fixed demos wired to no lesson and no record. Neither was a
+ * place anything happened, and both competed with the lesson for attention.
+ */
+type Page = "today" | "progress";
 const navigation: Array<{ id: Page; label: string; icon: IconName }> = [
   { id: "today", label: "My day", icon: "home" },
-  { id: "subjects", label: "My subjects", icon: "compass" },
-  { id: "lab", label: "Discovery lab", icon: "flask" },
   { id: "progress", label: "My progress", icon: "chart" },
 ];
 
@@ -52,8 +57,6 @@ export default function App() {
   const [progressError, setProgressError] = useState(false);
   const [loading, setLoading] = useState(true);
   const [needsAuthentication, setNeedsAuthentication] = useState(false);
-  const [filter, setFilter] = useState("all");
-  const [search, setSearch] = useState("");
   const loadVersion = useRef(0);
   const mainRef = useRef<HTMLElement>(null);
   const load = useCallback(async (selectedDate: string) => {
@@ -69,7 +72,7 @@ export default function App() {
         setNeedsAuthentication(true);
       else
         setError(
-          "Your learning plan couldn’t load. Try again in a moment, or explore the Discovery Lab.",
+          "Your learning plan couldn’t load. Try again in a moment.",
         );
     } finally {
       if (version === loadVersion.current) setLoading(false);
@@ -109,8 +112,6 @@ export default function App() {
       loadProgress();
     }
     setPage(next);
-    setSearch("");
-    setFilter("all");
   };
   const closeLesson = () => {
     setLesson(null);
@@ -147,13 +148,6 @@ export default function App() {
     snapshot?.student.preferredName ??
     schedule?.student?.preferredName ??
     "Atticus";
-  const visibleLessons = lessons.filter(
-    (item) =>
-      (filter === "all" || item.subject === filter) &&
-      `${item.lesson_title} ${subjectInfo(item.subject).label}`
-        .toLowerCase()
-        .includes(search.toLowerCase()),
-  );
   if (needsAuthentication) return <LoginScreen />;
   return (
     <div className="app-shell">
@@ -261,37 +255,18 @@ export default function App() {
                   <span className="eyebrow">
                     {page === "today"
                       ? "A LITTLE CURIOSITY. A LOT OF POSSIBILITY."
-                      : page === "subjects"
-                        ? "SO MANY WAYS TO SEE THE WORLD"
-                        : page === "lab"
-                          ? "LESS SCROLLING. MORE EXPERIMENTING."
-                          : "LOOK HOW FAR YOU’RE GOING"}
+                      : "LOOK HOW FAR YOU’RE GOING"}
                   </span>
                   <h1>
-                    {page === "today" ? (
-                      <>
-                        Hey, {name}
-                        
-                      </>
-                    ) : page === "subjects" ? (
-                      "Find your next big idea."
-                    ) : page === "lab" ? (
-                      "Wonder. Try. Discover."
-                    ) : (
-                      "Small steps. Real growth."
-                    )}
+                    {page === "today" ? <>Hey, {name}</> : "Small steps. Real growth."}
                   </h1>
                   <p>
                     {page === "today"
                       ? "Ready to make a little more sense of the world?"
-                      : page === "subjects"
-                        ? "Pick a subject and see where it takes you."
-                        : page === "lab"
-                          ? "A space to play with ideas. Change something and see what happens."
-                          : "Understanding takes practice. Every question is a step forward."}
+                      : "Understanding takes practice. Every question is a step forward."}
                   </p>
                 </div>
-                {(page === "today" || page === "subjects") && (
+                {page === "today" && (
                   <label className="date-picker">
                     <Icon name="book" size={17} />
                     <span className="sr-only">Learning day</span>
@@ -305,7 +280,7 @@ export default function App() {
                   </label>
                 )}
               </div>
-              {(page === "today" || page === "subjects") && loading ? (
+              {page === "today" && loading ? (
                 <div
                   className="skeleton-grid"
                   role="status"
@@ -315,7 +290,7 @@ export default function App() {
                   <div className="skeleton" />
                   <div className="skeleton" />
                 </div>
-              ) : (page === "today" || page === "subjects") && error ? (
+              ) : page === "today" && error ? (
                 <div className="empty-state">
                   <Icon name="compass" size={36} />
                   <h2>Let’s reconnect.</h2>
@@ -361,14 +336,12 @@ export default function App() {
                             ? subjectInfo(nextLesson.subject).label +
                               " · " +
                               nextLesson.lesson_title
-                            : "Take a breather, revisit a learning day, or follow your curiosity into the lab."}
+                            : "Nothing is scheduled for this day. Pick another learning day, or look at how the last few went."}
                         </p>
                         <button
                           className="button dark"
                           onClick={() =>
-                            nextLesson
-                              ? openLesson(nextLesson)
-                              : navigate("lab")
+                            nextLesson ? openLesson(nextLesson) : navigate("progress")
                           }
                         >
                           {nextLesson
@@ -379,7 +352,7 @@ export default function App() {
                               : completed === lessons.length
                                 ? "Revisit a lesson"
                                 : "Let’s get into it"
-                            : "Explore the lab"}
+                            : "See my progress"}
                           <Icon name="arrow" size={19} />
                         </button>
                         {nextLesson && (
@@ -449,12 +422,6 @@ export default function App() {
                             · Choose where to begin
                           </p>
                         </div>
-                        <button
-                          className="text-button"
-                          onClick={() => navigate("subjects")}
-                        >
-                          All subjects <Icon name="arrow" size={16} />
-                        </button>
                       </div>
                       {lessons.length > 0 ? (
                         <div className="lesson-list">
@@ -474,92 +441,6 @@ export default function App() {
                   </div>
                 </>
               )}
-              {page === "subjects" && !loading && !error && (
-                <>
-                  <div className="subject-toolbar">
-                    <div className="filter-chips" aria-label="Filter subjects">
-                      <button
-                        className={filter === "all" ? "selected" : ""}
-                        aria-pressed={filter === "all"}
-                        onClick={() => setFilter("all")}
-                      >
-                        All subjects
-                      </button>
-                      {[...new Set(lessons.map((item) => item.subject))].map(
-                        (subject) => (
-                          <button
-                            key={subject}
-                            className={filter === subject ? "selected" : ""}
-                            aria-pressed={filter === subject}
-                            onClick={() => setFilter(subject)}
-                          >
-                            {subjectInfo(subject).label}
-                          </button>
-                        ),
-                      )}
-                    </div>
-                    <label className="search-input">
-                      <Icon name="search" size={18} />
-                      <input
-                        placeholder="Find a lesson…"
-                        aria-label="Search lessons"
-                        value={search}
-                        onChange={(event) => setSearch(event.target.value)}
-                      />
-                    </label>
-                  </div>
-                  {lessons.length === 0 ? (
-                    <EmptyPlan dates={dates} onDate={setDate} />
-                  ) : visibleLessons.length === 0 ? (
-                    <div className="empty-state">
-                      <h2>No matches yet.</h2>
-                      <p>Try another subject or a shorter search.</p>
-                      <button
-                        className="button outline"
-                        onClick={() => {
-                          setFilter("all");
-                          setSearch("");
-                        }}
-                      >
-                        Clear filters
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="subject-grid">
-                      {visibleLessons.map((item) => {
-                        const info = subjectInfo(item.subject);
-                        return (
-                          <button
-                            className="subject-card"
-                            key={item.id}
-                            onClick={() => openLesson(item)}
-                          >
-                            <div className={`subject-art ${info.color}`}>
-                              <Icon name={info.icon} size={56} />
-                              <span className="art-circle" />
-                              <span className="art-star">✳</span>
-                              <span className="subject-status">
-                                {item.status === "completed"
-                                  ? "Completed"
-                                  : `${item.estimated_minutes} min`}
-                              </span>
-                            </div>
-                            <div className="subject-card-body">
-                              <span className="eyebrow">{info.label}</span>
-                              <h2>{item.lesson_title}</h2>
-                              <p>{info.description}</p>
-                              <span className="subject-open">
-                                Open lesson <Icon name="arrow" size={18} />
-                              </span>
-                            </div>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  )}
-                </>
-              )}
-              {page === "lab" && <DiscoveryLab />}
               {page === "progress" && (
                 <Progress
                   snapshot={snapshot}
