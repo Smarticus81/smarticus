@@ -1,20 +1,14 @@
 import type { HistoryUsage, LiveFunctionCall } from "./liveEvents";
 
 /**
- * The contract the lesson UI talks to, so a voice provider can be swapped
- * without the studio knowing which one is connected.
- *
- * `LiveVoiceSession` is the paid GPT-Live implementation; `GeminiVoiceSession`
- * is the free fallback. Both emit the same events and run the same browser-side
- * tool executors.
+ * The contract the lesson UI talks to. `LiveVoiceSession` is the GPT-Live
+ * implementation.
  */
 
 export type ToolExecutor = (
   args: Record<string, unknown>,
   call: LiveFunctionCall,
 ) => Promise<unknown>;
-
-export type VoiceProvider = "openai" | "gemini";
 
 export interface TutorSessionEvents {
   connected: (info: { sessionId: string }) => void;
@@ -34,10 +28,9 @@ export type TutorSessionEventName = keyof TutorSessionEvents;
 export type LiveStatus = "idle" | "connecting" | "connected" | "closed";
 
 export interface TutorSession {
-  readonly provider: VoiceProvider;
   readonly status: LiveStatus;
   readonly sessionId: string | null;
-  /** Bytes an image may take in this provider's history; 0 means skip capture. */
+  /** Bytes an image may take in the session's history; 0 means skip capture. */
   readonly imageAllowance: number;
   readonly historyUsage: HistoryUsage;
 

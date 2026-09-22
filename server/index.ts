@@ -26,8 +26,6 @@ import {
   bootstrapDatabase,
   describeDatabaseError,
 } from "../scripts/bootstrap-database.js";
-import { attachGeminiBridge } from "./voice/geminiBridge.js";
-import { geminiConfigured } from "./lib/gemini.js";
 
 const PostgresSessionStore = connectPgSimple(session);
 let sessionPool: Pool | undefined;
@@ -58,12 +56,7 @@ async function disconnectSessionStore() {
   await pool.end();
 }
 
-/**
- * One session middleware instance, shared by the REST API and the fallback
- * voice bridge so an upgraded WebSocket is authenticated exactly like a
- * request.
- */
-export function createSessionMiddleware() {
+function createSessionMiddleware() {
   return session({
     name: "atticus.sid",
     store: createSessionStore(),
@@ -82,7 +75,6 @@ export function createSessionMiddleware() {
 export function createApp() {
   const app = express();
   const sessionMiddleware = createSessionMiddleware();
-  app.set("sessionMiddleware", sessionMiddleware);
 
   app.disable("x-powered-by");
   app.set("trust proxy", env.TRUST_PROXY);
@@ -94,8 +86,6 @@ export function createApp() {
           defaultSrc: ["'self'"],
           baseUri: ["'self'"],
           connectSrc: ["'self'", "https://api.openai.com", "wss://api.openai.com"],
-          // The fallback tier's WebSocket is same-origin: the browser talks to
-          // this server, which relays to Gemini with the server-held key.
           fontSrc: ["'self'", "data:", "https://fonts.gstatic.com"],
           formAction: ["'self'"],
           frameAncestors: ["'none'"],
@@ -307,11 +297,6 @@ export function startServer() {
   server.keepAliveTimeout = 65_000;
   server.headersTimeout = 66_000;
   server.requestTimeout = 120_000;
-
-  if (geminiConfigured()) {
-    attachGeminiBridge(server, app.get("sessionMiddleware"));
-    log({ message: "Fallback voice bridge attached", model: env.GEMINI_LIVE_MODEL });
-  }
 
   return server;
 }

@@ -1,12 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { api, ApiError } from "../lib/api";
+import { api } from "../lib/api";
 import { createToolExecutors } from "./tools";
 import { Icon } from "../components/Icon";
 import { createSessionPayload, type TranscriptLine } from "./sessionPayload";
 import { VirgilAvatar } from "./VirgilAvatar";
 import { LiveVoiceSession } from "./liveSession";
-import { GeminiVoiceSession } from "./geminiSession";
-import type { TutorSession, VoiceProvider } from "./session";
+import type { TutorSession } from "./session";
 import {
   backgroundWorkNote,
   brokenAudioNote,
@@ -127,18 +126,6 @@ async function requestMicrophone(): Promise<MediaStream> {
   }
 }
 
-/**
- * The server answers 402 when the paid pipeline is healthy but the budget is
- * gone, and names what it can fall back to. Any other failure is a genuine
- * error: a network blip belongs on the good pipeline, retried, not on the
- * weaker one.
- */
-function offersFallback(error: unknown): boolean {
-  return (
-    error instanceof ApiError && error.status === 402 && error.body.fallback === "gemini"
-  );
-}
-
 function voiceStartupError(error: unknown): string {
   if (error instanceof DOMException) {
     if (error.name === "NotAllowedError" || error.name === "SecurityError") {
@@ -177,7 +164,6 @@ export function VoiceTutor({
   const [activity, setActivity] = useState<string | null>(null);
   const [screenSharing, setScreenSharing] = useState(false);
   const [models, setModels] = useState<{ voice: string; backend: string } | null>(null);
-  const [provider, setProvider] = useState<VoiceProvider>("openai");
   const mountedRef = useRef(true);
 
   useEffect(() => {
@@ -415,7 +401,6 @@ export function VoiceTutor({
     setConnection("idle");
     setIsSpeaking(false);
     setIsMuted(false);
-    setProvider("openai");
     isAwakeRef.current = false;
     setIsAwake(false);
     if (tutorSessionIdRef.current) {
@@ -474,8 +459,8 @@ export function VoiceTutor({
 
       const screenShare = screenShareRef.current ?? new ScreenShare();
       screenShareRef.current = screenShare;
-      // One set of executors serves either provider: they only touch the lesson
-      // API, the interface and the whiteboard, never the transport.
+      // The executors only touch the lesson API, the interface and the
+      // whiteboard, never the transport.
       const tools = createToolExecutors({
         lessonId,
         screenShare,
@@ -556,7 +541,7 @@ export function VoiceTutor({
         });
       };
 
-      const primary = new LiveVoiceSession({
+      const session = new LiveVoiceSession({
         mediaStream,
         audioElement,
         tools,
@@ -569,44 +554,9 @@ export function VoiceTutor({
           return { sdp: created.sdp, sessionId: created.sessionId };
         },
       });
-      attach(primary);
-      sessionRef.current = primary;
-
-      let session: TutorSession = primary;
-      try {
-        await primary.connect(30_000);
-      } catch (caught) {
-        if (!offersFallback(caught)) throw caught;
-        // Disarm the failed session's disconnected handler before closing it, so
-        // its teardown cannot stop the microphone the fallback is about to use.
-        sessionRef.current = null;
-        await primary.close().catch(() => undefined);
-        if (!mountedRef.current) {
-          await cleanup();
-          return;
-        }
-
-        let lessonContextConfirmed = false;
-        const fallback = new GeminiVoiceSession({
-          mediaStream,
-          audioElement,
-          lessonId,
-          tools,
-          onReady: (info) => {
-            lessonContextConfirmed =
-              info.lessonId === lessonId && info.lessonMarker.startsWith("[SELECTED_LESSON:");
-            setModels({ voice: `${info.model} · ${info.voice}`, backend: info.model });
-          },
-        });
-        attach(fallback);
-        sessionRef.current = fallback;
-        session = fallback;
-        setProvider("gemini");
-        await fallback.connect(30_000);
-        if (!lessonContextConfirmed) {
-          throw new Error("The voice session did not receive the selected lesson context.");
-        }
-      }
+      attach(session);
+      sessionRef.current = session;
+      await session.connect(30_000);
 
       if (!mountedRef.current) {
         await cleanup();
@@ -726,20 +676,6 @@ export function VoiceTutor({
         <span className={`voice-status-dot voice-status-dot--${connection}`} />
         <span>{status}</span>
       </div>
-      {provider === "gemini" && connection !== "idle" && (
-        // The fallback must never be silent: it is a different company's model,
-        // it is weaker at the lesson rules, and on the free tier the
-        // conversation may be used to train it.
-        <div className="voice-fallback-notice" role="status">
-          <Icon name="alert" size={15} />
-          <p>
-            <strong>Backup tutor.</strong> The usual voice budget is used up, so Virgil is
-            running on Google’s free tier. He is slower, and this conversation is not
-            private — Google may use it to train their models. Top up the OpenAI key to
-            get the usual Virgil back.
-          </p>
-        </div>
-      )}
       {(connection === "idle" || connection === "error") && !saveFailed && (
         <button
           className="button primary"
