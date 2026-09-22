@@ -13,7 +13,6 @@ import {
 } from "../services/voicePrompt.js";
 import { buildVoiceContext } from "../services/voiceContext.js";
 import { createLiveSession } from "../lib/openai.js";
-import { geminiConfigured } from "../lib/gemini.js";
 import { hashSafetyIdentifier } from "../lib/auth.js";
 import { getDefaultStudent } from "../services/student.js";
 import { prisma } from "../lib/prisma.js";
@@ -24,9 +23,7 @@ export const realtimeRouter = Router();
 
 /**
  * Errors that mean the OpenAI account cannot pay for this session, as opposed to
- * a transient outage. Only these hand the lesson to the free fallback tier: a
- * network blip should be retried on the good pipeline, not answered by the
- * weaker one.
+ * a transient outage, so the learner is told to top up rather than to retry.
  */
 const QUOTA_ERROR =
   /insufficient_quota|exceeded your current quota|billing_hard_limit|quota exceeded|account is not active/i;
@@ -34,20 +31,11 @@ const QUOTA_ERROR =
 function isQuotaError(error: unknown): boolean {
   if (QUOTA_ERROR.test(error instanceof Error ? error.message : String(error))) return true;
   // Deliberately not a bare 429: that is also how a transient rate limit
-  // arrives, and a burst of requests should be retried on the good pipeline
-  // rather than moving a child onto the weaker, less private one.
+  // arrives, and a burst of requests should simply be retried.
   const { code, type } = (error ?? {}) as { code?: string; type?: string };
   return code === "insufficient_quota" || type === "insufficient_quota";
 }
 
-/** What the studio can fall back to when the paid pipeline is unavailable. */
-realtimeRouter.get("/providers", (_req, res) => {
-  res.json({
-    fallback: geminiConfigured() ? "gemini" : null,
-    fallbackModel: geminiConfigured() ? env.GEMINI_LIVE_MODEL : null,
-    fallbackVoice: geminiConfigured() ? env.GEMINI_LIVE_VOICE : null,
-  });
-});
 realtimeRouter.post(
   "/live",
   asyncHandler(async (req, res) => {
@@ -109,22 +97,15 @@ realtimeRouter.post(
     } catch (error) {
       const message =
         error instanceof Error ? error.message : "Failed to create live session";
-      const exhausted = !env.OPENAI_API_KEY || isQuotaError(error);
-      if (exhausted && geminiConfigured()) {
+      if (env.OPENAI_API_KEY && isQuotaError(error)) {
         log({
-          message: "Live voice session unavailable; offering the fallback tier",
+          message: "Live voice session refused: OpenAI quota exhausted",
           requestId: req.ctx.requestId,
           lessonId: lesson.id,
-          reason: env.OPENAI_API_KEY ? "quota" : "unconfigured",
         });
-        // 402 rather than 503: the pipeline is healthy, the budget is not, and
-        // the client has somewhere else to go.
+        // 402 rather than 503: the pipeline is healthy, the budget is not.
         return res.status(402).json({
-          error: env.OPENAI_API_KEY
-            ? "The OpenAI voice budget is used up"
-            : "OpenAI not configured",
-          fallback: "gemini",
-          fallbackModel: env.GEMINI_LIVE_MODEL,
+          error: "The OpenAI voice budget is used up. Top up the OpenAI account, then connect again.",
         });
       }
       if (message.includes("OPENAI_API_KEY")) {

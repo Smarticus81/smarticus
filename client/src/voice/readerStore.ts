@@ -24,7 +24,7 @@ export interface ReaderState {
   open: boolean;
   loading: boolean;
   page: ReaderPage | null;
-  /** What Virgil said he was looking for, shown while the page loads. */
+  /** What Virgil said she was looking for, shown while the page loads. */
   purpose: string | null;
   error: string | null;
   version: number;
@@ -33,7 +33,7 @@ export interface ReaderState {
 type Listener = () => void;
 
 /**
- * The shared reading panel. Virgil opens a page here so he and the learner are
+ * The shared reading panel. Virgil opens a page here so she and the learner are
  * looking at the same thing; the page arrives already fetched and stripped of
  * markup by the server, so nothing from the open web executes in the app.
  */
