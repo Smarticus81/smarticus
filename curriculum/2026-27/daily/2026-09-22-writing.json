@@ -1,0 +1,52 @@
+{
+  "date": "2026-09-22",
+  "school_year": "2026-27",
+  "grade_level": 6,
+  "day_number": 20,
+  "school_day_label": "Tuesday, September 22, 2026",
+  "todays_goal": "Repair compare-and-explain writing by requiring factual accuracy, complete thoughts, and a real self-check before checkboxes are earned.",
+  "lessons": [
+    {
+      "id": "2026-09-22-writing",
+      "date": "2026-09-22",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "writing",
+      "course": "Grade 6 Literature & Writing",
+      "unit_id": "ela-writing",
+      "unit_title": "Analytical Writing",
+      "lesson_number": 12,
+      "lesson_title": "Compare & Explain Mastery",
+      "standards": ["W.6.2","W.6.9","L.6.1","L.6.2"],
+      "previous_learning": "Day 19 camera-vs-eye paragraph contained an inaccurate similarity, an unfinished final thought, and checked self-review boxes that were not actually satisfied.",
+      "course_context": "Writing is today's deliberate review subject. Rebuild the compare/explain response with accuracy and meaningful self-review.",
+      "learning_objectives": ["Write an accurate comparison.","State a clear difference.","Explain why the difference matters.","Reread and repair incomplete or inaccurate sentences.","Use a checklist as evidence, not decoration."],
+      "why_it_matters": "Strong academic writing must be correct, complete, and understandable after rereading.",
+      "vocabulary": [
+        {"term":"similarity","definition":"a way two things are alike"},
+        {"term":"difference","definition":"a way two things are not alike"},
+        {"term":"accuracy","definition":"being factually correct"},
+        {"term":"complete thought","definition":"a sentence that finishes the idea it begins"}
+      ],
+      "written_instruction": "Atticus: yesterday you checked every box, but the paragraph still had an inaccurate comparison and an unfinished final thought. Today you earn each checkmark by proving the sentence is accurate, complete, and makes sense.",
+      "worked_examples": [
+        {"title":"Pinhole vs lens camera","problem":"Compare two camera types.","solution":"Both use light to form images; the pinhole admits little light while a lens collects more.","explanation":"The difference matters because the pinhole image is dimmer."},
+        {"title":"Weak vs strong explanation","problem":"A camera and eye are different. This matters.","solution":"A camera sensor records electronic image data while the retina sends neural signals to the brain.","explanation":"The stronger version names the difference and explains its meaning."}
+      ],
+      "guided_practice": [{"id":"wr-g1","prompt":"Use the fact bank to identify one accurate similarity and one accurate difference between a camera and an eye."}],
+      "independent_practice": [
+        {"id":"wr-i1","prompt":"Rewrite the camera-vs-eye paragraph from scratch in at least 7 sentences. Include two accurate comparisons and explain why one difference matters."},
+        {"id":"wr-i2","prompt":"Complete the meaning check by underlining, boxing, starring, rereading, and repairing before checking boxes."}
+      ],
+      "exit_ticket": [{"id":"wr-e1","prompt":"Score the paragraph using the 10-point mastery gate and explain any point you did not earn.","answer":"Target 9/10 or better with accurate evidence in the text."}],
+      "mastery_threshold": 90,
+      "materials": ["Day 20 packet","Smarticus whiteboard"],
+      "estimated_minutes": 60,
+      "voice_prompt": "Be firm and concise. Do not accept a checked box as evidence. Ask Atticus to read each sentence aloud. If a sentence is inaccurate, incomplete, or vague, identify only the first problem and require a rewrite. Do not dictate the assigned paragraph. Use the whiteboard for a different compare/explain example and a live 10-point rubric.",
+      "teacher_notes": "High-priority review from Day 19.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    }
+  ]
+}
