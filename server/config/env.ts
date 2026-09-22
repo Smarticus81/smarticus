@@ -29,7 +29,12 @@ export const envSchema = z
     PORT: z.coerce.number().int().min(1).max(65535).default(3000),
     OPENAI_API_KEY: optionalString,
     REALTIME_MODEL: z.string().default("gpt-live-1"),
-    REALTIME_VOICE: z.string().default("marin"),
+    /**
+     * Virgil is one tutor with one voice. A lesson can reconnect on either
+     * provider, so this and GEMINI_LIVE_VOICE must be the same kind of voice
+     * (both male by default) or Virgil changes voice between connections.
+     */
+    REALTIME_VOICE: z.string().default("cedar"),
     LIVE_BACKEND_MODEL: z.string().default("gpt-6-astra"),
     LIVE_BACKEND_REASONING: z
       .enum(["none", "minimal", "low", "medium", "high", "xhigh"])
