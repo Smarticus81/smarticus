@@ -74,6 +74,8 @@ export class GeminiVoiceSession implements TutorSession {
   private readonly listeners = new Map<TutorSessionEventName, Set<(...args: never[]) => void>>();
   private readonly inFlight = new Set<string>();
   private muted = false;
+  /** The relay's last error, so a close during setup can say why it happened. */
+  private lastServerError: string | null = null;
   status: LiveStatus = "idle";
   sessionId: string | null = null;
 
@@ -263,10 +265,11 @@ export class GeminiVoiceSession implements TutorSession {
         }
         return;
       case "error":
+        this.lastServerError = frame.message;
         this.emit("error", frame.message);
         return;
       case "closed":
-        onFailed(new Error("The fallback tutor's connection closed."));
+        onFailed(new Error(this.lastServerError ?? "The fallback tutor's connection closed."));
         this.finish(frame.reason);
         return;
     }
