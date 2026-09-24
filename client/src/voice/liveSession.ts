@@ -51,6 +51,7 @@ const HISTORY_FULL_ERROR = /input history is limited|history is full/i;
  * delegated backend are executed here and answered on the same channel.
  */
 export class LiveVoiceSession implements TutorSession {
+  readonly provider = "openai" as const;
   private peer: RTCPeerConnection | null = null;
   private channel: RTCDataChannel | null = null;
   private readonly tracker = new ToolTurnTracker();

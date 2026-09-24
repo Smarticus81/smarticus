@@ -29,12 +29,29 @@ export const envSchema = z
     PORT: z.coerce.number().int().min(1).max(65535).default(3000),
     OPENAI_API_KEY: optionalString,
     REALTIME_MODEL: z.string().default("gpt-live-1"),
+    /**
+     * Virgil is one tutor with one voice. A lesson can reconnect on either
+     * provider, so this and GEMINI_LIVE_VOICE must be the same kind of voice
+     * (both female by default: marin and Kore) or Virgil changes voice
+     * between connections.
+     */
     REALTIME_VOICE: z.string().default("marin"),
     LIVE_BACKEND_MODEL: z.string().default("gpt-6-astra"),
     LIVE_BACKEND_REASONING: z
       .enum(["none", "minimal", "low", "medium", "high", "xhigh"])
       .default("low"),
     WEB_SEARCH_MODEL: z.string().default("gpt-5.6"),
+    /**
+     * Free-tier fallback for when the OpenAI quota runs out. Leave the key empty
+     * to disable the fallback entirely; the studio then reports the quota error
+     * as before.
+     */
+    GEMINI_API_KEY: optionalString,
+    GEMINI_LIVE_MODEL: z.string().default("gemini-3.8-live"),
+    GEMINI_LIVE_VOICE: z.string().default("Kore"),
+    GEMINI_ENABLE_SEARCH: booleanEnvironment("true"),
+    /** Concurrent fallback voice sessions allowed; this studio has one learner. */
+    GEMINI_MAX_SESSIONS: z.coerce.number().int().positive().max(20).default(2),
     OPENAI_VECTOR_STORE_ID: optionalString,
     DATABASE_URL: z
       .string()
