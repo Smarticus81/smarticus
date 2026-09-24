@@ -275,3 +275,160 @@ export function toFunctionTools(
     strict: true,
   }));
 }
+
+export interface GeminiFunctionDeclaration {
+  name: string;
+  description: string;
+  /**
+   * Gemini 3.8 Live defaults to NON_BLOCKING, where the model keeps speaking
+   * while a tool runs and the reply may arrive before the result does. The
+   * studio's executors are written for the older synchronous contract — look at
+   * the screen, then answer about what is there — so the blocking mode is asked
+   * for explicitly rather than inherited.
+   */
+  behavior: "BLOCKING";
+  parameters?: Record<string, unknown>;
+}
+
+/**
+ * Keywords Gemini's Schema type understands. It rejects a declaration carrying
+ * anything else, so JSON Schema output is filtered down to this set rather than
+ * passed through.
+ */
+const GEMINI_SCHEMA_KEYS = new Set([
+  "type",
+  "format",
+  "title",
+  "description",
+  "nullable",
+  "enum",
+  "items",
+  "properties",
+  "required",
+  "anyOf",
+  "minimum",
+  "maximum",
+  "minItems",
+  "maxItems",
+]);
+
+/**
+ * A single-valued schema, which JSON Schema spells `const` and Gemini spells as
+ * a one-entry `enum`. This carries the discriminator of a union variant — drop
+ * it and the model no longer knows that a text step needs `kind: "text"`.
+ */
+function constAsEnum(schema: Record<string, unknown>): Record<string, unknown> | null {
+  if (!("const" in schema)) return null;
+  const value = schema.const;
+  const type =
+    typeof value === "number" ? "number" : typeof value === "boolean" ? "boolean" : "string";
+  return { type: schema.type ?? type, enum: [value] };
+}
+
+/** The JSON Schema branch of a nullable union, if this is one. */
+function nullableBranches(schema: Record<string, unknown>): unknown[] | null {
+  const branches = schema.anyOf ?? schema.oneOf;
+  if (!Array.isArray(branches)) return null;
+  const isNull = (branch: unknown) =>
+    Boolean(branch) && typeof branch === "object" && (branch as { type?: unknown }).type === "null";
+  return branches.some(isNull) ? branches.filter((branch) => !isNull(branch)) : null;
+}
+
+/**
+ * Rewrite a JSON Schema into the subset Gemini accepts.
+ *
+ * Two shapes need real translation rather than filtering. Zod renders
+ * `.nullable()` as a union with `{"type":"null"}`, which Gemini has no notion
+ * of; it spells the same thing `"nullable": true` on the base schema. And a
+ * discriminated union (the whiteboard's eleven step kinds) becomes `anyOf`,
+ * whose branches have to be converted too.
+ */
+function toGeminiSchema(input: unknown): Record<string, unknown> {
+  if (!input || typeof input !== "object") return {};
+  const schema = input as Record<string, unknown>;
+
+  const remaining = nullableBranches(schema);
+  if (remaining) {
+    // `{anyOf: [X, null]}` is one nullable X; more branches stay a union, but a
+    // nullable one.
+    const base =
+      remaining.length === 1
+        ? toGeminiSchema(remaining[0])
+        : { anyOf: remaining.map(toGeminiSchema) };
+    const { description } = schema;
+    return {
+      ...base,
+      ...(typeof description === "string" ? { description } : {}),
+      nullable: true,
+    };
+  }
+
+  const literal = constAsEnum(schema);
+  if (literal) {
+    const { description } = schema;
+    return typeof description === "string" ? { ...literal, description } : literal;
+  }
+
+  const output: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(schema)) {
+    if (!GEMINI_SCHEMA_KEYS.has(key)) continue;
+    if (key === "type" && Array.isArray(value)) {
+      // The other rendering of nullability: `"type": ["string", "null"]`.
+      const types = value.filter((entry) => entry !== "null");
+      output.type = types[0] ?? "string";
+      if (types.length !== value.length) output.nullable = true;
+      continue;
+    }
+    if (key === "properties" && value && typeof value === "object") {
+      output.properties = Object.fromEntries(
+        Object.entries(value as Record<string, unknown>).map(([name, child]) => [
+          name,
+          toGeminiSchema(child),
+        ]),
+      );
+      continue;
+    }
+    if (key === "items") {
+      output.items = toGeminiSchema(value);
+      continue;
+    }
+    if (key === "anyOf" && Array.isArray(value)) {
+      output.anyOf = value.map(toGeminiSchema);
+      continue;
+    }
+    output[key] = value;
+  }
+
+  // Gemini requires an object schema to describe its properties; an empty
+  // parameter object is expressed by omitting the schema entirely instead.
+  if (output.type === "object" && !output.properties) output.properties = {};
+  return output;
+}
+
+/**
+ * The same tool catalog as `toFunctionTools`, in the shape Gemini's Live API
+ * takes. Names and argument shapes stay identical so one set of browser-side
+ * executors serves either provider.
+ */
+export function toGeminiFunctionDeclarations(
+  definitions: readonly VoiceToolDefinition[] = voiceToolDefinitions,
+): GeminiFunctionDeclaration[] {
+  return definitions.map((definition) => {
+    const schema = toGeminiSchema(
+      stripSchemaMeta(
+        z.toJSONSchema(definition.parameters, { target: "draft-2020-12" }) as Record<
+          string,
+          unknown
+        >,
+      ),
+    );
+    const properties = schema.properties as Record<string, unknown> | undefined;
+    const hasParameters = properties && Object.keys(properties).length > 0;
+    return {
+      name: definition.name,
+      description: definition.description,
+      behavior: "BLOCKING",
+      ...(hasParameters ? { parameters: schema } : {}),
+    };
+  });
+}

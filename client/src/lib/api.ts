@@ -12,7 +12,7 @@ export class ApiError extends Error {
   constructor(
     message: string,
     readonly status: number,
-    /** The whole error body, so callers can read its fields. */
+    /** The whole error body, so callers can read fields such as `fallback`. */
     readonly body: Record<string, unknown> = {},
   ) {
     super(message);
@@ -81,6 +81,12 @@ export const api = {
       body: JSON.stringify({ lesson_id, sdp }),
       signal: AbortSignal.timeout(45_000),
     }),
+  voiceProviders: () =>
+    request<{
+      fallback: "gemini" | null;
+      fallbackModel: string | null;
+      fallbackVoice: string | null;
+    }>("/api/realtime/providers"),
   endSession: (payload: {
     session_id: string;
     summary?: string;
