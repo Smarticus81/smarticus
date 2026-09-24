@@ -4,7 +4,12 @@ import type { RequestHandler } from "express";
 import { WebSocket, WebSocketServer } from "ws";
 import { env } from "../config/env.js";
 import { log } from "../lib/logger.js";
-import { buildGeminiSetup, geminiConfigured, geminiSocketUrl } from "../lib/gemini.js";
+import {
+  buildGeminiSetup,
+  describeUpstreamClose,
+  geminiConfigured,
+  geminiSocketUrl,
+} from "../lib/gemini.js";
 import { getLessonById } from "../services/academic.js";
 import { buildAgentInstructions } from "../services/review.js";
 import { buildVoiceInstructions, RESPONSE_QUALITY_RULES } from "../services/voicePrompt.js";
@@ -215,7 +220,19 @@ class GeminiSession {
       });
       this.closeWith("upstream_error", "The fallback tutor's connection failed.");
     });
-    upstream.on("close", (code) => this.dispose(`upstream_closed_${code}`));
+    upstream.on("close", (code, reasonBuffer) => {
+      const reason = reasonBuffer.toString();
+      log({
+        level: this.ready ? "info" : "error",
+        message: "Fallback voice upstream closed",
+        requestId: this.requestId,
+        code,
+        reason,
+        ready: this.ready,
+      });
+      if (!this.ready && !this.closed) this.fail(describeUpstreamClose(code, reason));
+      this.dispose(`upstream_closed_${code}`);
+    });
   }
 
   private handleUpstreamMessage(raw: string, lessonId: string, lessonMarker: string) {

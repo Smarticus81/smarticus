@@ -152,3 +152,22 @@ describe("Gemini bridge protocol", () => {
     }
   });
 });
+
+describe("Gemini upstream close", () => {
+  it("passes Gemini's refusal reason on, so a failed setup says why", async () => {
+    const { describeUpstreamClose } = await import("../server/lib/gemini.js");
+    const message = describeUpstreamClose(1007, "Invalid voice name: Nope");
+    assert.match(message, /1007/);
+    assert.match(message, /Invalid voice name: Nope/);
+  });
+
+  it("still names the close code when Gemini gives no reason", async () => {
+    const { describeUpstreamClose } = await import("../server/lib/gemini.js");
+    assert.match(describeUpstreamClose(1011, "  "), /code 1011/);
+  });
+
+  it("keeps a long reason to a readable length", async () => {
+    const { describeUpstreamClose } = await import("../server/lib/gemini.js");
+    assert.ok(describeUpstreamClose(1008, "x".repeat(5_000)).length < 300);
+  });
+});

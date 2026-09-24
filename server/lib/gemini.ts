@@ -17,6 +17,23 @@ export function geminiSocketUrl(): string {
   return `${GEMINI_LIVE_ENDPOINT}?key=${encodeURIComponent(env.GEMINI_API_KEY)}`;
 }
 
+/** Longest slice of Gemini's close reason passed on to the learner's screen. */
+const MAX_CLOSE_REASON = 200;
+
+/**
+ * What to show when Gemini closes the upstream socket before the session is
+ * ready. Gemini reports a refused setup (an unknown model or voice, a rejected
+ * key, an unsupported field) only as the close code and reason, so they are the
+ * one clue to what went wrong and must reach the screen rather than a generic
+ * "connection closed".
+ */
+export function describeUpstreamClose(code: number, reason: string): string {
+  const detail = reason.trim().slice(0, MAX_CLOSE_REASON);
+  return detail
+    ? `Gemini refused the fallback session (code ${code}): ${detail}`
+    : `Gemini closed the fallback session before it started (code ${code}).`;
+}
+
 /**
  * The fallback tier's standing warning, carried in the system instruction.
  *
