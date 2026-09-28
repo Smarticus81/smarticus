@@ -13,7 +13,7 @@ import {
 } from "../services/voicePrompt.js";
 import { buildVoiceContext } from "../services/voiceContext.js";
 import { createLiveSession } from "../lib/openai.js";
-import { geminiConfigured } from "../lib/gemini.js";
+import { configuredFallbacks, fallbackProviders } from "../lib/fallbackProviders.js";
 import { hashSafetyIdentifier } from "../lib/auth.js";
 import { getDefaultStudent } from "../services/student.js";
 import { prisma } from "../lib/prisma.js";
@@ -40,12 +40,14 @@ function isQuotaError(error: unknown): boolean {
   return code === "insufficient_quota" || type === "insufficient_quota";
 }
 
-/** What the studio can fall back to when the paid pipeline is unavailable. */
+/** What the studio can fall back to when the paid pipeline is unavailable, in order. */
 realtimeRouter.get("/providers", (_req, res) => {
+  const fallbacks = configuredFallbacks();
   res.json({
-    fallback: geminiConfigured() ? "gemini" : null,
-    fallbackModel: geminiConfigured() ? env.GEMINI_LIVE_MODEL : null,
-    fallbackVoice: geminiConfigured() ? env.GEMINI_LIVE_VOICE : null,
+    fallbacks: fallbacks.map((provider) => ({
+      provider,
+      model: fallbackProviders[provider].model(),
+    })),
   });
 });
 realtimeRouter.post(
@@ -110,12 +112,14 @@ realtimeRouter.post(
       const message =
         error instanceof Error ? error.message : "Failed to create live session";
       const exhausted = !env.OPENAI_API_KEY || isQuotaError(error);
-      if (exhausted && geminiConfigured()) {
+      const fallbacks = configuredFallbacks();
+      if (exhausted && fallbacks.length) {
         log({
           message: "Live voice session unavailable; offering the fallback tier",
           requestId: req.ctx.requestId,
           lessonId: lesson.id,
           reason: env.OPENAI_API_KEY ? "quota" : "unconfigured",
+          fallbacks,
         });
         // 402 rather than 503: the pipeline is healthy, the budget is not, and
         // the client has somewhere else to go.
@@ -123,8 +127,8 @@ realtimeRouter.post(
           error: env.OPENAI_API_KEY
             ? "The OpenAI voice budget is used up"
             : "OpenAI not configured",
-          fallback: "gemini",
-          fallbackModel: env.GEMINI_LIVE_MODEL,
+          // Tried in this order: the next one takes over if one cannot start.
+          fallbacks,
         });
       }
       if (message.includes("OPENAI_API_KEY")) {

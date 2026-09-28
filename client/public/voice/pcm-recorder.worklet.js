@@ -1,7 +1,7 @@
 /**
  * Microphone capture for the fallback voice tier.
  *
- * Gemini Live takes 16kHz mono PCM16. The AudioContext is created at that rate
+ * Both fallback tiers take 16kHz mono PCM16. The AudioContext is created at that rate
  * so the browser's own resampler does the conversion and this worklet only has
  * to batch frames and narrow them to Int16.
  *

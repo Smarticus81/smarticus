@@ -4,13 +4,26 @@ import { z } from "zod";
  * The browser-to-server protocol for the fallback voice tier.
  *
  * The OpenAI path negotiates WebRTC once and then talks to OpenAI directly, so
- * the key never reaches the browser. Gemini Live speaks WebSocket and has no
- * browser-safe ephemeral credential here, so the app server stays in the middle
- * for the whole session and relays these frames. Keeping the envelope small and
- * explicit means the relay can validate everything it forwards.
+ * the key never reaches the browser. The fallbacks (Gemini Live, then Grok) speak
+ * WebSocket with no browser-safe ephemeral credential here, so the app server
+ * stays in the middle for the whole session and relays these frames. Both
+ * providers sit behind this one envelope, so the browser side does not change
+ * with the provider; keeping it small and explicit means the relay can validate
+ * everything it forwards.
  */
 
-export const BRIDGE_PATH = "/api/realtime/gemini";
+/** The fallback tiers, in the order the studio tries them. */
+export const FALLBACK_PROVIDERS = ["gemini", "grok"] as const;
+export type FallbackProvider = (typeof FALLBACK_PROVIDERS)[number];
+
+export const BRIDGE_PATHS: Record<FallbackProvider, string> = {
+  gemini: "/api/realtime/gemini",
+  grok: "/api/realtime/grok",
+};
+
+export function isFallbackProvider(value: unknown): value is FallbackProvider {
+  return FALLBACK_PROVIDERS.includes(value as FallbackProvider);
+}
 
 /** Base64 audio, capped near a second of 16kHz PCM16 so one frame cannot flood. */
 const AudioChunkSchema = z.string().min(1).max(64_000);
@@ -57,8 +70,11 @@ export type ServerFrame =
   | {
       t: "ready";
       sessionId: string;
+      provider: FallbackProvider;
       model: string;
       voice: string;
+      /** Whether tool pictures reach the model; without them it gets text only. */
+      images: boolean;
       lessonId: string;
       lessonMarker: string;
     }

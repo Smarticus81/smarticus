@@ -26,8 +26,8 @@ import {
   bootstrapDatabase,
   describeDatabaseError,
 } from "../scripts/bootstrap-database.js";
-import { attachGeminiBridge } from "./voice/geminiBridge.js";
-import { geminiConfigured } from "./lib/gemini.js";
+import { attachFallbackBridge } from "./voice/fallbackBridge.js";
+import { configuredFallbacks } from "./lib/fallbackProviders.js";
 
 const PostgresSessionStore = connectPgSimple(session);
 let sessionPool: Pool | undefined;
@@ -95,7 +95,7 @@ export function createApp() {
           baseUri: ["'self'"],
           connectSrc: ["'self'", "https://api.openai.com", "wss://api.openai.com"],
           // The fallback tier's WebSocket is same-origin: the browser talks to
-          // this server, which relays to Gemini with the server-held key.
+          // this server, which relays to Gemini or Grok with the server-held key.
           fontSrc: ["'self'", "data:", "https://fonts.gstatic.com"],
           formAction: ["'self'"],
           frameAncestors: ["'none'"],
@@ -308,9 +308,10 @@ export function startServer() {
   server.headersTimeout = 66_000;
   server.requestTimeout = 120_000;
 
-  if (geminiConfigured()) {
-    attachGeminiBridge(server, app.get("sessionMiddleware"));
-    log({ message: "Fallback voice bridge attached", model: env.GEMINI_LIVE_MODEL });
+  const fallbacks = configuredFallbacks();
+  if (fallbacks.length) {
+    attachFallbackBridge(server, app.get("sessionMiddleware"));
+    log({ message: "Fallback voice bridge attached", providers: fallbacks });
   }
 
   return server;

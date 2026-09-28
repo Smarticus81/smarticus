@@ -5,63 +5,51 @@ import { WebSocket, WebSocketServer } from "ws";
 import { env } from "../config/env.js";
 import { log } from "../lib/logger.js";
 import {
-  buildGeminiSetup,
   describeUpstreamClose,
-  geminiConfigured,
-  geminiSocketUrl,
-} from "../lib/gemini.js";
+  type UpstreamAdapter,
+  type UpstreamPayload,
+} from "../lib/fallbackTutor.js";
+import { fallbackProviders } from "../lib/fallbackProviders.js";
 import { getLessonById } from "../services/academic.js";
 import { buildAgentInstructions } from "../services/review.js";
 import { buildVoiceInstructions, RESPONSE_QUALITY_RULES } from "../services/voicePrompt.js";
 import { buildVoiceContext } from "../services/voiceContext.js";
 import { getDefaultStudent } from "../services/student.js";
 import {
-  BRIDGE_PATH,
+  BRIDGE_PATHS,
   ClientFrameSchema,
-  type BridgeToolCall,
+  FALLBACK_PROVIDERS,
+  type FallbackProvider,
   type ServerFrame,
-} from "../../shared/voice/geminiBridge.js";
+} from "../../shared/voice/fallbackBridge.js";
 
 /** A frame larger than this is not a voice chunk; it is something going wrong. */
 const MAX_FRAME_BYTES = 1_500_000;
 const SETUP_TIMEOUT_MS = 20_000;
 
-let activeSessions = 0;
-
-interface GeminiServerMessage {
-  setupComplete?: unknown;
-  serverContent?: {
-    modelTurn?: { parts?: Array<{ inlineData?: { mimeType?: string; data?: string } }> };
-    inputTranscription?: { text?: string };
-    outputTranscription?: { text?: string };
-    interrupted?: boolean;
-    turnComplete?: boolean;
-  };
-  toolCall?: {
-    functionCalls?: Array<{ id?: string; name?: string; args?: Record<string, unknown> }>;
-  };
-  goAway?: { timeLeft?: string };
-}
+const activeSessions: Record<FallbackProvider, number> = { gemini: 0, grok: 0 };
 
 /**
- * Relay one browser voice session to Gemini Live and back.
+ * Relay one browser voice session to a fallback provider and back.
  *
  * The bridge is deliberately thin: it authenticates the socket, builds the
- * session's instructions and tool catalog server-side, and then forwards
- * validated frames. It never interprets the conversation, and the API key never
- * leaves this process.
+ * session's instructions server-side, and then forwards validated frames
+ * through the provider's adapter. It never interprets the conversation, and the
+ * API key never leaves this process.
  */
-class GeminiSession {
+class FallbackSession {
   private upstream: WebSocket | null = null;
   private ready = false;
   private closed = false;
-  /** Audio that arrived before Gemini finished setup, replayed once it has. */
+  /** Audio that arrived before the provider finished setup, replayed once it has. */
   private readonly pending: string[] = [];
   private setupTimer: NodeJS.Timeout | null = null;
 
   constructor(
     private readonly client: WebSocket,
     private readonly requestId: string,
+    private readonly provider: FallbackProvider,
+    private readonly adapter: UpstreamAdapter,
   ) {}
 
   start() {
@@ -92,9 +80,9 @@ class GeminiSession {
     this.send({ t: "error", message });
   }
 
-  private sendUpstream(payload: Record<string, unknown>) {
+  private sendUpstream(payloads: UpstreamPayload[]) {
     if (this.upstream?.readyState !== WebSocket.OPEN) return false;
-    this.upstream.send(JSON.stringify(payload));
+    for (const payload of payloads) this.upstream.send(JSON.stringify(payload));
     return true;
   }
 
@@ -110,50 +98,17 @@ class GeminiSession {
           this.pending.push(frame.d);
           return;
         }
-        this.sendUpstream({
-          realtimeInput: {
-            audio: { data: frame.d, mimeType: "audio/pcm;rate=16000" },
-          },
-        });
+        this.sendUpstream(this.adapter.audio(frame.d));
         return;
       case "image":
-        this.sendUpstream({
-          realtimeInput: { video: { data: frame.d, mimeType: frame.mime } },
-        });
+        this.sendUpstream(this.adapter.image(frame.d, frame.mime));
         return;
       case "text":
-        this.sendUpstream({
-          clientContent: {
-            turns: [{ role: "user", parts: [{ text: frame.text }] }],
-            turnComplete: frame.turnComplete,
-          },
-        });
+        this.sendUpstream(this.adapter.text(frame.text, frame.turnComplete));
         return;
-      case "tool": {
-        let response: unknown;
-        try {
-          response = JSON.parse(frame.response);
-        } catch {
-          response = { error: "The tool result was not valid JSON." };
-        }
-        this.sendUpstream({
-          toolResponse: {
-            functionResponses: [
-              {
-                id: frame.id,
-                name: frame.name,
-                // Gemini expects an object here; a bare value is wrapped so a
-                // string or array result does not fail the turn.
-                response:
-                  response && typeof response === "object" && !Array.isArray(response)
-                    ? response
-                    : { result: response },
-              },
-            ],
-          },
-        });
+      case "tool":
+        this.sendUpstream(this.adapter.toolResult(frame.id, frame.name, frame.response));
         return;
-      }
       case "bye":
         this.dispose("client_ended");
         return;
@@ -162,7 +117,7 @@ class GeminiSession {
 
   private async openUpstream(lessonId: string) {
     if (this.upstream) return this.fail("This voice session was already started.");
-    let setup: Record<string, unknown>;
+    let setup: UpstreamPayload[];
     let lessonMarker: string;
     try {
       const student = await getDefaultStudent();
@@ -179,9 +134,9 @@ class GeminiSession {
       if (!baseInstructions.includes(lessonMarker)) {
         throw new Error("Backend instructions are missing the selected lesson marker");
       }
-      setup = buildGeminiSetup({
-        // Gemini has one system instruction rather than a seeded history, so the
-        // day's brief rides along with the voice half of the prompt.
+      setup = this.adapter.setup({
+        // A fallback has one system instruction rather than a seeded history, so
+        // the day's brief rides along with the voice half of the prompt.
         voiceInstructions: buildVoiceInstructions({
           studentName: student.preferredName,
           lessonTitle: lesson.lesson_title,
@@ -195,19 +150,32 @@ class GeminiSession {
         level: "error",
         message: "Fallback voice session could not be prepared",
         requestId: this.requestId,
+        provider: this.provider,
         error: error instanceof Error ? error.message : String(error),
       });
       return this.closeWith("setup_failed", "The fallback tutor could not start.");
     }
 
-    const upstream = new WebSocket(geminiSocketUrl());
+    let upstream: WebSocket;
+    try {
+      upstream = this.adapter.openSocket();
+    } catch (error) {
+      log({
+        level: "error",
+        message: "Fallback voice upstream could not be opened",
+        requestId: this.requestId,
+        provider: this.provider,
+        error: error instanceof Error ? error.message : String(error),
+      });
+      return this.closeWith("upstream_unavailable", "The fallback tutor could not start.");
+    }
     this.upstream = upstream;
     this.setupTimer = setTimeout(() => {
       if (!this.ready) this.closeWith("setup_timeout", "The fallback tutor did not respond.");
     }, SETUP_TIMEOUT_MS);
     this.setupTimer.unref();
 
-    upstream.on("open", () => upstream.send(JSON.stringify(setup)));
+    upstream.on("open", () => this.sendUpstream(setup));
     upstream.on("message", (data) =>
       this.handleUpstreamMessage(data.toString(), lessonId, lessonMarker),
     );
@@ -216,6 +184,7 @@ class GeminiSession {
         level: "error",
         message: "Fallback voice upstream failed",
         requestId: this.requestId,
+        provider: this.provider,
         error: error.message,
       });
       this.closeWith("upstream_error", "The fallback tutor's connection failed.");
@@ -226,76 +195,63 @@ class GeminiSession {
         level: this.ready ? "info" : "error",
         message: "Fallback voice upstream closed",
         requestId: this.requestId,
+        provider: this.provider,
         code,
         reason,
         ready: this.ready,
       });
-      if (!this.ready && !this.closed) this.fail(describeUpstreamClose(code, reason));
+      if (!this.ready && !this.closed) {
+        this.fail(describeUpstreamClose(this.adapter.label, code, reason));
+      }
       this.dispose(`upstream_closed_${code}`);
     });
   }
 
   private handleUpstreamMessage(raw: string, lessonId: string, lessonMarker: string) {
-    let message: GeminiServerMessage;
+    let message: unknown;
     try {
-      message = JSON.parse(raw) as GeminiServerMessage;
+      message = JSON.parse(raw);
     } catch {
       return;
     }
+    const result = this.adapter.handle(message);
 
-    if (message.setupComplete !== undefined && !this.ready) {
+    if (result.error) {
+      log({
+        level: "error",
+        message: "Fallback voice provider reported an error",
+        requestId: this.requestId,
+        provider: this.provider,
+        error: result.error,
+        ready: this.ready,
+      });
+      if (!this.ready) {
+        return this.closeWith(
+          "upstream_refused",
+          `${this.adapter.label} refused the fallback session: ${result.error}`,
+        );
+      }
+      this.send({ t: "error", message: result.error });
+    }
+
+    if (result.ready && !this.ready) {
       this.ready = true;
       if (this.setupTimer) clearTimeout(this.setupTimer);
       this.setupTimer = null;
       this.send({
         t: "ready",
-        sessionId: `gemini-${this.requestId}`,
-        model: env.GEMINI_LIVE_MODEL,
-        voice: env.GEMINI_LIVE_VOICE,
+        sessionId: `${this.provider}-${this.requestId}`,
+        provider: this.provider,
+        model: this.adapter.model,
+        voice: this.adapter.voice,
+        images: this.adapter.acceptsImages,
         lessonId,
         lessonMarker,
       });
-      for (const chunk of this.pending.splice(0)) {
-        this.sendUpstream({
-          realtimeInput: { audio: { data: chunk, mimeType: "audio/pcm;rate=16000" } },
-        });
-      }
-      return;
+      for (const chunk of this.pending.splice(0)) this.sendUpstream(this.adapter.audio(chunk));
     }
 
-    const content = message.serverContent;
-    if (content) {
-      if (content.interrupted) this.send({ t: "interrupted" });
-      const inputText = content.inputTranscription?.text;
-      if (inputText) this.send({ t: "input_transcript", text: inputText });
-      const outputText = content.outputTranscription?.text;
-      if (outputText) this.send({ t: "output_transcript", text: outputText });
-      for (const part of content.modelTurn?.parts ?? []) {
-        const audio = part.inlineData;
-        if (audio?.data && audio.mimeType?.startsWith("audio/")) {
-          this.send({ t: "audio", d: audio.data });
-        }
-      }
-      if (content.turnComplete) this.send({ t: "turn_complete" });
-    }
-
-    const calls = message.toolCall?.functionCalls ?? [];
-    if (calls.length) {
-      const mapped: BridgeToolCall[] = calls
-        .filter((call): call is { id?: string; name: string; args?: Record<string, unknown> } =>
-          Boolean(call.name),
-        )
-        .map((call) => ({
-          id: call.id ?? "",
-          name: call.name,
-          args: JSON.stringify(call.args ?? {}),
-        }));
-      if (mapped.length) this.send({ t: "tool_call", calls: mapped });
-    }
-
-    if (message.goAway) {
-      this.send({ t: "error", message: "The fallback session is about to reach its time limit." });
-    }
+    for (const frame of result.frames ?? []) this.send(frame);
   }
 
   private closeWith(reason: string, message: string) {
@@ -320,30 +276,36 @@ class GeminiSession {
     } catch {
       /* already closing */
     }
-    activeSessions = Math.max(0, activeSessions - 1);
+    activeSessions[this.provider] = Math.max(0, activeSessions[this.provider] - 1);
   }
 }
 
+function providerForPath(pathname: string): FallbackProvider | null {
+  return FALLBACK_PROVIDERS.find((provider) => BRIDGE_PATHS[provider] === pathname) ?? null;
+}
+
 /**
- * Attach the fallback voice bridge to the HTTP server.
+ * Attach the fallback voice bridge to the HTTP server, one path per provider.
  *
  * The upgrade is authenticated with the same session cookie as the REST API, by
  * running the very same session middleware over the upgrade request.
  */
-export function attachGeminiBridge(server: Server, sessionMiddleware: RequestHandler) {
+export function attachFallbackBridge(server: Server, sessionMiddleware: RequestHandler) {
   const wss = new WebSocketServer({ noServer: true, maxPayload: MAX_FRAME_BYTES });
 
   server.on("upgrade", (request: IncomingMessage, socket: Duplex, head: Buffer) => {
     const url = new URL(request.url ?? "/", "http://localhost");
-    if (url.pathname !== BRIDGE_PATH) return;
+    const provider = providerForPath(url.pathname);
+    if (!provider) return;
+    const entry = fallbackProviders[provider];
 
     const reject = (status: string) => {
       socket.write(`HTTP/1.1 ${status}\r\nConnection: close\r\n\r\n`);
       socket.destroy();
     };
 
-    if (!geminiConfigured()) return reject("503 Service Unavailable");
-    if (activeSessions >= env.GEMINI_MAX_SESSIONS) return reject("429 Too Many Requests");
+    if (!entry.configured()) return reject("503 Service Unavailable");
+    if (activeSessions[provider] >= entry.maxSessions()) return reject("429 Too Many Requests");
 
     // express-session reads the cookie off the request and never writes a
     // response here, but it wraps `writeHead` on the way in, so the stub has to
@@ -363,10 +325,15 @@ export function attachGeminiBridge(server: Server, sessionMiddleware: RequestHan
           return reject("401 Unauthorized");
         }
         wss.handleUpgrade(request, socket, head, (client) => {
-          activeSessions += 1;
+          activeSessions[provider] += 1;
           const requestId = Math.random().toString(36).slice(2, 12);
-          log({ message: "Fallback voice session opened", requestId, activeSessions });
-          new GeminiSession(client, requestId).start();
+          log({
+            message: "Fallback voice session opened",
+            requestId,
+            provider,
+            activeSessions: activeSessions[provider],
+          });
+          new FallbackSession(client, requestId, provider, entry.create()).start();
         });
       },
     );

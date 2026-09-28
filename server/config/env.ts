@@ -30,10 +30,10 @@ export const envSchema = z
     OPENAI_API_KEY: optionalString,
     REALTIME_MODEL: z.string().default("gpt-live-1"),
     /**
-     * Virgil is one tutor with one voice. A lesson can reconnect on either
-     * provider, so this and GEMINI_LIVE_VOICE must be the same kind of voice
-     * (both female by default: marin and Kore) or Virgil changes voice
-     * between connections.
+     * Virgil is one tutor with one voice. A lesson can reconnect on any
+     * provider, so this, GEMINI_LIVE_VOICE and GROK_VOICE must be the same kind
+     * of voice (all female by default: marin, Kore and eve) or Virgil changes
+     * voice between connections.
      */
     REALTIME_VOICE: z.string().default("marin"),
     LIVE_BACKEND_MODEL: z.string().default("gpt-6-astra"),
@@ -52,6 +52,16 @@ export const envSchema = z
     GEMINI_ENABLE_SEARCH: booleanEnvironment("true"),
     /** Concurrent fallback voice sessions allowed; this studio has one learner. */
     GEMINI_MAX_SESSIONS: z.coerce.number().int().positive().max(20).default(2),
+    /**
+     * Second fallback, tried when Gemini cannot start either (usually because
+     * its free quota is spent too). Leave the key empty to disable it.
+     */
+    XAI_API_KEY: optionalString,
+    GROK_VOICE_MODEL: z.string().default("grok-voice-latest"),
+    GROK_VOICE: z.string().default("eve"),
+    GROK_ENABLE_SEARCH: booleanEnvironment("true"),
+    /** Concurrent Grok voice sessions allowed; this studio has one learner. */
+    GROK_MAX_SESSIONS: z.coerce.number().int().positive().max(20).default(2),
     OPENAI_VECTOR_STORE_ID: optionalString,
     DATABASE_URL: z
       .string()
