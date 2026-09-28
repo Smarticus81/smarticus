@@ -28,12 +28,26 @@ export function Whiteboard({ onClose }: { onClose?: () => void }) {
     whiteboard.setInstant(Boolean(reduced));
   }, [reduced]);
 
+  /**
+   * Fit the board inside the frame, on whichever side is the tighter fit.
+   *
+   * Scaling from the width alone was right while the board sat in a column that
+   * could grow downwards. Now that the frame takes the height the window has
+   * left, a wide frame would produce a canvas taller than the space it is in.
+   */
   useEffect(() => {
     const frame = frameRef.current;
     if (!frame) return;
     const observer = new ResizeObserver(([entry]) => {
-      const width = Math.floor(entry.contentRect.width);
-      setSize({ width, height: Math.floor((width * BOARD_HEIGHT) / BOARD_WIDTH) });
+      const { width, height } = entry.contentRect;
+      const scale = Math.min(width / BOARD_WIDTH, height / BOARD_HEIGHT);
+      // A frame with no height yet still gets a usable board from its width, so
+      // the first paint is never a zero-sized canvas.
+      const fit = scale > 0 ? scale : width / BOARD_WIDTH;
+      setSize({
+        width: Math.max(0, Math.floor(BOARD_WIDTH * fit)),
+        height: Math.max(0, Math.floor(BOARD_HEIGHT * fit)),
+      });
     });
     observer.observe(frame);
     return () => observer.disconnect();

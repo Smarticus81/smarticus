@@ -370,6 +370,8 @@ spacious lesson surface. Motion is driven by meaning and input. */
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 10px;
+  width: 100%;
   font-size: 10px;
   letter-spacing: 1.5px;
 }
@@ -1328,7 +1330,10 @@ spacious lesson surface. Motion is driven by meaning and input. */
 
 /* Shared whiteboard: Virgil draws live; the learner draws back. */
 .whiteboard {
-  margin: 0 0 30px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  margin: 0;
   border: 1px solid var(--zen-border, #e0e6d6);
   border-radius: 18px;
   background: #fbfcf8;
@@ -1378,8 +1383,14 @@ spacious lesson surface. Motion is driven by meaning and input. */
     0 0 0 2px #242a26,
     0 0 0 1px rgba(0, 0, 0, 0.08) inset;
 }
+/* The frame takes the leftover height and the canvas is fitted inside it, so
+   the board grows with the window instead of dictating the page's height. */
 .whiteboard-frame {
+  flex: 1;
+  min-height: 0;
   width: 100%;
+  display: grid;
+  place-items: center;
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid #e3e8da;
@@ -1421,12 +1432,31 @@ centred,
 with the board and Virgil stacked. Everything the
    lesson used to spread across the screen now lives behind the Lesson menu,
 so the only things competing for attention are the two that matter. */
+/* Virgil and the board are one interface, sized to the window.
+   The stage owns the space between the lesson bar and the bottom of the
+   viewport and never grows past it, so neither of the two things that matter is
+   ever below the fold. Anything long inside a panel scrolls within that panel
+   rather than pushing the page. */
 .virgil-stage {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(300px, 22%) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 16px;
+  width: 100%;
+  margin: 0;
+}
+
+/* The lesson view is a full-height app screen rather than a page you scroll.
+   The shell's own top padding and centring are dropped for it, so the stage can
+   measure itself against the window instead of against its content. */
+.studio {
+  height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  width: min(100%, 980px);
-  margin: 0 auto;
+  gap: 12px;
+  min-height: 0;
 }
 
 .studio-bar {
@@ -1488,33 +1518,46 @@ so the only things competing for attention are the two that matter. */
   color: #344a3c;
 }
 
-/* Virgil first,
-her surfaces under her. */
+/* Virgil holds the left column at full height: he is the tutor, not a card
+   above the work. His column scrolls on its own when a fallback notice or the
+   transcript makes it tall. */
 .voice-panel {
-  order: 1;
+  grid-column: 1;
+  grid-row: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   border-radius: 22px;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 18px;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  text-align: left;
-  padding-block: 18px;
+  gap: 10px;
+  text-align: center;
+  padding: 18px 16px;
+  /* Centred in the column, but "safe" so a tall connected panel scrolls from
+     its top rather than having the first line cut off. */
+  justify-content: center;
+  justify-content: safe center;
 }
 
 .stage-surfaces {
-  order: 2;
+  grid-column: 2;
+  grid-row: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  min-height: 420px;
 }
 
-.stage-surfaces[data-empty="true"] {
+/* One surface takes the height; two share it. */
+.stage-surfaces > * {
+  flex: 1 1 0;
   min-height: 0;
 }
 
 .studio-now {
-  order: 3;
+  grid-column: 1 / -1;
+  grid-row: 2;
   display: flex;
   align-items: baseline;
   gap: 10px;
@@ -1649,23 +1692,52 @@ so
   min-width: 0;
 }
 
+/* Two full-height surfaces do not fit side by side on a narrow screen, and
+   squeezing them makes both useless. Below this they stack and the lesson
+   becomes a scrolling page again, with Virgil still first. */
+@media (max-width: 900px) {
+  .main-content--lesson {
+    height: auto;
+    overflow: visible;
+  }
+
+  .studio {
+    height: auto;
+  }
+
+  .virgil-stage {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+  }
+
+  .voice-panel,
+  .stage-surfaces,
+  .studio-now {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .voice-panel {
+    overflow: visible;
+  }
+
+  .stage-surfaces > * {
+    flex: 0 0 auto;
+  }
+
+  .whiteboard-frame {
+    flex: 0 0 auto;
+    aspect-ratio: 5 / 3;
+  }
+}
+
 @media (max-width: 760px) {
   .lesson-menu {
     width: 100vw;
     padding-inline: 18px;
   }
 
-  .voice-panel {
-    grid-template-columns: minmax(0, 1fr);
-    text-align: center;
-  }
-
-  .voice-panel > *:not(.virgil-avatar) {
-    grid-column: 1;
-  }
-
   .voice-panel .virgil-avatar {
-    grid-row: auto;
     width: 104px;
     height: 104px;
     margin-inline: auto;
