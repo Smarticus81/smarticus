@@ -1,9 +1,10 @@
 /**
  * Browser audio for the fallback voice tier.
  *
- * The paid path hands raw audio to WebRTC and never touches samples. Gemini
- * Live speaks base64 PCM over a WebSocket instead, so capture and playback are
- * built here: PCM16 at 16kHz up to the model, PCM16 at 24kHz back down.
+ * The paid path hands raw audio to WebRTC and never touches samples. The
+ * fallback tiers speak base64 PCM over a WebSocket instead, so capture and
+ * playback are built here: PCM16 at 16kHz up to the model, PCM16 at 24kHz back
+ * down. Grok is configured with the same two rates, so one pipeline serves both.
  */
 
 const INPUT_SAMPLE_RATE = 16_000;

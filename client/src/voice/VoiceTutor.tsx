@@ -5,7 +5,11 @@ import { Icon } from "../components/Icon";
 import { createSessionPayload, type TranscriptLine } from "./sessionPayload";
 import { VirgilAvatar } from "./VirgilAvatar";
 import { LiveVoiceSession } from "./liveSession";
-import { GeminiVoiceSession } from "./geminiSession";
+import { FallbackVoiceSession } from "./fallbackSession";
+import {
+  isFallbackProvider,
+  type FallbackProvider,
+} from "../../../shared/voice/fallbackBridge";
 import type { TutorSession, VoiceProvider } from "./session";
 import {
   backgroundWorkNote,
@@ -129,15 +133,20 @@ async function requestMicrophone(): Promise<MediaStream> {
 
 /**
  * The server answers 402 when the paid pipeline is healthy but the budget is
- * gone, and names what it can fall back to. Any other failure is a genuine
- * error: a network blip belongs on the good pipeline, retried, not on the
- * weaker one.
+ * gone, and lists what it can fall back to, in order. Any other failure is a
+ * genuine error: a network blip belongs on the good pipeline, retried, not on
+ * the weaker one.
  */
-function offersFallback(error: unknown): boolean {
-  return (
-    error instanceof ApiError && error.status === 402 && error.body.fallback === "gemini"
-  );
+function offeredFallbacks(error: unknown): FallbackProvider[] {
+  if (!(error instanceof ApiError) || error.status !== 402) return [];
+  const listed = error.body.fallbacks;
+  return Array.isArray(listed) ? listed.filter(isFallbackProvider) : [];
 }
+
+const FALLBACK_NAMES: Record<FallbackProvider, string> = {
+  gemini: "Gemini",
+  grok: "Grok",
+};
 
 function voiceStartupError(error: unknown): string {
   if (error instanceof DOMException) {
@@ -576,36 +585,67 @@ export function VoiceTutor({
       try {
         await primary.connect(30_000);
       } catch (caught) {
-        if (!offersFallback(caught)) throw caught;
+        const fallbacks = offeredFallbacks(caught);
+        if (!fallbacks.length) throw caught;
         // Disarm the failed session's disconnected handler before closing it, so
         // its teardown cannot stop the microphone the fallback is about to use.
         sessionRef.current = null;
         await primary.close().catch(() => undefined);
-        if (!mountedRef.current) {
-          await cleanup();
-          return;
-        }
 
-        let lessonContextConfirmed = false;
-        const fallback = new GeminiVoiceSession({
-          mediaStream,
-          audioElement,
-          lessonId,
-          tools,
-          onReady: (info) => {
-            lessonContextConfirmed =
-              info.lessonId === lessonId && info.lessonMarker.startsWith("[SELECTED_LESSON:");
-            setModels({ voice: `${info.model} · ${info.voice}`, backend: info.model });
-          },
-        });
-        attach(fallback);
-        sessionRef.current = fallback;
-        session = fallback;
-        setProvider("gemini");
-        await fallback.connect(30_000);
-        if (!lessonContextConfirmed) {
-          throw new Error("The voice session did not receive the selected lesson context.");
+        // Each fallback is tried in turn: when one cannot start (its own quota
+        // spent, most often), the next takes over. Every failure is kept, so if
+        // none starts the learner sees why each one did not.
+        const failures: string[] = [];
+        let connected: FallbackVoiceSession | null = null;
+        for (const provider of fallbacks) {
+          if (!mountedRef.current) {
+            await cleanup();
+            return;
+          }
+          let lessonContextConfirmed = false;
+          const fallback = new FallbackVoiceSession({
+            provider,
+            mediaStream,
+            audioElement,
+            lessonId,
+            tools,
+            onReady: (info) => {
+              lessonContextConfirmed =
+                info.lessonId === lessonId && info.lessonMarker.startsWith("[SELECTED_LESSON:");
+              setModels({ voice: `${info.model} · ${info.voice}`, backend: info.model });
+            },
+          });
+          attach(fallback);
+          setProvider(provider);
+          try {
+            // Not yet the current session: a fallback that fails during setup
+            // reports itself disconnected, and that handler must not tear down
+            // the microphone the next fallback is about to use.
+            await fallback.connect(30_000);
+            if (!lessonContextConfirmed) {
+              throw new Error("The voice session did not receive the selected lesson context.");
+            }
+            sessionRef.current = fallback;
+            connected = fallback;
+            break;
+          } catch (failure) {
+            const name = FALLBACK_NAMES[provider];
+            const reason = failure instanceof Error ? failure.message : String(failure);
+            // A relay refusal already names its provider; only prefix the rest.
+            failures.push(reason.startsWith(name) ? reason : `${name}: ${reason}`);
+            await fallback.close().catch(() => undefined);
+          }
         }
+        if (!connected) {
+          setProvider("openai");
+          throw new Error(
+            failures.length > 1
+              ? `No backup tutor could start. ${failures.join(" ")}`
+              : (failures[0] ?? "No backup tutor could start."),
+          );
+        }
+        setError(null);
+        session = connected;
       }
 
       if (!mountedRef.current) {
@@ -737,6 +777,19 @@ export function VoiceTutor({
             running on Google’s free tier. He is slower, and this conversation is not
             private — Google may use it to train their models. Top up the OpenAI key to
             get the usual Virgil back.
+          </p>
+        </div>
+      )}
+      {provider === "grok" && connection !== "idle" && (
+        // Same rule for the second fallback: it is another company's model, it
+        // is weaker at the lesson rules, and it cannot see the screen.
+        <div className="voice-fallback-notice" role="status">
+          <Icon name="alert" size={15} />
+          <p>
+            <strong>Backup tutor.</strong> The usual voice budget is used up, so Virgil is
+            running on xAI’s Grok. He follows the lesson rules less closely and cannot
+            see pictures of the screen or the whiteboard, only their descriptions. Top up
+            the OpenAI key to get the usual Virgil back.
           </p>
         </div>
       )}

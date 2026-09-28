@@ -1,9 +1,10 @@
 import {
-  BRIDGE_PATH,
+  BRIDGE_PATHS,
   type ClientFrame,
+  type FallbackProvider,
   type ServerFrame,
-} from "../../../shared/voice/geminiBridge";
-import { PcmPlayer, PcmRecorder } from "./geminiAudio";
+} from "../../../shared/voice/fallbackBridge";
+import { PcmPlayer, PcmRecorder } from "./pcmAudio";
 import {
   clipToBytes,
   utf8Bytes,
@@ -20,25 +21,33 @@ import type {
   TutorSessionEvents,
 } from "./session";
 
-export interface GeminiSessionOptions {
+export interface FallbackSessionOptions {
+  provider: FallbackProvider;
   mediaStream: MediaStream;
   audioElement: HTMLAudioElement;
   lessonId: string;
   tools: Record<string, ToolExecutor>;
   /** Lets the studio verify the fallback got the selected lesson, as the paid path does. */
-  onReady?: (info: { model: string; voice: string; lessonMarker: string; lessonId: string }) => void;
+  onReady?: (info: {
+    provider: FallbackProvider;
+    model: string;
+    voice: string;
+    lessonMarker: string;
+    lessonId: string;
+  }) => void;
 }
 
 /**
- * Gemini keeps its own long context and compresses it server-side, so the
+ * The fallbacks keep their own long context server-side, so the
  * 32768-byte ceiling the GPT-Live backend imposes does not apply. Tool output is
  * still capped, generously, so one runaway result cannot fill a turn.
  */
 const MAX_TOOL_OUTPUT_BYTES = 24_576;
 /**
- * Images ride as realtime video frames rather than inside the tool result, so
- * the only real limit is the bridge's frame cap. A screenshot data URL measures
- * ~200KB, well inside it.
+ * On Gemini, images ride as realtime video frames rather than inside the tool
+ * result, so the only real limit is the bridge's frame cap. A screenshot data
+ * URL measures ~200KB, well inside it. Grok has no image input, and the relay's
+ * ready frame says so, which turns the allowance to zero.
  */
 const IMAGE_ALLOWANCE_BYTES = 1_000_000;
 
@@ -50,7 +59,7 @@ const UNBOUNDED_HISTORY: HistoryUsage = {
   full: false,
 };
 
-/** Split a data URL into the parts Gemini's inline image input needs. */
+/** Split a data URL into the parts the relay's image frame needs. */
 function splitDataUrl(dataUrl: string): { mime: "image/jpeg" | "image/png"; data: string } | null {
   const match = /^data:(image\/(?:jpeg|png));base64,(.+)$/.exec(dataUrl);
   if (!match) return null;
@@ -58,16 +67,17 @@ function splitDataUrl(dataUrl: string): { mime: "image/jpeg" | "image/png"; data
 }
 
 /**
- * The free fallback tutor: one Gemini Live model doing both the talking and the
- * reasoning, reached through the app server so the API key stays there.
+ * A fallback tutor: one realtime model (Gemini Live, or Grok after it) doing
+ * both the talking and the reasoning, reached through the app server so the API
+ * key stays there. The relay speaks one protocol for every provider, so this
+ * class only picks the relay path.
  *
  * It implements the same interface as the paid GPT-Live session and runs the
  * identical browser-side tool executors, so the lesson UI, whiteboard, wake word
  * and saved transcript behave the same. What it does not have is a separate
  * reasoning backend, so there is no delegation and no bounded input history.
  */
-export class GeminiVoiceSession implements TutorSession {
-  readonly provider = "gemini" as const;
+export class FallbackVoiceSession implements TutorSession {
   private socket: WebSocket | null = null;
   private recorder: PcmRecorder | null = null;
   private readonly player = new PcmPlayer();
@@ -76,10 +86,16 @@ export class GeminiVoiceSession implements TutorSession {
   private muted = false;
   /** The relay's last error, so a close during setup can say why it happened. */
   private lastServerError: string | null = null;
+  /** Set from the relay's ready frame: whether the model can see tool pictures. */
+  private acceptsImages = false;
   status: LiveStatus = "idle";
   sessionId: string | null = null;
 
-  constructor(private readonly options: GeminiSessionOptions) {}
+  constructor(private readonly options: FallbackSessionOptions) {}
+
+  get provider(): FallbackProvider {
+    return this.options.provider;
+  }
 
   on<K extends TutorSessionEventName>(event: K, handler: TutorSessionEvents[K]): () => void {
     const set = this.listeners.get(event) ?? new Set();
@@ -117,9 +133,9 @@ export class GeminiVoiceSession implements TutorSession {
   /**
    * Add context without asking for speech.
    *
-   * Gemini Live has no separate instruction channel, so a note is an ordinary
-   * user-role turn left open (`turnComplete: false`): the model takes it into
-   * account on its next reply but does not answer it out loud.
+   * Neither fallback has a separate instruction channel, so a note is an
+   * ordinary user-role turn left open (`turnComplete: false`): the model takes
+   * it into account on its next reply but does not answer it out loud.
    */
   private note(content: string, turnComplete = false): boolean {
     const text = content.trim();
@@ -153,7 +169,7 @@ export class GeminiVoiceSession implements TutorSession {
   }
 
   get imageAllowance(): number {
-    return this.status === "connected" ? IMAGE_ALLOWANCE_BYTES : 0;
+    return this.status === "connected" && this.acceptsImages ? IMAGE_ALLOWANCE_BYTES : 0;
   }
 
   get historyUsage(): HistoryUsage {
@@ -178,7 +194,7 @@ export class GeminiVoiceSession implements TutorSession {
     this.options.audioElement.srcObject = playback;
     void this.options.audioElement.play().catch(() => undefined);
 
-    const url = new URL(BRIDGE_PATH, window.location.origin);
+    const url = new URL(BRIDGE_PATHS[this.options.provider], window.location.origin);
     url.protocol = url.protocol === "https:" ? "wss:" : "ws:";
     const socket = new WebSocket(url);
     this.socket = socket;
@@ -231,7 +247,9 @@ export class GeminiVoiceSession implements TutorSession {
     switch (frame.t) {
       case "ready":
         this.sessionId = frame.sessionId;
+        this.acceptsImages = frame.images;
         this.options.onReady?.({
+          provider: frame.provider,
           model: frame.model,
           voice: frame.voice,
           lessonMarker: frame.lessonMarker,
@@ -306,9 +324,10 @@ export class GeminiVoiceSession implements TutorSession {
         : { output: result };
 
     // Gemini takes pictures as realtime input, not inside a function response,
-    // so images go first and the text result names them.
+    // so images go first and the text result names them. A provider without
+    // image input gets none, and is never told about pictures it did not get.
     let sentImages = 0;
-    for (const image of normalized.images ?? []) {
+    for (const image of this.acceptsImages ? (normalized.images ?? []) : []) {
       const parsed = splitDataUrl(image);
       if (!parsed) continue;
       if (this.send({ t: "image", d: parsed.data, mime: parsed.mime })) sentImages += 1;

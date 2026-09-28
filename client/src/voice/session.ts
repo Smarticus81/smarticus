@@ -1,12 +1,13 @@
+import type { FallbackProvider } from "../../../shared/voice/fallbackBridge";
 import type { HistoryUsage, LiveFunctionCall } from "./liveEvents";
 
 /**
  * The contract the lesson UI talks to, so a voice provider can be swapped
  * without the studio knowing which one is connected.
  *
- * `LiveVoiceSession` is the paid GPT-Live implementation; `GeminiVoiceSession`
- * is the free fallback. Both emit the same events and run the same browser-side
- * tool executors.
+ * `LiveVoiceSession` is the paid GPT-Live implementation; `FallbackVoiceSession`
+ * serves the fallbacks (Gemini, then Grok). All emit the same events and run the
+ * same browser-side tool executors.
  */
 
 export type ToolExecutor = (
@@ -14,7 +15,7 @@ export type ToolExecutor = (
   call: LiveFunctionCall,
 ) => Promise<unknown>;
 
-export type VoiceProvider = "openai" | "gemini";
+export type VoiceProvider = "openai" | FallbackProvider;
 
 export interface TutorSessionEvents {
   connected: (info: { sessionId: string }) => void;

@@ -1,4 +1,5 @@
 import type { ReaderPage } from "../voice/readerStore";
+import type { FallbackProvider } from "../../../shared/voice/fallbackBridge";
 import type {
   AnswerSupport,
   LessonView,
@@ -12,7 +13,7 @@ export class ApiError extends Error {
   constructor(
     message: string,
     readonly status: number,
-    /** The whole error body, so callers can read fields such as `fallback`. */
+    /** The whole error body, so callers can read fields such as `fallbacks`. */
     readonly body: Record<string, unknown> = {},
   ) {
     super(message);
@@ -83,9 +84,7 @@ export const api = {
     }),
   voiceProviders: () =>
     request<{
-      fallback: "gemini" | null;
-      fallbackModel: string | null;
-      fallbackVoice: string | null;
+      fallbacks: Array<{ provider: FallbackProvider; model: string }>;
     }>("/api/realtime/providers"),
   endSession: (payload: {
     session_id: string;
