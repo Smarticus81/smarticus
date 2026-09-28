@@ -1,0 +1,728 @@
+{
+  "date": "2026-09-28",
+  "school_year": "2026-27",
+  "grade_level": 6,
+  "day_number": 24,
+  "school_day_label": "Monday, September 28, 2026",
+  "todays_goal": "Raise precision after Friday's work: use only current evidence, calculate coordinate-plane distance and perimeter from actual boundary sides, write and truly revise evidence-based explanations, read The Westing Game Chapters 3-4 for specific evidence, draw reflection diagrams precisely, explain Hellenistic cultural exchange, advance futur proche to negation and questions, and document software edge-case tests with observable evidence.",
+  "lessons": [
+    {
+      "id": "2026-09-28-mathematics",
+      "date": "2026-09-28",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "mathematics",
+      "course": "Grade 6 Mathematics",
+      "unit_id": "math-coordinate-plane",
+      "unit_title": "Coordinate Plane, Distance, and Perimeter",
+      "lesson_number": 9,
+      "lesson_title": "Coordinate Distance and Perimeter",
+      "standards": [
+        "6.NS.C.6",
+        "6.NS.C.6b",
+        "6.NS.C.6c",
+        "6.G.A.1"
+      ],
+      "previous_learning": "Friday showed that Atticus understands ordered pairs and sign direction but can carry an answer from a previous problem into a new graph and can miss a sign while plotting. The Day 24 math page was rewritten so every graph-reasoning prompt is explicit, and perimeter is now taught as total distance around the outside boundary.",
+      "course_context": "Use the current coordinate list only. Advance from plotting to horizontal/vertical distance and perimeter of a rectilinear polygon.",
+      "learning_objectives": [
+        "Use only the current coordinate set when reasoning from a graph",
+        "Find horizontal distance by subtracting x-values when y-values match",
+        "Find vertical distance by subtracting y-values when x-values match",
+        "Explain perimeter as the total distance around the outside boundary of a closed shape",
+        "Distinguish a real boundary side from an interior shortcut",
+        "Add each boundary side exactly once and label perimeter in linear units"
+      ],
+      "why_it_matters": "Coordinate geometry becomes reliable only when Atticus connects plotted points to exact distances and follows the actual boundary rather than relying on visual guesses or remembered answers.",
+      "vocabulary": [
+        {
+          "term": "perimeter",
+          "definition": "the total distance around the outside edge of a closed shape"
+        },
+        {
+          "term": "boundary side",
+          "definition": "a segment that is actually part of the outside edge of the polygon"
+        },
+        {
+          "term": "horizontal distance",
+          "definition": "distance between two points with the same y-coordinate, found from the x-values"
+        },
+        {
+          "term": "vertical distance",
+          "definition": "distance between two points with the same x-coordinate, found from the y-values"
+        }
+      ],
+      "written_instruction": "Perimeter follows the outside boundary. Trace the connected vertices in order, find each horizontal or vertical side length from the coordinates, and add every outside side exactly once. Do not cut across the inside. For today's polygon use P(-6,5), Q(2,5), R(2,2), S(5,2), T(5,-4), U(-6,-4), boundary P -> Q -> R -> S -> T -> U -> P. Q and U are not directly connected, so QU is not a perimeter side.",
+      "worked_examples": [
+        {
+          "title": "Horizontal distance",
+          "problem": "Find the distance between (-7,2) and (3,2).",
+          "solution": "3 - (-7) = 10 units.",
+          "explanation": "The y-values match, so subtract the x-values. Distance is positive."
+        },
+        {
+          "title": "Vertical distance",
+          "problem": "Find the distance between (5,6) and (5,-3).",
+          "solution": "6 - (-3) = 9 units.",
+          "explanation": "The x-values match, so subtract the y-values."
+        },
+        {
+          "title": "Perimeter means boundary",
+          "problem": "Rectangle A(-3,2), B(4,2), C(4,-2), D(-3,-2).",
+          "solution": "AB=7, BC=4, CD=7, DA=4, perimeter=22 units.",
+          "explanation": "Follow A -> B -> C -> D -> A and add only the outside sides."
+        }
+      ],
+      "guided_practice": [
+        {
+          "id": "math-g1",
+          "prompt": "Using the Friday set A(-5,4), B(-1,4), C(2,1), D(2,-4), E(-4,-4), F(-6,-1), identify the farthest-left point and explain the x-value evidence."
+        },
+        {
+          "id": "math-g2",
+          "prompt": "Explain why a segment between two vertices is not automatically part of the perimeter."
+        }
+      ],
+      "independent_practice": [
+        {
+          "id": "math-i1",
+          "prompt": "Plot P(-6,5), Q(2,5), R(2,2), S(5,2), T(5,-4), U(-6,-4) and connect them in boundary order P -> Q -> R -> S -> T -> U -> P."
+        },
+        {
+          "id": "math-i2",
+          "prompt": "Identify the two farthest-left points and the two highest points using coordinate evidence."
+        },
+        {
+          "id": "math-i3",
+          "prompt": "Find PQ, then determine whether QU is actually a side by tracing the boundary from Q to U."
+        },
+        {
+          "id": "math-i4",
+          "prompt": "Find QR, RS, ST, TU, and UP, showing H/V, subtraction, and positive length for each."
+        },
+        {
+          "id": "math-i5",
+          "prompt": "Add PQ + QR + RS + ST + TU + UP and state the perimeter in units."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "math-e1",
+          "prompt": "Explain perimeter in your own words without using the word area.",
+          "answer": "Perimeter is the total distance around the outside boundary of a closed shape.",
+          "rubric": "Must mention the outside/boundary and total distance."
+        },
+        {
+          "id": "math-e2",
+          "prompt": "Why is QU not included in the perimeter of today's polygon?",
+          "answer": "Q and U are not directly connected by a boundary side; the boundary from Q to U goes Q-R-S-T-U.",
+          "rubric": "Must identify the actual boundary route."
+        },
+        {
+          "id": "math-e3",
+          "prompt": "What is the perimeter of PQRSTU?",
+          "answer": "40 units.",
+          "rubric": "Must be based on six boundary sides and use linear units."
+        }
+      ],
+      "mastery_threshold": 85,
+      "materials": [
+        "Day 24 packet",
+        "replacement perimeter explanation",
+        "replacement graph-reasoning page",
+        "full-page coordinate grid",
+        "Smarticus whiteboard"
+      ],
+      "estimated_minutes": 60,
+      "voice_prompt": "Start with retrieval: ask Atticus what x, y, and sign direction mean without looking. Require him to point to the CURRENT coordinate list before answering. For distance, ask whether the side is horizontal or vertical first, then which coordinate values should be subtracted. For perimeter, teach explicitly: total distance around the outside edge; follow connected vertices in order; an inside shortcut is not perimeter. Use today's boundary P->Q->R->S->T->U->P. Ask 'Is QU actually drawn as one boundary side?' If he says yes, have him trace from Q to U aloud. Do not accept a remembered answer from Friday. If he makes a sign or carryover error, ask him to explain the error before correcting it.",
+      "teacher_notes": "Updated after parent feedback: all graph-reasoning prompts must be explicit. Perimeter explanation is required before independent work.",
+      "answer_key": {
+        "Friday farthest left": "F(-6,-1)",
+        "PQRSTU farthest left": "P(-6,5) and U(-6,-4)",
+        "PQRSTU highest": "P(-6,5) and Q(2,5)",
+        "PQ": "8",
+        "QR": "3",
+        "RS": "3",
+        "ST": "6",
+        "TU": "11",
+        "UP": "9",
+        "perimeter": "40 units"
+      },
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-28-writing",
+      "date": "2026-09-28",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "writing",
+      "course": "Grade 6 Literature & Writing",
+      "unit_id": "ela-writing",
+      "unit_title": "Evidence, Nuance, and Revision",
+      "lesson_number": 15,
+      "lesson_title": "Evidence Can Change a Reasonable Conclusion",
+      "standards": [
+        "W.6.1",
+        "W.6.2",
+        "W.6.5",
+        "W.6.9",
+        "L.6.1",
+        "L.6.2"
+      ],
+      "previous_learning": "Friday planning was stronger, but the final revision changed words without truly improving precision. Atticus correctly identified a vague sentence but replaced it with another vague sentence.",
+      "course_context": "Require claim, two exact pieces of evidence, reasoning for each, nuance, and a revision that genuinely improves meaning.",
+      "learning_objectives": [
+        "Distinguish a reasonable initial conclusion from a proven final conclusion",
+        "Use exact measurements and repeated test results as evidence",
+        "Explain how evidence weakens one hypothesis and strengthens another",
+        "Write an 8-10 sentence analytical response",
+        "Revise a weak sentence so meaning becomes more precise"
+      ],
+      "why_it_matters": "Strong thinkers update conclusions when stronger evidence appears, and strong writers explain exactly how and why their thinking changed.",
+      "vocabulary": [
+        {
+          "term": "hypothesis",
+          "definition": "a proposed explanation that can be tested"
+        },
+        {
+          "term": "nuance",
+          "definition": "an important qualification that prevents an oversimplified claim"
+        },
+        {
+          "term": "revision",
+          "definition": "a change that meaningfully improves clarity, precision, evidence, or reasoning"
+        }
+      ],
+      "written_instruction": "Use the robotics passage about Nia's motor hypothesis and the later battery evidence. Write 8-10 sentences: claim, evidence 1 + reasoning, evidence 2 + reasoning, nuance explaining why the first conclusion was understandable, and a conclusion. Then identify the weakest sentence and rewrite it so it is actually stronger, not merely different.",
+      "worked_examples": [
+        {
+          "title": "Nuanced claim",
+          "problem": "Was Nia careless to suspect the motor?",
+          "solution": "Nia's first conclusion was reasonable from the visible symptoms, but later electrical measurements and repeat tests made the battery the stronger explanation.",
+          "explanation": "This answer can recognize that an early idea was reasonable while still revising it when stronger evidence appears."
+        }
+      ],
+      "guided_practice": [
+        {
+          "id": "wr-g1",
+          "prompt": "Name the two strongest later pieces of evidence before drafting."
+        },
+        {
+          "id": "wr-g2",
+          "prompt": "Explain orally how one later result weakens the motor explanation."
+        }
+      ],
+      "independent_practice": [
+        {
+          "id": "wr-i1",
+          "prompt": "Complete the claim/evidence/reasoning/nuance/conclusion planning map."
+        },
+        {
+          "id": "wr-i2",
+          "prompt": "Write an 8-10 sentence response to whether Nia's first conclusion was reasonable and how later evidence should change it."
+        },
+        {
+          "id": "wr-i3",
+          "prompt": "Identify the least precise sentence, explain why it is weak, and rewrite it so meaning improves."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "wr-e1",
+          "prompt": "Read the original weak sentence and your revision aloud. State exactly what improved.",
+          "answer": "The revision should be more specific, clearer, or better supported than the original.",
+          "rubric": "A changed sentence that is still equally vague does not pass."
+        }
+      ],
+      "mastery_threshold": 90,
+      "materials": [
+        "Day 24 packet",
+        "Smarticus whiteboard"
+      ],
+      "estimated_minutes": 50,
+      "voice_prompt": "Begin by asking: 'Can an idea be reasonable and still be wrong?' Require a one-sentence explanation. After the source passage, ask for the two strongest later pieces of evidence before writing. During revision, do not accept 'I changed it' as proof of improvement. Ask: 'What became more precise?' If the revision is still vague, say: 'Your idea is sound; your sentence is not yet precise. Say it again more clearly.' Do not dictate the assigned paragraph.",
+      "teacher_notes": "Revision gate is strict: replacement must improve meaning.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-28-literature",
+      "date": "2026-09-28",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "literature",
+      "course": "Grade 6 Literature & Writing",
+      "unit_id": "ela-close-reading",
+      "unit_title": "The Westing Game",
+      "lesson_number": 16,
+      "lesson_title": "Chapters 3-4: Specific Evidence and Suspicion",
+      "standards": [
+        "RL.6.1",
+        "RL.6.3",
+        "RL.6.5",
+        "RL.6.6"
+      ],
+      "previous_learning": "Friday's Chapters 1-2 work showed strong specific recall and better inference when questions required exact chapter details. Vague answers still need repair.",
+      "course_context": "Continue The Westing Game with closed-book retrieval first, then open-book evidence repair.",
+      "learning_objectives": [
+        "Recall specific character and plot details from Chapters 3-4",
+        "Separate inference from proof",
+        "Use open-book evidence to repair inaccurate recall",
+        "Explain why selected details feel suspicious or deliberately arranged",
+        "Write a six-sentence evidence-based analysis"
+      ],
+      "why_it_matters": "Mystery reading rewards exact observation, careful inference, and willingness to revise a theory when new evidence appears.",
+      "vocabulary": [
+        {
+          "term": "inference",
+          "definition": "a conclusion based on evidence and reasoning rather than something stated directly"
+        },
+        {
+          "term": "suspicious detail",
+          "definition": "a detail that raises a reasonable question without necessarily proving a theory"
+        }
+      ],
+      "written_instruction": "Read Chapters 3 and 4 first. Close the book for Part A. If you cannot remember a detail, mark ? rather than inventing it. Open the book only after Part A to correct and deepen answers.",
+      "worked_examples": [
+        {
+          "title": "Inference without overclaiming",
+          "problem": "Sydelle Pulaski appears with a limp after Chris previously saw someone with a limp.",
+          "solution": "The repeated limp detail may be worth tracking, but it does not prove Sydelle was the person Chris saw.",
+          "explanation": "Good mystery reasoning distinguishes a clue from proof."
+        }
+      ],
+      "guided_practice": [
+        {
+          "id": "lit-g1",
+          "prompt": "Closed book: give one Chapter 3 character detail and one Chapter 4 action."
+        }
+      ],
+      "independent_practice": [
+        {
+          "id": "lit-i1",
+          "prompt": "Answer closed-book questions about Angela, Grace, Mr. Hoo, and Sydelle."
+        },
+        {
+          "id": "lit-i2",
+          "prompt": "Open Chapters 3-4 and repair inaccuracies, then answer questions about Turtle's mansion challenge, what she finds, newspaper details about Sam Westing, and the invitation that arrives."
+        },
+        {
+          "id": "lit-i3",
+          "prompt": "Write exactly 6 sentences explaining which Chapter 3 and 4 details make events feel deliberately arranged rather than accidental."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "lit-e1",
+          "prompt": "Give one Chapter 3 detail, one Chapter 4 detail, and one unanswered mystery question without looking.",
+          "answer": "Specific, accurate chapter-based details and a relevant open question.",
+          "rubric": "Do not accept generic plot summary."
+        }
+      ],
+      "mastery_threshold": 85,
+      "materials": [
+        "The Westing Game",
+        "Day 24 packet"
+      ],
+      "estimated_minutes": 30,
+      "voice_prompt": "Do not give plot details before Atticus retrieves them. Ask one question at a time. If he cannot recall a detail, let him mark ? rather than guess. After Part A, allow the book to be opened for repair. Require specificity: 'What exact event?' 'Who did what?' For inferences, ask what evidence supports the idea and explicitly distinguish 'might' from 'proves.'",
+      "teacher_notes": "Continue Chapters 3-4 only.",
+      "answer_key": {},
+      "source_references": [
+        "The Westing Game, Chapters 3-4"
+      ],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-28-science",
+      "date": "2026-09-28",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "science",
+      "course": "Grade 6 Science",
+      "unit_id": "science-light",
+      "unit_title": "Light and Reflection",
+      "lesson_number": 12,
+      "lesson_title": "Precision and Two-Reflection Ray Tracing",
+      "standards": [
+        "MS-PS4-2"
+      ],
+      "previous_learning": "Friday showed solid understanding of the law of reflection and correct angle matching, but diagrams need more precise labeling and the explanation must distinguish the law from the reference line used to measure angles.",
+      "course_context": "Keep the reflection law but raise diagram precision, then solve a two-mirror system one reflection at a time.",
+      "learning_objectives": [
+        "Identify mirror surface, normal, point of incidence, incoming ray, and reflected ray",
+        "Measure incidence and reflection angles from the normal",
+        "Explain that the normal does not cause equality; it is the common reference line",
+        "Solve a two-mirror path as two separate reflection problems",
+        "Produce a precise four-sentence explanation"
+      ],
+      "why_it_matters": "Scientific diagrams are models: labels and reference lines must be precise enough that another person can reconstruct the reasoning.",
+      "vocabulary": [
+        {
+          "term": "point of incidence",
+          "definition": "the exact point where the incoming ray hits the mirror"
+        },
+        {
+          "term": "normal",
+          "definition": "an imaginary line perpendicular to the mirror at the point of incidence"
+        },
+        {
+          "term": "angle of incidence",
+          "definition": "the angle between the incoming ray and the normal"
+        },
+        {
+          "term": "angle of reflection",
+          "definition": "the angle between the reflected ray and the normal"
+        }
+      ],
+      "written_instruction": "The mirror is the reflective surface line, not the single point where the ray hits. The point where the ray hits is the point of incidence. Both angles are measured from the normal. For two mirrors, solve Mirror 1 first, then treat its outgoing ray as the incoming ray for Mirror 2.",
+      "worked_examples": [
+        {
+          "title": "Single reflection",
+          "problem": "Incoming ray is 42 degrees from the normal.",
+          "solution": "Reflected ray is 42 degrees from the normal on the other side.",
+          "explanation": "Angle of incidence equals angle of reflection."
+        }
+      ],
+      "guided_practice": [
+        {
+          "id": "sci-g1",
+          "prompt": "Define mirror surface, normal, and point of incidence aloud before drawing."
+        }
+      ],
+      "independent_practice": [
+        {
+          "id": "sci-i1",
+          "prompt": "Complete a labeled single-reflection diagram with equal angle marks and the point of incidence."
+        },
+        {
+          "id": "sci-i2",
+          "prompt": "Complete a two-mirror path with a normal and equal angle marks at each mirror."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "sci-e1",
+          "prompt": "Explain in 4 complete sentences how a two-mirror system redirects light while obeying the same law at each mirror.",
+          "answer": "State the law, explain Mirror 1, explain Mirror 2, and explain why each normal is the common reference for comparing angles.",
+          "rubric": "Must distinguish mirror surface, point of incidence, and normal."
+        }
+      ],
+      "mastery_threshold": 85,
+      "materials": [
+        "Day 24 packet",
+        "reflection diagrams",
+        "Smarticus whiteboard"
+      ],
+      "estimated_minutes": 30,
+      "voice_prompt": "Ask Atticus to define mirror surface, normal, point of incidence, incoming ray, reflected ray, angle of incidence, and angle of reflection. If he calls the point of incidence 'the mirror,' repair it immediately. Ask him to point to each label. For two mirrors, solve Mirror 1 first; only after that prediction is correct move to Mirror 2. Do not draw the assigned final diagram for him.",
+      "teacher_notes": "Precision before complexity.",
+      "answer_key": {
+        "single reflection angle": "42 degrees"
+      },
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-28-history_geography",
+      "date": "2026-09-28",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "history_geography",
+      "course": "Grade 6 History, Geography & Civics",
+      "unit_id": "hist-greece",
+      "unit_title": "Ancient Greece and the Hellenistic World",
+      "lesson_number": 15,
+      "lesson_title": "Alexandria and Knowledge Exchange",
+      "standards": [
+        "C3-D2.His.1.6-8",
+        "C3-D2.His.14.6-8",
+        "C3-D2.Geo.4.6-8"
+      ],
+      "previous_learning": "Friday recall was good, but the explanation of why 'Greek science' is incomplete drifted toward multiple subjects instead of multiple cultural sources.",
+      "course_context": "Correct the cultural-source distinction and synthesize how Alexandria, Euclid, Eratosthenes, Archimedes, and cross-cultural exchange fit together.",
+      "learning_objectives": [
+        "Explain why 'Greek science' is incomplete as a description of Hellenistic scholarship",
+        "Explain how ports and trade routes supported knowledge exchange",
+        "Compare Euclid, Eratosthenes, and Archimedes by what they did with knowledge",
+        "Explain why multiple cultural traditions matter without claiming equal or identical contributions",
+        "Write a six-sentence synthesis"
+      ],
+      "why_it_matters": "Knowledge often develops through movement, comparison, preservation, testing, and exchange across communities.",
+      "vocabulary": [
+        {
+          "term": "cultural exchange",
+          "definition": "movement and sharing of ideas, texts, methods, observations, and practices among communities"
+        },
+        {
+          "term": "scholarship",
+          "definition": "organized study, investigation, and development of knowledge"
+        }
+      ],
+      "written_instruction": "The key correction is SOURCES, not SUBJECTS. Hellenistic scholarship was not simply 'Greek science' because Greek-speaking scholars worked in a wider Mediterranean and Near Eastern world and encountered Egyptian, Babylonian, and other traditions.",
+      "worked_examples": [
+        {
+          "title": "Sources vs subjects",
+          "problem": "Why is 'Greek science' incomplete?",
+          "solution": "Because Hellenistic scholarship developed through interaction among Greek, Egyptian, Babylonian, and other traditions.",
+          "explanation": "The point is where ideas and methods came from, not merely that scholars studied several subjects."
+        }
+      ],
+      "guided_practice": [
+        {
+          "id": "hist-g1",
+          "prompt": "Explain the difference between SUBJECTS studied and CULTURAL SOURCES of knowledge."
+        }
+      ],
+      "independent_practice": [
+        {
+          "id": "hist-i1",
+          "prompt": "Explain in two sentences why 'Greek science' is incomplete."
+        },
+        {
+          "id": "hist-i2",
+          "prompt": "Explain how a city connected to ports and trade routes could help knowledge grow."
+        },
+        {
+          "id": "hist-i3",
+          "prompt": "Complete: Euclid organized knowledge; Eratosthenes tested/extended knowledge through measurement; Archimedes applied mathematics to physical problems."
+        },
+        {
+          "id": "hist-i4",
+          "prompt": "Write a six-sentence synthesis with cultural exchange as a required idea."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "hist-e1",
+          "prompt": "In one sentence, explain the most important correction from Friday.",
+          "answer": "Hellenistic scholarship drew on multiple cultural traditions; the issue is cultural sources, not simply studying more than one subject.",
+          "rubric": "Must mention cross-cultural sources or exchange."
+        }
+      ],
+      "mastery_threshold": 85,
+      "materials": [
+        "Day 24 packet",
+        "Smarticus whiteboard"
+      ],
+      "estimated_minutes": 30,
+      "voice_prompt": "Start by asking why Friday's 'Greek science' answer was incomplete. Guide Atticus to distinguish SUBJECTS from CULTURAL SOURCES. Require the words cultural exchange, Egyptian, Babylonian, or equivalent specific source language before moving on. Ask how Alexandria's ports and institutions could move people, texts, measurements, and methods. Do not accept 'they shared stuff' without specifying what was shared.",
+      "teacher_notes": "Require cultural exchange in the synthesis.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-28-french",
+      "date": "2026-09-28",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "french",
+      "course": "Grade 6 French",
+      "unit_id": "fr-core-verbs",
+      "unit_title": "Futur Proche",
+      "lesson_number": 16,
+      "lesson_title": "Futur Proche: Negation and Questions",
+      "standards": [
+        "ACTFL-Interpersonal",
+        "ACTFL-Presentational"
+      ],
+      "previous_learning": "Friday written futur proche was 8/8. The core structure aller + infinitive is secure enough to advance, pending continued oral retrieval.",
+      "course_context": "Add negation and question forms while preserving correct aller conjugation and infinitive form.",
+      "learning_objectives": [
+        "Negate futur proche with ne/n' + aller + pas + infinitive",
+        "Ask futur proche questions with Est-ce que",
+        "Answer futur proche questions in complete sentences",
+        "Correct errors where the second verb is incorrectly conjugated",
+        "Produce forms orally without the aller chart"
+      ],
+      "why_it_matters": "Negation and questions turn a memorized pattern into usable conversation.",
+      "vocabulary": [
+        {
+          "term": "negation",
+          "definition": "ne/n' ... pas placed around the conjugated aller form"
+        },
+        {
+          "term": "question frame",
+          "definition": "Est-ce que + subject + aller + infinitive"
+        }
+      ],
+      "written_instruction": "Affirmative: Je vais lire. Negative: Je ne vais pas lire. Question: Est-ce que tu vas lire? The ALLER form changes; the second verb remains in the infinitive.",
+      "worked_examples": [
+        {
+          "title": "Negative",
+          "problem": "Ils vont jouer.",
+          "solution": "Ils ne vont pas jouer.",
+          "explanation": "Place ne and pas around the conjugated form vont; jouer stays infinitive."
+        },
+        {
+          "title": "Question and answer",
+          "problem": "Are you going to watch the match? (vous)",
+          "solution": "Est-ce que vous allez regarder le match?",
+          "explanation": "Use Est-ce que, then the correct aller form, then the infinitive."
+        }
+      ],
+      "guided_practice": [
+        {
+          "id": "fr-g1",
+          "prompt": "Say six Friday futur proche sentences orally without looking at the aller chart."
+        }
+      ],
+      "independent_practice": [
+        {
+          "id": "fr-i1",
+          "prompt": "Make Je vais lire negative."
+        },
+        {
+          "id": "fr-i2",
+          "prompt": "Make Nous allons jouer negative."
+        },
+        {
+          "id": "fr-i3",
+          "prompt": "Translate: She is not going to eat."
+        },
+        {
+          "id": "fr-i4",
+          "prompt": "Write: Are you going to work? (vous)"
+        },
+        {
+          "id": "fr-i5",
+          "prompt": "Correct: Elles ne vont pas jouent."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "fr-e1",
+          "prompt": "Oral gate: produce six mixed affirmative, negative, and question forms without the chart.",
+          "answer": "At least 5/6 correct; any error must be corrected and the entire sentence repeated.",
+          "rubric": "Do not advance an incorrect aller form or conjugated second verb."
+        }
+      ],
+      "mastery_threshold": 88,
+      "materials": [
+        "Day 24 packet",
+        "Smarticus voice tutor"
+      ],
+      "estimated_minutes": 30,
+      "voice_prompt": "Begin orally with six futur proche sentences from Friday, no visible chart. Then teach negation: ne/n' + conjugated aller + pas + infinitive. Then teach Est-ce que questions. Ask one prompt at a time. If one component is wrong, identify only that component and require the full sentence again. Do not supply the whole assigned answer. Require complete spoken answers.",
+      "teacher_notes": "Written target 7/8; oral target 5/6.",
+      "answer_key": {
+        "Je vais lire negative": "Je ne vais pas lire.",
+        "Nous allons jouer negative": "Nous n'allons pas jouer.",
+        "She is not going to eat": "Elle ne va pas manger.",
+        "They are not going to leave": "Ils ne vont pas partir.",
+        "Are you going to work vous": "Est-ce que vous allez travailler?",
+        "Correct Elles ne vont pas jouent": "Elles ne vont pas jouer."
+      },
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-28-computer_science",
+      "date": "2026-09-28",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "computer_science",
+      "course": "Future Builder Lab",
+      "unit_id": "cs-ai-builder",
+      "unit_title": "TacticLab Reliability and QA",
+      "lesson_number": 15,
+      "lesson_title": "Edge-Case Testing with Observable Evidence",
+      "standards": [
+        "CSTA-2-AP-13",
+        "CSTA-2-AP-17",
+        "CSTA-2-AP-19"
+      ],
+      "previous_learning": "Friday's feature checks suggested the main behaviors worked, but evidence entries such as 'I saw it' were too vague to count as strong QA documentation.",
+      "course_context": "No new feature. Stress reliability under awkward but realistic user actions and require observable evidence for each pass/fail.",
+      "learning_objectives": [
+        "Run multi-step edge-case tests",
+        "Compare expected behavior with visible actual behavior",
+        "Check the browser console for uncaught errors",
+        "Write reproducible bug reports when a test fails",
+        "Retest after a fix",
+        "Avoid adding features before reliability work is complete"
+      ],
+      "why_it_matters": "Professional builders prove that software behaves correctly under repeated and awkward usage, not just in one ideal demo.",
+      "vocabulary": [
+        {
+          "term": "edge case",
+          "definition": "an unusual but realistic sequence or condition that can expose hidden bugs"
+        },
+        {
+          "term": "observable evidence",
+          "definition": "a specific visible behavior or console result that another person could verify"
+        },
+        {
+          "term": "reproduce",
+          "definition": "repeat exact steps to make the same bug happen again"
+        }
+      ],
+      "written_instruction": "For every test document: what you did, what should have happened, what visibly happened, and whether the console showed an error. 'It worked' or 'I saw it' is not evidence. No new feature today.",
+      "worked_examples": [
+        {
+          "title": "Strong QA evidence",
+          "problem": "Reset during a near-post animation.",
+          "solution": "After pressing RESET halfway through the near-post animation, all 11 players returned to their saved 4-3-3 starting positions and the next replay started from those positions.",
+          "explanation": "The evidence names the action, visible result, relevant state, and retest condition."
+        }
+      ],
+      "guided_practice": [
+        {
+          "id": "cs-g1",
+          "prompt": "Before each test, say the EXPECTED result aloud."
+        }
+      ],
+      "independent_practice": [
+        {
+          "id": "cs-i1",
+          "prompt": "Run PLAY -> PAUSE -> PLAY -> RESET in one session."
+        },
+        {
+          "id": "cs-i2",
+          "prompt": "Change formation while stopped, then PLAY."
+        },
+        {
+          "id": "cs-i3",
+          "prompt": "Run near-post corner, STOP halfway, RESET, then replay it."
+        },
+        {
+          "id": "cs-i4",
+          "prompt": "After RESET, switch from near-post to far-post and PLAY."
+        },
+        {
+          "id": "cs-i5",
+          "prompt": "Press PLAY twice quickly and verify only one animation sequence runs."
+        },
+        {
+          "id": "cs-i6",
+          "prompt": "Keep the browser console open and record whether uncaught errors appear."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "cs-e1",
+          "prompt": "Show one completed test log with exact steps, expected behavior, actual observable behavior, pass/fail, and retest if needed.",
+          "answer": "Specific reproducible QA evidence.",
+          "rubric": "Reject entries that only say 'worked,' 'I saw it,' or equivalent."
+        }
+      ],
+      "mastery_threshold": 85,
+      "materials": [
+        "Laptop",
+        "TacticLab build",
+        "browser console",
+        "Day 24 test log",
+        "Smarticus voice tutor"
+      ],
+      "estimated_minutes": 50,
+      "voice_prompt": "Operate in QA mode. Do not accept 'I saw it,' 'it worked,' or a checkmark as evidence. For every test ask: 'What did you do? What should have happened? What visibly happened? Did the console show an error?' If a test fails, keep the current failure on the whiteboard as EXPECTED / ACTUAL / STEPS / FIX / RETEST. Do not allow a new feature until required tests are run and documented.",
+      "teacher_notes": "Reliability work only; polish labels only after required tests pass.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    }
+  ]
+}
