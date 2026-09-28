@@ -33,6 +33,15 @@ interface VoiceTutorProps {
   lessonTitle: string;
   learningFocus?: string;
   onBusyChange?: (busy: boolean) => void;
+  /**
+   * Connect as soon as this mounts.
+   *
+   * "Talk with Virgil" used to only load this component, which then asked for a
+   * second click on "Connect microphone". One intention, two buttons, and the
+   * first one promised what the second one did. The card now mounts this with
+   * `autoStart`, so the one click reaches the microphone prompt.
+   */
+  autoStart?: boolean;
 }
 
 const MICROPHONE_TIMEOUT_MS = 20_000;
@@ -171,6 +180,7 @@ export function VoiceTutor({
   lessonTitle,
   learningFocus = "",
   onBusyChange,
+  autoStart = false,
 }: VoiceTutorProps) {
   const [connection, setConnection] = useState<ConnectionState>("idle");
   const [isMuted, setIsMuted] = useState(false);
@@ -709,6 +719,20 @@ export function VoiceTutor({
       void cleanup();
     };
   }, [cleanup]);
+
+  /**
+   * Reach the microphone on the click that asked for it.
+   *
+   * Guarded by a ref rather than the connection state so that ending a session
+   * leaves it ended: without that, the effect would reconnect the moment the
+   * state went back to idle and "End session" would not end anything.
+   */
+  const autoStartedRef = useRef(false);
+  useEffect(() => {
+    if (!autoStart || autoStartedRef.current) return;
+    autoStartedRef.current = true;
+    void connect();
+  }, [autoStart, connect]);
 
   const status =
     connection === "connecting"

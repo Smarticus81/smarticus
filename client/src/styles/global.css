@@ -252,6 +252,14 @@ em {
   padding: 38px 42px 0;
   outline: none;
 }
+/* A lesson is a full-height screen, not a document: Virgil and the board fill
+   what is left under the top bar and the page itself does not scroll. */
+.main-content--lesson {
+  max-width: none;
+  height: calc(100dvh - 78px);
+  padding: 16px 24px;
+  overflow: hidden;
+}
 .page-heading {
   display: flex;
   align-items: center;

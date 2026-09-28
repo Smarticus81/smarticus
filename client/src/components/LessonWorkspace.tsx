@@ -329,6 +329,40 @@ export function LessonWorkspace({
           </p>
         )}
         <div className="virgil-stage" ref={tutorRef}>
+          <section className="voice-panel">
+            {voiceLoaded ? (
+              <Suspense fallback={<p role="status">Getting Virgil ready…</p>}>
+                <VoiceTutor
+                  lessonId={lesson.id}
+                  lessonTitle={lesson.lesson_title}
+                  learningFocus={learningFocus}
+                  onBusyChange={setVoiceBusy}
+                  autoStart
+                />
+              </Suspense>
+            ) : (
+              <>
+                <div className="companion-heading">
+                  <span>VIRGIL</span>
+                  <span className="companion-ready">Here for you</span>
+                </div>
+                <VirgilAvatar state="idle" />
+                <h2>A little help, when you need it.</h2>
+                <p>Ask why. Try a different example. Think out loud.</p>
+                <button
+                  className="button dark"
+                  onClick={() => setVoiceLoaded(true)}
+                >
+                  <Icon name="mic" size={16} />
+                  Talk with Virgil
+                </button>
+                <small>
+                  Your browser will ask for the microphone. It stays off until
+                  you allow it.
+                </small>
+              </>
+            )}
+          </section>
           <div
             className="stage-surfaces"
             data-empty={!board.open && !readerState.open && !cameraOn}
@@ -359,36 +393,6 @@ export function LessonWorkspace({
               </div>
             )}
           </div>
-          <section className="voice-panel">
-            {voiceLoaded ? (
-              <Suspense fallback={<p role="status">Getting Virgil ready…</p>}>
-                <VoiceTutor
-                  lessonId={lesson.id}
-                  lessonTitle={lesson.lesson_title}
-                  learningFocus={learningFocus}
-                  onBusyChange={setVoiceBusy}
-                />
-              </Suspense>
-            ) : (
-              <>
-                <div className="companion-heading">
-                  <span>VIRGIL</span>
-                  <span className="companion-ready">Here for you</span>
-                </div>
-                <VirgilAvatar state="idle" />
-                <h2>A little help, when you need it.</h2>
-                <p>Ask why. Try a different example. Think out loud.</p>
-                <button
-                  className="button dark"
-                  onClick={() => setVoiceLoaded(true)}
-                >
-                  <Icon name="mic" size={16} />
-                  Talk with Virgil
-                </button>
-                <small>Your microphone stays off until you connect.</small>
-              </>
-            )}
-          </section>
           <p className="studio-now">
             <span>Now</span> {learningFocus}
           </p>

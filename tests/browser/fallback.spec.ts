@@ -63,6 +63,7 @@ async function openLesson(page: Page, fallbacks: string[]) {
   await page.goto(`/tests/browser/index.html?date=${lesson.date}&view=today`);
   await page.getByRole("button").filter({ hasText: lesson.lesson_title }).first().click();
   await expect(page.getByRole("heading", { level: 1, name: lesson.lesson_title })).toBeVisible();
+  // One button: it loads the tutor and reaches for the microphone together.
   await page.getByRole("button", { name: "Talk with Virgil" }).click();
 }
 
@@ -72,8 +73,6 @@ test("when Gemini's quota is spent too, the lesson carries on with Grok", async 
   );
   await page.routeWebSocket("**/api/realtime/grok", (ws) => relay(ws, { ready: true, provider: "grok" }));
   await openLesson(page, ["gemini", "grok"]);
-
-  await page.getByRole("button", { name: "Connect microphone" }).click();
 
   // Connected, not merely trying: the connect button is gone and stays gone.
   await expect(page.getByRole("button", { name: "Connect microphone" })).toHaveCount(0);
@@ -101,8 +100,6 @@ test("when no fallback can start, the learner is told why each one failed", asyn
     relay(ws, { ready: false, provider: "grok", refusal: "key rejected" }),
   );
   await openLesson(page, ["gemini", "grok"]);
-
-  await page.getByRole("button", { name: "Connect microphone" }).click();
 
   const failure = page.getByText(/No backup tutor could start/);
   await expect(failure).toContainText("Gemini: quota spent");
