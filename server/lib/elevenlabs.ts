@@ -213,11 +213,27 @@ export function elevenLabsAgentConfig(toolIds: string[]): Record<string, unknown
         agent_output_audio_format: `pcm_${ELEVENLABS_OUTPUT_SAMPLE_RATE}`,
       },
       asr: { user_input_audio_format: `pcm_${ELEVENLABS_INPUT_SAMPLE_RATE}` },
+      conversation: {
+        // Everything the relay translates, plus the tool calls and pings it answers.
+        client_events: [
+          "audio",
+          "interruption",
+          "agent_response",
+          "user_transcript",
+          "agent_response_correction",
+          "client_tool_call",
+          "ping",
+        ],
+        // A lesson, not a phone call: the default cap of ten minutes is too short.
+        max_duration_seconds: 3600,
+      },
+      // A learner working a problem in silence is not waiting to be re-engaged.
+      turn: { turn_timeout: 30 },
     },
     platform_settings: {
       overrides: {
         conversation_config_override: {
-          agent: { prompt: { prompt: true }, first_message: true, language: true },
+          agent: { prompt: { prompt: true, llm: true }, first_message: true, language: true },
           tts: { voice_id: true },
         },
       },
