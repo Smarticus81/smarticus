@@ -155,6 +155,7 @@ function offeredFallbacks(error: unknown): FallbackProvider[] {
 const FALLBACK_NAMES: Record<FallbackProvider, string> = {
   gemini: "Gemini",
   grok: "Grok",
+  elevenlabs: "ElevenLabs",
 };
 
 function voiceStartupError(error: unknown): string {
@@ -814,6 +815,20 @@ export function VoiceTutor({
             running on xAI’s Grok. He follows the lesson rules less closely and cannot
             see pictures of the screen or the whiteboard, only their descriptions. Top up
             the OpenAI key to get the usual Virgil back.
+          </p>
+        </div>
+      )}
+      {provider === "elevenlabs" && connection !== "idle" && (
+        // Same rule for the third fallback: another company's agent, weaker at
+        // the lesson rules, no eyes, and a small monthly allowance of minutes.
+        <div className="voice-fallback-notice" role="status">
+          <Icon name="alert" size={15} />
+          <p>
+            <strong>Backup tutor.</strong> The usual voice budget is used up, so Virgil is
+            running as an ElevenLabs agent. He follows the lesson rules less closely and
+            cannot see pictures of the screen or the whiteboard, only their descriptions.
+            ElevenLabs allows only a few minutes of talking each month on its free plan.
+            Top up the OpenAI key to get the usual Virgil back.
           </p>
         </div>
       )}

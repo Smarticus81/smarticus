@@ -23,7 +23,8 @@
     "db:seed": "tsx prisma/seed.ts",
     "db:bootstrap": "tsx scripts/bootstrap-database.ts",
     "db:setup": "prisma generate && tsx scripts/bootstrap-database.ts && tsx prisma/seed.ts",
-    "ingest:curriculum": "tsx server/ingest/cli.ts"
+    "ingest:curriculum": "tsx server/ingest/cli.ts",
+    "elevenlabs:agent": "tsx scripts/elevenlabs-agent.ts"
   },
   "engines": {
     "node": ">=22"

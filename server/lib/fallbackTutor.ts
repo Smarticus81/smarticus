@@ -62,6 +62,8 @@ export interface UpstreamResult {
   frames?: ServerFrame[];
   /** A provider-reported error: fatal before `ready`, surfaced after it. */
   error?: string;
+  /** Messages the provider expects back at once, such as a pong for its ping. */
+  reply?: UpstreamPayload[];
 }
 
 /**
@@ -79,7 +81,8 @@ export interface UpstreamAdapter {
   readonly voice: string;
   /** Whether tool pictures can be sent; a provider without vision gets text only. */
   readonly acceptsImages: boolean;
-  openSocket(): WebSocket;
+  /** May be asynchronous when a credential has to be fetched for the socket first. */
+  openSocket(): WebSocket | Promise<WebSocket>;
   setup(instructions: FallbackInstructionParams): UpstreamPayload[];
   audio(data: string): UpstreamPayload[];
   image(data: string, mime: string): UpstreamPayload[];

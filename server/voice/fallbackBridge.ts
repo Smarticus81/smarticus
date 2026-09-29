@@ -27,7 +27,7 @@ import {
 const MAX_FRAME_BYTES = 1_500_000;
 const SETUP_TIMEOUT_MS = 20_000;
 
-const activeSessions: Record<FallbackProvider, number> = { gemini: 0, grok: 0 };
+const activeSessions: Record<FallbackProvider, number> = { gemini: 0, grok: 0, elevenlabs: 0 };
 
 /**
  * Relay one browser voice session to a fallback provider and back.
@@ -41,6 +41,8 @@ class FallbackSession {
   private upstream: WebSocket | null = null;
   private ready = false;
   private closed = false;
+  /** Set while the upstream socket is being prepared, before it exists. */
+  private opening = false;
   /** Audio that arrived before the provider finished setup, replayed once it has. */
   private readonly pending: string[] = [];
   private setupTimer: NodeJS.Timeout | null = null;
@@ -116,7 +118,8 @@ class FallbackSession {
   }
 
   private async openUpstream(lessonId: string) {
-    if (this.upstream) return this.fail("This voice session was already started.");
+    if (this.upstream || this.opening) return this.fail("This voice session was already started.");
+    this.opening = true;
     let setup: UpstreamPayload[];
     let lessonMarker: string;
     try {
@@ -158,7 +161,7 @@ class FallbackSession {
 
     let upstream: WebSocket;
     try {
-      upstream = this.adapter.openSocket();
+      upstream = await this.adapter.openSocket();
     } catch (error) {
       log({
         level: "error",
@@ -168,6 +171,10 @@ class FallbackSession {
         error: error instanceof Error ? error.message : String(error),
       });
       return this.closeWith("upstream_unavailable", "The fallback tutor could not start.");
+    }
+    if (this.closed) {
+      upstream.close();
+      return;
     }
     this.upstream = upstream;
     this.setupTimer = setTimeout(() => {
@@ -215,6 +222,7 @@ class FallbackSession {
       return;
     }
     const result = this.adapter.handle(message);
+    if (result.reply?.length) this.sendUpstream(result.reply);
 
     if (result.error) {
       log({

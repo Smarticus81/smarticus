@@ -62,6 +62,20 @@ export const envSchema = z
     GROK_ENABLE_SEARCH: booleanEnvironment("true"),
     /** Concurrent Grok voice sessions allowed; this studio has one learner. */
     GROK_MAX_SESSIONS: z.coerce.number().int().positive().max(20).default(2),
+    /**
+     * Third fallback: an ElevenLabs agent, tried when neither Gemini nor Grok
+     * can start. Both the key and the agent id are needed; `npm run
+     * elevenlabs:agent` creates the agent with the studio's tools and prints the
+     * id. Leave either empty to disable it.
+     */
+    ELEVENLABS_API_KEY: optionalString,
+    ELEVENLABS_AGENT_ID: optionalString,
+    /** Empty keeps the voice the agent was set up with. */
+    ELEVENLABS_VOICE_ID: optionalString,
+    /** Empty keeps the agent's own language model. */
+    ELEVENLABS_LLM: optionalString,
+    /** Concurrent ElevenLabs sessions allowed; this studio has one learner. */
+    ELEVENLABS_MAX_SESSIONS: z.coerce.number().int().positive().max(20).default(2),
     OPENAI_VECTOR_STORE_ID: optionalString,
     DATABASE_URL: z
       .string()
