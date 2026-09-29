@@ -163,14 +163,20 @@ class FallbackSession {
     try {
       upstream = await this.adapter.openSocket();
     } catch (error) {
+      const detail = error instanceof Error ? error.message : String(error);
       log({
         level: "error",
         message: "Fallback voice upstream could not be opened",
         requestId: this.requestId,
         provider: this.provider,
-        error: error instanceof Error ? error.message : String(error),
+        error: detail,
       });
-      return this.closeWith("upstream_unavailable", "The fallback tutor could not start.");
+      // A provider that refuses to open (a rejected key, a spent allowance)
+      // says why in this error, and that reason is the one clue the learner has.
+      return this.closeWith(
+        "upstream_unavailable",
+        `${this.adapter.label} could not start: ${detail.slice(0, 300)}`,
+      );
     }
     if (this.closed) {
       upstream.close();
