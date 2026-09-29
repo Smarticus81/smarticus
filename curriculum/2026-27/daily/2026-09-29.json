@@ -1,0 +1,677 @@
+{
+  "date": "2026-09-29",
+  "school_year": "2026-27",
+  "grade_level": 6,
+  "day_number": 25,
+  "school_day_label": "Tuesday, September 29, 2026",
+  "todays_goal": "Recovery day: restore confidence by teaching every required concept before testing it, enforce subject time caps so one block cannot consume the day, complete unfinished Day 24 core work, and hold a high standard for precise explanations, evidence, revision, reflection diagrams, cultural exchange, French futur proche, and software reliability testing.",
+  "lessons": [
+    {
+      "id": "2026-09-29-mathematics",
+      "date": "2026-09-29",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "mathematics",
+      "course": "Grade 6 Mathematics",
+      "unit_id": "math-coordinate-plane",
+      "unit_title": "Coordinate Plane, Distance, and Perimeter",
+      "lesson_number": 10,
+      "lesson_title": "What Units Mean, Coordinate Distance, and Perimeter",
+      "standards": [
+        "6.NS.C.6c",
+        "6.G.A.1"
+      ],
+      "previous_learning": "Day 24 math ran too long because required questions used vocabulary and an extension before those ideas were explicitly taught. In particular, 'units' was not explained first, and an area challenge introduced a skill that was not part of the taught sequence. Treat unfinished Day 24 work as unfinished; do not advance to area today.",
+      "course_context": "Teach vocabulary and meaning first. Today is linear distance and perimeter only. Area is explicitly out of scope.",
+      "learning_objectives": [
+        "Explain that one unit on a coordinate grid is one standard grid step",
+        "Find horizontal distance when y-values match",
+        "Find vertical distance when x-values match",
+        "Explain perimeter as total distance around the outside boundary",
+        "Use linear units correctly and distinguish them from square units without teaching area"
+      ],
+      "why_it_matters": "Atticus should understand the words and representations before being asked to calculate with them.",
+      "vocabulary": [
+        {
+          "term": "unit",
+          "definition": "one standard step of measurement on the grid"
+        },
+        {
+          "term": "horizontal distance",
+          "definition": "distance left or right between points with the same y-value"
+        },
+        {
+          "term": "vertical distance",
+          "definition": "distance up or down between points with the same x-value"
+        },
+        {
+          "term": "perimeter",
+          "definition": "the total distance around the outside edge of a closed shape"
+        }
+      ],
+      "written_instruction": "TEACH FIRST. A unit is one grid step from one numbered line to the next. Distance is counted in units. For horizontal segments compare x-values; for vertical segments compare y-values. Perimeter is the sum of all outside side lengths. Do not ask about area and do not introduce square-unit calculations today.",
+      "worked_examples": [
+        {
+          "title": "What a unit means",
+          "problem": "Move from x=2 to x=5 on a coordinate grid.",
+          "solution": "3 units",
+          "explanation": "You cross three one-unit grid spaces."
+        },
+        {
+          "title": "Horizontal distance",
+          "problem": "A(-2,4) and B(5,4)",
+          "solution": "7 units",
+          "explanation": "The y-values match, so compare the x-values: from -2 to 5 is 7 one-unit steps."
+        },
+        {
+          "title": "Vertical distance",
+          "problem": "C(3,-2) and D(3,6)",
+          "solution": "8 units",
+          "explanation": "The x-values match, so compare the y-values: from -2 to 6 is 8 units."
+        },
+        {
+          "title": "Perimeter",
+          "problem": "A rectangle is 6 units wide and 4 units tall.",
+          "solution": "20 units",
+          "explanation": "Add the outside side lengths once each: 6+4+6+4."
+        }
+      ],
+      "guided_practice": [
+        {
+          "id": "math-g1",
+          "prompt": "Explain in your own words what one unit means on a coordinate grid."
+        },
+        {
+          "id": "math-g2",
+          "prompt": "Two points have the same y-value. Which coordinate values tell you their horizontal distance, and why?"
+        },
+        {
+          "id": "math-g3",
+          "prompt": "Two points have the same x-value. Which coordinate values tell you their vertical distance, and why?"
+        }
+      ],
+      "independent_practice": [
+        {
+          "id": "math-i1",
+          "prompt": "Use the coordinate figure in today's packet to find the requested horizontal and vertical side lengths. State each answer in units."
+        },
+        {
+          "id": "math-i2",
+          "prompt": "Trace the outside boundary of the figure in today's packet and add each outside side exactly once to find the perimeter."
+        },
+        {
+          "id": "math-i3",
+          "prompt": "Explain why perimeter is reported in units rather than square units. Do not calculate area."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "math-e1",
+          "prompt": "What does the word unit mean on a coordinate grid?",
+          "answer": "One standard grid step between adjacent numbered grid lines.",
+          "rubric": "Must explain the grid-step meaning, not merely repeat 'measurement'."
+        },
+        {
+          "id": "math-e2",
+          "prompt": "Why does perimeter use units rather than square units?",
+          "answer": "Perimeter measures one-dimensional distance around the outside edge, so it uses linear units.",
+          "rubric": "Must connect perimeter to distance/length."
+        }
+      ],
+      "mastery_threshold": 85,
+      "materials": [
+        "Day 25 packet",
+        "large coordinate grid",
+        "Smarticus whiteboard"
+      ],
+      "estimated_minutes": 45,
+      "voice_prompt": "TEACH BEFORE TESTING. Start by defining 'unit' in plain language and show one different worked example. Have Atticus explain the word back. Then teach horizontal distance, vertical distance, and perimeter in that order. Do not ask any area question and do not introduce an area challenge. Before every assigned problem, make sure the required vocabulary and method have already been taught in this block. If he asks what a word means, answer directly, give one example, then ask for teach-back. One question at a time. Never give the final answer to an assigned problem. HARD STOP at the end of the 45-minute block: mark unfinished work for review and move on.",
+      "teacher_notes": "Parent reported Day 24 math consumed hours because the lesson omitted prerequisite teaching and introduced untaught area. This is a recovery block. High standard, clear path, strict time cap.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-29-writing",
+      "date": "2026-09-29",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "writing",
+      "course": "Grade 6 Literature & Writing",
+      "unit_id": "ela-writing",
+      "unit_title": "Evidence, Nuance, and Revision",
+      "lesson_number": 16,
+      "lesson_title": "Finish the Evidence Response and Make One Real Revision",
+      "standards": [
+        "W.6.1",
+        "W.6.5",
+        "W.6.9",
+        "L.6.1",
+        "L.6.2"
+      ],
+      "previous_learning": "The submitted Day 24 papers included source questions and a plan, but not the final 8-10 sentence response or the required real revision. Treat those missing pieces as not done.",
+      "course_context": "Finish the already-taught evidence response rather than start a new writing skill.",
+      "learning_objectives": [
+        "Write a clear claim",
+        "Use two exact details",
+        "Explain what each detail means",
+        "Use nuance to distinguish a reasonable first idea from a final conclusion",
+        "Revise one weak sentence so meaning actually improves"
+      ],
+      "why_it_matters": "Strong writing connects evidence to reasoning and improves weak wording rather than merely replacing it.",
+      "vocabulary": [
+        {
+          "term": "claim",
+          "definition": "the main answer or position"
+        },
+        {
+          "term": "evidence",
+          "definition": "specific facts or details that support a claim"
+        },
+        {
+          "term": "reasoning",
+          "definition": "the explanation of why the evidence matters"
+        },
+        {
+          "term": "nuance",
+          "definition": "an important detail that keeps an idea from being oversimplified"
+        },
+        {
+          "term": "revision",
+          "definition": "a change that actually improves meaning"
+        }
+      ],
+      "written_instruction": "Use the Sensor Test passage from the packet. Structure: claim; evidence 1; reasoning 1; evidence 2; reasoning 2; nuance; conclusion. Write 8-10 complete sentences, then identify the weakest sentence, name its weakness, rewrite it more precisely, and explain what improved.",
+      "worked_examples": [
+        {
+          "title": "Evidence plus reasoning",
+          "problem": "A measurement changes during a failure.",
+          "solution": "State the exact measurement, then explain what explanation it weakens or strengthens.",
+          "explanation": "Evidence alone is not analysis until the writer explains its meaning."
+        }
+      ],
+      "guided_practice": [
+        {
+          "id": "wr-g1",
+          "prompt": "State the claim in one complete sentence."
+        },
+        {
+          "id": "wr-g2",
+          "prompt": "Name two exact test results from the Sensor Test before drafting."
+        }
+      ],
+      "independent_practice": [
+        {
+          "id": "wr-i1",
+          "prompt": "Write the 8-10 sentence response using the required structure."
+        },
+        {
+          "id": "wr-i2",
+          "prompt": "Identify the weakest sentence, explain why it is weak, rewrite it, and explain what improved."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "wr-e1",
+          "prompt": "Read your original weak sentence and revision aloud. What became more precise?",
+          "answer": "A valid answer identifies a specific improvement in clarity, evidence, reasoning, or meaning.",
+          "rubric": "The rewrite must improve meaning, not just change words."
+        }
+      ],
+      "mastery_threshold": 90,
+      "materials": [
+        "Day 25 packet",
+        "Sensor Test passage"
+      ],
+      "estimated_minutes": 35,
+      "voice_prompt": "Do not start a new writing skill. Teach the response structure briefly before Atticus writes: CLAIM -> EVIDENCE -> REASONING -> EVIDENCE -> REASONING -> NUANCE -> CONCLUSION. Ask for the two strongest exact details first. During drafting, do not write sentences for him. If a sentence is vague, ask what exact evidence proves or why it matters. Revision must improve meaning. HARD STOP when the block ends.",
+      "teacher_notes": "Missing submitted final response and revision are treated as not done.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-29-literature",
+      "date": "2026-09-29",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "literature",
+      "course": "Grade 6 Literature",
+      "unit_id": "westing-game",
+      "unit_title": "The Westing Game",
+      "lesson_number": 6,
+      "lesson_title": "The Westing Game Chapters 3-4 Recovery",
+      "standards": [
+        "RL.6.1",
+        "RL.6.3",
+        "RL.6.10"
+      ],
+      "previous_learning": "The Day 25 packet treats Chapters 3-4 as recovery work and does not advance to Chapter 5 until this section is complete.",
+      "course_context": "Read first, retrieve closed-book, then reopen the novel for evidence and inference.",
+      "learning_objectives": [
+        "Recall specific events from Chapters 3-4",
+        "Use a specific event to infer a family or character dynamic",
+        "Check retrieval against the text",
+        "Use the structure theory -> specific clue -> why the clue matters"
+      ],
+      "why_it_matters": "Mystery reading requires precise evidence rather than vague suspicion.",
+      "vocabulary": [
+        {
+          "term": "retrieval",
+          "definition": "recalling information without looking"
+        },
+        {
+          "term": "inference",
+          "definition": "a conclusion based on evidence and reasoning"
+        }
+      ],
+      "written_instruction": "Read Chapters 3 and 4 for 20 minutes. Close the book for the first questions. Then reopen it to correct inaccuracies and support inferences with exact details.",
+      "worked_examples": [
+        {
+          "title": "Specific inference",
+          "problem": "A character is treated differently from another family member.",
+          "solution": "Name the exact action first, then explain what it suggests.",
+          "explanation": "The event is evidence; the interpretation is the inference."
+        }
+      ],
+      "guided_practice": [
+        {
+          "id": "lit-g1",
+          "prompt": "After reading, say one Chapter 3 event from memory before opening the book."
+        }
+      ],
+      "independent_practice": [
+        {
+          "id": "lit-i1",
+          "prompt": "What is Angela Wexler doing near the beginning of Chapter 3, and who is helping her?"
+        },
+        {
+          "id": "lit-i2",
+          "prompt": "What does Grace Wexler's treatment of Angela and Turtle reveal about the family dynamic? Use one specific event."
+        },
+        {
+          "id": "lit-i3",
+          "prompt": "Why does Turtle go into the Westing mansion?"
+        },
+        {
+          "id": "lit-i4",
+          "prompt": "What does Turtle discover inside?"
+        },
+        {
+          "id": "lit-i5",
+          "prompt": "Use the book to correct any inaccurate retrieval answer, then give one theory, one specific clue, and why the clue matters."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "lit-e1",
+          "prompt": "Give one theory, one specific clue from Chapters 3-4, and explain why the clue matters.",
+          "answer": "Answers vary but must be grounded in a specific chapter detail.",
+          "rubric": "No vague 'something is suspicious' answers."
+        }
+      ],
+      "mastery_threshold": 85,
+      "materials": [
+        "The Westing Game",
+        "Day 25 packet"
+      ],
+      "estimated_minutes": 30,
+      "voice_prompt": "Stay quiet during independent reading unless Atticus asks for a short word definition. After reading, ask one closed-book question at a time. If he cannot recall a detail, allow '?' rather than guessing. Then tell him to reopen the book and repair the answer. Require THEORY -> SPECIFIC CLUE -> WHY THE CLUE MATTERS. No spoilers beyond Chapters 3-4. Do not advance to Chapter 5 today unless the recovery section is complete.",
+      "teacher_notes": "Recovery only; no new chapter before completion.",
+      "answer_key": {},
+      "source_references": [
+        "curriculum/2026-27/reference/01-subjects/ar-reading-plan-6.md"
+      ],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-29-science",
+      "date": "2026-09-29",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "science",
+      "course": "Grade 6 Science",
+      "unit_id": "science-light",
+      "unit_title": "Light and Reflection",
+      "lesson_number": 11,
+      "lesson_title": "Reflection Recovery, Then Two Mirrors",
+      "standards": [
+        "MS-PS4-2"
+      ],
+      "previous_learning": "Only part of the Day 24 Science work appeared in the submitted papers. Complete the core vocabulary and single-reflection idea before two-mirror work.",
+      "course_context": "Teach the five diagram parts first, then apply the same law twice.",
+      "learning_objectives": [
+        "Identify mirror surface, point of incidence, normal, angle of incidence, and angle of reflection",
+        "State the law of reflection",
+        "Measure reflection angles from the normal",
+        "Apply the same law separately at two mirrors"
+      ],
+      "why_it_matters": "A two-mirror path is understandable only after the parts of one reflection are precise.",
+      "vocabulary": [
+        {
+          "term": "mirror surface",
+          "definition": "the reflective surface itself"
+        },
+        {
+          "term": "point of incidence",
+          "definition": "the exact point where the incoming ray hits the mirror"
+        },
+        {
+          "term": "normal",
+          "definition": "a line at 90 degrees to the mirror at the hit point"
+        },
+        {
+          "term": "angle of incidence",
+          "definition": "the angle between the incoming ray and the normal"
+        },
+        {
+          "term": "angle of reflection",
+          "definition": "the angle between the reflected ray and the normal"
+        }
+      ],
+      "written_instruction": "Teach the five parts first. The law of reflection says angle of incidence equals angle of reflection, measured from the normal. For two mirrors, solve Mirror 1 completely; its outgoing ray becomes the incoming ray at Mirror 2; draw a new normal and apply the same law again.",
+      "worked_examples": [
+        {
+          "title": "Single reflection",
+          "problem": "An incoming ray is 35 degrees from the normal.",
+          "solution": "The reflected ray is 35 degrees from the normal on the other side.",
+          "explanation": "Angle in equals angle out, and both are measured from the normal."
+        }
+      ],
+      "guided_practice": [
+        {
+          "id": "sci-g1",
+          "prompt": "Define each of the five reflection diagram parts in plain language."
+        },
+        {
+          "id": "sci-g2",
+          "prompt": "If the incoming angle is 42 degrees from the normal, what must the reflected angle be, and why?"
+        }
+      ],
+      "independent_practice": [
+        {
+          "id": "sci-i1",
+          "prompt": "Explain the difference between the mirror surface and the point of incidence."
+        },
+        {
+          "id": "sci-i2",
+          "prompt": "Draw and label a precise single-reflection diagram."
+        },
+        {
+          "id": "sci-i3",
+          "prompt": "Use the large workspace to solve a two-mirror reflection one mirror at a time, with both normals and both points of incidence labeled."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "sci-e1",
+          "prompt": "What is the normal in a reflection diagram?",
+          "answer": "An imaginary line perpendicular to the mirror at the point of incidence.",
+          "rubric": "Must include 90 degrees/perpendicular and the hit point."
+        }
+      ],
+      "mastery_threshold": 85,
+      "materials": [
+        "Day 25 packet",
+        "large drawing space",
+        "Smarticus whiteboard"
+      ],
+      "estimated_minutes": 30,
+      "voice_prompt": "TEACH FIRST. Do not ask for a two-mirror path until Atticus can define the five parts of one reflection. Use one different worked example. Make clear that angles are measured from the normal, not the mirror surface. For two mirrors, solve Mirror 1 completely before discussing Mirror 2. Never draw the assigned final path for him; use an analogous example if needed. HARD STOP at the block end.",
+      "teacher_notes": "Recovery block because submitted work was partial.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-29-history",
+      "date": "2026-09-29",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "history_geography",
+      "course": "Grade 6 History",
+      "unit_id": "history-hellenistic-world",
+      "unit_title": "The Hellenistic World",
+      "lesson_number": 12,
+      "lesson_title": "Alexandria and Cultural Exchange Recovery",
+      "standards": [
+        "RH.6-8.1",
+        "RH.6-8.2"
+      ],
+      "previous_learning": "The Alexandria/cultural-exchange work was not present in the submitted papers. Treat it as not done and complete it before advancing.",
+      "course_context": "Distinguish subject matter from cultural sources and explain how Alexandria connected people and ideas.",
+      "learning_objectives": [
+        "Explain how Alexandria's port and trade connections could help knowledge spread",
+        "Define cultural exchange",
+        "Explain why 'Greek science' alone is incomplete",
+        "Recall one contribution each from Euclid, Eratosthenes, and Archimedes"
+      ],
+      "why_it_matters": "Hellenistic scholarship developed through interaction among multiple cultural traditions.",
+      "vocabulary": [
+        {
+          "term": "cultural exchange",
+          "definition": "people from different traditions sharing, comparing, adapting, and building on ideas"
+        },
+        {
+          "term": "Hellenistic",
+          "definition": "the period when Greek and local cultures interacted after Alexander's conquests"
+        }
+      ],
+      "written_instruction": "Alexandria in Egypt became a major learning center. Its port connected trade routes, people, books, measurements, and ideas. Greek-speaking scholars worked in a world shaped by interaction with Egyptian, Babylonian, and other traditions. Euclid organized geometric knowledge, Eratosthenes estimated Earth's circumference using geometry and observations, and Archimedes applied mathematics to levers, buoyancy, and machines.",
+      "worked_examples": [
+        {
+          "title": "Cultural exchange",
+          "problem": "Why is 'Greek science' incomplete?",
+          "solution": "Because Hellenistic scholars worked with and built on knowledge from several cultural traditions.",
+          "explanation": "The issue is cultural sources, not merely the number of school subjects."
+        }
+      ],
+      "guided_practice": [
+        {
+          "id": "hist-g1",
+          "prompt": "Define cultural exchange in your own words."
+        }
+      ],
+      "independent_practice": [
+        {
+          "id": "hist-i1",
+          "prompt": "Why could Alexandria's location near major trade routes help knowledge grow?"
+        },
+        {
+          "id": "hist-i2",
+          "prompt": "Why is it incomplete to describe all Hellenistic scholarship as simply 'Greek science'?"
+        },
+        {
+          "id": "hist-i3",
+          "prompt": "Give one contribution of Euclid, one of Eratosthenes, and one of Archimedes."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "hist-e1",
+          "prompt": "In five complete sentences, explain how Alexandria could help ideas from different cultures meet and develop.",
+          "answer": "Answers vary; must explain location/connectivity, multiple cultural traditions, and development of knowledge.",
+          "rubric": "Must explicitly include cultural exchange."
+        }
+      ],
+      "mastery_threshold": 85,
+      "materials": [
+        "Day 25 packet"
+      ],
+      "estimated_minutes": 30,
+      "voice_prompt": "Teach cultural exchange before asking any question that uses the term. Have Atticus explain it back in plain language. Then connect Alexandria's port and trade routes to movement of people, texts, measurements, and ideas. If he says Hellenistic science was not only Greek because people studied several subjects, repair the misconception: the point is multiple cultural sources. One question at a time. HARD STOP at block end.",
+      "teacher_notes": "Missing submitted section treated as not done.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-29-french",
+      "date": "2026-09-29",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "french",
+      "course": "Grade 6 French",
+      "unit_id": "french-futur-proche",
+      "unit_title": "Futur Proche",
+      "lesson_number": 11,
+      "lesson_title": "Futur Proche Consolidation",
+      "standards": [
+        "ACTFL 1.1",
+        "ACTFL 1.2",
+        "ACTFL 1.3"
+      ],
+      "previous_learning": "The submitted work shows futur proche with negation and questions was practiced. Today is consolidation only; no new grammar.",
+      "course_context": "Conjugated ALLER + infinitive, including negation and Est-ce que questions.",
+      "learning_objectives": [
+        "Use the correct ALLER form",
+        "Keep the action verb in the infinitive",
+        "Form negative futur proche sentences",
+        "Answer futur proche questions in complete French sentences"
+      ],
+      "why_it_matters": "Reliable control of the pattern matters more than adding new grammar.",
+      "vocabulary": [
+        {
+          "term": "futur proche",
+          "definition": "a near-future form using aller plus an infinitive"
+        },
+        {
+          "term": "infinitive",
+          "definition": "the base form of a verb"
+        }
+      ],
+      "written_instruction": "Futur proche = conjugated ALLER + infinitive. Negative: ne/n' + ALLER + pas + infinitive. Question: Est-ce que + subject + ALLER + infinitive?",
+      "worked_examples": [
+        {
+          "title": "Negative",
+          "problem": "Je vais lire.",
+          "solution": "Je ne vais pas lire.",
+          "explanation": "Only aller is conjugated; lire stays infinitive."
+        },
+        {
+          "title": "Question",
+          "problem": "Are you going to read? (tu)",
+          "solution": "Est-ce que tu vas lire?",
+          "explanation": "Use Est-ce que, the subject, the correct aller form, then the infinitive."
+        }
+      ],
+      "guided_practice": [
+        {
+          "id": "fr-g1",
+          "prompt": "Say the pattern for futur proche without looking."
+        }
+      ],
+      "independent_practice": [
+        {
+          "id": "fr-i1",
+          "prompt": "Complete the Day 25 written consolidation items."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "fr-e1",
+          "prompt": "Say one complete negative futur proche sentence.",
+          "answer": "Any grammatically correct negative futur proche sentence.",
+          "rubric": "Correct aller form and infinitive required."
+        }
+      ],
+      "mastery_threshold": 85,
+      "materials": [
+        "Day 25 packet"
+      ],
+      "estimated_minutes": 25,
+      "voice_prompt": "No new grammar. Remind the pattern first: conjugated ALLER + infinitive; for negation, ne/n' + ALLER + pas + infinitive. Give one oral model, then retrieval. If either the ALLER form or infinitive is wrong, have Atticus repair the entire sentence and repeat it aloud. Use short pronunciation help only when needed. HARD STOP at block end.",
+      "teacher_notes": "Consolidation only.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-09-29-computer-science",
+      "date": "2026-09-29",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "computer_science",
+      "course": "Grade 6 Computer Science / AI",
+      "unit_id": "builder-tacticlab",
+      "unit_title": "TacticLab Reliability",
+      "lesson_number": 12,
+      "lesson_title": "Reliability Retest",
+      "standards": [
+        "CSTA 2-AP-17"
+      ],
+      "previous_learning": "The submitted papers show Builder Lab test logging was done. Today is a short reliability continuation, not a feature-build session.",
+      "course_context": "Reproduce one meaningful issue or confirm high-risk sequences work repeatedly. No new feature.",
+      "learning_objectives": [
+        "Run repeatable edge-case tests",
+        "Record expected and actual observable behavior",
+        "Distinguish a repeatable pass from a one-time success",
+        "Write one bug report if a test fails"
+      ],
+      "why_it_matters": "Software is reliable when behavior can be reproduced, not merely when it works once.",
+      "vocabulary": [
+        {
+          "term": "reproduce",
+          "definition": "make the same behavior happen again using the same steps"
+        },
+        {
+          "term": "edge case",
+          "definition": "an unusual but realistic situation that may reveal a bug"
+        }
+      ],
+      "written_instruction": "Retest Play -> Pause -> Play -> Reset twice, switching corner routine after Reset, and double-click Play. Record what should happen and what visibly happens. If any test fails, document one bug with steps, expected result, actual result, change, and retest result.",
+      "worked_examples": [
+        {
+          "title": "Observable evidence",
+          "problem": "A reset appears to work.",
+          "solution": "Describe exactly where all players returned and what the next replay did.",
+          "explanation": "A checkmark alone is not evidence."
+        }
+      ],
+      "guided_practice": [
+        {
+          "id": "cs-g1",
+          "prompt": "Before the first test, state the expected visible result."
+        }
+      ],
+      "independent_practice": [
+        {
+          "id": "cs-i1",
+          "prompt": "Run Play -> Pause -> Play -> Reset twice and record observable evidence."
+        },
+        {
+          "id": "cs-i2",
+          "prompt": "Switch corner routine after Reset and confirm only the selected routine plays."
+        },
+        {
+          "id": "cs-i3",
+          "prompt": "Double-click Play and confirm only one animation sequence runs."
+        },
+        {
+          "id": "cs-i4",
+          "prompt": "If any test fails, write one complete bug report and retest after the change."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "cs-e1",
+          "prompt": "What makes a software test result strong evidence rather than just a checkmark?",
+          "answer": "It records exact steps, expected behavior, actual observable behavior, and can be reproduced.",
+          "rubric": "Must mention observable/repeatable evidence."
+        }
+      ],
+      "mastery_threshold": 85,
+      "materials": [
+        "TacticLab",
+        "browser console",
+        "Day 25 test log"
+      ],
+      "estimated_minutes": 30,
+      "voice_prompt": "QA MODE. No new feature. For every test ask: What did you do? What should have happened? What actually happened? Can you make it happen again? Do not accept 'it worked' or a checkmark as evidence. Require one observable result. If a test fails, help Atticus isolate the bug but do not take over the project. HARD STOP at block end.",
+      "teacher_notes": "Reliability retest only.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    }
+  ]
+}
