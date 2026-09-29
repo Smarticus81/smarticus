@@ -328,9 +328,16 @@ describe("ElevenLabs upstream adapter", () => {
       assert.equal(tool.expects_response, true);
       const parameters = tool.parameters as Record<string, unknown>;
       assert.equal(parameters.type, "object");
-      walk(parameters, String(tool.name), (node) => {
-        for (const key of ["nullable", "format", "anyOf"]) {
-          assert.ok(!(key in node), `${tool.name} still carries Gemini-only "${key}"`);
+      walk(parameters, String(tool.name), (node, path) => {
+        for (const key of Object.keys(node)) {
+          assert.ok(
+            ["type", "description", "enum", "items", "properties", "required"].includes(key),
+            `${path} carries "${key}", which ElevenLabs rejects`,
+          );
+        }
+        // ElevenLabs reads a description as "the model supplies this value".
+        if (path !== String(tool.name)) {
+          assert.ok(typeof node.description === "string" && node.description.length > 0, `${path} has no description`);
         }
       });
     }

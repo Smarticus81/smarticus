@@ -108,35 +108,83 @@ export function elevenLabsToolConfigs(): Record<string, unknown>[] {
   }));
 }
 
-function plainSchema(input: unknown): Record<string, unknown> {
+/** The only keywords ElevenLabs' tool parameter schema accepts. */
+const ELEVENLABS_SCHEMA_KEYS = new Set(["type", "description", "enum", "items", "properties", "required"]);
+
+/**
+ * ElevenLabs reads a parameter's description as "the model supplies this
+ * value", so every property carries one, falling back to its own name.
+ */
+function plainSchema(input: unknown, name = ""): Record<string, unknown> {
   if (!input || typeof input !== "object") return {};
   const schema = input as Record<string, unknown>;
   if (Array.isArray(schema.anyOf) && schema.anyOf.length) {
-    const first = plainSchema(schema.anyOf[0]);
-    return typeof schema.description === "string"
-      ? { ...first, description: schema.description }
-      : first;
+    const merged = mergeBranches(schema.anyOf.map((branch) => plainSchema(branch, name)));
+    if (typeof schema.description === "string") merged.description = schema.description;
+    if (name && typeof merged.description !== "string") merged.description = name.replace(/_/g, " ");
+    return merged;
   }
   const output: Record<string, unknown> = {};
   for (const [key, value] of Object.entries(schema)) {
-    if (key === "nullable" || key === "format" || key === "title") continue;
+    if (key === "type" && schema.nullable === true && typeof value === "string" && value !== "object" && value !== "array") {
+      // ElevenLabs writes an optional scalar as a two-entry type, not `nullable`.
+      output.type = [value, "null"];
+      continue;
+    }
+    if (!ELEVENLABS_SCHEMA_KEYS.has(key)) continue;
     if (key === "properties" && value && typeof value === "object") {
       output.properties = Object.fromEntries(
-        Object.entries(value as Record<string, unknown>).map(([name, child]) => [
-          name,
-          plainSchema(child),
+        Object.entries(value as Record<string, unknown>).map(([child, childSchema]) => [
+          child,
+          plainSchema(childSchema, child),
         ]),
       );
       continue;
     }
     if (key === "items") {
-      output.items = plainSchema(value);
+      output.items = plainSchema(value, `${name} item`);
       continue;
     }
     output[key] = value;
   }
   if (output.type === "object" && !output.properties) output.properties = {};
+  if (name && typeof output.description !== "string") output.description = name.replace(/_/g, " ");
   return output;
+}
+
+/**
+ * ElevenLabs has no `anyOf`, so a union of object shapes (the whiteboard's
+ * step kinds, say) becomes one object carrying every branch's properties, with
+ * the discriminating enums joined and only the properties every branch needs
+ * marked required. A union of anything else keeps its first branch.
+ */
+function mergeBranches(branches: Record<string, unknown>[]): Record<string, unknown> {
+  if (branches.length === 1 || branches.some((branch) => branch.type !== "object")) {
+    return branches[0] ?? {};
+  }
+  const properties: Record<string, Record<string, unknown>> = {};
+  for (const branch of branches) {
+    for (const [key, value] of Object.entries(
+      (branch.properties ?? {}) as Record<string, Record<string, unknown>>,
+    )) {
+      const existing = properties[key];
+      if (!existing) {
+        properties[key] = { ...value };
+        continue;
+      }
+      if (Array.isArray(existing.enum) && Array.isArray(value.enum)) {
+        existing.enum = [...new Set([...existing.enum, ...value.enum])];
+      }
+    }
+  }
+  const required = branches
+    .map((branch) => new Set((branch.required as string[] | undefined) ?? []))
+    .reduce((common, next) => new Set([...common].filter((key) => next.has(key))));
+  return {
+    type: "object",
+    properties,
+    ...(required.size ? { required: [...required] } : {}),
+  };
 }
 
 /**
