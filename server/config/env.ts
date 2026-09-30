@@ -82,6 +82,8 @@ export const envSchema = z
       .default("postgresql://postgres:postgres@localhost:5432/atticus_tutor"),
     SESSION_SECRET: z.string().default("dev-session-secret-change-in-production"),
     APP_ACCESS_PASSWORD: optionalString,
+    /** Parent-only academic dashboard access code. Keep this server-side. */
+    PARENT_ACCESS_CODE: optionalString,
     SESSION_MAX_AGE_MS: z.coerce
       .number()
       .int()
@@ -116,6 +118,13 @@ export const envSchema = z
         code: z.ZodIssueCode.custom,
         path: ["APP_ACCESS_PASSWORD"],
         message: "APP_ACCESS_PASSWORD must be at least 12 characters in production",
+      });
+    }
+    if (!values.PARENT_ACCESS_CODE || values.PARENT_ACCESS_CODE.length < 4) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["PARENT_ACCESS_CODE"],
+        message: "PARENT_ACCESS_CODE must be configured in production",
       });
     }
     if (values.DATABASE_URL.includes("postgres:postgres@localhost")) {
