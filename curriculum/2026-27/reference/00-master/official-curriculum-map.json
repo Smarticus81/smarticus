@@ -1,0 +1,919 @@
+{
+  "title": "Atticus Grade 6 Master Curriculum — 2026–27",
+  "description": "The full parent-directed Grade 6 scope and sequence Smarticus uses to generate daily lessons, pace instruction, and decide when to review or advance.",
+  "disclaimer": "Smarticus is not a state-issued or accredited-school curriculum. It is a parent-directed Texas homeschool curriculum aligned to published standards and curriculum frameworks. The official links below identify the standards/frameworks used; the Smarticus sequence is the course design built from them.",
+  "texas_context": {
+    "label": "Texas homeschool context",
+    "note": "Texas Education Agency does not approve or accredit homeschool programs. Smarticus keeps a written, standards-referenced curriculum and academic record for transfer/admissions review.",
+    "url": "https://tea2.tea.texas.gov/families-and-students/finding-school-your-child/home-schooling"
+  },
+  "subjects": [
+    {
+      "subject": "mathematics",
+      "label": "Grade 6 Mathematics",
+      "basis": "Common Core Grade 6 Mathematics is the primary organizing reference. Texas Grade 6 TEKS are used as an alignment/cross-check for transferability.",
+      "internal_source": "https://github.com/Smarticus81/smarticus/blob/main/curriculum/2026-27/reference/01-subjects/mathematics-6.md",
+      "sources": [
+        {
+          "label": "Common Core State Standards — Grade 6 Mathematics",
+          "organization": "Common Core State Standards Initiative",
+          "url": "https://corestandards.org/wp-content/uploads/2023/09/ADA-Compliant-Math-Standards.pdf",
+          "role": "Primary standards reference"
+        },
+        {
+          "label": "Texas Curriculum Standards / TEKS",
+          "organization": "Texas Education Agency",
+          "url": "https://tea.texas.gov/curriculum-and-instruction/curriculum-standards/curriculum-standards",
+          "role": "Texas alignment cross-check"
+        }
+      ],
+      "sequence": [
+        {
+          "unit": 1,
+          "title": "Number Operations and Fluency",
+          "topics": [
+            "Fraction multiplication/division review and application",
+            "Decimal multiplication/division",
+            "Multi-digit computation and estimation",
+            "GCF/LCM and distributive reasoning as needed"
+          ]
+        },
+        {
+          "unit": 2,
+          "title": "Ratios and Rates",
+          "topics": [
+            "Ratio language and representations",
+            "Equivalent ratios and tables",
+            "Unit rates",
+            "Double number lines / coordinate representations"
+          ]
+        },
+        {
+          "unit": 3,
+          "title": "Percent",
+          "topics": [
+            "Percent as rate per 100",
+            "Fraction/decimal/percent connections",
+            "Percent of a quantity",
+            "Finding whole, part, or percent in Grade 6 contexts"
+          ]
+        },
+        {
+          "unit": 4,
+          "title": "Rational Numbers",
+          "topics": [
+            "Positive and negative numbers in context",
+            "Number line and absolute value",
+            "Ordering rational numbers",
+            "Coordinate plane in all quadrants"
+          ]
+        },
+        {
+          "unit": 5,
+          "title": "Expressions",
+          "topics": [
+            "Exponents and order of operations",
+            "Variables and expressions",
+            "Equivalent expressions and distributive property",
+            "Evaluating expressions"
+          ]
+        },
+        {
+          "unit": 6,
+          "title": "Equations and Inequalities",
+          "topics": [
+            "One-step and simple multi-step equations appropriate to Grade 6",
+            "Meaning of equality",
+            "Inequalities and solution sets",
+            "Real-world modeling"
+          ]
+        },
+        {
+          "unit": 7,
+          "title": "Geometry",
+          "topics": [
+            "Area of triangles, quadrilaterals, and polygons",
+            "Volume of rectangular prisms",
+            "Surface area and nets",
+            "Coordinate geometry applications"
+          ]
+        },
+        {
+          "unit": 8,
+          "title": "Statistics",
+          "topics": [
+            "Statistical questions",
+            "Dot plots, histograms, and box plots as appropriate",
+            "Mean/median and variability",
+            "Describe distributions in context"
+          ]
+        },
+        {
+          "unit": 9,
+          "title": "Cumulative Problem Solving & Readiness",
+          "topics": [
+            "Mixed Grade 6 applications",
+            "Reasonableness and precision",
+            "Cumulative mastery checks",
+            "Grade 7 readiness"
+          ]
+        }
+      ]
+    },
+    {
+      "subject": "literature",
+      "label": "Grade 6 Literature / Reading",
+      "basis": "Common Core Grade 6 Reading Literature and Reading Informational Text organize close reading, evidence, inference, theme, central idea, structure, point of view, comparison, and text complexity.",
+      "internal_source": "https://github.com/Smarticus81/smarticus/blob/main/curriculum/2026-27/reference/01-subjects/literature-6.md",
+      "sources": [
+        {
+          "label": "Common Core State Standards — English Language Arts",
+          "organization": "Common Core State Standards Initiative",
+          "url": "https://corestandards.org/wp-content/uploads/2023/09/ELA_Standards1.pdf",
+          "role": "Primary standards reference"
+        },
+        {
+          "label": "Accelerated Reader Bookfinder",
+          "organization": "Renaissance",
+          "url": "https://www.arbookfind.com/",
+          "role": "AR point values and ATOS levels for the homeschool reading tracker"
+        }
+      ],
+      "sequence": [
+        {
+          "unit": 1,
+          "title": "Close Reading Foundations",
+          "topics": [
+            "Textual evidence",
+            "Inference",
+            "Vocabulary in context",
+            "Theme",
+            "Central idea",
+            "Objective summary"
+          ]
+        },
+        {
+          "unit": 2,
+          "title": "Character, Plot, Setting & Point of View",
+          "topics": [
+            "Character development",
+            "Conflict",
+            "Plot",
+            "Setting",
+            "Point of view",
+            "Significance of details"
+          ]
+        },
+        {
+          "unit": 3,
+          "title": "Informational Text",
+          "topics": [
+            "Central idea",
+            "Cause/effect",
+            "Text structure",
+            "Claims and evidence",
+            "Objective summary"
+          ]
+        },
+        {
+          "unit": 4,
+          "title": "Novel Study & Sustained Reading",
+          "topics": [
+            "The Westing Game and additional Grade 6 novels",
+            "Reading stamina",
+            "Clue/evidence tracking",
+            "Discussion and written response"
+          ]
+        },
+        {
+          "unit": 5,
+          "title": "Comparing Texts, Perspectives & Media",
+          "topics": [
+            "Compare authors' presentations",
+            "Compare perspectives",
+            "Text vs media",
+            "Evidence-based comparison"
+          ]
+        },
+        {
+          "unit": 6,
+          "title": "Research Reading & Source Quality",
+          "topics": [
+            "Source evaluation",
+            "Relevant evidence",
+            "Fact vs interpretation",
+            "Research reading habits"
+          ]
+        },
+        {
+          "unit": 7,
+          "title": "Cumulative Analysis & Portfolio",
+          "topics": [
+            "Literary analysis",
+            "Informational analysis",
+            "Reading portfolio",
+            "Year-end comprehension evidence"
+          ]
+        }
+      ]
+    },
+    {
+      "subject": "writing",
+      "label": "Grade 6 Writing / Language",
+      "basis": "Common Core Grade 6 Writing and Language organize argument, informative/explanatory writing, narrative writing, research, revision, conventions, and vocabulary.",
+      "internal_source": "https://github.com/Smarticus81/smarticus/blob/main/curriculum/2026-27/reference/01-subjects/writing-6.md",
+      "sources": [
+        {
+          "label": "Common Core State Standards — English Language Arts",
+          "organization": "Common Core State Standards Initiative",
+          "url": "https://corestandards.org/wp-content/uploads/2023/09/ELA_Standards1.pdf",
+          "role": "Primary standards reference"
+        }
+      ],
+      "sequence": [
+        {
+          "unit": 1,
+          "title": "Complete Academic Responses & CER",
+          "topics": [
+            "Answer every part of a prompt",
+            "Claim-evidence-reasoning",
+            "Paragraph structure",
+            "Revision habits"
+          ]
+        },
+        {
+          "unit": 2,
+          "title": "Evidence-Based Explanatory Writing",
+          "topics": [
+            "Claim/topic sentence",
+            "Exact evidence",
+            "Reasoning",
+            "Nuance",
+            "Conclusion"
+          ]
+        },
+        {
+          "unit": 3,
+          "title": "Multi-Paragraph Explanatory Essays",
+          "topics": [
+            "Planning",
+            "Organization",
+            "Transitions",
+            "Development",
+            "Revision"
+          ]
+        },
+        {
+          "unit": 4,
+          "title": "Narrative Craft & Structure",
+          "topics": [
+            "Narrative sequence",
+            "Description",
+            "Dialogue",
+            "Point of view",
+            "Revision"
+          ]
+        },
+        {
+          "unit": 5,
+          "title": "Argument Writing",
+          "topics": [
+            "Claims",
+            "Evidence",
+            "Reasoning",
+            "Counterpoints as appropriate",
+            "Conclusions"
+          ]
+        },
+        {
+          "unit": 6,
+          "title": "Research & Source Integration",
+          "topics": [
+            "Research questions",
+            "Notes",
+            "Paraphrase",
+            "Source integration",
+            "Avoiding unsupported claims"
+          ]
+        },
+        {
+          "unit": 7,
+          "title": "Language & Conventions Throughout",
+          "topics": [
+            "Sentence structure",
+            "Grammar",
+            "Punctuation",
+            "Usage",
+            "Vocabulary",
+            "Editing"
+          ]
+        },
+        {
+          "unit": 8,
+          "title": "Final Portfolio & On-Demand Writing",
+          "topics": [
+            "Multi-paragraph final pieces",
+            "Revision evidence",
+            "Timed/on-demand writing",
+            "Portfolio selection"
+          ]
+        }
+      ]
+    },
+    {
+      "subject": "science",
+      "label": "Grade 6 Science",
+      "basis": "The year sequence follows OpenSciEd Grade 6 middle-school units. NGSS middle-school performance expectations and science/engineering practices provide the standards framework.",
+      "internal_source": "https://github.com/Smarticus81/smarticus/blob/main/curriculum/2026-27/reference/01-subjects/science-6.md",
+      "sources": [
+        {
+          "label": "OpenSciEd Grade 6 Middle School Units",
+          "organization": "OpenSciEd",
+          "url": "https://openscied.org/curriculum/middle-school/science-lab-kit-lists/",
+          "role": "Primary unit sequence"
+        },
+        {
+          "label": "Next Generation Science Standards — Middle School",
+          "organization": "NGSS Lead States",
+          "url": "https://www.nextgenscience.org/search-standards",
+          "role": "Performance expectations and science/engineering practices"
+        },
+        {
+          "label": "MS-PS4-2 Waves & Electromagnetic Radiation",
+          "organization": "Next Generation Science Standards",
+          "url": "https://www.nextgenscience.org/pe/ms-ps4-2-waves-and-their-applications-technologies-information-transfer",
+          "role": "Current Light & Matter standards reference"
+        }
+      ],
+      "sequence": [
+        {
+          "unit": 1,
+          "title": "Light & Matter",
+          "topics": [
+            "Reflection",
+            "Absorption",
+            "Transmission",
+            "Scattering",
+            "Vision",
+            "Ray/path models",
+            "Lenses and mirrors",
+            "Evidence-based modeling"
+          ]
+        },
+        {
+          "unit": 2,
+          "title": "Thermal Energy",
+          "topics": [
+            "Energy transfer",
+            "Temperature",
+            "Particle models",
+            "Insulation",
+            "Engineering applications"
+          ]
+        },
+        {
+          "unit": 3,
+          "title": "Weather, Climate & Water Cycling",
+          "topics": [
+            "Water cycling",
+            "Weather patterns",
+            "Climate",
+            "Data and models"
+          ]
+        },
+        {
+          "unit": 4,
+          "title": "Plate Tectonics & Rock Cycling",
+          "topics": [
+            "Earth surface change",
+            "Plate movement",
+            "Rock cycling",
+            "Evidence from Earth's systems"
+          ]
+        },
+        {
+          "unit": 5,
+          "title": "Natural Hazards",
+          "topics": [
+            "Hazard patterns",
+            "Risk",
+            "Detection and warning",
+            "Engineering preparation"
+          ]
+        },
+        {
+          "unit": 6,
+          "title": "Cells & Systems",
+          "topics": [
+            "Cells",
+            "Body systems",
+            "Structure and function",
+            "System interactions"
+          ]
+        }
+      ]
+    },
+    {
+      "subject": "history_geography",
+      "label": "Grade 6 History / Geography / Civics",
+      "basis": "Core Knowledge Grade 6 History & Geography is the main content spine. The NCSS C3 Framework supplies inquiry, source-evaluation, evidence, and civic-reasoning practices.",
+      "internal_source": "https://github.com/Smarticus81/smarticus/blob/main/curriculum/2026-27/reference/01-subjects/history-geography-6.md",
+      "sources": [
+        {
+          "label": "Core Knowledge Sequence — Grade 6 History & Geography",
+          "organization": "Core Knowledge Foundation",
+          "url": "https://www.coreknowledge.org/wp-content/uploads/2016/09/CKFSequence_Rev.pdf",
+          "role": "Primary content spine"
+        },
+        {
+          "label": "Core Knowledge K–8 Sequence",
+          "organization": "Core Knowledge Foundation",
+          "url": "https://www.coreknowledge.org/k-8-sequence/",
+          "role": "Sequence overview"
+        },
+        {
+          "label": "C3 Framework for Social Studies",
+          "organization": "National Council for the Social Studies",
+          "url": "https://www.socialstudies.org/standards/c3",
+          "role": "Inquiry and evidence framework"
+        }
+      ],
+      "sequence": [
+        {
+          "unit": 1,
+          "title": "Geographic Reasoning & World Map Foundations",
+          "topics": [
+            "Map reading",
+            "Spatial sense",
+            "Latitude/longitude review",
+            "Physical geography",
+            "Human-environment connections"
+          ]
+        },
+        {
+          "unit": 2,
+          "title": "Ancient Greece",
+          "topics": [
+            "Geography",
+            "Polis",
+            "Athens and Sparta",
+            "Colonization and trade",
+            "Persian Wars",
+            "Democracy and its limits",
+            "Peloponnesian War",
+            "Philosophy, theater, art, architecture",
+            "Macedon and Alexander",
+            "Hellenistic world"
+          ]
+        },
+        {
+          "unit": 3,
+          "title": "Ancient Rome",
+          "topics": [
+            "Geography of Italy",
+            "Roman Republic",
+            "Institutions and citizenship",
+            "Expansion",
+            "Empire",
+            "Roman law and legacy"
+          ]
+        },
+        {
+          "unit": 4,
+          "title": "Enlightenment",
+          "topics": [
+            "Reason",
+            "Natural rights",
+            "Political thought",
+            "Influence on later revolutions"
+          ]
+        },
+        {
+          "unit": 5,
+          "title": "French Revolution",
+          "topics": [
+            "Old Regime",
+            "Causes",
+            "Revolutionary change",
+            "Rights",
+            "Violence and political transformation"
+          ]
+        },
+        {
+          "unit": 6,
+          "title": "Industrial Revolution",
+          "topics": [
+            "Technology",
+            "Factories",
+            "Urbanization",
+            "Labor",
+            "Economic and social change"
+          ]
+        },
+        {
+          "unit": 7,
+          "title": "Latin American Independence",
+          "topics": [
+            "Colonial systems",
+            "Independence movements",
+            "Leaders",
+            "Political change"
+          ]
+        },
+        {
+          "unit": 8,
+          "title": "Immigration, Industrialization & Reform",
+          "topics": [
+            "Migration",
+            "Urban growth",
+            "Industrial society",
+            "Reform movements"
+          ]
+        },
+        {
+          "unit": 9,
+          "title": "Civics & Current-Events Inquiry Throughout",
+          "topics": [
+            "Source evaluation",
+            "Rights and responsibilities",
+            "Rule of law",
+            "Institutions",
+            "Civic participation",
+            "Evidence-based discussion"
+          ]
+        }
+      ]
+    },
+    {
+      "subject": "french",
+      "label": "Grade 6 French — Continuing",
+      "basis": "ACTFL World-Readiness Standards provide the communication/culture framework. Smarticus supplies the specific continuing-French sequence based on Atticus's prior study.",
+      "internal_source": "https://github.com/Smarticus81/smarticus/blob/main/curriculum/2026-27/reference/01-subjects/french-6.md",
+      "sources": [
+        {
+          "label": "World-Readiness Standards for Learning Languages",
+          "organization": "ACTFL / National Standards Collaborative Board",
+          "url": "https://www.actfl.org/educator-resources/world-readiness-standards-for-learning-languages",
+          "role": "Primary communication and culture framework"
+        },
+        {
+          "label": "ACTFL Standards Summary",
+          "organization": "ACTFL",
+          "url": "https://www.actfl.org/educator-resources/world-readiness-standards-for-learning-languages/standards-summary",
+          "role": "Interpersonal, interpretive, and presentational communication goals"
+        }
+      ],
+      "sequence": [
+        {
+          "unit": 1,
+          "title": "Present-Tense Consolidation",
+          "topics": [
+            "Regular -ER verbs",
+            "Subject pronouns",
+            "Negation",
+            "Question forms"
+          ]
+        },
+        {
+          "unit": 2,
+          "title": "High-Frequency Irregular Verbs",
+          "topics": [
+            "être",
+            "avoir",
+            "aller",
+            "faire",
+            "Futur proche with aller"
+          ]
+        },
+        {
+          "unit": 3,
+          "title": "Description",
+          "topics": [
+            "Adjective agreement",
+            "People",
+            "Objects",
+            "Personal description"
+          ]
+        },
+        {
+          "unit": 4,
+          "title": "Family, Routines, School & Interests",
+          "topics": [
+            "Daily routines",
+            "Family",
+            "School life",
+            "Preferences"
+          ]
+        },
+        {
+          "unit": 5,
+          "title": "Food, Cafés & Preferences",
+          "topics": [
+            "Food vocabulary",
+            "Ordering",
+            "Likes/dislikes",
+            "Short dialogues"
+          ]
+        },
+        {
+          "unit": 6,
+          "title": "Time, Weather, Places, Directions & Travel",
+          "topics": [
+            "Time",
+            "Weather",
+            "Places",
+            "Directions",
+            "Travel language"
+          ]
+        },
+        {
+          "unit": 7,
+          "title": "Listening & Reading",
+          "topics": [
+            "Short texts",
+            "Dialogues",
+            "Interpretive comprehension",
+            "Context clues"
+          ]
+        },
+        {
+          "unit": 8,
+          "title": "Writing & Speaking",
+          "topics": [
+            "Guided paragraphs",
+            "Short oral presentations",
+            "Conversation practice"
+          ]
+        },
+        {
+          "unit": 9,
+          "title": "Cumulative Conversation & Writing",
+          "topics": [
+            "Integrated communication",
+            "Review",
+            "Final oral and written evidence"
+          ]
+        }
+      ]
+    },
+    {
+      "subject": "computer_science",
+      "label": "Grade 6 Computer Science / AI Builder",
+      "basis": "CSTA middle-school concepts and practices are the standards reference. Smarticus intentionally implements them through practical, creative vibe-coding projects rather than a traditional syntax-first course.",
+      "internal_source": "https://github.com/Smarticus81/smarticus/blob/main/curriculum/2026-27/reference/01-subjects/computer-science-ai-6.md",
+      "sources": [
+        {
+          "label": "CSTA PK–12 Computer Science Standards — Middle School",
+          "organization": "Computer Science Teachers Association",
+          "url": "https://csteachers.org/pk12standards/view/",
+          "role": "Primary CS standards reference"
+        }
+      ],
+      "sequence": [
+        {
+          "unit": 1,
+          "title": "Problem Solving, Algorithms & Debugging",
+          "topics": [
+            "Precise instructions",
+            "Sequencing",
+            "Testing",
+            "Debugging",
+            "Explaining behavior"
+          ]
+        },
+        {
+          "unit": 2,
+          "title": "Interactive Logic",
+          "topics": [
+            "Conditionals",
+            "Events",
+            "Loops",
+            "Variables",
+            "State"
+          ]
+        },
+        {
+          "unit": 3,
+          "title": "Browser Build Projects",
+          "topics": [
+            "Vibe coding",
+            "Product specifications",
+            "UI behavior",
+            "Acceptance criteria",
+            "Iteration"
+          ]
+        },
+        {
+          "unit": 4,
+          "title": "Web Concepts",
+          "topics": [
+            "Page structure",
+            "Interface behavior",
+            "HTML/CSS concepts when useful",
+            "Browser tools"
+          ]
+        },
+        {
+          "unit": 5,
+          "title": "Data Representation & Visualization",
+          "topics": [
+            "Structured data",
+            "Charts",
+            "Comparisons",
+            "Visual communication"
+          ]
+        },
+        {
+          "unit": 6,
+          "title": "AI / ML Foundations",
+          "topics": [
+            "Examples",
+            "Labels",
+            "Features",
+            "Training/testing",
+            "Classification",
+            "Confidence",
+            "Error"
+          ]
+        },
+        {
+          "unit": 7,
+          "title": "AI Limitations & Responsible Use",
+          "topics": [
+            "Bias",
+            "Coverage",
+            "Failure modes",
+            "Verification",
+            "Responsible use"
+          ]
+        },
+        {
+          "unit": 8,
+          "title": "Capstone Product Cycle",
+          "topics": [
+            "Define problem",
+            "Design",
+            "Build",
+            "Test",
+            "Revise",
+            "Demo",
+            "Explain"
+          ]
+        }
+      ]
+    },
+    {
+      "subject": "art_design",
+      "label": "Grade 6 Art / Design",
+      "basis": "National Core Arts Standards-style Create, Present, Respond, and Connect goals organize the course.",
+      "internal_source": "https://github.com/Smarticus81/smarticus/blob/main/curriculum/2026-27/reference/01-subjects/art-design-6.md",
+      "sources": [
+        {
+          "label": "National Core Arts Standards — Anchor Standards",
+          "organization": "National Coalition for Core Arts Standards",
+          "url": "https://www.nationalartsstandards.org/content/national-core-arts-standards-anchor-standards",
+          "role": "Primary arts framework"
+        }
+      ],
+      "sequence": [
+        {
+          "unit": 1,
+          "title": "Observational Drawing & Proportion",
+          "topics": [
+            "Observation",
+            "Proportion",
+            "Line",
+            "Form"
+          ]
+        },
+        {
+          "unit": 2,
+          "title": "Elements & Principles of Design",
+          "topics": [
+            "Composition",
+            "Balance",
+            "Contrast",
+            "Hierarchy",
+            "Color",
+            "Space"
+          ]
+        },
+        {
+          "unit": 3,
+          "title": "Graphic Design & Visual Identity",
+          "topics": [
+            "Typography",
+            "Logo/identity",
+            "Layout",
+            "Visual communication"
+          ]
+        },
+        {
+          "unit": 4,
+          "title": "Photography & Composition",
+          "topics": [
+            "Framing",
+            "Light",
+            "Perspective",
+            "Editing choices"
+          ]
+        },
+        {
+          "unit": 5,
+          "title": "Architecture & Spatial Design",
+          "topics": [
+            "Space",
+            "Function",
+            "Plans",
+            "Models",
+            "User needs"
+          ]
+        },
+        {
+          "unit": 6,
+          "title": "Product / Industrial Design",
+          "topics": [
+            "Briefs",
+            "Constraints",
+            "Sketching",
+            "Prototyping",
+            "Iteration"
+          ]
+        },
+        {
+          "unit": 7,
+          "title": "Digital Art & Portfolio",
+          "topics": [
+            "Digital tools",
+            "Critique",
+            "Revision",
+            "Portfolio selection"
+          ]
+        }
+      ]
+    },
+    {
+      "subject": "pe",
+      "label": "Grade 6 PE / Wellness",
+      "basis": "SHAPE America National Physical Education Standards provide the physical-literacy reference; Smarticus schedules PE/Wellness when appropriate rather than every daily packet.",
+      "internal_source": "https://github.com/Smarticus81/smarticus/blob/main/curriculum/2026-27/reference/01-subjects/pe-wellness-6.md",
+      "sources": [
+        {
+          "label": "2024 National Physical Education Standards",
+          "organization": "SHAPE America",
+          "url": "https://shapeamerica.org/standards/pe/new-pe-standards/",
+          "role": "Primary PE framework"
+        }
+      ],
+      "sequence": [
+        {
+          "unit": 1,
+          "title": "Movement Quality & Dynamic Warm-Up",
+          "topics": [
+            "Safe movement",
+            "Warm-up habits",
+            "Movement quality"
+          ]
+        },
+        {
+          "unit": 2,
+          "title": "Coordination, Balance, Speed & Agility",
+          "topics": [
+            "Coordination",
+            "Balance",
+            "Reaction",
+            "Agility"
+          ]
+        },
+        {
+          "unit": 3,
+          "title": "Strength & Conditioning",
+          "topics": [
+            "Age-appropriate bodyweight strength",
+            "Aerobic conditioning",
+            "Personal benchmarks"
+          ]
+        },
+        {
+          "unit": 4,
+          "title": "Mobility & Recovery",
+          "topics": [
+            "Mobility",
+            "Recovery",
+            "Hydration",
+            "Safe exertion"
+          ]
+        },
+        {
+          "unit": 5,
+          "title": "Sport Skill & Personal Improvement",
+          "topics": [
+            "Sport-specific application when relevant",
+            "Goal setting",
+            "Personal improvement"
+          ]
+        }
+      ]
+    }
+  ]
+}
