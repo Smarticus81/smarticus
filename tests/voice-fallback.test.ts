@@ -344,13 +344,14 @@ describe("ElevenLabs upstream adapter", () => {
     const agent = elevenLabsAgentConfig(["t1", "t2"]) as {
       conversation_config: {
         agent: { first_message: string; prompt: { tool_ids: string[] } };
-        tts: { agent_output_audio_format: string };
+        tts: { agent_output_audio_format: string; model_id: string };
         asr: { user_input_audio_format: string };
       };
     };
     assert.deepEqual(agent.conversation_config.agent.prompt.tool_ids, ["t1", "t2"]);
     assert.equal(agent.conversation_config.agent.first_message, "");
     assert.equal(agent.conversation_config.tts.agent_output_audio_format, "pcm_24000");
+    assert.equal(agent.conversation_config.tts.model_id, "eleven_v4_turbo");
     assert.equal(agent.conversation_config.asr.user_input_audio_format, "pcm_16000");
   });
 

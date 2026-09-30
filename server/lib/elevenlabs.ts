@@ -210,6 +210,8 @@ export function elevenLabsAgentConfig(toolIds: string[]): Record<string, unknown
       },
       tts: {
         ...(env.ELEVENLABS_VOICE_ID ? { voice_id: env.ELEVENLABS_VOICE_ID } : {}),
+        // Eleven v4 Turbo: the realtime member of the current model family.
+        model_id: "eleven_v4_turbo",
         agent_output_audio_format: `pcm_${ELEVENLABS_OUTPUT_SAMPLE_RATE}`,
       },
       asr: { user_input_audio_format: `pcm_${ELEVENLABS_INPUT_SAMPLE_RATE}` },
