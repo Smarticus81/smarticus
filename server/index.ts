@@ -179,9 +179,12 @@ export function createApp() {
   );
 
   app.use("/api/auth", authRouter);
+  // Parent records have their own second-layer access code and session flag.
+  // Mount them before the student-app authentication wall so /parent can be
+  // opened independently without exposing any student tutor controls.
+  app.use("/api/parent", parentRouter);
   app.use("/api", requireAuthentication);
   app.use("/api/realtime", realtimeRouter);
-  app.use("/api/parent", parentRouter);
   app.use("/api", apiRouter);
 
   app.use("/api", (req, res) => {
