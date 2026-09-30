@@ -22,6 +22,7 @@ import {
 } from "./ingest/curriculum.js";
 import { disconnectPrisma, prisma } from "./lib/prisma.js";
 import { authRouter, requireAuthentication } from "./routes/auth.js";
+import { parentRouter } from "./routes/parent.js";
 import {
   bootstrapDatabase,
   describeDatabaseError,
@@ -166,7 +167,7 @@ export function createApp() {
   );
 
   app.use(
-    "/api/auth/login",
+    ["/api/auth/login", "/api/parent/login"],
     rateLimit({
       windowMs: 15 * 60 * 1000,
       limit: 5,
@@ -180,6 +181,7 @@ export function createApp() {
   app.use("/api/auth", authRouter);
   app.use("/api", requireAuthentication);
   app.use("/api/realtime", realtimeRouter);
+  app.use("/api/parent", parentRouter);
   app.use("/api", apiRouter);
 
   app.use("/api", (req, res) => {
