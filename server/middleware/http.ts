@@ -69,5 +69,6 @@ declare module "express-session" {
     studentId?: string;
     tutorSessionId?: string;
     authenticated?: boolean;
+    parentAuthenticated?: boolean;
   }
 }
