@@ -1,0 +1,280 @@
+{
+  "school_year": "2026-27",
+  "grading_note": "Parent-issued homeschool academic record. Numeric averages use only formally reviewed numeric grades. Provisional ranges and ungraded days are shown but excluded from transcript averages.",
+  "ar": {
+    "semester_goal": 60,
+    "earned": 0,
+    "current_book": "The Westing Game",
+    "current_book_points": 8,
+    "status": "in_progress"
+  },
+  "portfolio": [
+    {
+      "title": "Penalty Predictor",
+      "subject": "computer_science",
+      "status": "completed",
+      "description": "Adaptive penalty-kick game built through natural-language vibe coding, playtesting, and iteration."
+    },
+    {
+      "title": "TransferLab",
+      "subject": "computer_science",
+      "status": "completed",
+      "description": "Soccer transfer-market simulator with budget, player cards, squad state, and signing constraints."
+    },
+    {
+      "title": "TacticLab",
+      "subject": "computer_science",
+      "status": "in_progress",
+      "description": "Interactive soccer tactics board with formations, draggable players, coaching controls, and tactical playback."
+    },
+    {
+      "title": "ScoutLab",
+      "subject": "computer_science",
+      "status": "planned",
+      "description": "Football scouting comparison tool with editable ratings, comparison, best-fit reasoning, and shortlist behavior."
+    }
+  ],
+  "days": [
+    {
+      "date": "2026-09-11",
+      "day_number": 13,
+      "note": "Strict instructional review; several grades were recorded as ranges.",
+      "subjects": [
+        {
+          "subject": "mathematics",
+          "score": null,
+          "display": "70–75%",
+          "status": "provisional"
+        },
+        {
+          "subject": "science",
+          "score": null,
+          "display": "80–85%",
+          "status": "provisional"
+        },
+        {
+          "subject": "french",
+          "score": 50,
+          "status": "reviewed"
+        },
+        {
+          "subject": "history_geography",
+          "score": 90,
+          "status": "reviewed"
+        },
+        {
+          "subject": "literature",
+          "score": 90,
+          "status": "reviewed"
+        },
+        {
+          "subject": "writing",
+          "score": null,
+          "display": "75–80%",
+          "status": "provisional"
+        },
+        {
+          "subject": "computer_science",
+          "score": null,
+          "status": "not_assessed"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-14",
+      "day_number": 14,
+      "note": "Strict instructional review; ranges are preserved where the original review used ranges.",
+      "subjects": [
+        {
+          "subject": "mathematics",
+          "score": 70,
+          "status": "reviewed"
+        },
+        {
+          "subject": "science",
+          "score": null,
+          "display": "65–70%",
+          "status": "provisional"
+        },
+        {
+          "subject": "french",
+          "score": null,
+          "display": "30–40%",
+          "status": "provisional"
+        },
+        {
+          "subject": "history_geography",
+          "score": 90,
+          "status": "reviewed"
+        },
+        {
+          "subject": "literature",
+          "score": 90,
+          "status": "reviewed"
+        },
+        {
+          "subject": "writing",
+          "score": null,
+          "display": "75–80%",
+          "status": "provisional"
+        },
+        {
+          "subject": "computer_science",
+          "score": null,
+          "status": "not_assessed"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-17",
+      "day_number": 17,
+      "subjects": [
+        {
+          "subject": "mathematics",
+          "score": 88,
+          "status": "reviewed"
+        },
+        {
+          "subject": "science",
+          "score": 86,
+          "status": "reviewed"
+        },
+        {
+          "subject": "french",
+          "score": 95,
+          "status": "reviewed"
+        },
+        {
+          "subject": "writing",
+          "score": 90,
+          "status": "reviewed"
+        },
+        {
+          "subject": "literature",
+          "score": 72,
+          "status": "reviewed"
+        },
+        {
+          "subject": "computer_science",
+          "score": 90,
+          "status": "provisional",
+          "note": "Process evidence reviewed; live behavior was provisional."
+        }
+      ]
+    },
+    {
+      "date": "2026-09-18",
+      "day_number": 18,
+      "subjects": [
+        {
+          "subject": "mathematics",
+          "score": 70,
+          "status": "reviewed"
+        },
+        {
+          "subject": "literature",
+          "score": 90,
+          "status": "reviewed"
+        },
+        {
+          "subject": "science",
+          "score": 84,
+          "status": "reviewed"
+        },
+        {
+          "subject": "french",
+          "score": 96,
+          "status": "reviewed"
+        },
+        {
+          "subject": "history_geography",
+          "score": 82,
+          "status": "reviewed"
+        },
+        {
+          "subject": "writing",
+          "score": 94,
+          "status": "reviewed"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-21",
+      "day_number": 19,
+      "subjects": [
+        {
+          "subject": "mathematics",
+          "score": 84,
+          "status": "reviewed"
+        },
+        {
+          "subject": "history_geography",
+          "score": 84,
+          "status": "reviewed"
+        },
+        {
+          "subject": "science",
+          "score": 96,
+          "status": "reviewed"
+        },
+        {
+          "subject": "french",
+          "score": 60,
+          "status": "reviewed"
+        },
+        {
+          "subject": "literature",
+          "score": 85,
+          "status": "reviewed"
+        },
+        {
+          "subject": "writing",
+          "score": 78,
+          "status": "reviewed"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-29",
+      "day_number": 25,
+      "note": "Grades derived from submitted schoolwork photos reviewed September 29.",
+      "subjects": [
+        {
+          "subject": "mathematics",
+          "score": 97,
+          "status": "reviewed"
+        },
+        {
+          "subject": "writing",
+          "score": 93,
+          "status": "reviewed"
+        },
+        {
+          "subject": "literature",
+          "score": 85,
+          "status": "reviewed"
+        },
+        {
+          "subject": "science",
+          "score": 92,
+          "status": "reviewed"
+        },
+        {
+          "subject": "history_geography",
+          "score": 91,
+          "status": "reviewed"
+        },
+        {
+          "subject": "french",
+          "score": 80,
+          "status": "reviewed"
+        },
+        {
+          "subject": "computer_science",
+          "score": null,
+          "status": "not_assessed"
+        }
+      ]
+    }
+  ]
+}
