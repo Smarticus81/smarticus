@@ -39,6 +39,32 @@ type GradebookSeed = {
   days: ParentGradeDay[];
 };
 
+type CurriculumSource = {
+  label: string;
+  organization: string;
+  url: string;
+  role: string;
+};
+
+type CurriculumRoadmap = {
+  title: string;
+  description: string;
+  disclaimer: string;
+  texas_context: { label: string; note: string; url: string };
+  subjects: Array<{
+    subject: string;
+    label: string;
+    basis: string;
+    internal_source: string;
+    sources: CurriculumSource[];
+    sequence: Array<{
+      unit: number;
+      title: string;
+      topics: string[];
+    }>;
+  }>;
+};
+
 const SUBJECT_ORDER = [
   "mathematics",
   "literature",
@@ -104,6 +130,18 @@ async function readSeed(): Promise<GradebookSeed> {
   return JSON.parse(await readFile(file, "utf-8")) as GradebookSeed;
 }
 
+async function readCurriculumRoadmap(): Promise<CurriculumRoadmap> {
+  const file = path.join(
+    process.cwd(),
+    "curriculum",
+    "2026-27",
+    "reference",
+    "00-master",
+    "official-curriculum-map.json",
+  );
+  return JSON.parse(await readFile(file, "utf-8")) as CurriculumRoadmap;
+}
+
 function normalizeDay(value: unknown): ParentGradeDay | null {
   if (!value || typeof value !== "object") return null;
   const record = value as Record<string, unknown>;
@@ -141,8 +179,9 @@ export async function saveParentGradeDay(day: ParentGradeDay) {
 }
 
 export async function getParentDashboard() {
-  const [seed, student, lessons, dbReviews, attendance, artifacts, courses] = await Promise.all([
+  const [seed, roadmap, student, lessons, dbReviews, attendance, artifacts, courses] = await Promise.all([
     readSeed(),
+    readCurriculumRoadmap(),
     getDefaultStudent(),
     prisma.lesson.findMany({
       orderBy: [{ date: "asc" }, { lessonNumber: "asc" }],
@@ -298,5 +337,6 @@ export async function getParentDashboard() {
       title: course.title,
       description: course.description,
     })),
+    official_curriculum: roadmap,
   };
 }
