@@ -186,6 +186,13 @@ export default function App() {
           ))}
         </nav>
         <div className="sidebar-bottom">
+          <a
+            href="/parent"
+            className="parent-records-link"
+            title="Parent-only academic records"
+          >
+            Parent records
+          </a>
           <div className="profile">
             <div className="avatar">{name[0]}</div>
             <div>
