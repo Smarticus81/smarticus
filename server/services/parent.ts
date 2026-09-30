@@ -188,7 +188,7 @@ export async function getParentDashboard() {
       const lessonRows = byDate.get(date) ?? [];
       const grade = overrides.get(date) ?? backfill.get(date);
       const numeric = grade?.subjects
-        .filter((item) => item.score !== null && item.status !== "not_assessed")
+        .filter((item) => item.score !== null && item.status === "reviewed")
         .map((item) => item.score as number) ?? [];
       return {
         date,
@@ -213,7 +213,7 @@ export async function getParentDashboard() {
     if (!rows.length) return null;
     const scores = days.flatMap((day) =>
       day.subjects
-        .filter((item) => item.subject === subject && item.score !== null && item.status !== "not_assessed")
+        .filter((item) => item.subject === subject && item.score !== null && item.status === "reviewed")
         .map((item) => item.score as number),
     );
     const current = [...rows].reverse().find((lesson) => isoDate(lesson.date) <= today) ?? rows[0];
