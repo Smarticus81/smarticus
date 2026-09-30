@@ -6,6 +6,11 @@ import {
 import type { UpstreamAdapter } from "./fallbackTutor.js";
 import { createGeminiUpstream, geminiConfigured } from "./gemini.js";
 import { createGrokUpstream, grokConfigured } from "./grok.js";
+import {
+  createElevenLabsUpstream,
+  elevenLabsConfigured,
+  elevenLabsModelLabel,
+} from "./elevenlabs.js";
 
 interface FallbackProviderEntry {
   configured(): boolean;
@@ -27,6 +32,12 @@ export const fallbackProviders: Record<FallbackProvider, FallbackProviderEntry> 
     maxSessions: () => env.GROK_MAX_SESSIONS,
     model: () => env.GROK_VOICE_MODEL,
     create: createGrokUpstream,
+  },
+  elevenlabs: {
+    configured: elevenLabsConfigured,
+    maxSessions: () => env.ELEVENLABS_MAX_SESSIONS,
+    model: elevenLabsModelLabel,
+    create: () => createElevenLabsUpstream(),
   },
 };
 

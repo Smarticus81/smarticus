@@ -296,3 +296,187 @@ describe("Grok upstream adapter", () => {
     assert.deepEqual(grok.audio("AAAA"), [{ type: "input_audio_buffer.append", audio: "AAAA" }]);
   });
 });
+
+describe("ElevenLabs upstream adapter", () => {
+  const instructions = { voiceInstructions: "Speak warmly.", backendInstructions: "Teach fractions." };
+
+  it("opens with this session's instructions and no greeting of its own", async () => {
+    const { buildElevenLabsSetup } = await import("../server/lib/elevenlabs.js");
+    const setup = buildElevenLabsSetup(instructions) as {
+      type: string;
+      conversation_config_override: { agent: { prompt: { prompt: string }; first_message: string } };
+    };
+    assert.equal(setup.type, "conversation_initiation_client_data");
+    assert.match(setup.conversation_config_override.agent.prompt.prompt, /Speak warmly/);
+    assert.match(setup.conversation_config_override.agent.prompt.prompt, /Teach fractions/);
+    assert.match(setup.conversation_config_override.agent.prompt.prompt, /FALLBACK TUTOR/);
+    // The studio greets through its own note, as on every provider.
+    assert.equal(setup.conversation_config_override.agent.first_message, "");
+  });
+
+  it("registers the whole tool catalog as client tools that wait for a result", async () => {
+    const { elevenLabsToolConfigs, elevenLabsAgentConfig } = await import(
+      "../server/lib/elevenlabs.js"
+    );
+    const tools = elevenLabsToolConfigs();
+    assert.deepEqual(
+      tools.map((tool) => tool.name).sort(),
+      voiceToolDefinitions.map((definition) => definition.name).sort(),
+    );
+    for (const tool of tools) {
+      assert.equal(tool.type, "client");
+      assert.equal(tool.expects_response, true);
+      const parameters = tool.parameters as Record<string, unknown>;
+      assert.equal(parameters.type, "object");
+      walk(parameters, String(tool.name), (node, path) => {
+        for (const key of Object.keys(node)) {
+          assert.ok(
+            ["type", "description", "enum", "items", "properties", "required"].includes(key),
+            `${path} carries "${key}", which ElevenLabs rejects`,
+          );
+        }
+        // ElevenLabs reads a description as "the model supplies this value".
+        if (path !== String(tool.name)) {
+          assert.ok(typeof node.description === "string" && node.description.length > 0, `${path} has no description`);
+        }
+      });
+    }
+    const agent = elevenLabsAgentConfig(["t1", "t2"]) as {
+      conversation_config: {
+        agent: { first_message: string; prompt: { tool_ids: string[] } };
+        tts: { agent_output_audio_format: string };
+        asr: { user_input_audio_format: string };
+      };
+    };
+    assert.deepEqual(agent.conversation_config.agent.prompt.tool_ids, ["t1", "t2"]);
+    assert.equal(agent.conversation_config.agent.first_message, "");
+    assert.equal(agent.conversation_config.tts.agent_output_audio_format, "pcm_24000");
+    assert.equal(agent.conversation_config.asr.user_input_audio_format, "pcm_16000");
+  });
+
+  it("translates the agent's events into relay frames", async () => {
+    const { createElevenLabsUpstream } = await import("../server/lib/elevenlabs.js");
+    const agent = createElevenLabsUpstream();
+    assert.deepEqual(
+      agent.handle({
+        type: "conversation_initiation_metadata",
+        conversation_initiation_metadata_event: {
+          conversation_id: "c1",
+          agent_output_audio_format: "pcm_24000",
+          user_input_audio_format: "pcm_16000",
+        },
+      }),
+      { ready: true },
+    );
+    assert.deepEqual(agent.handle({ type: "audio", audio_event: { audio_base_64: "AAAA" } }).frames, [
+      { t: "audio", d: "AAAA" },
+    ]);
+    assert.deepEqual(
+      agent.handle({ type: "agent_response", agent_response_event: { agent_response: "Hi" } }).frames,
+      [{ t: "output_transcript", text: "Hi" }, { t: "turn_complete" }],
+    );
+    assert.deepEqual(
+      agent.handle({ type: "user_transcript", user_transcription_event: { user_transcript: "hello" } })
+        .frames,
+      [{ t: "input_transcript", text: "hello" }],
+    );
+    assert.deepEqual(agent.handle({ type: "interruption", interruption_event: { event_id: 3 } }).frames, [
+      { t: "interrupted" },
+    ]);
+    assert.deepEqual(
+      agent.handle({
+        type: "client_tool_call",
+        client_tool_call: { tool_name: "look_at_screen", tool_call_id: "call-1", parameters: { a: 1 } },
+      }).frames,
+      [{ t: "tool_call", calls: [{ id: "call-1", name: "look_at_screen", args: '{"a":1}' }] }],
+    );
+    // An unanswered ping ends the conversation, so the relay answers it.
+    assert.deepEqual(agent.handle({ type: "ping", ping_event: { event_id: 7 } }), {
+      reply: [{ type: "pong", event_id: 7 }],
+    });
+    assert.deepEqual(agent.handle({ type: "error", error_event: { message: "quota" } }), {
+      error: "quota",
+    });
+    assert.deepEqual(agent.handle({ type: "vad_score", vad_score_event: { vad_score: 0.2 } }), {});
+  });
+
+  it("answers tool calls, sends notes as context and asks for a reply only when told to", async () => {
+    const { createElevenLabsUpstream } = await import("../server/lib/elevenlabs.js");
+    const agent = createElevenLabsUpstream();
+    assert.equal(agent.acceptsImages, false);
+    assert.deepEqual(agent.image("AAAA", "image/png"), []);
+    assert.deepEqual(agent.text("note", false), [{ type: "contextual_update", text: "note" }]);
+    assert.deepEqual(agent.text("greet", true), [{ type: "user_message", text: "greet" }]);
+    assert.deepEqual(agent.toolResult("call-1", "look_at_screen", '{"result":"x"}'), [
+      { type: "client_tool_result", tool_call_id: "call-1", result: '{"result":"x"}', is_error: false },
+    ]);
+    assert.deepEqual(agent.audio("AAAA"), [{ user_audio_chunk: "AAAA" }]);
+  });
+
+  it("resamples when the agent was set up at other PCM rates, and refuses non-PCM", async () => {
+    const { createElevenLabsUpstream, resamplePcm16 } = await import(
+      "../server/lib/elevenlabs.js"
+    );
+    const agent = createElevenLabsUpstream();
+    agent.handle({
+      type: "conversation_initiation_metadata",
+      conversation_initiation_metadata_event: {
+        agent_output_audio_format: "pcm_16000",
+        user_input_audio_format: "pcm_8000",
+      },
+    });
+    const samples = Buffer.alloc(8);
+    samples.writeInt16LE(1000, 0);
+    samples.writeInt16LE(2000, 2);
+    samples.writeInt16LE(3000, 4);
+    samples.writeInt16LE(4000, 6);
+    const chunk = samples.toString("base64");
+    // 16k → 8k on the way up halves the samples; 16k → 24k on the way down grows them.
+    assert.equal(Buffer.from(agent.audio(chunk)[0].user_audio_chunk as string, "base64").length, 4);
+    const [frame] = agent.handle({ type: "audio", audio_event: { audio_base_64: chunk } }).frames ?? [];
+    assert.equal(frame?.t, "audio");
+    assert.equal(Buffer.from((frame as { d: string }).d, "base64").length, 12);
+    // Interpolation stays between the neighbours it sits on.
+    const up = Buffer.from(resamplePcm16(chunk, 16_000, 24_000), "base64");
+    for (let i = 0; i < up.length; i += 2) {
+      const value = up.readInt16LE(i);
+      assert.ok(value >= 1000 && value <= 4000, `sample ${value} left the input range`);
+    }
+    assert.equal(resamplePcm16(chunk, 16_000, 16_000), chunk);
+
+    const refused = createElevenLabsUpstream().handle({
+      type: "conversation_initiation_metadata",
+      conversation_initiation_metadata_event: {
+        agent_output_audio_format: "ulaw_8000",
+        user_input_audio_format: "pcm_16000",
+      },
+    });
+    assert.match(refused.error ?? "", /ulaw_8000/);
+    assert.equal(refused.ready, undefined);
+  });
+
+  it("exchanges the key for a signed URL server-side and explains a refusal", async () => {
+    const { fetchSignedUrl } = await import("../server/lib/elevenlabs.js");
+    const { env } = await import("../server/config/env.js");
+    const previous = { key: env.ELEVENLABS_API_KEY, agent: env.ELEVENLABS_AGENT_ID };
+    env.ELEVENLABS_API_KEY = "k";
+    env.ELEVENLABS_AGENT_ID = "agent_1";
+    try {
+      const seen: Array<{ url: string; key: string | null }> = [];
+      const ok = (async (input: string | URL | Request, init?: RequestInit) => {
+        seen.push({ url: String(input), key: new Headers(init?.headers).get("xi-api-key") });
+        return new Response(JSON.stringify({ signed_url: "wss://api.elevenlabs.io/x?sig=1" }));
+      }) as typeof fetch;
+      assert.equal(await fetchSignedUrl(ok), "wss://api.elevenlabs.io/x?sig=1");
+      assert.match(seen[0].url, /get-signed-url\?agent_id=agent_1$/);
+      assert.equal(seen[0].key, "k");
+
+      const refused = (async () =>
+        new Response(JSON.stringify({ detail: { status: "quota_exceeded" } }), { status: 402 })) as typeof fetch;
+      await assert.rejects(fetchSignedUrl(refused), /HTTP 402.*quota_exceeded/);
+    } finally {
+      env.ELEVENLABS_API_KEY = previous.key;
+      env.ELEVENLABS_AGENT_ID = previous.agent;
+    }
+  });
+});

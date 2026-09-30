@@ -18,7 +18,7 @@ test.use({
 });
 
 /** A relay that answers `start` the way a provider does: ready, or refused and closed. */
-function relay(ws: WebSocketRoute, outcome: { ready: boolean; provider: "gemini" | "grok"; refusal?: string }) {
+function relay(ws: WebSocketRoute, outcome: { ready: boolean; provider: "gemini" | "grok" | "elevenlabs"; refusal?: string }) {
   ws.onMessage((raw) => {
     const frame = JSON.parse(String(raw)) as { t: string };
     if (frame.t !== "start") return;
@@ -105,4 +105,24 @@ test("when no fallback can start, the learner is told why each one failed", asyn
   await expect(failure).toContainText("Gemini: quota spent");
   await expect(failure).toContainText("Grok: key rejected");
   await expect(page.locator(".voice-fallback-notice")).toHaveCount(0);
+});
+
+test("when Gemini and Grok both refuse, the lesson carries on with ElevenLabs", async ({ page }) => {
+  await page.routeWebSocket("**/api/realtime/gemini", (ws) =>
+    relay(ws, { ready: false, provider: "gemini", refusal: "quota spent" }),
+  );
+  await page.routeWebSocket("**/api/realtime/grok", (ws) =>
+    relay(ws, { ready: false, provider: "grok", refusal: "key rejected" }),
+  );
+  await page.routeWebSocket("**/api/realtime/elevenlabs", (ws) =>
+    relay(ws, { ready: true, provider: "elevenlabs" }),
+  );
+  await openLesson(page, ["gemini", "grok", "elevenlabs"]);
+
+  await expect(page.getByRole("button", { name: "End session" })).toBeVisible();
+  const notice = page.locator(".voice-fallback-notice");
+  await expect(notice).toContainText("ElevenLabs");
+  await expect(notice).not.toContainText("Grok");
+  // The earlier refusals were recoverable, so neither lingers once ElevenLabs is up.
+  await expect(page.getByText(/No backup tutor could start/)).toHaveCount(0);
 });

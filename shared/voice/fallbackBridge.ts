@@ -4,21 +4,22 @@ import { z } from "zod";
  * The browser-to-server protocol for the fallback voice tier.
  *
  * The OpenAI path negotiates WebRTC once and then talks to OpenAI directly, so
- * the key never reaches the browser. The fallbacks (Gemini Live, then Grok) speak
- * WebSocket with no browser-safe ephemeral credential here, so the app server
- * stays in the middle for the whole session and relays these frames. Both
- * providers sit behind this one envelope, so the browser side does not change
+ * the key never reaches the browser. The fallbacks (Gemini Live, then Grok, then
+ * an ElevenLabs agent) speak WebSocket with no browser-safe ephemeral credential
+ * here, so the app server stays in the middle for the whole session and relays
+ * these frames. Every provider sits behind this one envelope, so the browser side does not change
  * with the provider; keeping it small and explicit means the relay can validate
  * everything it forwards.
  */
 
 /** The fallback tiers, in the order the studio tries them. */
-export const FALLBACK_PROVIDERS = ["gemini", "grok"] as const;
+export const FALLBACK_PROVIDERS = ["gemini", "grok", "elevenlabs"] as const;
 export type FallbackProvider = (typeof FALLBACK_PROVIDERS)[number];
 
 export const BRIDGE_PATHS: Record<FallbackProvider, string> = {
   gemini: "/api/realtime/gemini",
   grok: "/api/realtime/grok",
+  elevenlabs: "/api/realtime/elevenlabs",
 };
 
 export function isFallbackProvider(value: unknown): value is FallbackProvider {
