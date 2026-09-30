@@ -34,6 +34,30 @@ type SubjectSummary = {
   next: { date: string; unit: string; lesson: string } | null;
 };
 
+type OfficialCurriculum = {
+  title: string;
+  description: string;
+  disclaimer: string;
+  texas_context: { label: string; note: string; url: string };
+  subjects: Array<{
+    subject: string;
+    label: string;
+    basis: string;
+    internal_source: string;
+    sources: Array<{
+      label: string;
+      organization: string;
+      url: string;
+      role: string;
+    }>;
+    sequence: Array<{
+      unit: number;
+      title: string;
+      topics: string[];
+    }>;
+  }>;
+};
+
 type Dashboard = {
   generated_at: string;
   school_year: string;
@@ -47,6 +71,7 @@ type Dashboard = {
   ar: { semester_goal: number; earned: number; current_book: string; current_book_points: number; status: string } | null;
   portfolio: Array<{ title: string; subject: string; status: string; description: string; date?: string }>;
   course_descriptions: Array<{ subject: string; title: string; description: string }>;
+  official_curriculum: OfficialCurriculum;
 };
 
 type Tab = "overview" | "grades" | "curriculum" | "transcript" | "portfolio";
@@ -274,19 +299,102 @@ function GradeChip({grade}:{grade:SubjectGrade}) {
 }
 
 function Curriculum({dashboard}:{dashboard:Dashboard}) {
+  const live = new Map(dashboard.subjects.map((item)=>[item.subject,item]));
   return <>
-    <span className="parent-eyebrow">Curriculum roadmap</span>
-    <h1>Completed → Current → Up next</h1>
-    <p className="parent-subtitle">Progress is based on the dated curriculum currently loaded into Smarticus. Past lessons count as covered curriculum; grades remain separate evidence of mastery.</p>
-    {dashboard.subjects.map((subject)=><section className="parent-card" key={subject.subject}>
-      <div style={{display:"flex",justifyContent:"space-between",gap:16}}><h2>{subject.label}</h2><strong>{subject.progress_percent}%</strong></div>
-      <div className="progress-track"><span style={{width:`${subject.progress_percent}%`}} /></div>
-      <div className="parent-grid" style={{marginTop:18}}>
-        <div><span className="parent-eyebrow">Current</span><h3>{subject.current?.lesson ?? "Not started"}</h3><p>{subject.current?.unit}</p></div>
-        <div><span className="parent-eyebrow">Up next</span><h3>{subject.next?.lesson ?? "No later lesson loaded"}</h3><p>{subject.next?.unit}</p></div>
+    <div className="curriculum-title-row">
+      <div>
+        <span className="parent-eyebrow">Full Grade 6 curriculum</span>
+        <h1>{dashboard.official_curriculum.title}</h1>
+        <p className="parent-subtitle">{dashboard.official_curriculum.description}</p>
       </div>
-      <p>{subject.lessons_covered} of {subject.lessons_total} loaded lessons reached · Running grade: {subject.average === null ? "No numeric grade yet" : `${subject.average}% (${subject.letter})`}</p>
-    </section>)}
+      <button className="parent-button primary no-print" onClick={()=>window.print()}>
+        Print curriculum roadmap
+      </button>
+    </div>
+
+    <section className="curriculum-truth-card">
+      <strong>What “official” means here</strong>
+      <p>{dashboard.official_curriculum.disclaimer}</p>
+      <a href={dashboard.official_curriculum.texas_context.url} target="_blank" rel="noreferrer">
+        {dashboard.official_curriculum.texas_context.label} ↗
+      </a>
+      <p className="curriculum-source-note">{dashboard.official_curriculum.texas_context.note}</p>
+    </section>
+
+    <div className="curriculum-source-legend">
+      <span><i className="legend-dot live" /> Current Smarticus position</span>
+      <span><i className="legend-dot source" /> Published standards/framework source</span>
+      <span><i className="legend-dot roadmap" /> Smarticus year sequence</span>
+    </div>
+
+    {dashboard.official_curriculum.subjects.map((course)=>{
+      const subject = live.get(course.subject);
+      return <section className="parent-card curriculum-course" key={course.subject}>
+        <div className="curriculum-course-head">
+          <div>
+            <span className="parent-eyebrow">{course.sources[0]?.role ?? "Course framework"}</span>
+            <h2>{course.label}</h2>
+            <p>{course.basis}</p>
+          </div>
+          {subject && <div className="curriculum-grade-box">
+            <small>Running grade</small>
+            <strong>{subject.average === null ? "—" : `${subject.average}%`}</strong>
+            <span>{subject.letter}</span>
+          </div>}
+        </div>
+
+        {subject && <div className="curriculum-live-position">
+          <div>
+            <span className="parent-eyebrow">Where he is now</span>
+            <strong>{subject.current?.lesson ?? "Not started"}</strong>
+            <p>{subject.current?.unit ?? "No current unit loaded"}</p>
+          </div>
+          <div>
+            <span className="parent-eyebrow">Coming next in Smarticus</span>
+            <strong>{subject.next?.lesson ?? "No later daily lesson loaded yet"}</strong>
+            <p>{subject.next?.unit ?? ""}</p>
+          </div>
+          <div>
+            <span className="parent-eyebrow">Loaded daily progress</span>
+            <strong>{subject.lessons_covered}/{subject.lessons_total}</strong>
+            <div className="progress-track"><span style={{width:`${subject.progress_percent}%`}} /></div>
+          </div>
+        </div>}
+
+        <div className="curriculum-sequence">
+          {course.sequence.map((unit)=>(
+            <div className="curriculum-unit" key={unit.unit}>
+              <div className="curriculum-unit-number">{String(unit.unit).padStart(2,"0")}</div>
+              <div>
+                <h3>{unit.title}</h3>
+                <div className="curriculum-topic-list">
+                  {unit.topics.map((topic)=><span key={topic}>{topic}</span>)}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="curriculum-sources">
+          <div className="curriculum-sources-head">
+            <strong>Standards & curriculum sources</strong>
+            <a className="internal-syllabus-link" href={course.internal_source} target="_blank" rel="noreferrer">
+              View Smarticus syllabus ↗
+            </a>
+          </div>
+          {course.sources.map((source)=>(
+            <a className="curriculum-source-link" key={source.url} href={source.url} target="_blank" rel="noreferrer">
+              <span className="source-badge">SOURCE</span>
+              <span>
+                <strong>{source.label}</strong>
+                <small>{source.organization} · {source.role}</small>
+              </span>
+              <span className="source-arrow">↗</span>
+            </a>
+          ))}
+        </div>
+      </section>;
+    })}
   </>;
 }
 
