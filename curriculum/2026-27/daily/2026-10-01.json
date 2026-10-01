@@ -193,6 +193,12 @@
           "problem": "A lamp lights with Bulb B in the same socket but stays dark with Bulb A.",
           "solution": "This supports a bulb problem because changing the bulb changes the result while the lamp stays the same.",
           "explanation": "The reason names what changed and connects it to the result."
+        },
+        {
+          "title": "Explain a repeated result",
+          "problem": "The same lamp is dark with Bulb A, lights with Bulb B, and goes dark again when Bulb A is put back.",
+          "solution": "This strengthens the bulb idea because the problem returns with the same bulb.",
+          "explanation": "The evidence states the result. The reason connects the repeated result to the idea. It supports the idea without claiming there is no possible doubt."
         }
       ],
       "guided_practice": [],
@@ -515,13 +521,19 @@
           "definition": "a check of what happens when you use a feature"
         }
       ],
-      "written_instruction": "TIME CAP: 12:50 to 1:45, 55 minutes. Laptop only. Continue your existing ScoutLab. Do not restart it and do not add more players today.\nThe ratings are practice numbers for this build, not verified real-world facts about the players. A best-fit choice depends on the ratings and the team need you chose.\nFirst select three different players. Write their names so someone else can repeat your check.\nBefore every test, write your prediction. Then change only what the test asks, click the button, and write what actually happened. A result is evidence when another person can see or repeat it.\nTEST A: Give your first player pace 99 and the other two pace 60 and 70. Press Compare. Write who should lead pace before you press it, then record who actually leads.\nTEST B: Give the first two players passing 88 and the third 70. Press Compare. A tie means the two highest numbers are equal; both should be listed.\nTEST C: Shortlist Player 2. Edit another rating and press Compare. Check that Player 2 is still visibly shortlisted. Check this while the same browser tab stays open. You do not need to close the browser.\nTEST D: Keep the same three players and ratings. Switch Need Speed to Need Defense. Explain that a new team need can change best fit because a different skill matters more. The winner does not HAVE to change if one player still fits both needs best.\nIf a check fails, say: I clicked ___; I expected ___; I saw ___. Ask the coding AI for one focused fix, then repeat the same check. Keep a screenshot of a result and write your own explanation.",
+      "written_instruction": "TIME CAP: 12:50 to 1:45, 55 minutes. Laptop only. Write your test log in a document on your laptop; do not answer Builder questions on paper. Continue your existing ScoutLab. Do not restart it and do not add more players today.\nThe ratings are practice numbers for this build, not verified real-world facts about the players. A best-fit choice depends on the ratings and the team need you chose.\nFirst select three different players. Write their names so someone else can repeat your check.\nBefore every test, write your prediction. Then change only what the test asks, click the button, and write what actually happened. A result is evidence when another person can see or repeat it.\nTEST A: Give your first player pace 99 and the other two pace 60 and 70. Press Compare. Write who should lead pace before you press it, then record who actually leads.\nTEST B: Give the first two players passing 88 and the third 70. Press Compare. A tie means the two highest numbers are equal; both should be listed.\nTEST C: Shortlist Player 2. Edit another rating and press Compare. Check that Player 2 is still visibly shortlisted. Check this while the same browser tab stays open. You do not need to close the browser.\nTEST D: Keep the same three players and ratings. Switch Need Speed to Need Defense. Explain that a new team need can change best fit because a different skill matters more. The winner does not HAVE to change if one player still fits both needs best.\nIf a check fails, say: I clicked ___; I expected ___; I saw ___. Ask the coding AI for one focused fix, then repeat the same check. Keep a screenshot of a result and write your own explanation.",
       "worked_examples": [
         {
           "title": "Describe a visible problem",
           "problem": "A Compare page shows Alex leading passing 70 even though Bea has passing 85.",
           "solution": "I pressed Compare. Bea should lead passing with 85, but the page shows Alex with 70. Please fix the passing leader and keep the other features working.",
           "explanation": "Names, numbers, and the click make the problem easy to repeat."
+        },
+        {
+          "title": "Record a successful check",
+          "problem": "In an invented practice app, Alex and Bea have catching ratings of 82. Cam has 71. The page lists Alex and Bea together.",
+          "solution": "Prediction: Alex and Bea should tie. Result: both names appear with 82. Check: worked.",
+          "explanation": "A useful record includes the names, numbers, and actual result. This is a different skill and set of numbers from your assigned ScoutLab tests."
         }
       ],
       "guided_practice": [],
@@ -614,6 +626,12 @@
           "problem": "A city has farmland nearby. Why might that help?",
           "solution": "Farmers can grow food there, which can feed more people.",
           "explanation": "Land alone does not grow, harvest, or distribute food without people doing the work."
+        },
+        {
+          "title": "An opportunity is not a guarantee",
+          "problem": "Imagine a town beside a useful road. Does the road alone guarantee trade?",
+          "solution": "No. People must carry goods on the road and arrange exchanges.",
+          "explanation": "The feature creates an opportunity. People must use it. This is a general model, not a new fact about Rome."
         }
       ],
       "guided_practice": [],
@@ -707,6 +725,12 @@
           "problem": "Kai hides a wet umbrella behind the door in an invented mystery.",
           "solution": "Detail: he hides a wet umbrella. Idea: he may have been outside. Another possibility: he borrowed it.",
           "explanation": "The detail is visible in the story; the explanation is your idea, so use may or might."
+        },
+        {
+          "title": "Change an idea when a new detail appears",
+          "problem": "In an invented mystery, Kai hides a wet umbrella. Later, he says he borrowed it from his sister.",
+          "solution": "I change my idea that Kai was outside. The umbrella may have been wet before he borrowed it.",
+          "explanation": "An exact new detail can change the meaning of an earlier clue. This invented example does not describe The Westing Game."
         }
       ],
       "guided_practice": [],

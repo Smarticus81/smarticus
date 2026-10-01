@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-10-01T10:22:01.132440</dc:date>
+    <dc:date>2026-10-01T13:12:56.534555</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -36,7 +36,7 @@ L 132.75 63.036
 L 132.75 43.236 
 L 7.2 43.236 
 z
-" style="fill: #dceef7; stroke: #b9c8cf; stroke-linejoin: miter"/>
+" style="fill: #eaf2f6; stroke: #b9c8cf; stroke-linejoin: miter"/>
     </g>
     <g id="text_1">
      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle" x="69.975" y="56.723187" transform="rotate(-0 69.975 56.723187)">Who?</text>
@@ -47,7 +47,7 @@ L 258.3 63.036
 L 258.3 43.236 
 L 132.75 43.236 
 z
-" style="fill: #dceef7; stroke: #b9c8cf; stroke-linejoin: miter"/>
+" style="fill: #eaf2f6; stroke: #b9c8cf; stroke-linejoin: miter"/>
     </g>
     <g id="text_2">
      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle" x="195.525" y="56.723187" transform="rotate(-0 195.525 56.723187)">Form of aller</text>
@@ -186,7 +186,7 @@ z
     </g>
    </g>
    <g id="text_15">
-    <text style="font-weight: 700; font-size: 16px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #142b3c" x="559.62" y="55.65456" transform="rotate(-0 559.62 55.65456)">Tu + vas + dessiner</text>
+    <text style="font-weight: 700; font-size: 16px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263238" x="559.62" y="55.65456" transform="rotate(-0 559.62 55.65456)">Tu + vas + dessiner</text>
    </g>
    <g id="text_16">
     <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: start" x="559.62" y="85.14864" transform="rotate(-0 559.62 85.14864)">You are going to draw.</text>

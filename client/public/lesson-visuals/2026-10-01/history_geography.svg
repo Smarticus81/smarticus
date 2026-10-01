@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-10-01T10:22:00.945646</dc:date>
+    <dc:date>2026-10-01T13:12:56.332289</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -33,55 +33,55 @@ z
     <text style="font-weight: 700; font-size: 16px; font-family: 'DejaVu Sans'; text-anchor: middle" x="258.3" y="23.2083" transform="rotate(-0 258.3 23.2083)">A useful place still needs people to act</text>
    </g>
    <g id="text_2">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #142b3c" transform="translate(22.266 58.678163)">FARMLAND</text>
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #142b3c" transform="translate(22.266 72.115538)">Land where food can grow</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #263238" transform="translate(22.266 58.678163)">FARMLAND</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #263238" transform="translate(22.266 72.115538)">Land where food can grow</text>
    </g>
    <g id="patch_2">
     <path d="M 245.230355 62.0856 
 Q 275.87662 62.0856 304.286816 62.0856 
-" style="fill: none; stroke: #176d95; stroke-width: 2; stroke-linecap: round"/>
+" style="fill: none; stroke: #153a52; stroke-width: 2; stroke-linecap: round"/>
     <path d="M 299.486816 59.6856 
 L 304.286816 62.0856 
 L 299.486816 64.4856 
-" style="fill: none; stroke: #176d95; stroke-width: 2; stroke-linecap: round"/>
+" style="fill: none; stroke: #153a52; stroke-width: 2; stroke-linecap: round"/>
    </g>
    <g id="text_3">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #142b3c" transform="translate(316.053 58.678163)">FARMERS GROW FOOD</text>
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #142b3c" transform="translate(316.053 72.115538)">More people can be fed</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #263238" transform="translate(316.053 58.678163)">FARMERS GROW FOOD</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #263238" transform="translate(316.053 72.115538)">More people can be fed</text>
    </g>
    <g id="text_4">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #142b3c" transform="translate(22.266 97.555463)">TIBER RIVER</text>
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #142b3c" transform="translate(22.266 110.992838)">Water and a travel route</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #263238" transform="translate(22.266 97.555463)">TIBER RIVER</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #263238" transform="translate(22.266 110.992838)">Water and a travel route</text>
    </g>
    <g id="patch_3">
     <path d="M 245.230355 100.9629 
 Q 275.87662 100.9629 304.286816 100.9629 
-" style="fill: none; stroke: #176d95; stroke-width: 2; stroke-linecap: round"/>
+" style="fill: none; stroke: #153a52; stroke-width: 2; stroke-linecap: round"/>
     <path d="M 299.486816 98.5629 
 L 304.286816 100.9629 
 L 299.486816 103.3629 
-" style="fill: none; stroke: #176d95; stroke-width: 2; stroke-linecap: round"/>
+" style="fill: none; stroke: #153a52; stroke-width: 2; stroke-linecap: round"/>
    </g>
    <g id="text_5">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #142b3c" transform="translate(316.053 97.555463)">PEOPLE USE BOATS</text>
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #142b3c" transform="translate(316.053 110.992838)">Goods can reach buyers</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #263238" transform="translate(316.053 97.555463)">PEOPLE USE BOATS</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #263238" transform="translate(316.053 110.992838)">Goods can reach buyers</text>
    </g>
    <g id="text_6">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #142b3c" transform="translate(22.266 136.432763)">HILLS</text>
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #142b3c" transform="translate(22.266 149.870137)">Higher ground</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #263238" transform="translate(22.266 136.432763)">HILLS</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #263238" transform="translate(22.266 149.870137)">Higher ground</text>
    </g>
    <g id="patch_4">
     <path d="M 245.230355 139.8402 
 Q 275.87662 139.8402 304.286816 139.8402 
-" style="fill: none; stroke: #176d95; stroke-width: 2; stroke-linecap: round"/>
+" style="fill: none; stroke: #153a52; stroke-width: 2; stroke-linecap: round"/>
     <path d="M 299.486816 137.4402 
 L 304.286816 139.8402 
 L 299.486816 142.2402 
-" style="fill: none; stroke: #176d95; stroke-width: 2; stroke-linecap: round"/>
+" style="fill: none; stroke: #153a52; stroke-width: 2; stroke-linecap: round"/>
    </g>
    <g id="text_7">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #142b3c" transform="translate(316.053 136.432763)">PEOPLE BUILD DEFENSES</text>
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #142b3c" transform="translate(316.053 149.870137)">The city is harder to attack</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #263238" transform="translate(316.053 136.432763)">PEOPLE BUILD DEFENSES</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #263238" transform="translate(316.053 149.870137)">The city is harder to attack</text>
    </g>
   </g>
  </g>
