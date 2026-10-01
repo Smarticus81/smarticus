@@ -1,3 +1,4 @@
+import { deferredLessonIds, orderDailyLessons } from "./dailyOverrides.js";
 import { prisma } from "../lib/prisma.js";
 import {
   getDefaultStudent,
@@ -33,8 +34,9 @@ export async function getTodaySchedule(dateStr?: string) {
   const student = await getDefaultStudent();
   const date = dateStr ? parseDate(dateStr) : parseDate(formatDate(new Date()));
 
+  const deferred = await deferredLessonIds(formatDate(date));
   let lessons = await prisma.lesson.findMany({
-    where: { date },
+    where: { date, externalId: { notIn: deferred } },
     orderBy: [{ lessonNumber: "asc" }],
     include: { unit: { include: { course: true } } },
   });
@@ -42,12 +44,13 @@ export async function getTodaySchedule(dateStr?: string) {
   if (!lessons.length) {
     await ingestDailyDate(formatDate(date));
     lessons = await prisma.lesson.findMany({
-      where: { date },
+      where: { date, externalId: { notIn: deferred } },
       orderBy: [{ lessonNumber: "asc" }],
       include: { unit: { include: { course: true } } },
     });
   }
 
+  lessons = await orderDailyLessons(formatDate(date), lessons);
   const dayNumber = lessons[0]?.dayNumber ?? 1;
   const todaysGoal = lessons[0]?.todaysGoal ?? "Complete today's scheduled lessons with understanding.";
 
@@ -72,6 +75,7 @@ export async function getLessonById(lessonId: string) {
     include: { unit: { include: { course: true } } },
   });
   if (!lesson) return null;
+  if ((await deferredLessonIds(formatDate(lesson.date))).includes(lesson.externalId)) return null;
   return serializeLesson(lesson);
 }
 
@@ -125,9 +129,11 @@ export async function getLessonQuestionCatalog(params: QuestionLookup) {
   });
   if (!anchor) return null;
 
+  const deferred = await deferredLessonIds(formatDate(anchor.date));
   const dayLessons = await prisma.lesson.findMany({
     where: {
       date: anchor.date,
+      externalId: { notIn: deferred },
       ...(params.subject ? { subject: params.subject } : {}),
       ...(!params.subject && !params.query && !params.item_id
         ? { id: anchor.id }
@@ -195,6 +201,7 @@ export async function getLessonQuestionCatalog(params: QuestionLookup) {
 export async function getCurrentLesson(subject?: Subject) {
   const today = parseDate(formatDate(new Date()));
   const todayString = formatDate(today);
+  const deferred = await deferredLessonIds(todayString);
   const subjectFilter = subject ? { subject } : {};
   const include = { unit: { include: { course: true } } } as const;
 
@@ -214,6 +221,7 @@ export async function getCurrentLesson(subject?: Subject) {
     where: {
       ...subjectFilter,
       date: today,
+      externalId: { notIn: deferred },
       status: { in: ["started", "in_progress"] },
     },
     orderBy: [{ updatedAt: "desc" }],
@@ -221,20 +229,15 @@ export async function getCurrentLesson(subject?: Subject) {
   });
   if (activeLesson) return serializeLesson(activeLesson);
 
-  const firstLessonToday = await prisma.lesson.findFirst({
-    where: {
-      ...subjectFilter,
-      date: today,
-    },
-    orderBy: [{ lessonNumber: "asc" }],
-    include,
-  });
-  if (firstLessonToday) return serializeLesson(firstLessonToday);
+  const scheduled = await getTodaySchedule(todayString);
+  const firstLessonToday = scheduled.lessons.find(lesson => !subject || lesson.subject === subject);
+  if (firstLessonToday) return firstLessonToday;
 
   const latestLesson = await prisma.lesson.findFirst({
     where: {
       ...subjectFilter,
       date: { lte: today },
+      externalId: { notIn: deferred },
     },
     orderBy: [{ date: "desc" }, { lessonNumber: "asc" }],
     include,

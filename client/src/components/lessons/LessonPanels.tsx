@@ -43,6 +43,14 @@ export function UnderstandPanel({
         </details>
       )}
       <LessonVisuals lesson={lesson} />
+      {lesson.external_id === "2026-10-01-history_geography" && (
+        <section className="relevance-note">
+          <span>WATCH BEFORE THE LESSON</span>
+          <h3>Ancient Rome 101</h3>
+          <p>Watch the National Geographic video. Replay the opening about the Tiber River. Say one detail you noticed and one question, then return to the lesson picture.</p>
+          <a href="https://education.nationalgeographic.org/resource/ancient-rome-101/" target="_blank" rel="noreferrer">Watch the history video ↗</a>
+        </section>
+      )}
       <section className="reading-focus">
         <div className="reading-meta">
           <span className="eyebrow">THE IDEA, A LITTLE AT A TIME</span>

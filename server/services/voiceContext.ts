@@ -1,3 +1,4 @@
+import { deferredLessonIds } from "./dailyOverrides.js";
 import { prisma } from "../lib/prisma.js";
 import { serializeLesson } from "./academic.js";
 import { getDefaultStudent, parseDate } from "./student.js";
@@ -160,9 +161,10 @@ export async function buildVoiceContext(params: {
   selectedLessonId: string;
 }): Promise<VoiceContextBrief> {
   const student = await getDefaultStudent();
+  const deferred = await deferredLessonIds(params.date);
   const [dayLessonRows, feedback, misconceptions, recentSessions] = await Promise.all([
     prisma.lesson.findMany({
-      where: { date: parseDate(params.date) },
+      where: { date: parseDate(params.date), externalId: { notIn: deferred } },
       orderBy: [{ lessonNumber: "asc" }],
       include: { unit: { include: { course: true } } },
     }),

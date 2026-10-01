@@ -1,3 +1,4 @@
+import { omitDeferredLessons } from "./dailyOverrides.js";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { Prisma, type Subject } from "@prisma/client";
@@ -179,7 +180,7 @@ export async function saveParentGradeDay(day: ParentGradeDay) {
 }
 
 export async function getParentDashboard() {
-  const [seed, roadmap, student, lessons, dbReviews, attendance, artifacts, courses] = await Promise.all([
+  const [seed, roadmap, student, loadedLessons, dbReviews, attendance, artifacts, courses] = await Promise.all([
     readSeed(),
     readCurriculumRoadmap(),
     getDefaultStudent(),
@@ -187,6 +188,7 @@ export async function getParentDashboard() {
       orderBy: [{ date: "asc" }, { lessonNumber: "asc" }],
       select: {
         date: true,
+        externalId: true,
         subject: true,
         course: true,
         unitTitle: true,
@@ -195,6 +197,7 @@ export async function getParentDashboard() {
         status: true,
         standards: true,
         dayNumber: true,
+        todaysGoal: true,
       },
     }),
     prisma.dailyReview.findMany({ orderBy: { date: "asc" } }),
@@ -205,6 +208,7 @@ export async function getParentDashboard() {
     }),
   ]);
 
+  const lessons = await omitDeferredLessons(loadedLessons);
   const overrides = new Map<string, ParentGradeDay>();
   for (const review of dbReviews) {
     const normalized = normalizeDay(review.content);
@@ -234,7 +238,7 @@ export async function getParentDashboard() {
         day_number: grade?.day_number ?? lessonRows[0]?.dayNumber ?? undefined,
         overall: average(numeric),
         overall_letter: letterGrade(average(numeric)),
-        note: grade?.note ?? null,
+        note: grade?.note ?? lessonRows[0]?.todaysGoal ?? null,
         subjects: grade?.subjects ?? [],
         lesson_count: lessonRows.length,
         lesson_titles: lessonRows.map((item) => ({
