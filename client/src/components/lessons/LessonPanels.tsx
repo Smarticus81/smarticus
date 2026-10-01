@@ -5,6 +5,7 @@ import { instructionBeats } from "../../lib/learning";
 import { api } from "../../lib/api";
 import { ChoiceGroup, JournalPrompt, Scene } from "./LearningPrimitives";
 import { HandIn } from "./HandIn";
+import { LessonVisuals } from "./LessonVisuals";
 
 type Journal = {
   entries: Record<string, string>;
@@ -41,6 +42,7 @@ export function UnderstandPanel({
           <p>{lesson.previous_learning}</p>
         </details>
       )}
+      <LessonVisuals lesson={lesson} />
       <section className="reading-focus">
         <div className="reading-meta">
           <span className="eyebrow">THE IDEA, A LITTLE AT A TIME</span>

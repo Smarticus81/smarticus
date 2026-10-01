@@ -1997,3 +1997,8 @@ Atticus sees at the same size for as long as it
   flex-wrap: wrap;
   justify-content: center;
 }
+
+.lesson-pictures { margin: 24px 0; }
+.lesson-pictures figure { margin: 20px 0; }
+.lesson-pictures img { display: block; width: 100%; height: auto; background: white; border-radius: 12px; }
+.lesson-pictures figcaption { margin-top: 10px; line-height: 1.6; color: var(--ink, #18313d); }

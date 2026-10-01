@@ -272,6 +272,12 @@ function GradeDayCard({day,onRefresh}:{day:GradeDay;onRefresh:()=>Promise<void>}
     <div className="grade-day-body">
       <div className="grade-chip-wrap">{day.subjects.map((grade)=><GradeChip key={grade.subject} grade={grade}/>)}</div>
       {day.note && <p>{day.note}</p>}
+      <div className="parent-review-notes">
+        {day.subjects.filter((grade) => grade.note).map((grade) => <section key={grade.subject}>
+          <h3>{subjectNames[grade.subject] ?? grade.subject}</h3>
+          <p>{grade.note}</p>
+        </section>)}
+      </div>
       <div className="print-hide" style={{marginTop:14}}>
         <button className="parent-button" onClick={()=>setEditing((value)=>!value)}>{editing ? "Cancel editing" : "Edit grades"}</button>
       </div>
@@ -295,7 +301,7 @@ function GradeDayCard({day,onRefresh}:{day:GradeDay;onRefresh:()=>Promise<void>}
 
 function GradeChip({grade}:{grade:SubjectGrade}) {
   const shown = grade.score !== null ? `${grade.score}%` : grade.display ?? (grade.status === "not_assessed" ? "N/A" : "—");
-  return <span className={`grade-chip ${grade.status}`}>{subjectNames[grade.subject] ?? grade.subject}<strong>{shown}</strong></span>;
+  return <span className={`grade-chip ${grade.status}`}>{subjectNames[grade.subject] ?? grade.subject}<strong>{shown}</strong>{grade.status === "provisional" ? " · provisional" : grade.status === "not_assessed" ? " · not assessed" : grade.status === "missing" ? " · incomplete" : ""}</span>;
 }
 
 function Curriculum({dashboard}:{dashboard:Dashboard}) {

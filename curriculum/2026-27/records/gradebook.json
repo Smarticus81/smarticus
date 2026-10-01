@@ -30,8 +30,8 @@
     {
       "title": "ScoutLab",
       "subject": "computer_science",
-      "status": "planned",
-      "description": "Football scouting comparison tool with editable ratings, comparison, best-fit reasoning, and shortlist behavior."
+      "status": "in_progress",
+      "description": "ScoutLab v2 artifact exists with expanded player choices, editable ratings, comparisons, team-needs choices, and session shortlist. Student testing and demo evidence are still incomplete."
     }
   ],
   "days": [
@@ -273,6 +273,57 @@
           "subject": "computer_science",
           "score": null,
           "status": "not_assessed"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-30",
+      "day_number": 26,
+      "note": "Reviewed all 12 photos from the two September 30 emails. Scores below describe the submitted work; missing work stays incomplete and is not assigned a zero. Math is provisional because its five-question warm-up was not submitted. French score covers writing only; oral gate incomplete. ScoutLab v2 exists, but student test results and demo were not submitted. Day 27 repairs the demonstrated gaps before further advancement.",
+      "subjects": [
+        {
+          "subject": "mathematics",
+          "score": 61,
+          "status": "provisional",
+          "display": "61% submitted",
+          "note": "17/28 on visible Q1-10 and E1-4 (2 points each; partial credit allowed). Rectangle areas mostly correct. Q3 final 48 should be 24; the crossed-out 24 was correct. Q7 width 8−2=6, height 5−1=4, area24; student mixed coordinate positions. Q10 did not explain coordinate distance. E3 60 should be30. Q4, E1, E4 need exact unit meanings. Five warm-up items not submitted; excluded, still incomplete. Repair half and matching coordinates."
+        },
+        {
+          "subject": "writing",
+          "score": 45,
+          "status": "reviewed",
+          "note": "9/20: claim3/4; relevant exact evidence2/4; reasoning1/6; organization2/3; revision1/3. First failure at eight minutes is accurate, but does not distinguish motor from battery. Missing normal motor temperature, 30-minute Battery B run, and nine-minute failure with A reinstalled. What it did and what Maya thinks are not explanations of test meaning. Make evidence/reason pairs and visibly revise."
+        },
+        {
+          "subject": "french",
+          "score": 83,
+          "status": "reviewed",
+          "note": "5/6 written items correct. Q5 says Est-ce que tu va partir; tu needs vas. Correct form: Est-ce que tu vas partir ? Spacing in Tu vas lire should improve but was not deducted. Oral round not submitted; keep oral mastery incomplete. Day 27 short question/subject repair."
+        },
+        {
+          "subject": "science",
+          "score": 55,
+          "status": "reviewed",
+          "note": "11/20: route and arrows3/4; normals and hit points2/4; reflection geometry1/4; explanation2/4; exit answers3/4. Both mirrors and normals are labelled, but normal lines are not reliably perpendicular. Ray passes straight through Mirror2 instead of reflecting. Written 40-degree labels do not validate those drawn angles. E1 correct; E2 needs the changed normal. Redraw one valid bounce before two."
+        },
+        {
+          "subject": "history_geography",
+          "score": 86,
+          "status": "reviewed",
+          "note": "12/14: Q1-4 each2/2; Q5 0/2; four-sentence exit4/4. River, farmland, hills, and peninsula explanations are accurate. Q5 says Rome was not successful, rather than explaining that geography helped but human choices and organization also mattered. Repair the single-cause explanation before the Republic."
+        },
+        {
+          "subject": "literature",
+          "score": 50,
+          "status": "reviewed",
+          "note": "5/10: character2/2; exact clue0/3; meaning1/2; question1/1; theory and explicit keep/change decision1/2. Ten pages self-reported, but page range missing. Acting strange is too vague to check. Book facts were not independently verified; this is a response-quality score. Find one exact action or line with a page/chapter, then link it to the theory. Reading points remain pending."
+        },
+        {
+          "subject": "computer_science",
+          "score": null,
+          "status": "not_assessed",
+          "display": "Evidence needed",
+          "note": "Existing scoutlab.html v2 confirms a build with expanded player choices, editable ratings, Compare, team-need buttons, and Shortlist. No student test log, screenshot of tests, or demo in these emails. These required checks are incomplete, not failed. Day27 continues existing app and collects evidence."
         }
       ]
     }

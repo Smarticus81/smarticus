@@ -29,3 +29,9 @@ Teachers repeatedly described Atticus as capable, curious, polite, engaged, and 
 Day 1 diagnostic showed secure pieces of fraction addition and decimal subtraction/multiplication, but several Grade 6 concepts had not yet been taught or were not secure. The program therefore uses full Grade 6 instruction with explicit examples before independent practice.
 
 Wednesday work showed stronger reading comprehension than some written-response precision. Mathematics showed developing fraction multiplication and a clearer need for reteaching fraction division/reciprocal use. Writing ideas were substantive but organization, sentence boundaries, and explicit reasoning need continued attention. Science showed useful conceptual understanding with a need to sharpen evidence language and distinguish types of reflection/absorption carefully.
+
+
+## September 30 review and October 1 Day 27 continuity
+All twelve photos from two emails were reviewed. Visible work: mathematics 17/28 (61%, provisional; warm-up unsubmitted), writing 9/20 (45%), French writing 5/6 (83%, oral incomplete), science 11/20 (55%), history 12/14 (86%), literature response 5/10 (50%). ScoutLab v2 exists; test logs and demonstration are incomplete, so no grade is assigned. Missing work is not a zero. Consult the September 30 subject feedback for exact deductions.
+
+Day 27 repairs triangle halving, matching x/y coordinates, evidence-to-reason links, and perpendicular mirror normals with a valid second bounce. Hold combined area and Republic progression until the repair checks succeed. Keep The Westing Game bookmark; require exact details with a page or chapter and keep 8 reading points pending. Continue the saved ScoutLab v2, not an older project or restart; gather four actual checks, a screenshot, and an observed demo. Preserve the 9:30–4:00 schedule and each subject time cap. Use labeled visuals, plain definitions, and different worked examples before protected practice answers.

@@ -138,3 +138,8 @@
   .curriculum-source-link { color:#000; }
   @page { margin:.55in; }
 }
+
+.parent-review-notes { display: grid; gap: 12px; margin: 20px 0; }
+.parent-review-notes section { padding-top: 12px; border-top: 1px solid #dbe3e7; }
+.parent-review-notes h3 { margin: 0 0 6px; font-size: 1rem; }
+.parent-review-notes p { margin: 0; line-height: 1.65; }
