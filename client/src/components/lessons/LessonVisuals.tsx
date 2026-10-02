@@ -23,7 +23,7 @@ const day28Pictures: typeof day27Pictures = {
   french: [{ file: "french", caption: "Who, matching aller, unchanged action: tu vas dessiner; nous allons dessiner; elle va dessiner. The oral check still needs a parent observer." }],
   history_geography: [{ file: "history_geography", caption: "Name a feature, an action people actually take, and a possible result. Replace a vague phrase like good choices with an action a reader can picture." }],
   literature: [{ file: "literature", caption: "This invented clue card has a detail, a locator, competing explanations, and a reason to keep or change the idea. Use the same fields with your actual book, without spoilers." }],
-  computer_science: [{ file: "computer_science", caption: "This model uses imaginary shooting ratings, not assigned test values. A full record names players and numbers before and after Compare; a word like Tie alone is not enough." }],
+  computer_science: [{ file: "computer_science", caption: "Choose a sci-fi escape, a mysterious museum, a dragon rescue, or your own world. Build a playable mission: collect an item, evade a reacting guard, and open the exit. Then add one creative upgrade." }],
 };
 
 /** Taught examples only. Assigned answers and grades never appear in these assets. */

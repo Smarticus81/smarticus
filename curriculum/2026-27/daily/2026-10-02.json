@@ -4,7 +4,7 @@
   "grade_level": 6,
   "day_number": 28,
   "school_day_label": "Friday October 2 2026",
-  "todays_goal": "Friday Day 28, 10:30 AM to 3:30 PM. Math and writing return after being deferred on October 1. Teach one step at a time using visual models. Math 10:30-11:15; break 11:15-11:25; writing 11:25-12:15; French 12:15-12:30; lunch 12:30-1:00; science 1:00-1:30; history 1:30-1:55; ScoutLab 1:55-2:35; break 2:35-2:45; literature 2:45-3:20; check and file 3:20-3:30. Stop on time. Do not advance through an unresolved key mistake.",
+  "todays_goal": "Friday Day 28, 10:30 AM to 3:30 PM. Math and writing return after being deferred on October 1. Teach one step at a time using visual models. Math 10:30-11:15; break 11:15-11:25; writing 11:25-12:15; French 12:15-12:30; lunch 12:30-1:00; science 1:00-1:30; history 1:30-1:55; World Builder 1:55-2:35; break 2:35-2:45; literature 2:45-3:20; check and file 3:20-3:30. Stop on time. Do not advance through an unresolved key mistake.",
   "lessons": [
     {
       "id": "2026-10-02-mathematics",
@@ -518,95 +518,104 @@
       "grade_level": 6,
       "subject": "computer_science",
       "course": "Grade 6 Computer Science and AI",
-      "unit_id": "builder-scoutlab",
-      "unit_title": "ScoutLab",
+      "unit_id": "cs-ai-game-studio",
+      "unit_title": "AI Game Studio",
       "lesson_number": 3,
-      "lesson_title": "Show the check: names, numbers, result",
+      "lesson_title": "World Builder: choose your adventure",
       "standards": [
         "CSTA 2-AP-13",
         "CSTA 2-AP-17"
       ],
-      "previous_learning": "Your brief sheet says A: Kylian Mbappé; B: Tie; C: a checkmark. It shows you tried the checks, but someone else cannot repeat or confirm them yet.",
-      "course_context": "Day 28 continues the reviewed Day 27 and restores the deferred math and writing lessons. Full Grade 6 expectations; clearer teaching, not unsupported acceleration.",
+      "previous_learning": "You have built apps and games before. Today explore a new creative setting: sci-fi, a mysterious museum, fantasy, or your own idea. The unfinished ScoutLab rating checks do not block this build.",
+      "course_context": "Day 28 Builder replacement requested by parent: ambitious, enjoyable project work using AI-assisted coding and practical integrations. Keep testing inside real game play. Preserve all other subjects and past grades.",
       "learning_objectives": [
-        "Record repeatable tests",
-        "Collect a screenshot and an observed demo"
+        "Direct an AI coding tool to create a playable game",
+        "Connect one chosen feature to an existing working game",
+        "Use playtesting to improve a visible bug or design problem"
       ],
-      "why_it_matters": "Making a page is the start. Checking it helps you trust what it says.",
+      "why_it_matters": "You can invent a world, give its characters rules, and turn your idea into something another person can explore.",
       "vocabulary": [
         {
-          "term": "prediction",
-          "definition": "what you think will happen before a test"
+          "term": "prototype",
+          "definition": "a first version you can try"
         },
         {
-          "term": "actual result",
-          "definition": "what you really saw after the test"
+          "term": "game loop",
+          "definition": "the repeated cycle: move, react, draw the next moment"
         },
         {
-          "term": "tie",
-          "definition": "two highest ratings are equal"
+          "term": "game AI",
+          "definition": "rules that make an opponent react to you"
         },
         {
-          "term": "shortlist",
-          "definition": "the players you want to keep for later"
+          "term": "integration",
+          "definition": "connecting one tool or feature to another"
         },
         {
-          "term": "proof",
-          "definition": "something another person can see or repeat"
+          "term": "playtest",
+          "definition": "play on purpose to find what feels good or breaks"
+        },
+        {
+          "term": "debug",
+          "definition": "find why something went wrong and fix it"
         }
       ],
-      "written_instruction": "TIME CAP: 1:55 to 2:35, 40 minutes. Stop at 2:35.\nLAPTOP ONLY. Continue the saved ScoutLab v2. Do not restart, add players, or answer Builder questions on paper. Open a document and save it beside your screenshot.\nA NAME ALONE IS NOT A FULL CHECK. Write the three players and ratings. Write your prediction BEFORE clicking Compare. Then record the actual result with names and numbers. Add worked or needs a fix.\nTEST A: Set pace to 99, 60, and 70 for your three chosen players. Predict the pace leader, click Compare, and record it.\nTEST B: Set passing to 88, 88, and 70. Predict who should tie, click Compare, and record both actual names.\nTEST C: Shortlist Player 2. Change another rating and click Compare. Record whether that player remains visibly shortlisted in the same open tab.\nTEST D: Keep players and ratings the same. Switch Need Speed to Need Defense. Record which skill matters more and what actually changes. The winner may stay the same if that player fits both needs.\nSave one labeled screenshot and show a parent one live result. If something fails, ask the coding AI for one focused fix and repeat the same test. This is evidence collection, not a new build.",
+      "written_instruction": "TIME CAP: 40 minutes total. This replaces only today's Computer Science/Builder block. Use elapsed time if you start late; do not extend the whole school day.\nLAPTOP ONLY. Today you are the game director: choose the look, ask the AI to build, and judge the game by playing it. Save ScoutLab as it is. Its unfinished rating checks are not a gate for this new build.\nMINUTES 0-4: Choose Portal Escape, Museum After Dark, or Dragon Rescue. Open your usual AI coding workspace with a runnable preview. Name your project. Replace the bracketed world choice in the build prompt with your choice. You can invent your own setting using the same find-item, evade-guard, reach-exit mission.\nMINUTES 4-22: Paste the build prompt below. Run the result immediately. Move, collect the special item, evade the guard, and reach the exit. If the first version fails, send the exact error or describe what you see. Use the remaining build time to make the core playable.\nBUILD PROMPT: Build a playable browser adventure called World Builder. I am the creative director. Give me a working preview and editable project, not just a plan. My chosen world is [PORTAL ESCAPE / MUSEUM AFTER DARK / DRAGON RESCUE]. Use my chosen setting for the characters, colors, objects, and ending. Make one small 3D scene using Three.js if this workspace supports it. If 3D cannot run here, tell me and make a polished top-down Canvas version with the same play. Use simple shapes first so the game can run quickly. Use an angled camera that keeps the whole area and the player visible. Controls: WASD or arrow keys to move; E to interact when near an object. Show the controls and the current goal on screen. Keep the player inside the world. Add Start, Pause, and Restart. The mission: find one special item, get past one moving guard, and reach the exit. Portal Escape uses an energy core, a robot sentry, and a portal. Museum After Dark uses a moon key, a living statue, and a moonlit door. Dragon Rescue uses a healing crystal, a stone golem, and a dragon nest. Show a clear ending when I arrive at the exit with the item. The guard patrols between two places. When I come close, it chases my current position at a beatable speed. If I move far away, it returns to patrol. It cannot teleport or know my next key press. If it catches me, return me to the start and reset the item. This is a rule-based character, not a trained machine-learning model. An exit stays closed until I collect the item with E. Show a nearby interaction hint, then show the collected item in a small on-screen bag. The item disappears from the world when collected. Pause freezes movement. Restart resets the player, guard, item, exit, and messages. Holding E must not trigger repeated wins. Use smooth movement, dramatic lighting or color, clear silhouettes, and a short exit celebration. No quizzes, arithmetic gates, accounts, paid services, or multiplayer today. Ask at most one essential question, then build the playable version. Explain one important game rule in plain language after it runs.\nMINUTES 22-32: Once the mission works, choose ONE upgrade: responsive sound, your own world art, or a talking character. Paste its prompt. If the core is still broken, use this time to repair it. A playable smaller game is a successful first version.\nSOUND THAT RESPONDS: Add original browser-generated sound for collecting the item, being spotted, and opening the exit. Start audio after I press Start. Add Mute. Keep movement and interactions working.\nMY WORLD ART: Use an image-generation tool available to me to make an original backdrop for my chosen world, without words. I will attach the image to the coding chat. Add it behind the play area or as a scene object; keep the player and exits visible. If image generation is unavailable, create an original backdrop in code.\nA TALKING CHARACTER: Add a friendly character near the start. When I press E nearby, show one short hint in a speech bubble. Add a Speak button using browser text-to-speech when supported. Keep the text visible if speech is unavailable. The hint should fit my world and help me discover what to do.\nMINUTES 32-38: Play your mission. Try the exit before and after collecting the item. Get spotted, then try escaping the guard. Try Pause and Restart. Pick the most annoying bug or design problem and improve it. DEBUG PROMPT: When I [action], I expected [what should happen], but [what I saw]. Here is a screenshot or exact error if available. Find the cause, fix this feature, and keep the working movement and interactions. Then tell me which part changed in plain language.\nMINUTES 38-40: Save the project or export its files using your workspace. Show one live round or save a short screen recording. Say what you chose, what improved, and what you would add next. No paper test log. If unfinished, save the working version or current error and pick up there next time.",
       "worked_examples": [
         {
-          "title": "Expand a one-word answer",
-          "problem": "A practice note says Tie. Two imaginary players have shooting 76 and the third has 60.",
-          "solution": "Prediction: Alex and Bea tie at76. Result: both names appear with 76. Check: worked.",
-          "explanation": "Names and numbers let someone else repeat the check; these are not your assigned passing values."
+          "title": "Direct a character with a clear rule",
+          "problem": "Make the guard smarter is too vague. What should a player see?",
+          "solution": "Say: Walk between the two pillars. When I come close, chase me. When I escape far enough, return to the pillars.",
+          "explanation": "Patrol, chase, and return are three clear behaviors. This is game AI made from rules."
         },
         {
-          "title": "Describe a visible problem",
-          "problem": "Bea has shooting 76 but Compare names Cam with 60 as leader.",
-          "solution": "I clicked Compare. I expected Bea 76. I saw Cam 60. Please fix the shooting leader and keep the other features working.",
-          "explanation": "Use one concrete problem, then repeat the same check after the fix."
+          "title": "Fix a real game problem",
+          "problem": "In an example racing game, Restart moves the car back but leaves the old timer running.",
+          "solution": "Tell the AI: Restart returns my car to the start, but the timer still shows the old time. Reset the timer as well. Keep steering working. Then restart twice and drive again.",
+          "explanation": "Name the action and the visible problem. After the fix, try the same action and a control that worked before."
         }
       ],
       "guided_practice": [],
       "independent_practice": [
         {
-          "id": "computer_science-d28-1",
-          "prompt": "B1. On your laptop, save a log with the three player names and a prediction, actual result, and worked/fix result for Tests A-D.",
-          "answer": "Four complete tests with names, changed numbers, predictions and observed outcomes; D describes priorities even if winner unchanged."
+          "id": "cs-d28-build",
+          "prompt": "B1. Choose a world. Build and run the adventure using the ready-to-paste prompt. Move, collect the item, evade the guard, and reach the exit.",
+          "answer": "A playable small adventure, or a saved partial build with a clearly described blocker. The student chooses a setting and demonstrates working interactions. Use the top-down fallback if 3D cannot run."
         },
         {
-          "id": "computer_science-d28-2",
-          "prompt": "B2. Save one screenshot with a label naming the checked feature and players.",
-          "answer": "A real screenshot of a test result; not only the build’s home screen."
+          "id": "cs-d28-upgrade",
+          "prompt": "B2. Once the mission works, add one upgrade: responsive sound, your own world art, or a talking character. Otherwise repair the core.",
+          "answer": "A connected, visible or audible feature that works with the existing game. Repairing a broken core also earns credit for iteration; do not require all three upgrades."
         },
         {
-          "id": "computer_science-d28-3",
-          "prompt": "B3. If a test fails, save your fix request and retest result. Otherwise explain one design choice.",
-          "answer": "Specific request and repeat check, or a meaningful design explanation."
+          "id": "cs-d28-playtest",
+          "prompt": "B3. Play, find one real bug or design problem, and ask for a focused improvement. Save the playable version or your current blocker.",
+          "answer": "Demonstrate the before/after behavior where possible. If no technical bug appears, improve fairness, controls, or readability and explain the choice. No invented bug and no paper log."
         }
       ],
       "exit_ticket": [
         {
-          "id": "computer_science-d28-exit 1",
-          "prompt": "BE1. Show your parent one live Compare result and the saved shortlist. Parent records seen/not yet seen.",
-          "answer": "Witnessed result and explanation; self-checkmarks do not establish the demo."
+          "id": "cs-d28-demo",
+          "prompt": "Show your game for one minute. What did you direct the AI to change, and did that change make the game better?",
+          "answer": "A brief live demonstration or recording plus the student's own explanation. Assess decisions and iteration, not typing code from memory."
         }
       ],
       "mastery_threshold": 85,
       "materials": [
-        "Day 27 packet",
-        "Pencil",
-        "Smarticus lesson pictures",
-        "Laptop"
+        "Laptop",
+        "AI coding workspace with runnable preview",
+        "Optional image-generation tool for the arena-art upgrade"
       ],
       "estimated_minutes": 40,
-      "voice_prompt": "Show the labeled lesson pictures before asking a question. Define each unfamiliar word in plain language. Give one step at a time, then let Atticus explain it. Use a different example from assigned work and protect the practice answers. The earlier app exists. No grade from A/B/C words alone. Score only the actual evidence supplied. Keep all responses and screenshots digital. This subject runs 1:55 to 2:35; stop at 2:35. The day ends at 3:30. Your brief sheet says A: Kylian Mbappé; B: Tie; C: a checkmark. It shows you tried the checks, but someone else cannot repeat or confirm them yet.",
-      "teacher_notes": "The earlier app exists. No grade from A/B/C words alone. Score only the actual evidence supplied. Keep all responses and screenshots digital.",
-      "answer_key": {},
-      "source_references": [],
+      "voice_prompt": "Coach Atticus as a game director. Use the World Builder build prompt and 40-minute sprint. Help him get a playable game quickly. Explain technical words only as they become useful. Encourage a choice, a build, play, and one improvement. Do not redirect him into the old ScoutLab rating checklist or require written test logs. Distinguish rule-based opponents from trained machine learning. Use existing tools and a Canvas fallback if 3D preview is unavailable. Do not claim the game is built until it runs. Other subjects and grades remain unchanged.",
+      "teacher_notes": "This replaces only Day 28 Builder. Previous ScoutLab evidence and grades remain historically accurate, but missing rating-test evidence is not a gate today. Assess 10 points after seeing the work: playable core 4, creative direction 2, useful iteration 2, saved artifact and explanation 2. Award partial credit for demonstrated progress and a clearly described blocker. Optional polish is not required for completion. No paper response sheet or arithmetic drills. Setup trouble uses the same 40-minute cap.",
+      "answer_key": {
+        "assessment": "Playable core 4; creative direction 2; useful iteration 2; saved artifact and explanation 2. Grade only after evidence is submitted."
+      },
+      "source_references": [
+        "https://threejs.org/manual/pages/creating-a-scene.html",
+        "https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Best_practices"
+      ],
       "status": "scheduled"
     },
     {
