@@ -13,14 +13,28 @@ const day27Pictures: Record<string, Array<{ file: string; caption: string }>> = 
   computer_science: [{ file: "computer_science", caption: "Write a prediction, make one change, and record what actually happens. If a check fails, ask for one fix and try the same check again." }],
 };
 
+const day28Pictures: typeof day27Pictures = {
+  mathematics: [
+    { file: "mathematics", caption: "Four rows of six square units cover the rectangle. Two equal triangles fill it, so one triangle covers half: 24 divided by 2 is 12 square units." },
+    { file: "coordinates", caption: "A point is an address: first number x, second number y. Match x with x for width and y with y for height before multiplying the side lengths." },
+  ],
+  writing: [{ file: "writing", caption: "Build six short sentence cards. Put a reason after each exact fact, then join the cards into a paragraph and revise one unclear sentence." }],
+  science: [{ file: "science", caption: "An upward ray hits an up-right mirror and turns right. A down-right mirror turns that ray left. The dashed normal must turn with the mirror." }],
+  french: [{ file: "french", caption: "Who, matching aller, unchanged action: tu vas dessiner; nous allons dessiner; elle va dessiner. The oral check still needs a parent observer." }],
+  history_geography: [{ file: "history_geography", caption: "Name a feature, an action people actually take, and a possible result. Replace a vague phrase like good choices with an action a reader can picture." }],
+  literature: [{ file: "literature", caption: "This invented clue card has a detail, a locator, competing explanations, and a reason to keep or change the idea. Use the same fields with your actual book, without spoilers." }],
+  computer_science: [{ file: "computer_science", caption: "This model uses imaginary shooting ratings, not assigned test values. A full record names players and numbers before and after Compare; a word like Tie alone is not enough." }],
+};
+
 /** Taught examples only. Assigned answers and grades never appear in these assets. */
 export function LessonVisuals({ lesson }: { lesson: LessonView }) {
-  if (lesson.date !== "2026-10-01") return null;
-  const pictures = day27Pictures[lesson.subject] ?? [];
+  const family = lesson.date === "2026-10-01" ? day27Pictures : lesson.date === "2026-10-02" ? day28Pictures : null;
+  if (!family) return null;
+  const pictures = family[lesson.subject] ?? [];
   return <section className="lesson-pictures" aria-label="Pictures for this lesson">
     <h3>Look at the idea</h3>
     {pictures.map(({ file, caption }) => <figure key={file}>
-      <img src={`/lesson-visuals/2026-10-01/${file}.svg`} alt={caption} />
+      <img src={`/lesson-visuals/${lesson.date}/${file}.svg`} alt={caption} />
       <figcaption>{caption}</figcaption>
     </figure>)}
   </section>;

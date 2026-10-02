@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="572.4pt" height="241.1415pt" viewBox="0 0 572.4 241.1415" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-02T22:51:10.950921</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 241.1415 
+L 572.4 241.1415 
+L 572.4 -0 
+L 0 -0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="table_1">
+    <g id="patch_2">
+     <path d="M 7.2 106.962923 
+L 193.2 106.962923 
+L 193.2 78.26598 
+L 7.2 78.26598 
+z
+" style="fill: #153a52; stroke: #a9b8bf; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_1">
+     <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="100.2" y="95.925701" transform="rotate(-0 100.2 95.925701)">FEATURE</text>
+    </g>
+    <g id="patch_3">
+     <path d="M 193.2 106.962923 
+L 379.2 106.962923 
+L 379.2 78.26598 
+L 193.2 78.26598 
+z
+" style="fill: #153a52; stroke: #a9b8bf; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_2">
+     <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="286.2" y="95.925701" transform="rotate(-0 286.2 95.925701)">PEOPLE’S ACTION</text>
+    </g>
+    <g id="patch_4">
+     <path d="M 379.2 106.962923 
+L 565.2 106.962923 
+L 565.2 78.26598 
+L 379.2 78.26598 
+z
+" style="fill: #153a52; stroke: #a9b8bf; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_3">
+     <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="472.2" y="95.925701" transform="rotate(-0 472.2 95.925701)">POSSIBLE RESULT</text>
+    </g>
+    <g id="patch_5">
+     <path d="M 7.2 139.759429 
+L 193.2 139.759429 
+L 193.2 106.962923 
+L 7.2 106.962923 
+z
+" style="fill: #eaf2f6; stroke: #a9b8bf; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_4">
+     <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start" x="25.8" y="126.672426" transform="rotate(-0 25.8 126.672426)">Road</text>
+    </g>
+    <g id="patch_6">
+     <path d="M 193.2 139.759429 
+L 379.2 139.759429 
+L 379.2 106.962923 
+L 193.2 106.962923 
+z
+" style="fill: #eaf3e8; stroke: #a9b8bf; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_5">
+     <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start" x="211.8" y="126.672426" transform="rotate(-0 211.8 126.672426)">Carry goods along it</text>
+    </g>
+    <g id="patch_7">
+     <path d="M 379.2 139.759429 
+L 565.2 139.759429 
+L 565.2 106.962923 
+L 379.2 106.962923 
+z
+" style="fill: #f7eae5; stroke: #a9b8bf; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_6">
+     <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start" x="397.8" y="126.672426" transform="rotate(-0 397.8 126.672426)">Goods can reach buyers</text>
+    </g>
+    <g id="patch_8">
+     <path d="M 7.2 184.854624 
+L 193.2 184.854624 
+L 193.2 139.759429 
+L 7.2 139.759429 
+z
+" style="fill: #eaf2f6; stroke: #a9b8bf; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_7">
+     <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start" x="25.8" y="165.618276" transform="rotate(-0 25.8 165.618276)">Well</text>
+    </g>
+    <g id="patch_9">
+     <path d="M 193.2 184.854624 
+L 379.2 184.854624 
+L 379.2 139.759429 
+L 193.2 139.759429 
+z
+" style="fill: #eaf3e8; stroke: #a9b8bf; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_8">
+     <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start" x="211.8" y="165.618276" transform="rotate(-0 211.8 165.618276)">Lift water from it</text>
+    </g>
+    <g id="patch_10">
+     <path d="M 379.2 184.854624 
+L 565.2 184.854624 
+L 565.2 139.759429 
+L 379.2 139.759429 
+z
+" style="fill: #f7eae5; stroke: #a9b8bf; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_9">
+     <text style="font-size: 12px; font-family: 'DejaVu Sans'" transform="translate(397.8 158.899589)">People have water to</text>
+     <text style="font-size: 12px; font-family: 'DejaVu Sans'" transform="translate(397.8 172.336964)">drink</text>
+    </g>
+    <g id="patch_11">
+     <path d="M 7.2 229.94982 
+L 193.2 229.94982 
+L 193.2 184.854624 
+L 7.2 184.854624 
+z
+" style="fill: #eaf2f6; stroke: #a9b8bf; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_10">
+     <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start" x="25.8" y="210.713472" transform="rotate(-0 25.8 210.713472)">Wall</text>
+    </g>
+    <g id="patch_12">
+     <path d="M 193.2 229.94982 
+L 379.2 229.94982 
+L 379.2 184.854624 
+L 193.2 184.854624 
+z
+" style="fill: #eaf3e8; stroke: #a9b8bf; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_11">
+     <text style="font-size: 12px; font-family: 'DejaVu Sans'" transform="translate(211.8 203.994785)">Watch and guard the</text>
+     <text style="font-size: 12px; font-family: 'DejaVu Sans'" transform="translate(211.8 217.43216)">gate</text>
+    </g>
+    <g id="patch_13">
+     <path d="M 379.2 229.94982 
+L 565.2 229.94982 
+L 565.2 184.854624 
+L 379.2 184.854624 
+z
+" style="fill: #f7eae5; stroke: #a9b8bf; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_12">
+     <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start" x="397.8" y="210.713472" transform="rotate(-0 397.8 210.713472)">The town may be safer</text>
+    </g>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 700; font-size: 16px; font-family: 'DejaVu Sans'; text-anchor: middle" x="286.2" y="19.3575" transform="rotate(-0 286.2 19.3575)">A place helps when people use it</text>
+   </g>
+  </g>
+ </g>
+</svg>

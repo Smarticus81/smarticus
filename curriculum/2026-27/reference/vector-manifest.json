@@ -595,6 +595,97 @@
         "date": "2026-09-30",
         "version": 1
       }
+    },
+    {
+      "path": "02-feedback/2026-10-01-mathematics.md",
+      "attributes": {
+        "document_type": "teacher_feedback",
+        "school_year": "2026-27",
+        "grade": 6,
+        "subject": "mathematics",
+        "access": "student",
+        "status": "current",
+        "version": 1,
+        "date": "2026-10-01"
+      }
+    },
+    {
+      "path": "02-feedback/2026-10-01-writing.md",
+      "attributes": {
+        "document_type": "teacher_feedback",
+        "school_year": "2026-27",
+        "grade": 6,
+        "subject": "writing",
+        "access": "student",
+        "status": "current",
+        "version": 1,
+        "date": "2026-10-01"
+      }
+    },
+    {
+      "path": "02-feedback/2026-10-01-french.md",
+      "attributes": {
+        "document_type": "teacher_feedback",
+        "school_year": "2026-27",
+        "grade": 6,
+        "subject": "french",
+        "access": "student",
+        "status": "current",
+        "version": 1,
+        "date": "2026-10-01"
+      }
+    },
+    {
+      "path": "02-feedback/2026-10-01-science.md",
+      "attributes": {
+        "document_type": "teacher_feedback",
+        "school_year": "2026-27",
+        "grade": 6,
+        "subject": "science",
+        "access": "student",
+        "status": "current",
+        "version": 1,
+        "date": "2026-10-01"
+      }
+    },
+    {
+      "path": "02-feedback/2026-10-01-history_geography.md",
+      "attributes": {
+        "document_type": "teacher_feedback",
+        "school_year": "2026-27",
+        "grade": 6,
+        "subject": "history_geography",
+        "access": "student",
+        "status": "current",
+        "version": 1,
+        "date": "2026-10-01"
+      }
+    },
+    {
+      "path": "02-feedback/2026-10-01-literature.md",
+      "attributes": {
+        "document_type": "teacher_feedback",
+        "school_year": "2026-27",
+        "grade": 6,
+        "subject": "literature",
+        "access": "student",
+        "status": "current",
+        "version": 1,
+        "date": "2026-10-01"
+      }
+    },
+    {
+      "path": "02-feedback/2026-10-01-computer_science.md",
+      "attributes": {
+        "document_type": "teacher_feedback",
+        "school_year": "2026-27",
+        "grade": 6,
+        "subject": "computer_science",
+        "access": "student",
+        "status": "current",
+        "version": 1,
+        "date": "2026-10-01"
+      }
     }
   ]
 }

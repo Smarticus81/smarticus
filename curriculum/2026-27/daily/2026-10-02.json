@@ -1,0 +1,708 @@
+{
+  "date": "2026-10-02",
+  "school_year": "2026-27",
+  "grade_level": 6,
+  "day_number": 28,
+  "school_day_label": "Friday October 2 2026",
+  "todays_goal": "Friday Day 28, 10:30 AM to 3:30 PM. Math and writing return after being deferred on October 1. Teach one step at a time using visual models. Math 10:30-11:15; break 11:15-11:25; writing 11:25-12:15; French 12:15-12:30; lunch 12:30-1:00; science 1:00-1:30; history 1:30-1:55; ScoutLab 1:55-2:35; break 2:35-2:45; literature 2:45-3:20; check and file 3:20-3:30. Stop on time. Do not advance through an unresolved key mistake.",
+  "lessons": [
+    {
+      "id": "2026-10-02-mathematics",
+      "date": "2026-10-02",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "mathematics",
+      "course": "Grade 6 Mathematics",
+      "unit_id": "math-geometry-area",
+      "unit_title": "Area and Coordinate Geometry",
+      "lesson_number": 12,
+      "lesson_title": "Resume: half the rectangle; match x with x",
+      "standards": [
+        "6.G.A.1",
+        "6.NS.C.6c"
+      ],
+      "previous_learning": "Math was deferred yesterday. September 30 showed a forgotten divide-by-two step and mixed coordinate positions. We have not yet checked these repair lessons.",
+      "course_context": "Day 28 continues the reviewed Day 27 and restores the deferred math and writing lessons. Full Grade 6 expectations; clearer teaching, not unsupported acceleration.",
+      "learning_objectives": [
+        "Explain a square unit and triangle halving",
+        "Match coordinate positions before subtracting",
+        "Show and check the method"
+      ],
+      "why_it_matters": "These pictures help you check the answer instead of trusting a remembered rule.",
+      "vocabulary": [
+        {
+          "term": "unit",
+          "definition": "a chosen step of length"
+        },
+        {
+          "term": "square unit",
+          "definition": "a square 1 unit wide and 1 unit tall"
+        },
+        {
+          "term": "area",
+          "definition": "how much flat space a shape covers"
+        },
+        {
+          "term": "perimeter",
+          "definition": "the total distance around the edge"
+        },
+        {
+          "term": "coordinate",
+          "definition": "one number in a point’s address"
+        },
+        {
+          "term": "base",
+          "definition": "a chosen side of a triangle"
+        },
+        {
+          "term": "height",
+          "definition": "the distance straight across from the base at a square corner"
+        }
+      ],
+      "written_instruction": "TIME CAP: 10:30 to 11:15, 45 minutes. Stop at 11:15.\nREAD THE PICTURE: A 1-by-1 square is one square unit. A 6-by-4 rectangle has 4 rows of 6 squares: 6 × 4 = 24 square units. Area covers the inside; perimeter goes around the edge.\nSTEP 1: Find the area of the matching rectangle. STEP 2: Divide by 2 because two equal triangles fill that rectangle. STEP 3: Write square units. For the model, 24 ÷ 2 = 12 square units.\nA right triangle has a square corner. Its base and height meet there. Do not use the sloping side as the height.\nA point (x, y) is an address. The first number tells left or right; the second tells up or down. For width, compare x with x. For height, compare y with y. Do not mix their jobs.\nMODEL ADDRESS: A(2,1), B(8,1), C(8,5), D(2,5). Width: 8 − 2 = 6 units. Height: 5 − 1 = 4 units. Area: 6 × 4 = 24 square units.\nTry one practice item after each model. If you need help, point to the step that is confusing. At 11:15, star unfinished work and move on.",
+      "worked_examples": [
+        {
+          "title": "Half means divide by two",
+          "problem": "A right triangle has base 6 units and height 4 units.",
+          "solution": "Matching rectangle: 6 × 4 = 24. Triangle: 24 ÷ 2 = 12 square units.",
+          "explanation": "Two copies cover the whole rectangle; one copy covers half."
+        },
+        {
+          "title": "Use matching address numbers",
+          "problem": "Rectangle corners: (2,1), (8,1), (8,5), (2,5).",
+          "solution": "Width: 8 − 2 = 6. Height: 5 − 1 = 4. Area: 24 square units.",
+          "explanation": "First numbers give width. Second numbers give height."
+        }
+      ],
+      "guided_practice": [],
+      "independent_practice": [
+        {
+          "id": "mathematics-d28-1",
+          "prompt": "M1. Draw one square unit and label both side lengths. Say how area differs from perimeter.",
+          "answer": "A 1-by-1 square; area covers the inside and perimeter measures the edge."
+        },
+        {
+          "id": "mathematics-d28-2",
+          "prompt": "M2. A right triangle has base 7 units and height 4 units. Sketch its matching rectangle. Show the rectangle area, the divide-by-two step, and the triangle area.",
+          "answer": "7 × 4 = 28; 28 ÷ 2 = 14 square units."
+        },
+        {
+          "id": "mathematics-d28-3",
+          "prompt": "M3. Plot A(3,2), B(9,2), C(9,6), D(3,6) on the supplied grid. Show the x comparison, y comparison, width, height, and area.",
+          "answer": "Width 9−3=6 units; height 6−2=4 units; area 24 square units."
+        },
+        {
+          "id": "mathematics-d28-4",
+          "prompt": "M4. A student says a right triangle with base 5 and height 8 has area 40 square units. Explain the missed step and correct the area.",
+          "answer": "40 is the rectangle area; divide by2 to get 20 square units."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "mathematics-d28-exit 1",
+          "prompt": "ME1. Without the model, find the area of a right triangle with base 9 units and height 4 units. Show both steps.",
+          "answer": "9×4=36;36÷2=18 square units."
+        },
+        {
+          "id": "mathematics-d28-exit 2",
+          "prompt": "ME2. Rectangle corners are (2,3), (7,3), (7,5), (2,5). Find width, height, and area. Label what each pair of numbers measures.",
+          "answer": "Width 5 units; height 2 units; area 10 square units."
+        }
+      ],
+      "mastery_threshold": 85,
+      "materials": [
+        "Day 27 packet",
+        "Pencil",
+        "Smarticus lesson pictures"
+      ],
+      "estimated_minutes": 45,
+      "voice_prompt": "Show the labeled lesson pictures before asking a question. Define each unfamiliar word in plain language. Give one step at a time, then let Atticus explain it. Use a different example from assigned work and protect the practice answers. Resume, do not skip the deferred repair. Hold combined area until both exit methods are correct. The September 30 warm-up is still unsubmitted; do not silently replace its original grade. This subject runs 10:30 to 11:15; stop at 11:15. The day ends at 3:30. Math was deferred yesterday. September 30 showed a forgotten divide-by-two step and mixed coordinate positions. We have not yet checked these repair lessons.",
+      "teacher_notes": "Resume, do not skip the deferred repair. Hold combined area until both exit methods are correct. The September 30 warm-up is still unsubmitted; do not silently replace its original grade.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-10-02-writing",
+      "date": "2026-10-02",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "writing",
+      "course": "Grade 6 Writing",
+      "unit_id": "ela-writing",
+      "unit_title": "Evidence and Reasoning",
+      "lesson_number": 18,
+      "lesson_title": "Build a clear paragraph, one sentence at a time",
+      "standards": [
+        "W.6.2",
+        "W.6.9",
+        "L.6.1"
+      ],
+      "previous_learning": "Writing was deferred yesterday. Your closeout asks for simpler help. We will keep the Grade 6 task, but build it in small steps instead of giving you a long instruction.",
+      "course_context": "Day 28 continues the reviewed Day 27 and restores the deferred math and writing lessons. Full Grade 6 expectations; clearer teaching, not unsupported acceleration.",
+      "learning_objectives": [
+        "Pair exact evidence with an explanation",
+        "Organize a 6-8 sentence paragraph",
+        "Make and show a useful revision"
+      ],
+      "why_it_matters": "Readers need your explanation, not just a list of facts.",
+      "vocabulary": [
+        {
+          "term": "claim",
+          "definition": "the main idea you want to support"
+        },
+        {
+          "term": "evidence",
+          "definition": "an exact fact from a source"
+        },
+        {
+          "term": "reasoning",
+          "definition": "why that fact supports or weakens an idea"
+        },
+        {
+          "term": "supports",
+          "definition": "gives a reason for an idea; does not prove it beyond doubt"
+        },
+        {
+          "term": "revise",
+          "definition": "change words to make your meaning clearer"
+        },
+        {
+          "term": "conclusion",
+          "definition": "a careful ending that sums up your idea"
+        }
+      ],
+      "written_instruction": "TIME CAP: 11:25 to 12:15, 50 minutes. Stop at 12:15.\nFIRST, SAY IT: A claim is your idea. Evidence is the exact result. Reasoning explains why the result matters. Say a reason aloud before you write it.\nREAD THE LAMP MODEL: Bulb A stays dark. Bulb B lights in the same lamp. The lamp stays the same; the bulb changes. That is why the changed result supports a bulb problem.\nUSE ONE SHORT FRAME: This supports ___ because ___. Put an idea in the first gap and a real explanation in the second. “Because it is evidence” does not explain the result.\nYOUR ROBOT SOURCE: The robot stops after 8 minutes with Battery A. Maya thinks the motor may be overheating. After it stops, the measured motor temperature is within the normal range. Battery A voltage drops sharply during the failure. With Battery B, the robot runs for 30 minutes without stopping. With Battery A put back, it stops again after 9 minutes.\nBUILD SIX SENTENCE CARDS: 1 My claim is ___. 2 One test showed ___. 3 This supports or weakens ___ because ___. 4 Another test showed ___. 5 This supports or weakens ___ because ___. 6 Together, these tests suggest ___, although ___.\nUse exact numbers when the source gives them. Join your cards into a 6-8 sentence paragraph. Read it aloud. Change one unclear sentence and show the old and new versions. You can work one card at a time.",
+      "worked_examples": [
+        {
+          "title": "A fact and its reason",
+          "problem": "The same lamp stays dark with Bulb A and lights with Bulb B.",
+          "solution": "Fact: it lights with B. Reason: this supports a bulb problem because the result changes when only the bulb changes.",
+          "explanation": "The reason says what the result tells us, not just that a test happened."
+        },
+        {
+          "title": "Make the reason clearer",
+          "problem": "Before: The test is good evidence because it is a test. After: The same lamp works with B, so A may be the problem.",
+          "solution": "The new sentence explains the change in result and connects it to the bulb idea.",
+          "explanation": "A revision improves meaning; checking a box is not a visible revision."
+        }
+      ],
+      "guided_practice": [],
+      "independent_practice": [
+        {
+          "id": "writing-d28-1",
+          "prompt": "W1. Read the robot source. Say your claim aloud, then write it in one sentence.",
+          "answer": "A careful claim identifies Battery A as the better-supported cause; do not require certainty."
+        },
+        {
+          "id": "writing-d28-2",
+          "prompt": "W2. Choose two useful test results from the source. Write each exact fact beside a sentence explaining what it means.",
+          "answer": "Two accurate diagnostic results, each paired with a cause-comparison reason. Accept normal temperature, voltage drop, B30-minute run, or A9-minute repeat when properly explained."
+        },
+        {
+          "id": "writing-d28-3",
+          "prompt": "W3. Use the six sentence cards to write a 6-8 sentence paragraph. Use two exact results and a reason after each.",
+          "answer": "Rubric 20: claim 4, exact relevant evidence 4, reasoning 6, organization 3, revision 3."
+        },
+        {
+          "id": "writing-d28-4",
+          "prompt": "W4. Copy one unclear sentence. Write a clearer version below it. Say what you improved.",
+          "answer": "A visible before/after change that improves meaning or structure."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "writing-d28-exit 1",
+          "prompt": "WE1. Underline two exact facts in your paragraph. Circle each sentence that tells why the fact matters. Explain one circled sentence aloud.",
+          "answer": "Two fact-reason pairs, with a meaningful explanation."
+        }
+      ],
+      "mastery_threshold": 85,
+      "materials": [
+        "Day 27 packet",
+        "Pencil",
+        "Smarticus lesson pictures"
+      ],
+      "estimated_minutes": 50,
+      "voice_prompt": "Show the labeled lesson pictures before asking a question. Define each unfamiliar word in plain language. Give one step at a time, then let Atticus explain it. Use a different example from assigned work and protect the practice answers. Keep full paragraph expectations, but offer one sentence frame at a time. Do not dictate robot answers. Listen to his first explanation before suggesting a clearer version. This subject runs 11:25 to 12:15; stop at 12:15. The day ends at 3:30. Writing was deferred yesterday. Your closeout asks for simpler help. We will keep the Grade 6 task, but build it in small steps instead of giving you a long instruction.",
+      "teacher_notes": "Keep full paragraph expectations, but offer one sentence frame at a time. Do not dictate robot answers. Listen to his first explanation before suggesting a clearer version.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-10-02-french",
+      "date": "2026-10-02",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "french",
+      "course": "Grade 6 French",
+      "unit_id": "french-futur-proche",
+      "unit_title": "Futur Proche",
+      "lesson_number": 14,
+      "lesson_title": "Keep the match; say it aloud",
+      "standards": [
+        "ACTFL 1.1",
+        "ACTFL 1.2"
+      ],
+      "previous_learning": "All six written answers on Day 27 were correct. The oral cue sentences are written down accurately, but the parent speaking check is not confirmed.",
+      "course_context": "Day 28 continues the reviewed Day 27 and restores the deferred math and writing lessons. Full Grade 6 expectations; clearer teaching, not unsupported acceleration.",
+      "learning_objectives": [
+        "Maintain correct subject-verb matching",
+        "Demonstrate the three oral cues with an observer"
+      ],
+      "why_it_matters": "Getting the small middle word right makes the whole sentence work.",
+      "vocabulary": [
+        {
+          "term": "subject",
+          "definition": "who is doing the action"
+        },
+        {
+          "term": "aller",
+          "definition": "the French verb used for going to"
+        },
+        {
+          "term": "infinitive",
+          "definition": "the basic action word that stays unchanged"
+        },
+        {
+          "term": "negative",
+          "definition": "a sentence that says not"
+        }
+      ],
+      "written_instruction": "TIME CAP: 12:15 to 12:30, 15 minutes. Stop at 12:30.\nKEEP THE THREE PARTS: who + matching aller + basic action word. Je vais, tu vas, il/elle va, nous allons, vous allez, ils/elles vont.\nA question can start with Est-ce que. The subject still keeps its matching verb. Tu goes with vas, even inside a question.\nFor not, put ne and pas around the aller form. Before a vowel, ne becomes n’. Example: Nous n’allons pas dessiner.\nToday’s actions: parler = speak; chanter = sing; écouter = listen. Spend about 5 minutes on the model and writing, then 5 minutes on the parent-observed oral check. Use the remaining time for one retry.",
+      "worked_examples": [
+        {
+          "title": "Ask a question",
+          "problem": "Tu vas dessiner.",
+          "solution": "Est-ce que tu vas dessiner ?",
+          "explanation": "Tu keeps vas; dessiner stays unchanged."
+        },
+        {
+          "title": "Say not",
+          "problem": "She is not going to draw.",
+          "solution": "Elle ne va pas dessiner.",
+          "explanation": "Ne and pas go around va."
+        }
+      ],
+      "guided_practice": [],
+      "independent_practice": [
+        {
+          "id": "french-d28-1",
+          "prompt": "F1. Translate: You are going to speak. Use tu.",
+          "answer": "Tu vas parler."
+        },
+        {
+          "id": "french-d28-2",
+          "prompt": "F2. Turn Tu vas chanter into an Est-ce que question.",
+          "answer": "Est-ce que tu vas chanter ?"
+        },
+        {
+          "id": "french-d28-3",
+          "prompt": "F3. Make negative: Nous allons écouter.",
+          "answer": "Nous n’allons pas écouter."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "french-d28-exit 1",
+          "prompt": "FE1. Without the chart, SAY: You are going to watch (tu); Are you going to read (tu); We are not going to play. Parent records correct/retry for each spoken first try and after retry.",
+          "answer": "Tu vas regarder. Est-ce que tu vas lire ? Nous n’allons pas jouer. Written forms alone do not confirm speaking."
+        }
+      ],
+      "mastery_threshold": 90,
+      "materials": [
+        "Day 27 packet",
+        "Pencil",
+        "Smarticus lesson pictures"
+      ],
+      "estimated_minutes": 15,
+      "voice_prompt": "Show the labeled lesson pictures before asking a question. Define each unfamiliar word in plain language. Give one step at a time, then let Atticus explain it. Use a different example from assigned work and protect the practice answers. Keep written and spoken assessments separate. An observer must record the oral result; do not infer pronunciation or fluency from handwriting. This subject runs 12:15 to 12:30; stop at 12:30. The day ends at 3:30. All six written answers on Day 27 were correct. The oral cue sentences are written down accurately, but the parent speaking check is not confirmed.",
+      "teacher_notes": "Keep written and spoken assessments separate. An observer must record the oral result; do not infer pronunciation or fluency from handwriting.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-10-02-science",
+      "date": "2026-10-02",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "science",
+      "course": "Grade 6 Science",
+      "unit_id": "science-light",
+      "unit_title": "Light and Reflection",
+      "lesson_number": 14,
+      "lesson_title": "The mirror must match the turn",
+      "standards": [
+        "MS-PS4-2"
+      ],
+      "previous_learning": "Your Day 27 path now changes direction twice. But Mirror 2 tilts up-right while the ray leaves left. Fix the mirror direction, not just the arrow. Your science picture was the most helpful part.",
+      "course_context": "Day 28 continues the reviewed Day 27 and restores the deferred math and writing lessons. Full Grade 6 expectations; clearer teaching, not unsupported acceleration.",
+      "learning_objectives": [
+        "Match mirror tilt to the ray direction",
+        "Draw a perpendicular normal at each hit",
+        "Explain why the normal turns with its mirror"
+      ],
+      "why_it_matters": "A clear drawing lets you test whether light could really reach the target.",
+      "vocabulary": [
+        {
+          "term": "mirror",
+          "definition": "a surface that bounces light"
+        },
+        {
+          "term": "ray",
+          "definition": "a line showing which way light travels"
+        },
+        {
+          "term": "normal",
+          "definition": "a helper line making a square corner with the mirror"
+        },
+        {
+          "term": "perpendicular",
+          "definition": "meeting at a square corner"
+        },
+        {
+          "term": "incoming",
+          "definition": "moving toward the mirror"
+        },
+        {
+          "term": "outgoing",
+          "definition": "moving away from the mirror"
+        },
+        {
+          "term": "reflect",
+          "definition": "bounce off a surface"
+        }
+      ],
+      "written_instruction": "TIME CAP: 1:00 to 1:30, 30 minutes. Stop at 1:30.\nLOOK AT THE TWO PICTURES: An upward ray hitting an up-right mirror turns right. To turn that upward ray left, use a down-right mirror. Changing the arrow alone does not change what the mirror can do.\nDRAW IN THIS ORDER: 1 Mirror. 2 Hit point. 3 Dashed normal at a square corner. 4 Incoming arrow. 5 Outgoing arrow with the same angle on the other side of the normal.\nThe normal belongs to its mirror. When a mirror turns, its normal turns too. That changes the reflected path, so the ray may miss the next mirror.\nAt EACH mirror, check the square corner, the incoming/outgoing arrows, and equal angle marks from the normal. Equal numbers do not repair a wrong direction. Use a ruler and protractor if available; do not claim exact measurements from a rough sketch.",
+      "worked_examples": [
+        {
+          "title": "One bounce",
+          "problem": "Light hits a horizontal mirror at 45 degrees from the vertical normal.",
+          "solution": "It leaves at 45 degrees on the other side of that normal.",
+          "explanation": "Both angles are measured from the dashed line, not from the mirror."
+        },
+        {
+          "title": "Make the top ray go left",
+          "problem": "Light travels right, then up. The target is to the left of the top hit point.",
+          "solution": "Use an up-right first mirror and a down-right second mirror. Draw a new perpendicular normal at each hit point.",
+          "explanation": "The second mirror orientation must agree with the outgoing direction."
+        }
+      ],
+      "guided_practice": [],
+      "independent_practice": [
+        {
+          "id": "science-d28-1",
+          "prompt": "S1. Correct your Day 27 two-mirror drawing. Keep the leftward target. Redraw Mirror 2 and its normal; add right-angle squares, both hit points, and equal-angle marks. Keep the original visible.",
+          "answer": "Mirror 1 up-right; Mirror 2 down-right; normals perpendicular; right/up/left arrows; matching angles at each hit."
+        },
+        {
+          "id": "science-d28-2",
+          "prompt": "S2. Draw a NEW route starting at the bottom: ray goes up, then right, then up to a target. Choose two mirrors that make those turns. Label both normals and angle marks.",
+          "answer": "Both mirrors up-right; both normals down-right; two consistent 90-degree turns with 45-degree angles from each normal."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "science-d28-exit 1",
+          "prompt": "SE1. If Mirror 1 turns, what happens to its normal, and why might the ray miss Mirror 2?",
+          "answer": "Normal turns with mirror; outgoing path changes, potentially missing Mirror 2."
+        }
+      ],
+      "mastery_threshold": 85,
+      "materials": [
+        "Day 27 packet",
+        "Pencil",
+        "Smarticus lesson pictures"
+      ],
+      "estimated_minutes": 30,
+      "voice_prompt": "Show the labeled lesson pictures before asking a question. Define each unfamiliar word in plain language. Give one step at a time, then let Atticus explain it. Use a different example from assigned work and protect the practice answers. Do not advance to a new optics topic until the second mirror’s tilt agrees with its reflected ray. Check perpendicular normals and equal-angle marks. Credit improved arrows without claiming geometry mastery. This subject runs 1:00 to 1:30; stop at 1:30. The day ends at 3:30. Your Day 27 path now changes direction twice. But Mirror 2 tilts up-right while the ray leaves left. Fix the mirror direction, not just the arrow. Your science picture was the most helpful part.",
+      "teacher_notes": "Do not advance to a new optics topic until the second mirror’s tilt agrees with its reflected ray. Check perpendicular normals and equal-angle marks. Credit improved arrows without claiming geometry mastery.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-10-02-history_geography",
+      "date": "2026-10-02",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "history_geography",
+      "course": "Grade 6 History",
+      "unit_id": "history-rome",
+      "unit_title": "Ancient Rome",
+      "lesson_number": 3,
+      "lesson_title": "Replace “good choices” with a real action",
+      "standards": [
+        "RH.6-8.2",
+        "C3-D2.Geo.2.6-8"
+      ],
+      "previous_learning": "You correctly explained that boats and trading places matter. Your two-sentence explanation still says people made choices without naming a place and a specific action.",
+      "course_context": "Day 28 continues the reviewed Day 27 and restores the deferred math and writing lessons. Full Grade 6 expectations; clearer teaching, not unsupported acceleration.",
+      "learning_objectives": [
+        "Name a real human action",
+        "Explain how a feature creates an opportunity, not a guarantee"
+      ],
+      "why_it_matters": "History gets clearer when you explain how people used a place.",
+      "vocabulary": [
+        {
+          "term": "feature",
+          "definition": "a part of a place, such as a river or hill"
+        },
+        {
+          "term": "action",
+          "definition": "something people actually do"
+        },
+        {
+          "term": "result",
+          "definition": "what can happen because of the action"
+        },
+        {
+          "term": "advantage",
+          "definition": "something helpful, not a promise of success"
+        }
+      ],
+      "written_instruction": "TIME CAP: 1:30 to 1:55, 25 minutes. Stop at 1:55.\nUSE THREE BOXES: PLACE → PEOPLE DO SOMETHING → POSSIBLE RESULT. Do not stop at “people make good choices.” Name the action so a reader can picture it.\nRome had the Tiber River, nearby farmland, and hills. A river can provide a route, but people must use boats to carry goods. Farmland can support crops, but farmers must plant and harvest them.\nMODEL: A useful road → people carry goods along it → buyers can receive the goods. The road is helpful, but the action explains how people use it.\nToday we make the explanation specific before the Republic. Use your existing history video observation as context; you do not need to watch it again. Do not test later Roman rulers today.",
+      "worked_examples": [
+        {
+          "title": "A road needs users",
+          "problem": "A town is beside a road.",
+          "solution": "People carry goods on the road, so goods can reach buyers.",
+          "explanation": "Names the feature, an observable action, and a possible result."
+        },
+        {
+          "title": "Replace a vague phrase",
+          "problem": "Before: People made good choices. After: People used boats to carry goods on the river.",
+          "solution": "The new version tells the reader exactly what people did.",
+          "explanation": "Good is an opinion; the boat action is something we can describe."
+        }
+      ],
+      "guided_practice": [],
+      "independent_practice": [
+        {
+          "id": "history_geography-d28-1",
+          "prompt": "H1. Complete three boxes for the Tiber River: feature; a specific human action; a possible result.",
+          "answer": "River; people use boats to transport goods; goods reach buyers/trade becomes easier."
+        },
+        {
+          "id": "history_geography-d28-2",
+          "prompt": "H2. Repair your Day 27 H3 answer in two sentences. Name one Roman geographic feature and say exactly how people used it.",
+          "answer": "Specific river/farmland/hills example and action, plus geography-helped-not-alone explanation."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "history_geography-d28-exit 1",
+          "prompt": "HE1. A town has fertile farmland, but nobody plants crops. Does the land alone feed the town? Explain the missing action.",
+          "answer": "No; farmers must plant, tend, and harvest crops. Helpful geography is not enough by itself."
+        }
+      ],
+      "mastery_threshold": 85,
+      "materials": [
+        "Day 27 packet",
+        "Pencil",
+        "Smarticus lesson pictures"
+      ],
+      "estimated_minutes": 25,
+      "voice_prompt": "Show the labeled lesson pictures before asking a question. Define each unfamiliar word in plain language. Give one step at a time, then let Atticus explain it. Use a different example from assigned work and protect the practice answers. Accept accurate plain language. Require a named feature and specific action before beginning the Republic; do not turn this into an unrelated date memorization task. This subject runs 1:30 to 1:55; stop at 1:55. The day ends at 3:30. You correctly explained that boats and trading places matter. Your two-sentence explanation still says people made choices without naming a place and a specific action.",
+      "teacher_notes": "Accept accurate plain language. Require a named feature and specific action before beginning the Republic; do not turn this into an unrelated date memorization task.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-10-02-computer_science",
+      "date": "2026-10-02",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "computer_science",
+      "course": "Grade 6 Computer Science and AI",
+      "unit_id": "builder-scoutlab",
+      "unit_title": "ScoutLab",
+      "lesson_number": 3,
+      "lesson_title": "Show the check: names, numbers, result",
+      "standards": [
+        "CSTA 2-AP-13",
+        "CSTA 2-AP-17"
+      ],
+      "previous_learning": "Your brief sheet says A: Kylian Mbappé; B: Tie; C: a checkmark. It shows you tried the checks, but someone else cannot repeat or confirm them yet.",
+      "course_context": "Day 28 continues the reviewed Day 27 and restores the deferred math and writing lessons. Full Grade 6 expectations; clearer teaching, not unsupported acceleration.",
+      "learning_objectives": [
+        "Record repeatable tests",
+        "Collect a screenshot and an observed demo"
+      ],
+      "why_it_matters": "Making a page is the start. Checking it helps you trust what it says.",
+      "vocabulary": [
+        {
+          "term": "prediction",
+          "definition": "what you think will happen before a test"
+        },
+        {
+          "term": "actual result",
+          "definition": "what you really saw after the test"
+        },
+        {
+          "term": "tie",
+          "definition": "two highest ratings are equal"
+        },
+        {
+          "term": "shortlist",
+          "definition": "the players you want to keep for later"
+        },
+        {
+          "term": "proof",
+          "definition": "something another person can see or repeat"
+        }
+      ],
+      "written_instruction": "TIME CAP: 1:55 to 2:35, 40 minutes. Stop at 2:35.\nLAPTOP ONLY. Continue the saved ScoutLab v2. Do not restart, add players, or answer Builder questions on paper. Open a document and save it beside your screenshot.\nA NAME ALONE IS NOT A FULL CHECK. Write the three players and ratings. Write your prediction BEFORE clicking Compare. Then record the actual result with names and numbers. Add worked or needs a fix.\nTEST A: Set pace to 99, 60, and 70 for your three chosen players. Predict the pace leader, click Compare, and record it.\nTEST B: Set passing to 88, 88, and 70. Predict who should tie, click Compare, and record both actual names.\nTEST C: Shortlist Player 2. Change another rating and click Compare. Record whether that player remains visibly shortlisted in the same open tab.\nTEST D: Keep players and ratings the same. Switch Need Speed to Need Defense. Record which skill matters more and what actually changes. The winner may stay the same if that player fits both needs.\nSave one labeled screenshot and show a parent one live result. If something fails, ask the coding AI for one focused fix and repeat the same test. This is evidence collection, not a new build.",
+      "worked_examples": [
+        {
+          "title": "Expand a one-word answer",
+          "problem": "A practice note says Tie. Two imaginary players have shooting 76 and the third has 60.",
+          "solution": "Prediction: Alex and Bea tie at76. Result: both names appear with 76. Check: worked.",
+          "explanation": "Names and numbers let someone else repeat the check; these are not your assigned passing values."
+        },
+        {
+          "title": "Describe a visible problem",
+          "problem": "Bea has shooting 76 but Compare names Cam with 60 as leader.",
+          "solution": "I clicked Compare. I expected Bea 76. I saw Cam 60. Please fix the shooting leader and keep the other features working.",
+          "explanation": "Use one concrete problem, then repeat the same check after the fix."
+        }
+      ],
+      "guided_practice": [],
+      "independent_practice": [
+        {
+          "id": "computer_science-d28-1",
+          "prompt": "B1. On your laptop, save a log with the three player names and a prediction, actual result, and worked/fix result for Tests A-D.",
+          "answer": "Four complete tests with names, changed numbers, predictions and observed outcomes; D describes priorities even if winner unchanged."
+        },
+        {
+          "id": "computer_science-d28-2",
+          "prompt": "B2. Save one screenshot with a label naming the checked feature and players.",
+          "answer": "A real screenshot of a test result; not only the build’s home screen."
+        },
+        {
+          "id": "computer_science-d28-3",
+          "prompt": "B3. If a test fails, save your fix request and retest result. Otherwise explain one design choice.",
+          "answer": "Specific request and repeat check, or a meaningful design explanation."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "computer_science-d28-exit 1",
+          "prompt": "BE1. Show your parent one live Compare result and the saved shortlist. Parent records seen/not yet seen.",
+          "answer": "Witnessed result and explanation; self-checkmarks do not establish the demo."
+        }
+      ],
+      "mastery_threshold": 85,
+      "materials": [
+        "Day 27 packet",
+        "Pencil",
+        "Smarticus lesson pictures",
+        "Laptop"
+      ],
+      "estimated_minutes": 40,
+      "voice_prompt": "Show the labeled lesson pictures before asking a question. Define each unfamiliar word in plain language. Give one step at a time, then let Atticus explain it. Use a different example from assigned work and protect the practice answers. The earlier app exists. No grade from A/B/C words alone. Score only the actual evidence supplied. Keep all responses and screenshots digital. This subject runs 1:55 to 2:35; stop at 2:35. The day ends at 3:30. Your brief sheet says A: Kylian Mbappé; B: Tie; C: a checkmark. It shows you tried the checks, but someone else cannot repeat or confirm them yet.",
+      "teacher_notes": "The earlier app exists. No grade from A/B/C words alone. Score only the actual evidence supplied. Keep all responses and screenshots digital.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-10-02-literature",
+      "date": "2026-10-02",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "literature",
+      "course": "Grade 6 Literature",
+      "unit_id": "westing-game",
+      "unit_title": "The Westing Game",
+      "lesson_number": 9,
+      "lesson_title": "One clue card you can check",
+      "standards": [
+        "RL.6.1",
+        "RL.6.3",
+        "RL.6.10"
+      ],
+      "previous_learning": "You logged pages 70-80 for 25 minutes. You named an explosion and Otis delivering letters, but not a page/chapter or another possible meaning. The explosion needs a clearer link before it supports an Otis theory.",
+      "course_context": "Day 28 continues the reviewed Day 27 and restores the deferred math and writing lessons. Full Grade 6 expectations; clearer teaching, not unsupported acceleration.",
+      "learning_objectives": [
+        "Find and locate one exact detail",
+        "Separate a clue from a theory",
+        "Explain another possible meaning"
+      ],
+      "why_it_matters": "A mystery theory becomes stronger when you can show the clue behind it.",
+      "vocabulary": [
+        {
+          "term": "detail",
+          "definition": "exact words or an action you can find in the book"
+        },
+        {
+          "term": "locator",
+          "definition": "the page or chapter where you found a detail"
+        },
+        {
+          "term": "inference",
+          "definition": "your idea about what the detail might mean"
+        },
+        {
+          "term": "alternative",
+          "definition": "another possible explanation"
+        },
+        {
+          "term": "theory",
+          "definition": "an idea that can change when you find new evidence"
+        }
+      ],
+      "written_instruction": "TIME CAP: 2:45 to 3:20, 35 minutes. Stop at 3:20.\nSTART AT YOUR ACTUAL BOOKMARK, near page 80 in your edition. Spend up to 5 minutes locating ONE detail from yesterday. Write its page or chapter. If you cannot find it, replace it and say you changed your detail.\nREAD QUIETLY FOR 25 MINUTES. Virgil stays quiet unless you ask for a word meaning. Record starting page, ending page, and minutes. Do not force a chapter or look ahead.\nMAKE ONE CLUE CARD: Exact detail + page/chapter + my idea + another possibility + keep/change and why. You do not need to write four separate long answers.\nASK: Does this detail point specifically to my character, or could it fit several people? “Still suspicious” is not a new piece of evidence. Use may or might when the idea is uncertain.\nUse only the pages you have read. The Westing Game’s 8 reading points are still pending until completion and a comprehension check. No spoilers or invented book details.",
+      "worked_examples": [
+        {
+          "title": "A clue is not proof",
+          "problem": "In an invented story, Mina has mud on her shoes at page 6.",
+          "solution": "Detail: muddy shoes, page 6. Idea: she may have crossed the garden. Alternative: she may have used another muddy path.",
+          "explanation": "The locator makes the detail checkable; the two ideas remain possible."
+        },
+        {
+          "title": "Change with new evidence",
+          "problem": "Later in the invented story, Mina says she walked beside the stream.",
+          "solution": "I change my garden idea because the new statement names a different muddy route.",
+          "explanation": "Explain the new evidence, not merely that the character still seems suspicious."
+        }
+      ],
+      "guided_practice": [],
+      "independent_practice": [
+        {
+          "id": "literature-d28-1",
+          "prompt": "L1. Record today’s actual starting page, ending page, and 25 minutes of reading.",
+          "answer": "A genuine reading log; no invented target page."
+        },
+        {
+          "id": "literature-d28-2",
+          "prompt": "L2. Complete ONE clue card with five fields: exact detail; page/chapter; your idea; another possible explanation; keep/change with a reason.",
+          "answer": "Rubric 10: exact detail 2, locator 2, plausible idea 2, plausible alternative 2, decision with evidence link 2. Check against the student’s edition without spoilers."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "literature-d28-exit 1",
+          "prompt": "LE1. Point to the page/chapter behind your card. Explain whether it singles out one person or could fit more than one.",
+          "answer": "Student points to a real locator and explains the limits of the chosen evidence."
+        }
+      ],
+      "mastery_threshold": 85,
+      "materials": [
+        "Day 27 packet",
+        "Pencil",
+        "Smarticus lesson pictures",
+        "The Westing Game"
+      ],
+      "estimated_minutes": 35,
+      "voice_prompt": "Show the labeled lesson pictures before asking a question. Define each unfamiliar word in plain language. Give one step at a time, then let Atticus explain it. Use a different example from assigned work and protect the practice answers. Maintain the current bookmark near page 80, not a fixed chapter. Do not validate student-reported story events unless checked in his edition. Keep reading points pending. This subject runs 2:45 to 3:20; stop at 3:20. The day ends at 3:30. You logged pages 70-80 for 25 minutes. You named an explosion and Otis delivering letters, but not a page/chapter or another possible meaning. The explosion needs a clearer link before it supports an Otis theory.",
+      "teacher_notes": "Maintain the current bookmark near page 80, not a fixed chapter. Do not validate student-reported story events unless checked in his edition. Keep reading points pending.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    }
+  ]
+}

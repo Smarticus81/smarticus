@@ -31,7 +31,7 @@
       "title": "ScoutLab",
       "subject": "computer_science",
       "status": "in_progress",
-      "description": "ScoutLab v2 artifact exists with expanded player choices, editable ratings, comparisons, team-needs choices, and session shortlist. Student testing and demo evidence are still incomplete."
+      "description": "ScoutLab v2 exists. October 1 brief A/B/C notes show an attempt, but the full test log, D result, screenshot, and observed demo still need evidence."
     }
   ],
   "days": [
@@ -286,13 +286,13 @@
           "score": 61,
           "status": "provisional",
           "display": "61% submitted",
-          "note": "17/28 on visible Q1-10 and E1-4 (2 points each; partial credit allowed). Rectangle areas mostly correct. Q3 final 48 should be 24; the crossed-out 24 was correct. Q7 width 8−2=6, height 5−1=4, area24; student mixed coordinate positions. Q10 did not explain coordinate distance. E3 60 should be30. Q4, E1, E4 need exact unit meanings. Five warm-up items not submitted; excluded, still incomplete. Repair half and matching coordinates."
+          "note": "17/28 on visible Q1-10 and E1-4 (2 points each; partial credit allowed). Rectangle areas mostly correct. Q3 final 48 should be 24; the crossed-out 24 was correct. Q7 width 8−2=6, height 5−1=4, area 24; student mixed coordinate positions. Q10 did not explain coordinate distance. E3 60 should be30. Q4, E1, E4 need exact unit meanings. Five warm-up items not submitted; excluded, still incomplete. Repair half and matching coordinates."
         },
         {
           "subject": "writing",
           "score": 45,
           "status": "reviewed",
-          "note": "9/20: claim3/4; relevant exact evidence2/4; reasoning1/6; organization2/3; revision1/3. First failure at eight minutes is accurate, but does not distinguish motor from battery. Missing normal motor temperature, 30-minute Battery B run, and nine-minute failure with A reinstalled. What it did and what Maya thinks are not explanations of test meaning. Make evidence/reason pairs and visibly revise."
+          "note": "9/20: claim 3/4; relevant exact evidence 2/4; reasoning 1/6; organization 2/3; revision 1/3. First failure at eight minutes is accurate, but does not distinguish motor from battery. Missing normal motor temperature, 30-minute Battery B run, and nine-minute failure with A reinstalled. What it did and what Maya thinks are not explanations of test meaning. Make evidence/reason pairs and visibly revise."
         },
         {
           "subject": "french",
@@ -304,26 +304,82 @@
           "subject": "science",
           "score": 55,
           "status": "reviewed",
-          "note": "11/20: route and arrows3/4; normals and hit points2/4; reflection geometry1/4; explanation2/4; exit answers3/4. Both mirrors and normals are labelled, but normal lines are not reliably perpendicular. Ray passes straight through Mirror2 instead of reflecting. Written 40-degree labels do not validate those drawn angles. E1 correct; E2 needs the changed normal. Redraw one valid bounce before two."
+          "note": "11/20: route and arrows 3/4; normals and hit points 2/4; reflection geometry 1/4; explanation 2/4; exit answers 3/4. Both mirrors and normals are labelled, but normal lines are not reliably perpendicular. Ray passes straight through Mirror 2 instead of reflecting. Written 40-degree labels do not validate those drawn angles. E1 correct; E2 needs the changed normal. Redraw one valid bounce before two."
         },
         {
           "subject": "history_geography",
           "score": 86,
           "status": "reviewed",
-          "note": "12/14: Q1-4 each2/2; Q5 0/2; four-sentence exit4/4. River, farmland, hills, and peninsula explanations are accurate. Q5 says Rome was not successful, rather than explaining that geography helped but human choices and organization also mattered. Repair the single-cause explanation before the Republic."
+          "note": "12/14: Q1-4 each 2/2; Q5 0/2; four-sentence exit 4/4. River, farmland, hills, and peninsula explanations are accurate. Q5 says Rome was not successful, rather than explaining that geography helped but human choices and organization also mattered. Repair the single-cause explanation before the Republic."
         },
         {
           "subject": "literature",
           "score": 50,
           "status": "reviewed",
-          "note": "5/10: character2/2; exact clue0/3; meaning1/2; question1/1; theory and explicit keep/change decision1/2. Ten pages self-reported, but page range missing. Acting strange is too vague to check. Book facts were not independently verified; this is a response-quality score. Find one exact action or line with a page/chapter, then link it to the theory. Reading points remain pending."
+          "note": "5/10: character 2/2; exact clue 0/3; meaning 1/2; question 1/1; theory and explicit keep/change decision 1/2. Ten pages self-reported, but page range missing. Acting strange is too vague to check. Book facts were not independently verified; this is a response-quality score. Find one exact action or line with a page/chapter, then link it to the theory. Reading points remain pending."
         },
         {
           "subject": "computer_science",
           "score": null,
           "status": "not_assessed",
           "display": "Evidence needed",
-          "note": "Existing scoutlab.html v2 confirms a build with expanded player choices, editable ratings, Compare, team-need buttons, and Shortlist. No student test log, screenshot of tests, or demo in these emails. These required checks are incomplete, not failed. Day27 continues existing app and collects evidence."
+          "note": "Existing scoutlab.html v2 confirms a build with expanded player choices, editable ratings, Compare, team-need buttons, and Shortlist. No student test log, screenshot of tests, or demo in these emails. These required checks are incomplete, not failed. Day 27 continues existing app and collects evidence."
+        }
+      ]
+    },
+    {
+      "date": "2026-10-01",
+      "day_number": 27,
+      "note": "Reviewed the eight photos supplied October 2. Math and writing were deliberately deferred, not missing assignments. Numeric scores assess visible submitted work, not all completion claims. French oral forms are written down but parent-observed performance is unconfirmed. ScoutLab has brief A/B/C notes but no full log, D result, screenshot, or demonstrated app result. Missing evidence is incomplete, not an invented zero.",
+      "subjects": [
+        {
+          "subject": "mathematics",
+          "score": null,
+          "status": "not_assessed",
+          "display": "Deferred",
+          "note": "No math was scheduled on the revised Day 27. Resume the September 30 repair: triangle halving and matching x/y values. Prior 61% provisional score remains unchanged."
+        },
+        {
+          "subject": "writing",
+          "score": null,
+          "status": "not_assessed",
+          "display": "Deferred",
+          "note": "No writing lesson was scheduled on the revised Day 27. Atticus explicitly asks for simpler writing help in his closeout. Resume evidence-to-reason work with sentence cards. Prior 45% score remains unchanged."
+        },
+        {
+          "subject": "french",
+          "score": 100,
+          "status": "reviewed",
+          "display": "6/6 written",
+          "note": "F1-F6 are all correct: tu vas manger; Est-ce que tu vas jouer; elle va lire; nous n’allons pas regarder le match; ils ne vont pas partir; Est-ce que tu vas étudier. Written versions of the three oral cues are accurate, but no parent correct/retry ratings or witnessed speaking evidence are shown. Written accuracy is confirmed; oral mastery is not yet confirmed."
+        },
+        {
+          "subject": "science",
+          "score": 80,
+          "status": "reviewed",
+          "display": "16/20",
+          "note": "Route/arrows 4/4; normals and hit-point markings 3/4; reflection geometry 2/4; turning-mirror explanation 3/4; exit explanations 4/4. Two turns and useful dashed normals are a clear improvement. S1 lacks an explicit mirror/hit-point label and right-angle square. In S2 both mirrors tilt up-right (/), but the second ray travels left: that mirror should send the upward ray right. To send it left, tilt Mirror 2 down-right (\\) and turn its normal too. Equal-angle marks are missing. S3 needs to say the normal turns with the mirror. Do not judge precise angles from a photographed freehand sketch; check the actual direction at Mirror 2. Both exit responses express the intended rule, but do not cure the drawing mismatch."
+        },
+        {
+          "subject": "history_geography",
+          "score": 86,
+          "status": "reviewed",
+          "display": "12/14",
+          "note": "H1 3/3: river, people using ships, transport of goods. H2 3/3: farmland, farmers planting, food growing. H3 2/4: rejects geography-only causation and mentions choices, but does not name a specific geographic advantage and linked action. HE1 4/4: correctly explains the missing boats/trading places. The video observation and question are present; they are participation evidence, not a separate factual mastery score. Add one specific feature/action example before the Republic."
+        },
+        {
+          "subject": "literature",
+          "score": 70,
+          "status": "reviewed",
+          "display": "7/10 response",
+          "note": "Character 2/2; exact detail plus locator 2/3; meaning plus alternative 1/2; question 1/1; keep/change decision and evidence link 1/2. Log records pages 70-80 and 25 minutes. Names Otis delivering letters and an explosion, but gives no page/chapter for either detail and no alternative interpretation. The explosion is not explained as evidence specifically linking Otis. Book events are student-reported and not independently checked against his edition. Keep his actual bookmark near page 80. The 8 reading points remain pending."
+        },
+        {
+          "subject": "computer_science",
+          "score": null,
+          "status": "not_assessed",
+          "display": "Partial evidence",
+          "note": "Separate handwritten sheet says A: Kylian Mbappé; B: Tie; C: checkmark. These show an attempt at checks, not a full test record. No three-player list, changed numbers, prediction/actual-result pairs, D explanation, screenshot, or witnessed demonstration was supplied. Closeout ticks are self-reported, not independent proof. Continue the existing ScoutLab v2; do not restart. Collect the missing evidence on the laptop."
         }
       ]
     }
