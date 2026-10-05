@@ -4,7 +4,7 @@
   "grade_level": 6,
   "day_number": 29,
   "school_day_label": "Monday October 5 2026",
-  "todays_goal": "Monday Day 29, 9:30 AM to 3:30 PM. 9:30-10:20 Mathematics; 10:20-10:30 Break; 10:30-11:20 Writing; 11:20-11:45 French; 11:45-12:20 Science; 12:20-1:00 Lunch; 1:00-1:35 History; 1:35-2:35 AI Builder: build Sky Run, a Roblox-style obstacle course; 2:35-2:45 Break; 2:45-3:20 Reading; 3:20-3:30 Check and file. Teach and show examples before questions. Use short, everyday words. One assigned Builder project, no project choices.",
+  "todays_goal": "Monday Day 29, 9:30 AM to 3:30 PM. 9:30-10:20 Mathematics; 10:20-10:30 Break; 10:30-11:20 Writing; 11:20-11:45 French; 11:45-12:20 Science; 12:20-1:00 Lunch; 1:00-1:35 History; 1:35-2:35 AI Builder: HOVER ONE: build a 3D hover-car in Blender; 2:35-2:45 Break; 2:45-3:20 Reading; 3:20-3:30 Check and file. Teach and show examples before questions. Use short, everyday words. One assigned Builder project, no project choices.",
   "lessons": [
     {
       "id": "2026-10-05-mathematics",
@@ -471,105 +471,113 @@
       "subject": "computer_science",
       "course": "Grade 6 Computer Science and AI",
       "unit_id": "cs-ai-game-studio",
-      "unit_title": "Build a game people can play",
+      "unit_title": "Create a 3D vehicle and reveal trailer",
       "lesson_number": 4,
-      "lesson_title": "Build Sky Run: a Roblox-style obstacle course",
-      "standards": [
-        "CSTA 2-AP-13",
-        "CSTA 2-AP-17"
-      ],
+      "lesson_title": "HOVER ONE: build a 3D hover-car in Blender",
+      "standards": [],
       "previous_learning": "Museum After Dark earned 90%. Reset debugging and creative direction are credited. Parent requests broader ambitious projects, not automatic small game edits.",
-      "course_context": "One assigned project. Build a real five-platform obstacle course in the supplied browser workshop. No project selection or slide plan.",
+      "course_context": "One assigned multi-session project. Today build seven editable 3D parts, use AI coaching, render a poster and save/reopen. Supersedes Sky Run and all earlier Day 29 project menus.",
       "learning_objectives": [
-        "Build a path of five platforms that your character can jump across.",
-        "Add a checkpoint and a finish, then show that both work.",
-        "Save the course, reopen it, and let someone else play."
+        "Build and colour an original seven-part hover-car in Blender.",
+        "Use one clear AI request, then judge the suggested change by looking at the result.",
+        "Save an editable .blend file and a .png poster, and reopen both."
       ],
-      "why_it_matters": "Roblox obstacle courses are fun because someone built the path, tested the jumps and fixed the frustrating parts. Today you are that builder.",
+      "why_it_matters": "Game vehicles start as models made by artists. Today you make your own vehicle and its first reveal image, inspired by Rocket League. Next session, this same car will move.",
       "vocabulary": [
         {
-          "term": "platform",
-          "definition": "A block your character can stand on."
+          "term": "model",
+          "definition": "A 3D object you can turn around."
         },
         {
-          "term": "checkpoint",
-          "definition": "The place you return to after falling."
+          "term": "material",
+          "definition": "The paint and surface finish of a part."
         },
         {
-          "term": "test",
-          "definition": "Try it and see what really happens."
+          "term": "duplicate",
+          "definition": "Make a copy."
+        },
+        {
+          "term": "render",
+          "definition": "Make the finished picture using the camera and lights."
+        },
+        {
+          "term": "bevel",
+          "definition": "Trim a sharp edge."
         }
       ],
-      "written_instruction": "TIME CAP: 60 minutes. 1:35-2:35. Use your laptop.\nTODAY YOU ARE BUILDING SKY RUN. It is an obstacle course inspired by Roblox. Your character jumps across floating platforms to reach a glowing finish. You will build five platforms and a checkpoint. This is our own browser workshop, not Roblox Studio.\n1:35-1:40 OPEN. In Virgil, open AI Builder, then press Open Sky Run. It opens in another tab. You start with two platforms. Use Edge or Chrome. No new game account or software download is needed. If the 3D picture does not appear, ask your parent for help before continuing.\n1:40-1:48 LEARN THE BUTTONS. Build lets you change the course. Play lets you try it. Add platform adds a new block after the last one. Press a platform number to change that block. Left, Right, Closer and Farther away move it. Make wider gives you more room to land.\nLEARN THE TWO SPECIAL BLOCKS. Checkpoint gives the block a gold flag. Land there once; after your next fall, you return there. Finish gives the block a glowing gate. Reach it and the game says you finished. Restart from the beginning clears the timer and starts you back at platform 1.\n1:48-2:05 BUILD. Follow B1 after the examples. Add three platforms, making five in total. Put the checkpoint on platform 3. Put the finish on platform 5. Move platform 4 one step left to give your path a turn.\n2:05-2:20 PLAY AND FIX. Press Play. Hold W or the up arrow to move forward. Use A and D, or left and right arrows, to steer. Press Space just before the edge to jump. Release Space before the next jump. If you cannot reach a block, return to Build, select that block, and move it closer. Then try the same jump again.\nIF YOU NEED VIRGIL. Go back to the Virgil tab and say: I fall before I reach platform 4. Which button should I try? Tell him what you see. He can explain one step at a time. He cannot see a separate tab unless you share a screenshot. AI can suggest a fix; your next jump shows whether it works.\n2:20-2:30 SAVE AND REOPEN. Press Download save. Keep My-Sky-Run.json in Downloads. This file stores your platforms. Refresh the workshop, press Open save and select that file. Check that your five platforms and flags are still there.\n2:30-2:35 SHOW. Let a parent try it. Show one change you made and say what happened before and after. Keep this same game for the next lesson. We will add a new game feature after today’s course works.",
+      "written_instruction": "TIME CAP: 60 minutes. 1:35-2:35. Parent setup happens beforehand.\nYour project: HOVER ONE — 1:35-1:40 · Open and save\nBuild an original hover-car in Blender. Make a poster image of it today. Next time, we will make this same car move. Rocket League is the connection: artists create a vehicle model before it can appear in a game. This is your own design, not a Rocket League mod.\nOpen Blender 5.2. Close its welcome picture by clicking outside it. Choose File > Open. Find the parent-checked Hover-Studio.blend in Downloads, select it, and click Open Blender File. If asked, do not enable Python scripts; this scene needs none.\nYou should see an empty round stage. The camera, lights and paint colours are ready. There is no car in the starting file. If your view is not inside a camera frame, use View > Cameras > Active Camera from the menu above the large 3D area.\nChoose File > Save As. Open Documents. Use the New Folder button to create Atticus-AI-Builder, then open that folder. Name the file Hover-One-v01.blend. Click Save As and confirm if asked. Press Ctrl+S after each finished part.\nCHECK: Your project is now in Documents > Atticus-AI-Builder. The starter stays unchanged.\nLearn the few controls you need — 1:40-1:45 · Read this first\nA model is a 3D object you can turn around. You will make seven parts: a body, a dark window cover, four engines and a rear wing. The picture shows the body and window cover. It is a real render of the lesson model, not a picture of Blender’s buttons.\nKeep the mouse pointer over the large 3D picture before using a shortcut. The top-left menu should say Object Mode. Click a part to select it; an orange outline means that part is selected. Ctrl+Z undoes a mistake.\nShift+A opens the Add menu. Choose Mesh > Cube. A new cube starts at the centre. F2 lets you name it. Press Enter after typing its name.\nPress N over the 3D picture. In the panel that opens on the right, select Item. Under Transform, Location means where the part sits; Dimensions means its size. X goes across, Y goes front to back, and Z goes up. Double-click a number, type its replacement, then press Enter. Copy the supplied settings; no calculations are needed.\nAfter setting a part’s size, press Ctrl+A and choose Scale. This keeps its new shape while resetting its size controls. Press F3, type Add Bevel Modifier, and choose that result. A bevel trims sharp edges. Use its default 0.1 m amount and 1 segment. You can check them under the wrench icon on the right.\nCHECK: Example: Dimensions X=3, Y=4.4, Z=0.6 makes a wide, low body. Location Z=1.1 lifts it above the stage.\nBuild the body and window cover — 1:45-1:55 · Your first two parts\nFollow the controls you just learned. Finish one part before adding the next. The dark cover over the driver’s seat is called the canopy.\nAdd a cube and name it Body. In Item > Transform, set Dimensions to X 3, Y 4.4, Z 0.6. Set Location to X 0, Y 0, Z 1.1. Apply Scale and add the bevel, using the steps on the previous page.\nAdd a new cube and name it Canopy. Set Dimensions to X 1.8, Y 2.1, Z 0.65. Set Location to X 0, Y 0.15, Z 1.72. Apply Scale and add the bevel.\nLook at the picture: the smaller cover sits on top of the larger body. Your shapes may still be grey. That is fine; paint comes after the engines. Press Ctrl+S.\nCHECK: You have two separate parts. Selecting Canopy should outline only the smaller part.\nAdd four engines and a wing — 1:55-2:10 · Build the car’s shape\nThe engines sit beside the body. Make the first engine once, then copy it. A copy is called a duplicate. Copying saves time and keeps matching parts the same size.\nAdd a cube. Name it Front left. Set Dimensions to X 0.65, Y 1.35, Z 0.55. Set Location to X -1.65, Y -1.4, Z 0.85. Apply Scale and add the bevel.\nWith that engine selected, press Shift+D, then immediately press Esc. This makes a copy without moving it yet. Press F2 and name it Front right. In the Item panel, change only Location X to 1.65.\nCopy Front right with Shift+D, then Esc. Name the copy Back right. Change only Location Y to 1.4. Copy Back right in the same way; name it Back left and change only Location X to -1.65. Do not add another bevel to copies: they already have one.\nAdd a new cube. Name it Rear wing. Set Dimensions to X 3.8, Y 0.55, Z 0.18. Set Location to X 0, Y 1.7, Z 1.8. Apply Scale and add the bevel. Press Ctrl+S.\nCHECK: Count seven named car parts in the list at the top right. The studio items are extra; leave those alone.\nPaint it, then ask AI for useful help — 2:10-2:20 · Give it a finished look\nA material is the paint and surface finish of a part. The starter includes ready-made blue paint, dark glass and gold trim. You will assign them to your own shapes.\nSelect Body. In the tall Properties panel on the right, click Material Properties: the red sphere icon near the bottom. Below the empty material-slot box, click the small material sphere/dropdown beside New. Choose 01 Racing blue. Do not press New.\nRepeat for Canopy, choosing 02 Dark canopy. Select each of the four engines and Rear wing in turn, choosing 03 Gold trim for each. If the colours are hidden, press Z over the 3D area and choose Material Preview from the pie menu. Wait for it to load.\nReturn to Virgil in the browser. Say: “I am making Hover One in Blender 5.2. My goal is a clear game-poster image. My car has a blue body, a dark canopy and four gold engines. Give me one small visual improvement I can make in five minutes. Tell me the exact Blender control. Keep the same project and software.”\nIf a suggestion is unclear, say: “Explain that in ordinary words and give me only the first click.” You can describe your screen or share a screenshot through an available upload control. Virgil cannot see Blender automatically. Make one change you understand, then check the car again. If it looks worse, use Ctrl+Z.\nCHECK: A useful AI request says what you are making, what you see, what you want changed, and the help you need. Keep one suggestion that actually improves the picture.\nMake the poster and keep your work — 2:20-2:30 · Render, save and reopen\nRender means “make the finished picture using the camera and lights.” The .blend file keeps the editable car. The .png file is the picture you can show. You need both.\nPress Ctrl+S. Check that your parent has set Render Properties > Render Engine to Cycles and Device to CPU. From the top menu choose Render > Render Image. Wait for the picture. Use this menu instead of F12 if your laptop intercepts function keys.\nIn the finished Render Result window, choose Image > Save As. Open Documents > Atticus-AI-Builder. Set the name to Hover-One-poster.png and File Format to PNG. Click Save As Image. Saving the Blender file alone does not save this picture.\nClose the render window using its X to return to the model. Choose File > Save As and save a second version named Hover-One-v02.blend in the same folder. Keep v01 as your earlier copy.\nChoose File > Open, select Hover-One-v02.blend and open it. Check that the seven parts and their colours are still there. Then use Windows File Explorer to open Hover-One-poster.png. Ask a parent to copy the whole Atticus-AI-Builder folder into the family’s existing backup location.\nCHECK: You can reopen the editable car and its finished picture. GitHub is not needed today; no new account or public upload is part of this lesson.\nShow what you made — 2:30-2:35 · Show, explain and stop\nNow the teaching and building are complete. Show your work on the screen; you do not need to write a page of answers.\nShow the saved poster. Point to the body, canopy, four engines and wing. Explain one thing you learned to do in Blender.\nShow the change you tried after asking Virgil. Say what looked better, or why you undid it. AI’s idea is a suggestion; your picture is the test.\nOpen your saved .blend file and select one engine. This shows that you saved a model you can keep editing, not just a picture.\nNext session: group the car’s parts and animate a short hover-and-turn shot. After that: add engine light, sound and a title to make a short reveal trailer. Keep today’s files. Do not start a new project.\nCHECK: Stop at 2:35. If setup or rendering took too long, save the model and finish the poster next session. Do not rush into animation today.",
       "worked_examples": [
         {
-          "title": "A jump is too far",
-          "problem": "In a practice course, the runner keeps falling before reaching a block.",
-          "solution": "Press Build. Select the far block. Press Closer once. Press Play and try that jump again.",
-          "explanation": "The smaller gap gives the runner a better chance to land. You still need to play it to find out."
+          "title": "One shape becomes a body",
+          "problem": "A cube is too tall for a car body.",
+          "solution": "In Item > Transform, set Dimensions X 3, Y 4.4, Z 0.6 and Location X 0, Y 0, Z 1.1. Apply Scale, then add a bevel.",
+          "explanation": "Dimensions change its size. Location changes where it sits. The bevel trims the edges."
         },
         {
-          "title": "A checkpoint works",
-          "problem": "In a practice course, the runner touches a gold flag and then falls.",
-          "solution": "The runner returns to the flagged platform. Restart from the beginning returns the runner to platform 1 instead.",
-          "explanation": "A fall and a full restart do different jobs. Testing both shows that the game follows both rules."
+          "title": "An AI request that can be answered",
+          "problem": "“Make it better” does not tell Virgil what help you need.",
+          "solution": "“I am on the engine-copy step in Blender 5.2. I pressed Shift+D then Esc. I see only one engine. Tell me the next click.”",
+          "explanation": "The copy is on top of the first engine. Changing the copy’s Location separates them. A clear request names the tool, action and visible result."
         }
       ],
       "guided_practice": [
         {
           "id": "bg1",
-          "prompt": "After the examples, point to Build, Play and Add platform in the workshop.",
-          "hint": "They are on the left side.",
-          "answer": "Identify all three controls."
+          "prompt": "Use the taught cube example to make Body; show its name and size fields.",
+          "hint": "Use the Item panel.",
+          "answer": "Body has the taught dimensions and location."
         }
       ],
       "independent_practice": [
         {
           "id": "b1",
-          "prompt": "B1. Build five platforms. Put a checkpoint on 3 and a finish on 5. Move platform 4 one step left.",
-          "hint": "Start in Build mode. There are two platforms already.",
-          "answer": "Five platforms, checkpoint on third, finish on fifth, fourth moved left."
+          "prompt": "Build the body, canopy, four engines and rear wing using the illustrated steps.",
+          "hint": "Duplicate the first engine for the other three.",
+          "answer": "Seven separately editable named car parts; studio objects are not counted."
         },
         {
           "id": "b2",
-          "prompt": "B2. Play from start to finish. If a jump fails, change one thing and try it again. Show what you changed.",
-          "hint": "Try Closer or Make wider.",
-          "answer": "A playable route plus an observed before/after change; do not grade on speed."
+          "prompt": "Assign the three taught materials. Ask Virgil for one useful improvement; try it and decide whether to keep it.",
+          "hint": "Say what you are making, what you see and what help you need.",
+          "answer": "Materials assigned; one observed AI suggestion tried and judged by the result."
         },
         {
           "id": "b3",
-          "prompt": "B3. Press Download save. Reopen that file with Open save. Show that your course is still there.",
-          "hint": "Look for My-Sky-Run.json in Downloads.",
-          "answer": "Actual saved file reopened, preserving five platforms and their jobs."
+          "prompt": "Save Hover-One-v02.blend and Hover-One-poster.png in Documents > Atticus-AI-Builder. Open both again.",
+          "hint": "Save the rendered picture through Image > Save As.",
+          "answer": "Editable model and image both reopened; .blend save alone is insufficient."
         }
       ],
       "exit_ticket": [
         {
           "id": "be1",
-          "prompt": "BE1. Reach the checkpoint, then fall on purpose. Where do you return? Now press Restart from the beginning. Show the difference.",
-          "rubric": "Show both actions in the working game.",
-          "answer": "Fall returns to activated checkpoint; full restart returns to platform 1 and clears the timer."
+          "prompt": "Show your poster, select one engine in your reopened model, and explain one change you tried.",
+          "rubric": "Observe the files and explanation. Do not grade speed.",
+          "answer": "Poster opens, model parts remain editable, learner explains one tried change."
         }
       ],
       "mastery_threshold": 85,
       "materials": [
-        "Laptop with Edge or Chrome",
-        "Sky Run workshop in Virgil",
-        "Downloads folder for the saved course"
+        "Blender 5.2 LTS Windows ARM, parent-installed",
+        "Hover-Studio.blend from the lesson downloads",
+        "Existing parent-managed Virgil access",
+        "Documents > Atticus-AI-Builder folder"
       ],
       "estimated_minutes": 60,
-      "voice_prompt": "Today’s one assigned build is Sky Run, a Roblox-style obstacle course. Do not offer project choices. Give one short button-level instruction at a time. Use platform, jump, flag, save and try. Avoid capability, input/output, transformation, artifact, prototype, preproduction, milestone and pipeline. Say checkpoint means where you return after falling. Open Sky Run is a button in Monday’s Learn panel. Workshop actions are Add platform, Build, Play, Left, Right, Closer, Farther away, Make wider, Checkpoint, Finish, Download save, Open save and Restart from the beginning. Give direct setup and button help; these are not hidden academic answers. Let him do the building and tell you what happened. Do not claim to see the other tab or change its course. Ask for a screenshot if needed.",
-      "teacher_notes": "Parent requested one assigned project and much simpler words. Supersedes all earlier Day 29 discovery/choice plans. Sky Run is a custom browser workshop inspired by Roblox obstacle courses, not Roblox Studio. Students edit the course, play, fix a jump, and save/reopen a file. Score build requirements 4, observed change and retest 2, save/reopen 2, checkpoint versus full restart demonstration 2, total 10. Do not grade speed. Keep Friday’s Builder grade unchanged. Browser and automated checks apply only to the tested environment; No Windows-device tests performed on Atticus’s own laptop. Adult checks the 3D view opens in Edge/Chrome before the block. No new child AI account, purchase, camera or public posting is required. Existing Virgil provides AI coaching. Future sessions build on this same saved course.",
+      "voice_prompt": "Monday AI Builder is HOVER ONE in Blender 5.2, not Sky Run. One assigned project, no menu of choices. Teach one plain-language click at a time using the illustrated guide. Explain modelling, materials, duplicate, bevel and render when used. The student builds seven parts in the prepared studio. Give direct setup help. Ask what screen he sees; never claim to see or control Blender. Do not ask him to install code, create an under-age account, use GitHub, build an actual Rocket League mod, or run arbitrary scripts. Help save .blend and .png separately. Preserve the same project for animation next session.",
+      "teacher_notes": "Before the 60-minute block: use blender.org/download and choose Windows ARM for his Snapdragon X Elite laptop, version 5.2 LTS or newer. Avoid the Windows x64 download. A parent handles installation. Blender works locally without a child account or payment. No Fortnite, Roblox, GitHub or new AI account is required. Parent render setup: in the Properties panel, click Render Properties (the camera icon). Set Render Engine to Cycles and Device to CPU. Under Sampling > Render, set Max Samples to 16 and enable Denoise. In Output Properties (printer icon), set Resolution X to 960, Y to 600, and percentage to 100. Save this prepared starter with Ctrl+S. Use these settings for today’s small poster; the supplied file initially opens with Eevee. The remote Eevee render timed out; the Cycles CPU version was successfully rendered. Download Hover-Studio.blend from the lesson. Open it in Blender. Confirm the stage appears and Render > Render Image produces a lit empty stage. Close the render, add a temporary cube, save a temporary test file, close and reopen it. Then reopen the untouched starter for Atticus. These checks must happen on his laptop before teaching; the remote scene test cannot prove his graphics driver works. Close extra browser tabs: his earlier screenshot showed 81% memory use. Use the 960 x 600 render settings. If Blender cannot open or render, stop setup and record the exact message. Do not make him debug an installation during his lesson. No Windows-device tests performed on Atticus’s own laptop. The studio and seven-part model are tested with Blender 5.2 in a separate environment. Today teaches creating, sizing, copying and colouring 3D parts; using AI for a specific improvement; rendering; and keeping editable work. The starter supplies only a stage, camera, lights and materials. The car in the pictures is a teacher-built example. This is not an in-game vehicle, working mod or playable game. Observe, do not grade speed. Suggested 10 points: creates body/canopy/engine/wing shapes 3; uses duplicate and materials 2; tries and judges one AI suggestion 2; saves and reopens editable file 2; exports poster 1. Record unfinished work separately from technical setup failures. Monday remains ungraded until work is seen; preserve Friday’s 90%. Use the existing parent-managed Virgil access for coaching. If a later project needs an outside AI service, check that service’s current age rules and arrange parent-operated use before assigning it. Never assume consent alone permits an under-age account. Sources checked October 5, 2026: blender.org/download; code.blender.org/2025/08/blender-for-windows-on-arm; Blender manual sections on transforms, bevel modifiers, material assignment, saving files and saving rendered images. The instructions use Blender 5.2; wording may differ in later versions.",
       "answer_key": {
-        "bg1": "Identify all three controls.",
-        "b1": "Five platforms, checkpoint on third, finish on fifth, fourth moved left.",
-        "b2": "A playable route plus an observed before/after change; do not grade on speed.",
-        "b3": "Actual saved file reopened, preserving five platforms and their jobs.",
-        "be1": "Fall returns to activated checkpoint; full restart returns to platform 1 and clears the timer."
+        "bg1": "Body has the taught dimensions and location.",
+        "b1": "Seven separately editable named car parts; studio objects are not counted.",
+        "b2": "Materials assigned; one observed AI suggestion tried and judged by the result.",
+        "b3": "Editable model and image both reopened; .blend save alone is insufficient.",
+        "be1": "Poster opens, model parts remain editable, learner explains one tried change."
       },
       "source_references": [
-        "https://create.roblox.com/docs/tutorials/curriculums/building",
-        "https://smarticus-production.up.railway.app/workshops/sky-run"
+        "https://www.blender.org/download/",
+        "https://code.blender.org/2025/08/blender-for-windows-on-arm/",
+        "https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/bevel.html",
+        "https://docs.blender.org/manual/en/latest/render/materials/assignment.html"
       ],
       "status": "scheduled"
     },

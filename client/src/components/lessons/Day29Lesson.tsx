@@ -1,3 +1,4 @@
+import { HoverBuilderLesson } from "./HoverBuilderLesson";
 import type { LessonView } from "../../lib/types";
 import { LessonVisuals } from "./LessonVisuals";
 
@@ -7,12 +8,13 @@ const subjects: Record<string, { number: string; name: string; time: string; lin
   french: { number: "03", name: "French", time: "11:20–11:45", line: "Say what you will do." },
   science: { number: "04", name: "Science", time: "11:45–12:20", line: "Follow the light." },
   history_geography: { number: "05", name: "History & geography", time: "1:00–1:35", line: "Meet the people in power." },
-  computer_science: { number: "06", name: "AI Builder", time: "1:35–2:35", line: "Build Sky Run." },
+  computer_science: { number: "06", name: "AI Builder", time: "1:35–2:35", line: "Build HOVER ONE." },
   literature: { number: "07", name: "Literature", time: "2:45–3:20", line: "Follow a clue carefully." },
 };
 
 /** Complete teaching and examples precede every response prompt in this edition. */
 export function Day29Lesson({ lesson, onExplore }: { lesson: LessonView; onExplore: () => void }) {
+  if (lesson.subject === "computer_science") return <HoverBuilderLesson />;
   const subject = subjects[lesson.subject];
   return <div className="day29-lesson">
     <header className="day29-title-page">
@@ -41,7 +43,6 @@ export function Day29Lesson({ lesson, onExplore }: { lesson: LessonView; onExplo
           return <p key={index}>{paragraph}</p>;
         })}
       </div>
-      {lesson.subject === "computer_science" && <a className="button dark" href="/workshops/sky-run" target="_blank" rel="noreferrer">Open Sky Run ↗</a>}
     </section>
 
     <section className="day29-section" aria-labelledby="day29-models">
@@ -59,7 +60,7 @@ export function Day29Lesson({ lesson, onExplore }: { lesson: LessonView; onExplo
 
     <section className="day29-next" aria-label="Teaching complete">
       <div><span className="eyebrow">03 / YOUR TURN</span><h3>Ready to try the idea?</h3><p>You can come back to these examples while you practise.</p></div>
-      {lesson.subject === "computer_science" ? <a className="button dark" href="/workshops/sky-run" target="_blank" rel="noreferrer">Build my course ↗</a> : <button className="button dark" onClick={onExplore}>Try it yourself <span aria-hidden="true">→</span></button>}
+      {<button className="button dark" onClick={onExplore}>Try it yourself <span aria-hidden="true">→</span></button>}
     </section>
   </div>;
 }

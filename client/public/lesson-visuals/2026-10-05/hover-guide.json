@@ -1,0 +1,137 @@
+{
+  "title": "HOVER ONE",
+  "subtitle": "Build your first 3D vehicle. Make its reveal poster.",
+  "date": "Monday, October 5, 2026",
+  "time": "1:35-2:35",
+  "sections": [
+    {
+      "title": "Your project: HOVER ONE",
+      "time": "1:35-1:40 \u00b7 Open and save",
+      "image": "hover-car-poster.jpg",
+      "intro": "Build an original hover-car in Blender. Make a poster image of it today. Next time, we will make this same car move. Rocket League is the connection: artists create a vehicle model before it can appear in a game. This is your own design, not a Rocket League mod.",
+      "steps": [
+        "Open Blender 5.2. Close its welcome picture by clicking outside it. Choose File > Open. Find the parent-checked Hover-Studio.blend in Downloads, select it, and click Open Blender File. If asked, do not enable Python scripts; this scene needs none.",
+        "You should see an empty round stage. The camera, lights and paint colours are ready. There is no car in the starting file. If your view is not inside a camera frame, use View > Cameras > Active Camera from the menu above the large 3D area.",
+        "Choose File > Save As. Open Documents. Use the New Folder button to create Atticus-AI-Builder, then open that folder. Name the file Hover-One-v01.blend. Click Save As and confirm if asked. Press Ctrl+S after each finished part."
+      ],
+      "check": "Your project is now in Documents > Atticus-AI-Builder. The starter stays unchanged."
+    },
+    {
+      "title": "Learn the few controls you need",
+      "time": "1:40-1:45 \u00b7 Read this first",
+      "image": "body-and-canopy.jpg",
+      "intro": "A model is a 3D object you can turn around. You will make seven parts: a body, a dark window cover, four engines and a rear wing. The picture shows the body and window cover. It is a real render of the lesson model, not a picture of Blender\u2019s buttons.",
+      "steps": [
+        "Keep the mouse pointer over the large 3D picture before using a shortcut. The top-left menu should say Object Mode. Click a part to select it; an orange outline means that part is selected. Ctrl+Z undoes a mistake.",
+        "Shift+A opens the Add menu. Choose Mesh > Cube. A new cube starts at the centre. F2 lets you name it. Press Enter after typing its name.",
+        "Press N over the 3D picture. In the panel that opens on the right, select Item. Under Transform, Location means where the part sits; Dimensions means its size. X goes across, Y goes front to back, and Z goes up. Double-click a number, type its replacement, then press Enter. Copy the supplied settings; no calculations are needed.",
+        "After setting a part\u2019s size, press Ctrl+A and choose Scale. This keeps its new shape while resetting its size controls. Press F3, type Add Bevel Modifier, and choose that result. A bevel trims sharp edges. Use its default 0.1 m amount and 1 segment. You can check them under the wrench icon on the right."
+      ],
+      "check": "Example: Dimensions X=3, Y=4.4, Z=0.6 makes a wide, low body. Location Z=1.1 lifts it above the stage."
+    },
+    {
+      "title": "Build the body and window cover",
+      "time": "1:45-1:55 \u00b7 Your first two parts",
+      "image": "body-and-canopy.jpg",
+      "intro": "Follow the controls you just learned. Finish one part before adding the next. The dark cover over the driver\u2019s seat is called the canopy.",
+      "steps": [
+        "Add a cube and name it Body. In Item > Transform, set Dimensions to X 3, Y 4.4, Z 0.6. Set Location to X 0, Y 0, Z 1.1. Apply Scale and add the bevel, using the steps on the previous page.",
+        "Add a new cube and name it Canopy. Set Dimensions to X 1.8, Y 2.1, Z 0.65. Set Location to X 0, Y 0.15, Z 1.72. Apply Scale and add the bevel.",
+        "Look at the picture: the smaller cover sits on top of the larger body. Your shapes may still be grey. That is fine; paint comes after the engines. Press Ctrl+S."
+      ],
+      "check": "You have two separate parts. Selecting Canopy should outline only the smaller part."
+    },
+    {
+      "title": "Add four engines and a wing",
+      "time": "1:55-2:10 \u00b7 Build the car\u2019s shape",
+      "image": "hover-car-poster.jpg",
+      "intro": "The engines sit beside the body. Make the first engine once, then copy it. A copy is called a duplicate. Copying saves time and keeps matching parts the same size.",
+      "steps": [
+        "Add a cube. Name it Front left. Set Dimensions to X 0.65, Y 1.35, Z 0.55. Set Location to X -1.65, Y -1.4, Z 0.85. Apply Scale and add the bevel.",
+        "With that engine selected, press Shift+D, then immediately press Esc. This makes a copy without moving it yet. Press F2 and name it Front right. In the Item panel, change only Location X to 1.65.",
+        "Copy Front right with Shift+D, then Esc. Name the copy Back right. Change only Location Y to 1.4. Copy Back right in the same way; name it Back left and change only Location X to -1.65. Do not add another bevel to copies: they already have one.",
+        "Add a new cube. Name it Rear wing. Set Dimensions to X 3.8, Y 0.55, Z 0.18. Set Location to X 0, Y 1.7, Z 1.8. Apply Scale and add the bevel. Press Ctrl+S."
+      ],
+      "check": "Count seven named car parts in the list at the top right. The studio items are extra; leave those alone."
+    },
+    {
+      "title": "Paint it, then ask AI for useful help",
+      "time": "2:10-2:20 \u00b7 Give it a finished look",
+      "image": "hover-car-poster.jpg",
+      "intro": "A material is the paint and surface finish of a part. The starter includes ready-made blue paint, dark glass and gold trim. You will assign them to your own shapes.",
+      "steps": [
+        "Select Body. In the tall Properties panel on the right, click Material Properties: the red sphere icon near the bottom. Below the empty material-slot box, click the small material sphere/dropdown beside New. Choose 01 Racing blue. Do not press New.",
+        "Repeat for Canopy, choosing 02 Dark canopy. Select each of the four engines and Rear wing in turn, choosing 03 Gold trim for each. If the colours are hidden, press Z over the 3D area and choose Material Preview from the pie menu. Wait for it to load.",
+        "Return to Virgil in the browser. Say: \u201cI am making Hover One in Blender 5.2. My goal is a clear game-poster image. My car has a blue body, a dark canopy and four gold engines. Give me one small visual improvement I can make in five minutes. Tell me the exact Blender control. Keep the same project and software.\u201d",
+        "If a suggestion is unclear, say: \u201cExplain that in ordinary words and give me only the first click.\u201d You can describe your screen or share a screenshot through an available upload control. Virgil cannot see Blender automatically. Make one change you understand, then check the car again. If it looks worse, use Ctrl+Z."
+      ],
+      "check": "A useful AI request says what you are making, what you see, what you want changed, and the help you need. Keep one suggestion that actually improves the picture."
+    },
+    {
+      "title": "Make the poster and keep your work",
+      "time": "2:20-2:30 \u00b7 Render, save and reopen",
+      "image": "hover-car-poster.jpg",
+      "intro": "Render means \u201cmake the finished picture using the camera and lights.\u201d The .blend file keeps the editable car. The .png file is the picture you can show. You need both.",
+      "steps": [
+        "Press Ctrl+S. Check that your parent has set Render Properties > Render Engine to Cycles and Device to CPU. From the top menu choose Render > Render Image. Wait for the picture. Use this menu instead of F12 if your laptop intercepts function keys.",
+        "In the finished Render Result window, choose Image > Save As. Open Documents > Atticus-AI-Builder. Set the name to Hover-One-poster.png and File Format to PNG. Click Save As Image. Saving the Blender file alone does not save this picture.",
+        "Close the render window using its X to return to the model. Choose File > Save As and save a second version named Hover-One-v02.blend in the same folder. Keep v01 as your earlier copy.",
+        "Choose File > Open, select Hover-One-v02.blend and open it. Check that the seven parts and their colours are still there. Then use Windows File Explorer to open Hover-One-poster.png. Ask a parent to copy the whole Atticus-AI-Builder folder into the family\u2019s existing backup location."
+      ],
+      "check": "You can reopen the editable car and its finished picture. GitHub is not needed today; no new account or public upload is part of this lesson."
+    },
+    {
+      "title": "Show what you made",
+      "time": "2:30-2:35 \u00b7 Show, explain and stop",
+      "image": "hover-car-poster.jpg",
+      "intro": "Now the teaching and building are complete. Show your work on the screen; you do not need to write a page of answers.",
+      "steps": [
+        "Show the saved poster. Point to the body, canopy, four engines and wing. Explain one thing you learned to do in Blender.",
+        "Show the change you tried after asking Virgil. Say what looked better, or why you undid it. AI\u2019s idea is a suggestion; your picture is the test.",
+        "Open your saved .blend file and select one engine. This shows that you saved a model you can keep editing, not just a picture.",
+        "Next session: group the car\u2019s parts and animate a short hover-and-turn shot. After that: add engine light, sound and a title to make a short reveal trailer. Keep today\u2019s files. Do not start a new project."
+      ],
+      "check": "Stop at 2:35. If setup or rendering took too long, save the model and finish the poster next session. Do not rush into animation today."
+    }
+  ],
+  "parent": [
+    "Before the 60-minute block: use blender.org/download and choose Windows ARM for his Snapdragon X Elite laptop, version 5.2 LTS or newer. Avoid the Windows x64 download. A parent handles installation. Blender works locally without a child account or payment. No Fortnite, Roblox, GitHub or new AI account is required.",
+    "Parent render setup: in the Properties panel, click Render Properties (the camera icon). Set Render Engine to Cycles and Device to CPU. Under Sampling > Render, set Max Samples to 16 and enable Denoise. In Output Properties (printer icon), set Resolution X to 960, Y to 600, and percentage to 100. Save this prepared starter with Ctrl+S. Use these settings for today\u2019s small poster; the supplied file initially opens with Eevee. The remote Eevee render timed out; the Cycles CPU version was successfully rendered.",
+    "Download Hover-Studio.blend from the lesson. Open it in Blender. Confirm the stage appears and Render > Render Image produces a lit empty stage. Close the render, add a temporary cube, save a temporary test file, close and reopen it. Then reopen the untouched starter for Atticus. These checks must happen on his laptop before teaching; the remote scene test cannot prove his graphics driver works.",
+    "Close extra browser tabs: his earlier screenshot showed 81% memory use. Use the 960 x 600 render settings. If Blender cannot open or render, stop setup and record the exact message. Do not make him debug an installation during his lesson. No Windows-device tests performed on Atticus\u2019s own laptop. The studio and seven-part model are tested with Blender 5.2 in a separate environment.",
+    "Today teaches creating, sizing, copying and colouring 3D parts; using AI for a specific improvement; rendering; and keeping editable work. The starter supplies only a stage, camera, lights and materials. The car in the pictures is a teacher-built example. This is not an in-game vehicle, working mod or playable game.",
+    "Observe, do not grade speed. Suggested 10 points: creates body/canopy/engine/wing shapes 3; uses duplicate and materials 2; tries and judges one AI suggestion 2; saves and reopens editable file 2; exports poster 1. Record unfinished work separately from technical setup failures. Monday remains ungraded until work is seen; preserve Friday\u2019s 90%.",
+    "Use the existing parent-managed Virgil access for coaching. If a later project needs an outside AI service, check that service\u2019s current age rules and arrange parent-operated use before assigning it. Never assume consent alone permits an under-age account.",
+    "Sources checked October 5, 2026: blender.org/download; code.blender.org/2025/08/blender-for-windows-on-arm; Blender manual sections on transforms, bevel modifiers, material assignment, saving files and saving rendered images. The instructions use Blender 5.2; wording may differ in later versions."
+  ],
+  "fixes": [
+    [
+      "A shortcut does nothing",
+      "Move the pointer over the large 3D picture and try again. Use the menus if your laptop intercepts an F-key."
+    ],
+    [
+      "The wrong part changes",
+      "Press Ctrl+Z. Select the correct name in the top-right object list. Check its orange outline before changing it."
+    ],
+    [
+      "A copy seems to disappear",
+      "Shift+D then Esc puts it on top of the original. Change its Location as directed to separate them."
+    ],
+    [
+      "I cannot see the car",
+      "Choose View > Cameras > Active Camera. If the Item panel covers the view, press N over the 3D area to hide it."
+    ],
+    [
+      "I cannot find the material list",
+      "Select a car part first. Click the red Material Properties sphere, then the small dropdown next to New. Search for Racing blue or Gold trim."
+    ],
+    [
+      "The picture is grey or slow",
+      "Use Z > Solid while building. Render Image makes the final coloured picture. Save before rendering; if it fails, keep the model and ask a parent for the error message."
+    ],
+    [
+      "I do not know what to ask Virgil",
+      "Say: \u201cI am on step __. I clicked __. I expected __, but I see __. Give me one next click in Blender 5.2.\u201d"
+    ]
+  ]
+}
