@@ -2035,3 +2035,6 @@ Atticus sees at the same size for as long as it
 
 
 .day29-relevant-art{height:auto!important;max-height:400px;object-fit:contain;background:#FAF8F3}.day29-lesson .lesson-pictures figure{max-width:900px;margin:24px auto}.day29-lesson .lesson-pictures img{width:100%;height:auto;max-height:none;border-radius:10px}
+/* Monday's illustrated instruction needs reading space, not a narrow utility tray. */
+.lesson-menu:has(.day29-lesson){width:min(100vw,960px);max-width:100vw}
+@media(min-width:900px){.lesson-menu:has(.day29-lesson) .lesson-drawer{padding:24px 36px}.lesson-menu:has(.day29-lesson) .day29-relevant-art{max-height:340px}}
