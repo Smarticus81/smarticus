@@ -7,7 +7,7 @@ const subjects: Record<string, { number: string; name: string; time: string; lin
   french: { number: "03", name: "French", time: "11:20–11:45", line: "Say what you will do." },
   science: { number: "04", name: "Science", time: "11:45–12:20", line: "Follow the light." },
   history_geography: { number: "05", name: "History & geography", time: "1:00–1:35", line: "Meet the people in power." },
-  computer_science: { number: "06", name: "AI Builder", time: "1:35–2:35", line: "Turn inspiration into a creation." },
+  computer_science: { number: "06", name: "AI Builder", time: "1:35–2:35", line: "Build Sky Run." },
   literature: { number: "07", name: "Literature", time: "2:45–3:20", line: "Follow a clue carefully." },
 };
 
@@ -16,7 +16,7 @@ export function Day29Lesson({ lesson, onExplore }: { lesson: LessonView; onExplo
   const subject = subjects[lesson.subject];
   return <div className="day29-lesson">
     <header className="day29-title-page">
-      <img className="day29-cover-art" src={`/lesson-visuals/2026-10-05/${lesson.subject === "computer_science" ? "builder-concepts" : "discovery-cover"}.jpg`} alt={lesson.subject === "computer_science" ? "Three illustrated project concepts: a hand-controlled portal, a cinematic garden and a floating world." : "An open book unfolds into a creative world of buildings, light and a floating studio."} />
+      {lesson.subject === "computer_science" ? <img className="day29-cover-art" src="/lesson-visuals/2026-10-05/sky-run-characters.jpg" alt="A smiling young builder and robot guide beside a floating obstacle course." /> : <div className={`day29-character-scene scene-${lesson.subject}`} role="img" aria-label={`A young learner and friendly robot exploring ${subject.name.toLowerCase()}.`} />}
       <div className="day29-title-copy">
         <span className="eyebrow">MONDAY · DAY 29 · CHAPTER {subject.number}</span>
         <p className="day29-subject">{subject.name} <span>{subject.time}</span></p>
@@ -40,6 +40,7 @@ export function Day29Lesson({ lesson, onExplore }: { lesson: LessonView; onExplo
           return <p key={index}>{paragraph}</p>;
         })}
       </div>
+      {lesson.subject === "computer_science" && <a className="button dark" href="/workshops/sky-run" target="_blank" rel="noreferrer">Open Sky Run ↗</a>}
     </section>
 
     <section className="day29-section" aria-labelledby="day29-models">
@@ -57,7 +58,7 @@ export function Day29Lesson({ lesson, onExplore }: { lesson: LessonView; onExplo
 
     <section className="day29-next" aria-label="Teaching complete">
       <div><span className="eyebrow">03 / YOUR TURN</span><h3>Ready to try the idea?</h3><p>You can come back to these examples while you practise.</p></div>
-      <button className="button dark" onClick={onExplore}>Explore and practise <span aria-hidden="true">→</span></button>
+      {lesson.subject === "computer_science" ? <a className="button dark" href="/workshops/sky-run" target="_blank" rel="noreferrer">Build my course ↗</a> : <button className="button dark" onClick={onExplore}>Try it yourself <span aria-hidden="true">→</span></button>}
     </section>
   </div>;
 }

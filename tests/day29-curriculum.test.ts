@@ -25,5 +25,5 @@ it("the visual lesson shows complete teaching before the learner is asked to pra
   assert.doesNotMatch(page,/<textarea|<input|What would you try first/);
  }
  const builder=day.lessons.find(l=>l.subject==="computer_science")!;
- for(const game of ["FORTNITE", "GTA", "FC 27", "ROCKET LEAGUE", "ROBLOX", "FORZA HORIZON 6"]) assert.ok(builder.written_instruction.includes(game));
+ assert.match(builder.written_instruction,/Roblox/); assert.match(builder.written_instruction,/Add platform/); assert.doesNotMatch(builder.written_instruction,/LEARN THE THREE PATHS|preproduction|capability/);
 });

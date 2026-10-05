@@ -2032,3 +2032,7 @@ Atticus sees at the same size for as long as it
 .day29-next { padding: 28px; border-radius: 16px; background: #eaf2f6; }
 .day29-next p { line-height: 1.6; }
 .day29-next button { margin-top: 12px; }
+
+.day29-character-scene{height:clamp(190px,28vw,300px);background-image:url(/lesson-visuals/2026-10-05/subject-characters.jpg);background-size:200% 300%;background-repeat:no-repeat}.scene-mathematics{background-position:0 0}.scene-writing{background-position:100% 0}.scene-french{background-position:0 50%}.scene-science{background-position:100% 50%}.scene-history_geography{background-position:0 100%}.scene-literature{background-position:100% 100%}
+
+.day29-character-scene{height:auto;aspect-ratio:2.665;min-height:0}

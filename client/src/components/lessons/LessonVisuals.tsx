@@ -32,7 +32,7 @@ const day29Pictures: typeof day27Pictures = {
   french: [{ file: "french", caption: "Ask with tu vas, then answer as yourself with je vais. For no, put ne and pas around vais." }],
   science: [{ file: "science_angles", caption: "The normal is a guide line at 90 degrees to the mirror. Incoming and outgoing angles are measured from it." }, { file: "science", caption: "The mirror tilt decides which way an upward ray turns. The dashed normal makes a 90-degree corner with the mirror." }],
   history_geography: [{ file: "history_geography", caption: "Consuls, Senate and assemblies had different roles. Sharing power did not mean everyone could vote." }],
-  computer_science: [{ file: "game_connections", caption: "Connect Fortnite, GTA, FC 27, Rocket League, Roblox and Forza Horizon 6 to a capability, then make an original creation." }, { file: "computer_science", caption: "Choose a new capability: hand-controlled effects, a directed animation, or a world with an unusual rule. These are project concepts; test the chosen setup before building." }],
+  computer_science: [{ file: "sky-run-steps", caption: "Build five platforms, add a checkpoint and a finish, then play your own course. The numbers match the buttons in the workshop." }],
   literature: [{ file: "literature", caption: "Name an exact detail and location, compare explanations, then link your decision to the evidence. This model is invented, not a book spoiler." }],
 };
 

@@ -2183,3 +2183,4 @@ including on small screens. */
     gap: 0;
   }
 }
+.monday-welcome{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);margin-bottom:24px;background:#153a52;color:#fff;border-radius:22px;overflow:hidden}.monday-welcome>img{width:100%;height:100%;max-height:380px;object-fit:cover}.monday-welcome>div{padding:clamp(22px,3vw,38px)}.monday-welcome span{font-size:11px;letter-spacing:.14em;color:#e6bf75}.monday-welcome h2{font:400 clamp(27px,3vw,39px)/1.1 Georgia,serif;margin:18px 0}.monday-welcome p{font-size:15px;line-height:1.6;max-width:42ch}.monday-welcome .button{background:#e6bf75;color:#153a52;margin-top:16px}@media(max-width:700px){.monday-welcome{grid-template-columns:1fr}.monday-welcome>img{max-height:260px}}

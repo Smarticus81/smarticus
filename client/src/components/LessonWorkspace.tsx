@@ -63,10 +63,10 @@ export function LessonWorkspace({
     [voiceBusy, setVoiceBusy] = useState(false),
     /**
      * The lesson text, its sections, the scratchpad and the materials all live
-     * behind one menu, closed by default. Virgil and the shared board are the
+     * behind one menu. Monday opens it first for instruction. Virgil and the shared board are the
      * lesson; everything else is reference material you reach for.
      */
-    [menuOpen, setMenuOpen] = useState(false);
+    [menuOpen, setMenuOpen] = useState(lesson.date === "2026-10-05");
   const [completed, setCompleted] = useState(lesson.status === "completed"),
     [completing, setCompleting] = useState(false);
   const [completionError, setCompletionError] = useState<string | null>(null);

@@ -4,7 +4,7 @@
   "grade_level": 6,
   "day_number": 29,
   "school_day_label": "Monday October 5 2026",
-  "todays_goal": "Monday Day 29, 9:30 AM to 3:30 PM. 9:30-10:20 Mathematics; 10:20-10:30 Break: water and movement; 10:30-11:20 Writing; 11:20-11:45 French; 11:45-12:20 Science; 12:20-1:00 Lunch and movement; 1:00-1:35 History and geography; 1:35-2:35 AI Builder: discover and choose; 2:35-2:45 Break; 2:45-3:20 Literature and reading; 3:20-3:30 Check, file and close. Teach before practice. Stop at each block end. Builder is choice and preproduction; selected tool needs a real Windows setup check before build. Visual edition: each subject opens with a title page. Sequence: learn, see complete examples, then answer questions.",
+  "todays_goal": "Monday Day 29, 9:30 AM to 3:30 PM. 9:30-10:20 Mathematics; 10:20-10:30 Break; 10:30-11:20 Writing; 11:20-11:45 French; 11:45-12:20 Science; 12:20-1:00 Lunch; 1:00-1:35 History; 1:35-2:35 AI Builder: build Sky Run, a Roblox-style obstacle course; 2:35-2:45 Break; 2:45-3:20 Reading; 3:20-3:30 Check and file. Teach and show examples before questions. Use short, everyday words. One assigned Builder project, no project choices.",
   "lessons": [
     {
       "id": "2026-10-05-mathematics",
@@ -24,10 +24,10 @@
       "previous_learning": "Friday: 75%. Plotting and triangle halving improved. Height was incorrectly written as zero.",
       "course_context": "Day 29 builds from reviewed Day 28 work. Explain first; demonstrate; practice; check. Preserve original grades.",
       "learning_objectives": [
-        "Choose the correct two endpoints for height.",
+        "Choose the correct two corners for height.",
         "Find rectangle and right-triangle areas with units."
       ],
-      "why_it_matters": "Choose the correct two endpoints for height.",
+      "why_it_matters": "Choose the correct two corners for height.",
       "vocabulary": [
         {
           "term": "coordinate",
@@ -42,7 +42,7 @@
           "definition": "A square 1 unit wide and 1 unit tall."
         }
       ],
-      "written_instruction": "TIME CAP: 50 minutes. 9:30-10:20. Stop at the end of this block.\n9:30-9:35 RECONNECT. On Friday, you plotted the rectangle correctly. The next step is choosing the correct side to measure. A shape with visible height cannot have height zero.\n9:35-9:45 LEARN. In (7,1), 7 is the across address and 1 is the up address. For height, pick two corners on ONE vertical side. Their across addresses match. Their up addresses change. Count the gaps, not the grid lines.\nLook at B(7,1) and C(7,5) in the picture. Both are on x = 7. Move upward from y = 1 to y = 5: four gaps. Subtract the up addresses: 5 - 1 = 4 units. Using the two bottom corners would measure no upward change, not the rectangle height.\n9:45-10:08 PRACTICE. Use the grid for M1. Label both points used for height before subtracting. Rectangle area is width times height. For a right triangle, multiply base by perpendicular height, then divide by 2. Perpendicular means the two directions make a square corner.\n10:08-10:15 CHECK. Cover the model and try the exit. 10:15-10:20: correct one step with help or explain your method. No combined shapes today.",
+      "written_instruction": "TIME CAP: 50 minutes. 9:30-10:20. Stop at the end of this block.\n9:30-9:35 START HERE. On Friday, you plotted the rectangle correctly. The next step is choosing the correct side to measure. A shape with visible height cannot have height zero.\n9:35-9:45 LEARN. In (7,1), 7 is the across address and 1 is the up address. For height, pick two corners on ONE vertical side. Their across addresses match. Their up addresses change. Count the gaps, not the grid lines.\nLook at B(7,1) and C(7,5) in the picture. Both are on x = 7. Move upward from y = 1 to y = 5: four gaps. Subtract the up addresses: 5 - 1 = 4 units. Using the two bottom corners would measure no upward change, not the rectangle height.\n9:45-10:08 PRACTICE. Use the grid for M1. Label both points used for height before subtracting. Rectangle area is width times height. For a right triangle, multiply base by height that meets it at a square corner, then divide by 2. Perpendicular means the two directions make a square corner.\n10:08-10:15 CHECK. Cover the model and try the exit. 10:15-10:20: correct one step with help or explain your method. Stop at 10:20.",
       "worked_examples": [
         {
           "title": "Rectangle model",
@@ -78,7 +78,7 @@
       "exit_ticket": [
         {
           "id": "mathematics-d29-exit-1",
-          "prompt": "ME1. Rectangle corners: (3,1), (8,1), (8,4), (3,4). Name your height endpoints. Find width, height and area.",
+          "prompt": "ME1. Rectangle corners: (3,1), (8,1), (8,4), (3,4). Name your height corners. Find width, height and area.",
           "answer": "Same-x endpoints; width 5, height 3, area 15 square units."
         },
         {
@@ -95,7 +95,7 @@
         "Ruler"
       ],
       "estimated_minutes": 50,
-      "voice_prompt": "Day 29 Monday October 5. Block 9:30-10:20; whole day 9:30 AM to 3:30 PM. Friday: 75%. Plotting and triangle halving improved. Height was incorrectly written as zero. Teach with the lesson picture and plain definitions before practice. Give one step, then wait. Use different examples, not assigned answers. Score M1 4, M2 2, M3 2, exits 2 each = 12. Both exit methods must be correct before combined area. Preserve September 30 missing-work status; these are new attempts.",
+      "voice_prompt": "Day 29 Monday October 5. Block 9:30-10:20; whole day 9:30 AM to 3:30 PM. Friday: 75%. Plotting and triangle halving improved. Height was incorrectly written as zero. Teach with the lesson picture and plain definitions before practice. Give one step, then wait. Use different examples, not assigned answers. Score M1 4, M2 2, M3 2, exits 2 each = 12. Both exit methods must be correct before combined area. Preserve September 30 missing-work status; these are new attempts. Parent update: use everyday words, explain one step at a time, and name the exact action to take. Keep the work challenging but make the directions easy to understand.",
       "teacher_notes": "Score M1 4, M2 2, M3 2, exits 2 each = 12. Both exit methods must be correct before combined area. Preserve September 30 missing-work status; these are new attempts.",
       "answer_key": {},
       "source_references": [],
@@ -121,7 +121,7 @@
       "course_context": "Day 29 builds from reviewed Day 28 work. Explain first; demonstrate; practice; check. Preserve original grades.",
       "learning_objectives": [
         "Connect a result to an idea using a real explanation.",
-        "Revise an actual sentence from your own paragraph."
+        "Improve a sentence from your own paragraph."
       ],
       "why_it_matters": "Connect a result to an idea using a real explanation.",
       "vocabulary": [
@@ -138,7 +138,7 @@
           "definition": "Your explanation of why that fact supports your idea."
         }
       ],
-      "written_instruction": "TIME CAP: 50 minutes. 10:30-11:20. Stop at the end of this block.\n10:30-10:40 LEARN. Evidence answers: What happened? Reasoning answers: Why does that make my idea more likely? Saying the same idea twice is not an explanation.\nMODEL: The lamp stays dark with Bulb A, lights with Bulb B, then stays dark with A again. A useful reason is: The lamp works with B, so the fault seems linked to A rather than a lamp that never works.\n10:40-10:50 YOUR SOURCE. These are invented test results for the same toy robot on the same route. Both batteries began fully charged. With Battery A it stopped after 8 minutes and its voltage dropped sharply. With Battery B it ran for 30 minutes without stopping. The battery was the only planned change. The tests suggest a problem with A, but do not prove every other part is perfect.\n10:50-11:08 BUILD FOUR SENTENCES. 1: My idea is ___. 2: In the test, ___. 3: This supports my idea because ___. 4: To check further, I would ___. Say each sentence before writing. Include the 8-minute and 30-minute comparison; you may combine those facts into one sentence.\n11:08-11:15 REVISE. Choose one sentence you actually wrote. Copy it, improve it, and say why the new version is clearer. 11:15-11:20 EXIT. No long essay today.",
+      "written_instruction": "TIME CAP: 50 minutes. 10:30-11:20. Stop at the end of this block.\n10:30-10:40 LEARN. Evidence answers: What happened? Reasoning answers: Why does that make my idea more likely? Saying the same idea twice is not an explanation.\nMODEL: The lamp stays dark with Bulb A, lights with Bulb B, then stays dark with A again. A useful reason is: The lamp works with B, so Bulb A may be the problem because the lamp works with Bulb B.\n10:40-10:50 ROBOT TEST RESULTS. These are invented test results for the same toy robot on the same route. Both batteries began fully charged. With Battery A it stopped after 8 minutes and its battery power reading dropped a lot. With Battery B it ran for 30 minutes without stopping. The battery was the only planned change. The tests suggest a problem with A, but do not prove every other part is perfect.\n10:50-11:08 BUILD FOUR SENTENCES. 1: My idea is ___. 2: In the test, ___. 3: This supports my idea because ___. 4: To check further, I would ___. Say each sentence before writing. Include the 8-minute and 30-minute comparison; you may combine those facts into one sentence.\n11:08-11:15 MAKE IT CLEARER. Choose one sentence you actually wrote. Copy it, improve it, and say why the new version is clearer. 11:15-11:20 EXIT. No long essay today.",
       "worked_examples": [
         {
           "title": "Fact versus reason",
@@ -185,7 +185,7 @@
         "Smarticus lesson picture"
       ],
       "estimated_minutes": 50,
-      "voice_prompt": "Day 29 Monday October 5. Block 10:30-11:20; whole day 9:30 AM to 3:30 PM. Friday: 85%. Exact evidence was good; one reason repeated the claim. Keep the short sentence-card approach. Teach with the lesson picture and plain definitions before practice. Give one step, then wait. Use different examples, not assigned answers. Score evidence 4, paragraph claim 2/reason 4/further check 2, revision 4, exit 4 = 20. Accept short sentences and oral planning. Mark explanation quality, not length. Do not dictate assigned reasoning.",
+      "voice_prompt": "Day 29 Monday October 5. Block 10:30-11:20; whole day 9:30 AM to 3:30 PM. Friday: 85%. Exact evidence was good; one reason repeated the claim. Keep the short sentence-card approach. Teach with the lesson picture and plain definitions before practice. Give one step, then wait. Use different examples, not assigned answers. Score evidence 4, paragraph claim 2/reason 4/further check 2, revision 4, exit 4 = 20. Accept short sentences and oral planning. Mark explanation quality, not length. Do not dictate assigned reasoning. Parent update: use everyday words, explain one step at a time, and name the exact action to take. Keep the work challenging but make the directions easy to understand.",
       "teacher_notes": "Score evidence 4, paragraph claim 2/reason 4/further check 2, revision 4, exit 4 = 20. Accept short sentences and oral planning. Mark explanation quality, not length. Do not dictate assigned reasoning.",
       "answer_key": {},
       "source_references": [],
@@ -231,7 +231,7 @@
           "definition": "To draw"
         }
       ],
-      "written_instruction": "TIME CAP: 25 minutes. 11:20-11:45. Stop at the end of this block.\n11:20-11:25 REVIEW. Tu vas lire means You are going to read. Nous allons lire means We are going to read. Today add Je vais lire: I am going to read.\n11:25-11:32 LEARN. Build it: je + vais + action. The action stays in its basic form: lire, jouer, dessiner, regarder. To ask someone: Est-ce que tu vas lire ? To answer as yourself: Oui, je vais lire.\nTo say no: Non, je ne vais pas lire. Put ne before vais and pas after vais. The action stays after pas. Demain can go at the start: Demain, je vais dessiner.\n11:32-11:40 WRITE F1-F3, then practise a two-person exchange. 11:40-11:45: parent hears three new oral cues and records first try separately from a retry.",
+      "written_instruction": "TIME CAP: 25 minutes. 11:20-11:45. Stop at the end of this block.\n11:20-11:25 REVIEW. Tu vas lire means You are going to read. Nous allons lire means We are going to read. Today add Je vais lire: I am going to read.\n11:25-11:32 LEARN. Build it: je + vais + action. The action stays in its basic form: lire, jouer, dessiner, regarder. To ask someone: Est-ce que tu vas lire ? To answer as yourself: Oui, je vais lire.\nTo say no: Non, je ne vais pas lire. Put ne before vais and pas after vais. The action stays after pas. Demain can go at the start: Demain, je vais dessiner.\n11:32-11:40 WRITE F1-F3, then practise a short conversation with your parent. 11:40-11:45: your parent listens to three spoken sentences and marks correct or try again.",
       "worked_examples": [
         {
           "title": "A question and reply",
@@ -267,7 +267,7 @@
       "exit_ticket": [
         {
           "id": "french-d29-exit-1",
-          "prompt": "FE1. With the model covered, say: I am going to read; Are you going to play?; I am not going to watch. Parent records correct or retry for each.",
+          "prompt": "FE1. Without looking at the example, say: I am going to read; Are you going to play?; I am not going to watch. Parent records correct or retry for each.",
           "answer": "Je vais lire. Est-ce que tu vas jouer ? Je ne vais pas regarder."
         }
       ],
@@ -278,7 +278,7 @@
         "Smarticus lesson picture"
       ],
       "estimated_minutes": 25,
-      "voice_prompt": "Day 29 Monday October 5. Block 11:20-11:45; whole day 9:30 AM to 3:30 PM. Friday: 100%, including parent-observed oral checks. Introduce je vais rather than repeating only tu/nous. Teach with the lesson picture and plain definitions before practice. Give one step, then wait. Use different examples, not assigned answers. Written 4 points (F2 two), oral 3 = 7. Observed oral only; do not infer speech from writing. Record observer and date. Correct je/tu switches gently.",
+      "voice_prompt": "Day 29 Monday October 5. Block 11:20-11:45; whole day 9:30 AM to 3:30 PM. Friday: 100%, including parent-observed oral checks. Introduce je vais rather than repeating only tu/nous. Teach with the lesson picture and plain definitions before practice. Give one step, then wait. Use different examples, not assigned answers. Written 4 points (F2 two), oral 3 = 7. Observed oral only; do not infer speech from writing. Record observer and date. Correct je/tu switches gently. Parent update: use everyday words, explain one step at a time, and name the exact action to take. Keep the work challenging but make the directions easy to understand.",
       "teacher_notes": "Written 4 points (F2 two), oral 3 = 7. Observed oral only; do not infer speech from writing. Record observer and date. Correct je/tu switches gently.",
       "answer_key": {},
       "source_references": [],
@@ -323,7 +323,7 @@
           "definition": "The place the ray meets the mirror."
         }
       ],
-      "written_instruction": "TIME CAP: 35 minutes. 11:45-12:20. Stop at the end of this block.\n11:45-11:53 LEARN. Look at the two pictures. The same upward ray turns right from an up-right mirror, but left from a down-right mirror. Drawing the arrow you want does not make the mirror send light that way.\nThe normal is not another mirror. It is a dashed measuring guide at 90 degrees to the mirror. When the mirror turns, the normal turns too. Measure the incoming and outgoing angles from the normal, on opposite sides. These two angles match.\n11:53-12:08 DRAW. Use a ruler. For a 90-degree turn, a 45-degree diagonal mirror sits between the incoming and outgoing directions. Draw the mirror first, its normal next, and the arrows last. Label hit point, mirror and normal. Mark a small square between mirror and normal.\n12:08-12:15 explain and check. 12:15-12:20 correct one tilt or label. No laser is needed; this is a paper light-path model.",
+      "written_instruction": "TIME CAP: 35 minutes. 11:45-12:20. Stop at the end of this block.\n11:45-11:53 LEARN. Look at the two pictures. The same upward ray turns right from an up-right mirror, but left from a down-right mirror. Drawing the arrow you want does not make the mirror send light that way.\nThe normal is not another mirror. It is a dashed measuring guide at 90 degrees to the mirror. When the mirror turns, the normal turns too. Measure the coming-in and going-out angles from the normal, on opposite sides. These two angles match.\n11:53-12:08 DRAW. Use a ruler. For a 90-degree turn, a 45-degree diagonal mirror sits between the coming-in and going-out directions. Draw the mirror first, its normal next, and the arrows last. Label hit point, mirror and normal. Mark a small square between mirror and normal.\n12:08-12:15 explain and check. 12:15-12:20 correct one tilt or label. No laser is needed; this is a paper light-path model.",
       "worked_examples": [
         {
           "title": "One upward ray",
@@ -366,7 +366,7 @@
         "Ruler"
       ],
       "estimated_minutes": 35,
-      "voice_prompt": "Day 29 Monday October 5. Block 11:45-12:20; whole day 9:30 AM to 3:30 PM. Friday: 80%. Old route repaired, but first mirror in the new upward route tilted the wrong way. Teach with the lesson picture and plain definitions before practice. Give one step, then wait. Use different examples, not assigned answers. Score S1 tilts 4/normals and right angles 4/arrows and hit points 2/equal angles 2; S2 4; exit 4 = 20. Judge intended geometry, not camera perspective or perfect freehand measurement. Hold new optics if transfer tilt remains wrong.",
+      "voice_prompt": "Day 29 Monday October 5. Block 11:45-12:20; whole day 9:30 AM to 3:30 PM. Friday: 80%. Old route repaired, but first mirror in the new upward route tilted the wrong way. Teach with the lesson picture and plain definitions before practice. Give one step, then wait. Use different examples, not assigned answers. Score S1 tilts 4/normals and right angles 4/arrows and hit points 2/equal angles 2; S2 4; exit 4 = 20. Judge intended geometry, not camera perspective or perfect freehand measurement. Hold new optics if transfer tilt remains wrong. Parent update: use everyday words, explain one step at a time, and name the exact action to take. Keep the work challenging but make the directions easy to understand.",
       "teacher_notes": "Score S1 tilts 4/normals and right angles 4/arrows and hit points 2/equal angles 2; S2 4; exit 4 = 20. Judge intended geometry, not camera perspective or perfect freehand measurement. Hold new optics if transfer tilt remains wrong.",
       "answer_key": {},
       "source_references": [],
@@ -412,7 +412,7 @@
           "definition": "A group of citizens meeting to vote."
         }
       ],
-      "written_instruction": "TIME CAP: 35 minutes. 1:00-1:35. Stop at the end of this block.\n1:00-1:05 CONNECT. The river and farmland helped Rome, but people had to use them. Rules and government are human choices, not geographic features.\n1:05-1:12 VIDEO. With a parent, open Khan Academy: Roman social and political structures. Watch up to 5 minutes, pausing once to name a group you hear. Do not try to memorise every term. If playback fails, use the picture and reading below; the lesson is complete without the video.\nVIDEO LINK: https://www.khanacademy.org/humanities/world-history/ancient-medieval/roman-empire/v/roman-social-and-political-structures\n1:12-1:20 READ. According to Roman tradition, the Republic began in 509 BCE. Rome had elected officials rather than a king. Two consuls shared leading duties, usually for one year. The Senate was an influential advisory council. Citizen assemblies voted on officials or laws. This is a simple map of roles, not a modern three-branch government.\nA republic did not mean everyone had an equal voice. Women and enslaved people could not vote. Wealth and social position affected power. Plebeians, the common citizens, struggled over time for more political rights. Roman government changed across centuries.\n1:20-1:30 use the picture for H1-H2. 1:30-1:35 finish the exit. Laws are human-made rules; writing a law does not guarantee everyone obeys it.",
+      "written_instruction": "TIME CAP: 35 minutes. 1:00-1:35. Stop at the end of this block.\n1:00-1:05 CONNECT. The river and farmland helped Rome, but people had to use them. Rules and government are human choices, not parts of the land.\n1:05-1:12 VIDEO. With a parent, open Khan Academy: Roman social and political structures. Watch up to 5 minutes, pausing once to name a group you hear. Do not try to memorise every term. If playback fails, use the picture and reading below; the lesson is complete without the video.\nVIDEO LINK: https://www.khanacademy.org/humanities/world-history/ancient-medieval/roman-empire/v/roman-social-and-political-structures\n1:12-1:20 READ. According to Roman tradition, the Republic began in 509 BCE (more than 2,500 years ago). Rome had elected officials rather than a king. Two consuls shared leading duties, usually for one year. The Senate was a group of powerful people who gave advice and helped shape decisions. Assemblies were groups of male citizens who voted for leaders or on laws. This is a simple map of roles, not a modern three-branch government.\nA republic did not mean everyone had an equal voice. Women and enslaved people could not vote. Rich people and families with high standing often had more power. Ordinary citizens worked over many years to gain more say in government. Roman government changed across centuries.\n1:20-1:30 use the picture for H1-H2. 1:30-1:35 finish the exit. Laws are human-made rules; writing a law does not guarantee everyone obeys it.",
       "worked_examples": [
         {
           "title": "An imaginary club",
@@ -454,7 +454,7 @@
         "Smarticus lesson picture"
       ],
       "estimated_minutes": 35,
-      "voice_prompt": "Day 29 Monday October 5. Block 1:00-1:35; whole day 9:30 AM to 3:30 PM. Friday: 100%. Geography plus human action is understood. Move to a first look at republican government. Teach with the lesson picture and plain definitions before practice. Give one step, then wait. Use different examples, not assigned answers. H1 3, H2 4, exit 3 = 10. No test of untaught video details. Teacher background source OpenStax contains mature founding narratives; do not assign the full background page to the student. Roles lesson only.",
+      "voice_prompt": "Day 29 Monday October 5. Block 1:00-1:35; whole day 9:30 AM to 3:30 PM. Friday: 100%. Geography plus human action is understood. Move to a first look at republican government. Teach with the lesson picture and plain definitions before practice. Give one step, then wait. Use different examples, not assigned answers. H1 3, H2 4, exit 3 = 10. No test of untaught video details. Teacher background source OpenStax contains mature founding narratives; do not assign the full background page to the student. Roles lesson only. Parent update: use everyday words, explain one step at a time, and name the exact action to take. Keep the work challenging but make the directions easy to understand.",
       "teacher_notes": "H1 3, H2 4, exit 3 = 10. No test of untaught video details. Teacher background source OpenStax contains mature founding narratives; do not assign the full background page to the student. Roles lesson only.",
       "answer_key": {},
       "source_references": [
@@ -471,99 +471,105 @@
       "subject": "computer_science",
       "course": "Grade 6 Computer Science and AI",
       "unit_id": "cs-ai-game-studio",
-      "unit_title": "AI Game Studio",
+      "unit_title": "Build a game people can play",
       "lesson_number": 4,
-      "lesson_title": "Creative technology studio: choose your next build",
+      "lesson_title": "Build Sky Run: a Roblox-style obstacle course",
       "standards": [
         "CSTA 2-AP-13",
         "CSTA 2-AP-17"
       ],
       "previous_learning": "Museum After Dark earned 90%. Reset debugging and creative direction are credited. Parent requests broader ambitious projects, not automatic small game edits.",
-      "course_context": "Day 29 builds from reviewed Day 28 work. Explain first; demonstrate; practice; check. Preserve original grades.",
+      "course_context": "One assigned project. Build a real five-platform obstacle course in the supplied browser workshop. No project selection or slide plan.",
       "learning_objectives": [
-        "Discover three different creative capabilities and choose a project.",
-        "Explain one input, transformation and output in plain language.",
-        "Save a digital project brief and define the first impressive working feature."
+        "Build a path of five platforms that your character can jump across.",
+        "Add a checkpoint and a finish, then show that both work.",
+        "Save the course, reopen it, and let someone else play."
       ],
-      "why_it_matters": "Discover three different creative capabilities and choose a project.",
+      "why_it_matters": "Roblox obstacle courses are fun because someone built the path, tested the jumps and fixed the frustrating parts. Today you are that builder.",
       "vocabulary": [
         {
-          "term": "computer vision",
-          "definition": "Software using a camera image to find things such as hand positions."
+          "term": "platform",
+          "definition": "A block your character can stand on."
         },
         {
-          "term": "3D scene",
-          "definition": "A digital space with objects, light and a camera."
+          "term": "checkpoint",
+          "definition": "The place you return to after falling."
         },
         {
-          "term": "prototype",
-          "definition": "A first working version used to try an idea."
-        },
-        {
-          "term": "render",
-          "definition": "Make a finished picture or video from a digital scene."
+          "term": "test",
+          "definition": "Try it and see what really happens."
         }
       ],
-      "written_instruction": "TIME CAP: 60 minutes. 1:35-2:35. Stop at the end of this block. LAPTOP ONLY.\n1:35-1:50 DISCOVER. Read the game-to-creator gallery. Each reference connects something familiar to a capability you can learn. You are studying a design idea, not recreating a whole commercial game. The project ideas are our proposals, not claims that these games use the same AI tool.\nFORTNITE: effects and world rules. A visual effect is an animated glow, spark or trail. GTA: streets, landmarks and atmosphere. A landmark is a feature that helps you know where you are. FC 27: movement and camera presentation. Animation means making an object or character appear to move.\nROCKET LEAGUE: responsive controls and clear feedback. Feedback is the change you see or hear after an action. ROBLOX: reusable rules. One rule can work on many objects. FORZA HORIZON 6: environments and camera movement. A camera path is the route the viewer follows through a scene.\n1:50-2:05 LEARN THE THREE PATHS. DIGITAL MAGIC: a camera finds hand positions; your rule turns them into light, art or creature movement. DIRECT A TRAILER: build one scene, choose lighting and camera movement, then export a short video. IMPOSSIBLE WORLD: choose one surprising rule and make several objects respond to it. Themes can include architecture, music, nature, fantasy or something you have never explored.\nAI can help draft code, create original assets and explain mistakes. Your job is to choose the result, try it, and judge whether it matches your idea. Generated code still needs a real test. Look at the complete examples before the Your turn page.\n2:05-2:25 CREATE. Follow B1-B3 after the examples. Use a parent-tested local drawing or slide app to make a visual plan. If the selected build tool has already passed its real laptop setup test, you may make the first working feature instead. Otherwise save your plan and identify the setup need; do not spend the lesson installing unfamiliar tools.\n2:25-2:35 SHOW. Save, close and reopen your work. Then explain the first feature and the test you would use. Show the Museum After Dark reset repair briefly if available. This is evidence for the earlier explanation point, not an automatic score change.\nThese references do not require purchases, new game accounts, public posting or playing the named games. The GTA connection is limited to city design and camera work. An adult handles restricted AI services and checks hardware, age terms and camera privacy before a selected build.",
+      "written_instruction": "TIME CAP: 60 minutes. 1:35-2:35. Use your laptop.\nTODAY YOU ARE BUILDING SKY RUN. It is an obstacle course inspired by Roblox. Your character jumps across floating platforms to reach a glowing finish. You will build five platforms and a checkpoint. This is our own browser workshop, not Roblox Studio.\n1:35-1:40 OPEN. In Virgil, open AI Builder, then press Open Sky Run. It opens in another tab. You start with two platforms. Use Edge or Chrome. No new game account or software download is needed. If the 3D picture does not appear, ask your parent for help before continuing.\n1:40-1:48 LEARN THE BUTTONS. Build lets you change the course. Play lets you try it. Add platform adds a new block after the last one. Press a platform number to change that block. Left, Right, Closer and Farther away move it. Make wider gives you more room to land.\nLEARN THE TWO SPECIAL BLOCKS. Checkpoint gives the block a gold flag. Land there once; after your next fall, you return there. Finish gives the block a glowing gate. Reach it and the game says you finished. Restart from the beginning clears the timer and starts you back at platform 1.\n1:48-2:05 BUILD. Follow B1 after the examples. Add three platforms, making five in total. Put the checkpoint on platform 3. Put the finish on platform 5. Move platform 4 one step left to give your path a turn.\n2:05-2:20 PLAY AND FIX. Press Play. Hold W or the up arrow to move forward. Use A and D, or left and right arrows, to steer. Press Space just before the edge to jump. Release Space before the next jump. If you cannot reach a block, return to Build, select that block, and move it closer. Then try the same jump again.\nIF YOU NEED VIRGIL. Go back to the Virgil tab and say: I fall before I reach platform 4. Which button should I try? Tell him what you see. He can explain one step at a time. He cannot see a separate tab unless you share a screenshot. AI can suggest a fix; your next jump shows whether it works.\n2:20-2:30 SAVE AND REOPEN. Press Download save. Keep My-Sky-Run.json in Downloads. This file stores your platforms. Refresh the workshop, press Open save and select that file. Check that your five platforms and flags are still there.\n2:30-2:35 SHOW. Let a parent try it. Show one change you made and say what happened before and after. Keep this same game for the next lesson. We will add a new game feature after today’s course works.",
       "worked_examples": [
         {
-          "title": "From idea to behavior",
-          "problem": "A student chooses an underwater music sculpture. What is one first feature?",
-          "solution": "Moving a hand up makes the sculpture grow; moving it down makes it shrink.",
-          "explanation": "Camera input means hand position. The rule maps that position to size. The visible sculpture is the output. This is different from choosing a theme alone."
+          "title": "A jump is too far",
+          "problem": "In a practice course, the runner keeps falling before reaching a block.",
+          "solution": "Press Build. Select the far block. Press Closer once. Press Play and try that jump again.",
+          "explanation": "The smaller gap gives the runner a better chance to land. You still need to play it to find out."
         },
         {
-          "title": "Three trailer frames",
-          "problem": "A student wants to reveal a hidden garden.",
-          "solution": "Before: closed gate. Action: camera moves through gate. Result: glowing garden appears.",
-          "explanation": "Three frames show the intended experience before building the detailed scene."
+          "title": "A checkpoint works",
+          "problem": "In a practice course, the runner touches a gold flag and then falls.",
+          "solution": "The runner returns to the flagged platform. Restart from the beginning returns the runner to platform 1 instead.",
+          "explanation": "A fall and a full restart do different jobs. Testing both shows that the game follows both rules."
         }
       ],
-      "guided_practice": [],
+      "guided_practice": [
+        {
+          "id": "bg1",
+          "prompt": "After the examples, point to Build, Play and Add platform in the workshop.",
+          "hint": "They are on the left side.",
+          "answer": "Identify all three controls."
+        }
+      ],
       "independent_practice": [
         {
-          "id": "computer_science-d29-1",
-          "prompt": "B1. Choose Digital Magic, Direct a Trailer, Impossible World, or a related original idea. Name the new capability and who you want to show it to.",
-          "answer": "A concrete choice, a genuinely new capability and intended audience."
+          "id": "b1",
+          "prompt": "B1. Build five platforms. Put a checkpoint on 3 and a finish on 5. Move platform 4 one step left.",
+          "hint": "Start in Build mode. There are two platforms already.",
+          "answer": "Five platforms, checkpoint on third, finish on fifth, fourth moved left."
         },
         {
-          "id": "computer_science-d29-2",
-          "prompt": "B2. Save a three-frame digital plan or, only after setup passes, a first working feature. Name one action and its result.",
-          "answer": "Three clear frames or functioning feature, with action/result and an actual saved file."
+          "id": "b2",
+          "prompt": "B2. Play from start to finish. If a jump fails, change one thing and try it again. Show what you changed.",
+          "hint": "Try Closer or Make wider.",
+          "answer": "A playable route plus an observed before/after change; do not grade on speed."
         },
         {
-          "id": "computer_science-d29-3",
-          "prompt": "B3. Pick the first milestone for next session. State one test that would tell you it works.",
-          "answer": "A bounded meaningful feature and observable success test, not a vague improve it."
+          "id": "b3",
+          "prompt": "B3. Press Download save. Reopen that file with Open save. Show that your course is still there.",
+          "hint": "Look for My-Sky-Run.json in Downloads.",
+          "answer": "Actual saved file reopened, preserving five platforms and their jobs."
         }
       ],
       "exit_ticket": [
         {
-          "id": "computer_science-d29-exit-1",
-          "prompt": "BE1. Show your saved work. Explain what you chose, what is new for you, and what must work before the next build starts.",
-          "answer": "Student explanation plus actual saved artifact; honest setup status."
+          "id": "be1",
+          "prompt": "BE1. Reach the checkpoint, then fall on purpose. Where do you return? Now press Restart from the beginning. Show the difference.",
+          "rubric": "Show both actions in the working game.",
+          "answer": "Fall returns to activated checkpoint; full restart returns to platform 1 and clears the timer."
         }
       ],
       "mastery_threshold": 85,
       "materials": [
-        "Windows ARM laptop",
-        "Parent-tested local drawing or slide app",
-        "Parent assistance for account and setup checks"
+        "Laptop with Edge or Chrome",
+        "Sky Run workshop in Virgil",
+        "Downloads folder for the saved course"
       ],
       "estimated_minutes": 60,
-      "voice_prompt": "Day 29 Monday October 5. Block 1:35-2:35; whole day 9:30 AM to 3:30 PM. Museum After Dark earned 90%. Reset debugging and creative direction are credited. Parent requests broader ambitious projects, not automatic small game edits. Teach with the lesson picture and plain definitions before practice. Give one step, then wait. Use different examples, not assigned answers. Today is discovery/preproduction, not a falsely pretested build assignment. Grade choice/new capability 3, visual plan or prototype 3, observable success test 2, saved artifact/explanation 2 = 10. No loss of points for adult setup not ready. Hardware: Windows ARM Snapdragon X Elite, 16 GB RAM, Adreno GPU, webcam confirmed. No Windows-device tests performed by assistant. Parent must test exact chosen software, permissions, save/reopen/export. Native Blender ARM available; Roblox ARM compatibility not confirmed. ChatGPT interaction for an under-13 learner must be conducted by adult. Keep camera input local in the chosen implementation; no public publishing or paid services by default. Future sessions: first working capability, personal style/integration, test and showcase. Do not default to football, a prescribed tool list or a small Museum edit. Use the current-game gallery to connect familiar experiences to creative capabilities, then introduce non-game applications. Present the complete lesson and examples before requesting answers.",
-      "teacher_notes": "Today is discovery/preproduction, not a falsely pretested build assignment. Grade choice/new capability 3, visual plan or prototype 3, observable success test 2, saved artifact/explanation 2 = 10. No loss of points for adult setup not ready. Hardware: Windows ARM Snapdragon X Elite, 16 GB RAM, Adreno GPU, webcam confirmed. No Windows-device tests performed by assistant. Parent must test exact chosen software, permissions, save/reopen/export. Native Blender ARM available; Roblox ARM compatibility not confirmed. ChatGPT interaction for an under-13 learner must be conducted by adult. Keep camera input local in the chosen implementation; no public publishing or paid services by default. Future sessions: first working capability, personal style/integration, test and showcase. Do not default to football, a prescribed tool list or a small Museum edit. Current-game connections added October 5: Fortnite, GTA, EA SPORTS FC 27, Rocket League, Roblox and Forza Horizon 6. These are design references, not mandatory installations or claims of equivalent features. GTA is used only for nonviolent city/camera design; no mature gameplay assignment. All teaching and worked models precede independent questions. Digital Magic, Trailer and Impossible World remain learner choices.",
-      "answer_key": {},
+      "voice_prompt": "Today’s one assigned build is Sky Run, a Roblox-style obstacle course. Do not offer project choices. Give one short button-level instruction at a time. Use platform, jump, flag, save and try. Avoid capability, input/output, transformation, artifact, prototype, preproduction, milestone and pipeline. Say checkpoint means where you return after falling. Open Sky Run is a button in Monday’s Learn panel. Workshop actions are Add platform, Build, Play, Left, Right, Closer, Farther away, Make wider, Checkpoint, Finish, Download save, Open save and Restart from the beginning. Give direct setup and button help; these are not hidden academic answers. Let him do the building and tell you what happened. Do not claim to see the other tab or change its course. Ask for a screenshot if needed.",
+      "teacher_notes": "Parent requested one assigned project and much simpler words. Supersedes all earlier Day 29 discovery/choice plans. Sky Run is a custom browser workshop inspired by Roblox obstacle courses, not Roblox Studio. Students edit the course, play, fix a jump, and save/reopen a file. Score build requirements 4, observed change and retest 2, save/reopen 2, checkpoint versus full restart demonstration 2, total 10. Do not grade speed. Keep Friday’s Builder grade unchanged. Browser and automated checks apply only to the tested environment; No Windows-device tests performed on Atticus’s own laptop. Adult checks the 3D view opens in Edge/Chrome before the block. No new child AI account, purchase, camera or public posting is required. Existing Virgil provides AI coaching. Future sessions build on this same saved course.",
+      "answer_key": {
+        "bg1": "Identify all three controls.",
+        "b1": "Five platforms, checkpoint on third, finish on fifth, fourth moved left.",
+        "b2": "A playable route plus an observed before/after change; do not grade on speed.",
+        "b3": "Actual saved file reopened, preserving five platforms and their jobs.",
+        "be1": "Fall returns to activated checkpoint; full restart returns to platform 1 and clears the timer."
+      },
       "source_references": [
-        "https://developers.google.com/edge/mediapipe/solutions/vision/hand_landmarker/web_js",
-        "https://www.blender.org/download/",
-        "https://create.roblox.com/docs/assistant/guide",
-        "https://help.openai.com/en/articles/8313401-is-chatgpt-safe-for-all-ages",
-        "https://www.fortnite.com/developer/tools?lang=en-US",
-        "https://www.rockstargames.com/VI",
-        "https://www.ea.com/games/ea-sports-fc/fc-27",
-        "https://www.rocketleague.com/",
-        "https://forza.net/forzahorizon6"
+        "https://create.roblox.com/docs/tutorials/curriculums/building",
+        "https://smarticus-production.up.railway.app/workshops/sky-run"
       ],
       "status": "scheduled"
     },
@@ -587,7 +593,7 @@
       "course_context": "Day 29 builds from reviewed Day 28 work. Explain first; demonstrate; practice; check. Preserve original grades.",
       "learning_objectives": [
         "Read for 25 minutes from the actual bookmark after page 93.",
-        "Connect one exact detail to a clearly named theory."
+        "Connect one exact detail to a clearly stated idea."
       ],
       "why_it_matters": "Read for 25 minutes from the actual bookmark after page 93.",
       "vocabulary": [
@@ -604,7 +610,7 @@
           "definition": "Another possible explanation."
         }
       ],
-      "written_instruction": "TIME CAP: 35 minutes. 2:45-3:20. Stop at the end of this block.\n2:45-3:10 READ. Open The Westing Game at your actual bookmark after page 93. If the bookmark differs, record the real page. Read for 25 minutes; do not rush toward a fixed ending page.\n3:10-3:17 RECORD ONE CLUE. Name an exact action or words and where you found them. Name your theory clearly. Give another possible meaning. Then explain keep or change using that specific detail, not just I need more evidence.\nUseful frame: I will keep/change the idea that ___ because on page/chapter ___, ___. This makes my idea more/less likely because ___. A clue can fit more than one person. It does not automatically prove who caused an event.\n3:17-3:20 EXIT. Point to the passage. Explain what the detail does NOT prove. No spoilers and no invented book events.",
+      "written_instruction": "TIME CAP: 35 minutes. 2:45-3:20. Stop at the end of this block.\n2:45-3:10 READ. Open The Westing Game at your actual bookmark after page 93. If the bookmark differs, record the real page. Read for 25 minutes; do not rush toward a fixed ending page.\n3:10-3:17 RECORD ONE CLUE. Name an exact action or words and where you found them. Say clearly what you think happened. A theory is an idea you are trying to check. Give another possible meaning. Then explain keep or change using that exact detail, not just I need more evidence.\nUseful frame: I will keep/change the idea that ___ because on page/chapter ___, ___. This makes my idea more/less likely because ___. A clue can fit more than one person. It does not automatically prove who caused an event.\n3:17-3:20 EXIT. Point to the part of the book. Explain what the detail does NOT prove. No spoilers and no invented book events.",
       "worked_examples": [
         {
           "title": "Keep, with a link",
@@ -628,7 +634,7 @@
         },
         {
           "id": "literature-d29-2",
-          "prompt": "L2. Complete one clue card: exact detail; page/chapter; named theory; another possible meaning; keep/change with a specific because link.",
+          "prompt": "L2. Complete one clue card: exact detail; page/chapter; your idea; another possible meaning; keep/change with a clear reason using the book.",
           "answer": "Verify passage in student edition. Do not assume event/locator accuracy without the book."
         }
       ],
@@ -647,7 +653,7 @@
         "The Westing Game at actual bookmark after page 93"
       ],
       "estimated_minutes": 35,
-      "voice_prompt": "Day 29 Monday October 5. Block 2:45-3:20; whole day 9:30 AM to 3:30 PM. Friday: 90%. Read pages 81-93 for 25 minutes. Locator and alternative improved; keep/change needs a specific evidence link. Teach with the lesson picture and plain definitions before practice. Give one step, then wait. Use different examples, not assigned answers. Clue card 10: detail 2, locator 2, theory 2, alternative 2, decision with link 2. Record reading and exit separately. Book remains in progress; 8 reading points pending completion/comprehension. Do not set a fabricated chapter or ending page.",
+      "voice_prompt": "Day 29 Monday October 5. Block 2:45-3:20; whole day 9:30 AM to 3:30 PM. Friday: 90%. Read pages 81-93 for 25 minutes. Locator and alternative improved; keep/change needs a specific evidence link. Teach with the lesson picture and plain definitions before practice. Give one step, then wait. Use different examples, not assigned answers. Clue card 10: detail 2, locator 2, theory 2, alternative 2, decision with link 2. Record reading and exit separately. Book remains in progress; 8 reading points pending completion/comprehension. Do not set a fabricated chapter or ending page. Parent update: use everyday words, explain one step at a time, and name the exact action to take. Keep the work challenging but make the directions easy to understand.",
       "teacher_notes": "Clue card 10: detail 2, locator 2, theory 2, alternative 2, decision with link 2. Record reading and exit separately. Book remains in progress; 8 reading points pending completion/comprehension. Do not set a fabricated chapter or ending page.",
       "answer_key": {},
       "source_references": [],
