@@ -17,12 +17,19 @@ export function CameraView({ onClose }: { onClose: () => void }) {
   const [error, setError] = useState<string | null>(null);
   const [captured, setCaptured] = useState(false);
 
+  const [frameError, setFrameError] = useState(false);
+
   useEffect(() => {
     const video = videoRef.current;
     const stream = camera.preview;
     if (!video || !stream) return;
     video.srcObject = stream;
-    void video.play().catch(() => undefined);
+    // Browsers only promise autoplay for a muted stream; a refused play() is a
+    // black box with the camera light on, so the panel says so and lets him retry.
+    void video.play().then(
+      () => setFrameError(false),
+      () => setFrameError(true),
+    );
     return () => {
       video.srcObject = null;
     };
@@ -74,6 +81,17 @@ export function CameraView({ onClose }: { onClose: () => void }) {
         </button>
         <small>Virgil can look through this camera while it is on.</small>
       </div>
+      {frameError && (
+        <p className="inline-error" role="alert">
+          The camera is on but the picture did not start.{" "}
+          <button
+            className="text-button"
+            onClick={() => void videoRef.current?.play().then(() => setFrameError(false), () => undefined)}
+          >
+            Try showing it again
+          </button>
+        </p>
+      )}
       {captured && !work.error && !work.submitting && work.last?.mode === "paper" && (
         <p className="camera-status" role="status">
           That page is in. You can photograph another one if there is more.

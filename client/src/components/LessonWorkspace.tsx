@@ -24,7 +24,7 @@ import { VirgilAvatar } from "../voice/VirgilAvatar";
 import { Whiteboard } from "../voice/Whiteboard";
 import { Reader } from "../voice/Reader";
 import { CameraView } from "../voice/CameraView";
-import { camera } from "../voice/camera";
+import { camera, useCamera } from "../voice/camera";
 import { lessonWork } from "../voice/workStore";
 import { reader, useReader } from "../voice/readerStore";
 import {
@@ -77,8 +77,8 @@ export function LessonWorkspace({
   const journeyRef = useRef<HTMLElement>(null);
   const board = useWhiteboard();
   const readerState = useReader();
-  const [cameraOn, setCameraOn] = useState(camera.active);
-  useEffect(() => camera.onChange(setCameraOn), []);
+  const cameraState = useCamera();
+  const cameraOn = cameraState.active;
   useEffect(() => () => camera.stop(), []);
   const [practiceSelection, setPracticeSelection] = useState<
     { index: number; nonce: number } | undefined
@@ -304,12 +304,14 @@ export function LessonWorkspace({
             <button
               className="focus-switch"
               aria-pressed={cameraOn}
+              aria-busy={cameraState.starting}
+              disabled={cameraState.starting}
               onClick={() =>
                 cameraOn ? camera.stop() : void camera.start().catch(() => undefined)
               }
             >
               <Icon name="camera" size={15} />
-              {cameraOn ? "Close camera" : "Camera"}
+              {cameraOn ? "Close camera" : cameraState.starting ? "Opening camera…" : "Camera"}
             </button>
             <button
               className="studio-menu-toggle"
@@ -370,6 +372,11 @@ export function LessonWorkspace({
             {board.open && <Whiteboard onClose={() => whiteboard.setOpen(false)} />}
             {cameraOn && <CameraView onClose={() => camera.stop()} />}
             {readerState.open && <Reader onClose={() => reader.close()} />}
+            {!cameraOn && cameraState.error && (
+              <p className="inline-error camera-error" role="alert" data-testid="camera-error">
+                {cameraState.error}
+              </p>
+            )}
             {!board.open && !readerState.open && !cameraOn && (
               <div className="stage-empty">
                 <p>
@@ -385,9 +392,10 @@ export function LessonWorkspace({
                   </button>
                   <button
                     className="text-button"
+                    disabled={cameraState.starting}
                     onClick={() => void camera.start().catch(() => undefined)}
                   >
-                    Show Virgil my paper
+                    {cameraState.starting ? "Opening camera…" : "Show Virgil my paper"}
                   </button>
                 </div>
               </div>

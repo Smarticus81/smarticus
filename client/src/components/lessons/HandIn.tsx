@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Icon } from "../Icon";
-import { camera } from "../../voice/camera";
+import { camera, useCamera } from "../../voice/camera";
 import { lessonWork, useLessonWork } from "../../voice/workStore";
 
 function receipt(mode: "platform" | "paper", when: string): string {
@@ -24,6 +24,7 @@ function receipt(mode: "platform" | "paper", when: string): string {
  */
 export function HandIn() {
   const work = useLessonWork();
+  const cameraState = useCamera();
   const { answered, total } = lessonWork.progress();
   const [note, setNote] = useState("");
   const nothingYet = answered === 0;
@@ -76,11 +77,20 @@ export function HandIn() {
         <button
           className="text-button"
           onClick={() => void camera.start().catch(() => undefined)}
-          disabled={work.submitting}
+          disabled={work.submitting || cameraState.starting || cameraState.active}
         >
-          Did it on paper? Open the camera
+          {cameraState.active
+            ? "The camera is open above"
+            : cameraState.starting
+              ? "Opening camera…"
+              : "Did it on paper? Open the camera"}
         </button>
       </div>
+      {!cameraState.active && cameraState.error && (
+        <p className="inline-error" role="alert">
+          {cameraState.error}
+        </p>
+      )}
       {nothingYet && (
         <p className="hand-in-hint">
           Write something in at least one answer box first, or photograph your
