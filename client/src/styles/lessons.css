@@ -1991,6 +1991,15 @@ Atticus sees at the same size for as long as it
   color: #2e6b45;
 }
 
+/* The reason the camera would not open, printed where the panel would have
+   been. It must not take a surface's share of the height: it is one line. */
+.stage-surfaces > .camera-error {
+  flex: none;
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
 .stage-empty-actions {
   display: flex;
   gap: 16px;
