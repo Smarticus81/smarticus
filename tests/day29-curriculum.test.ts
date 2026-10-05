@@ -19,11 +19,12 @@ it("the visual lesson shows complete teaching before the learner is asked to pra
  const day=DailyScheduleSchema.parse(JSON.parse(await readFile("curriculum/2026-27/daily/2026-10-05.json","utf8")));
  for(const lesson of day.lessons){
   const page=renderToStaticMarkup(createElement(Day29Lesson,{lesson,onExplore:()=>{}}));
+  if(lesson.subject === "computer_science"){assert.match(page,/HOVER ONE/);assert.match(page,/Hover-Studio.blend/);assert.ok(page.indexOf("Learn the few controls") < page.indexOf("Show what you made"));continue;}
   assert.ok(page.indexOf("LEARN THE IDEA") < page.indexOf("SEE HOW IT WORKS"));
   assert.ok(page.indexOf("Worked result") < page.indexOf("Ready to try the idea?"));
   assert.equal((page.match(/Worked result/g)||[]).length,lesson.worked_examples.length);
   assert.doesNotMatch(page,/<textarea|<input|What would you try first/);
  }
  const builder=day.lessons.find(l=>l.subject==="computer_science")!;
- assert.match(builder.written_instruction,/Roblox/); assert.match(builder.written_instruction,/Add platform/); assert.doesNotMatch(builder.written_instruction,/LEARN THE THREE PATHS|preproduction|capability/);
+ assert.match(builder.written_instruction,/Blender/); assert.match(builder.written_instruction,/Save As Image/); assert.match(builder.written_instruction,/Shift\+D/); assert.doesNotMatch(builder.written_instruction,/LEARN THE THREE PATHS|preproduction|capability/);
 });

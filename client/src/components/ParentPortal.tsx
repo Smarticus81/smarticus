@@ -308,6 +308,13 @@ function Curriculum({dashboard}:{dashboard:Dashboard}) {
   const live = new Map(dashboard.subjects.map((item)=>[item.subject,item]));
   return <>
     <details className="parent-visual-review">
+      <summary>Monday AI Builder: HOVER ONE — setup and downloads</summary>
+      <p>1:35–2:35. Atticus builds a seven-part hover-car in Blender and exports a poster. The camera, lights and stage are supplied; he creates the car.</p>
+      <p>Before class, install Blender 5.2 Windows ARM for his Snapdragon laptop. Follow the PDF’s Cycles CPU settings, render the empty stage, then save and reopen a temporary test file. The scene was tested in Blender remotely; his laptop still needs this check. No GitHub or new child account is needed.</p>
+      <p><a href="/lesson-visuals/2026-10-05/Hover-Studio.blend" download>Starting studio</a> · <a href="/lesson-visuals/2026-10-05/Atticus_AI_Builder_2026-10-05.pdf" download>Illustrated lesson and parent setup PDF</a></p>
+      <p>Save .blend and .png files in Documents → Atticus-AI-Builder. Next session animates this same car. Setup failures are not a student grade; Monday remains ungraded until work is reviewed.</p>
+    </details>
+    <details className="parent-visual-review">
       <summary>Monday, October 5: updated teaching pictures</summary>
       <p>These are taught examples. The pictures show the actual lesson ideas before Atticus attempts his questions.</p>
       <div className="parent-visual-grid">{[{file:"mathematics",title:"Count the height gaps"},{file:"math_half",title:"Two triangles make a rectangle"},{file:"writing",title:"Compare the same lamp"},{file:"french",title:"Follow the conversation"},{file:"history_geography",title:"Meet Rome’s decision-makers"}].map(item=><a key={item.file} href={`/lesson-visuals/2026-10-05/${item.file}-v2.jpg`} target="_blank" rel="noreferrer"><img src={`/lesson-visuals/2026-10-05/${item.file}-v2.jpg`} alt={item.title} loading="lazy"/><strong>{item.title} ↗</strong></a>)}</div>

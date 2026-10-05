@@ -53,7 +53,7 @@ class Book:
  def save(self):self.finishpage();self.c.save();return self.pages
 names={'mathematics':'Mathematics','writing':'Writing','french':'French','science':'Science','history_geography':'History & geography','computer_science':'AI Builder','literature':'Literature'}
 times=['9:30-10:20','10:30-11:20','11:20-11:45','11:45-12:20','1:00-1:35','1:35-2:35','2:45-3:20']
-taglines=['Measure the space.','Make your reason clear.','Say what you will do.','Follow the light.','Meet the people in power.','Build Sky Run.','Follow a clue carefully.']
+taglines=['Measure the space.','Make your reason clear.','Say what you will do.','Follow the light.','Meet the people in power.','Build HOVER ONE.','Follow a clue carefully.']
 def divider(b,l,i):
  sub=l['subject'];b.page(names[sub],'NEXT UP  /  '+str(i+1).zfill(2),sub);b.text(times[i]+'  |  '+str(l['estimated_minutes'])+' MINUTES',11,True,G);b.text(taglines[i],30,False,N,after=18);
  if sub=='computer_science':
@@ -67,7 +67,7 @@ def cover(b,parent=False):
  b.c.drawImage(str(A/'rome-republic.jpg'),38,248,width=536,height=357,mask='auto');b.y=230;b.text('Look closely. Understand the idea. Make something of your own.',20,False,N);b.text('Seven subjects, one clear flow. See recognizable people and objects. Follow clearly labelled models before trying the questions.',11)
 def roadmap(b):
  b.page('Your Monday route','START HERE')
- rows=[('9:30-10:20','Mathematics','Correct height endpoints'),('10:20-10:30','Break','Water and movement'),('10:30-11:20','Writing','Explain why evidence matters'),('11:20-11:45','French','Tu asks; je answers'),('11:45-12:20','Science','Mirror direction and normals'),('12:20-1:00','Lunch','Eat and move'),('1:00-1:35','History','Who had a voice in Rome?'),('1:35-2:35','AI Builder','Build a Roblox-style obstacle course'),('2:35-2:45','Break','Step away from the screen'),('2:45-3:20','Literature','Read and connect a clue'),('3:20-3:30','Closeout','Check and file')]
+ rows=[('9:30-10:20','Mathematics','Correct height endpoints'),('10:20-10:30','Break','Water and movement'),('10:30-11:20','Writing','Explain why evidence matters'),('11:20-11:45','French','Tu asks; je answers'),('11:45-12:20','Science','Mirror direction and normals'),('12:20-1:00','Lunch','Eat and move'),('1:00-1:35','History','Who had a voice in Rome?'),('1:35-2:35','AI Builder','Build a 3D hover-car in Blender'),('2:35-2:45','Break','Step away from the screen'),('2:45-3:20','Literature','Read and connect a clue'),('3:20-3:30','Closeout','Check and file')]
  for tm,n,t in rows:
   
   top=b.y;b.text(tm+'   '+n,12,True,after=2);b.text(t,10,after=12)
@@ -120,33 +120,27 @@ def practice(b,l):
   elif sub=='science':b.drawspace(100)
   elif sub!='computer_science':b.lines(2)
 
+from day29_builder_sections import builder_pages
 student=Book(O/'Atticus_Day29_Monday_2026-10-05_Student.pdf','student');cover(student);roadmap(student)
-for i,l in enumerate(day['lessons']):divider(student,l,i);teach(student,l);examples(student,l);practice(student,l)
+for i,l in enumerate(day['lessons']):
+ if l['subject']=='computer_science':builder_pages(student,A)
+ else:divider(student,l,i);teach(student,l);examples(student,l);practice(student,l)
 student.page('Finish with a clear desk','3:20-3:30  /  CLOSEOUT');student.card('Check and file','Keep your original attempts. Add corrections beside them or on a new sheet. Save your Builder file and reading log.',GREEN)
-for t in ['One idea I understand better now','One step I still want explained','One part of my Sky Run course I want to show']:student.text(t,12,True);student.lines(2)
+for t in ['One idea I understand better now','One step I still want explained','One part of my hover-car I want to show']:student.text(t,12,True);student.lines(2)
 sp=student.save()
 parent=Book(O/'Atticus_Day29_Monday_2026-10-05_Parent.pdf','parent');cover(parent,True);roadmap(parent);parent.page('Friday informs Monday','REVIEW & PREPARATION')
 rev=next(x for x in json.loads((REPO/'curriculum/2026-27/records/gradebook.json').read_text())['days'] if x['date']=='2026-10-02')
 for x in rev['subjects']:parent.text(names[x['subject']]+': '+str(x['score'])+'%',13,True)
 parent.card('Keep assessment fair','Monday has not been graded. Corrections do not silently replace Friday’s scores. The Builder explanation can be observed and submitted as new evidence.',GREEN)
-parent.card('Prepare before teaching','Have the book and ruler ready. Preview the history link; if playback fails, use the included reading. Open Sky Run in Edge or Chrome before the Builder block and check that the 3D view loads.',BLUE)
+parent.card('Prepare before teaching','Have the book and ruler ready. Preview the history link; if playback fails, use the included reading. Prepare Blender Windows ARM and follow the Builder parent setup before its block.',BLUE)
 for i,l in enumerate(day['lessons']):
+ if l['subject']=='computer_science':
+  builder_pages(parent,A,True);continue
  divider(parent,l,i)
  for panel in {'mathematics':['mathematics','math_half'],'writing':['writing'],'french':['french'],'history_geography':['history_geography']}.get(l['subject'],[]):
   parent.page('The teaching picture','VISUAL MODEL',l['subject']);parent.teaching_panel(panel)
  parent.page('Teaching notes and answers','PARENT ONLY',l['subject']);parent.text(l['teacher_notes'],10.5)
  for q in l['independent_practice']+l['exit_ticket']:parent.ensure(90);parent.text(q['prompt'],10.5,True);parent.text(q['answer'],10.5,after=15)
- if l['subject']=='computer_science':
-  parent.page('Sky Run: quick parent guide','PARENT ONLY',l['subject'])
-  parent.card('What he is making','A five-platform obstacle course. The third platform is a checkpoint. The fifth is the finish. He changes the fourth platform and tests the jumps.',GREEN)
-  parent.heading('Open and check')
-  parent.text('Open https://smarticus-production.up.railway.app/workshops/sky-run in Edge or Chrome. Check that the 3D scene appears, the character moves, and Space makes it jump. No Roblox installation, new account or payment is required. This is a custom browser workshop inspired by Roblox, not Roblox Studio.',11)
-  parent.c.linkURL('https://smarticus-production.up.railway.app/workshops/sky-run',(38,parent.y,574,parent.y+75),relative=0)
-  parent.heading('Keep the file')
-  parent.text('Download save writes My-Sky-Run.json. Open save loads that file. The browser also keeps a local copy, but the download is the backup to keep. Do not clear browser storage before saving.',11)
-  parent.heading('Help without taking over')
-  parent.text('Ask him to show the jump that fails. Help him find Closer or Make wider. Let him change the course and try it again. For the checkpoint check, have him touch the flag, fall, then try a full restart. Do not deduct points for a browser or setup problem.',11)
-  parent.heading('Game connection and next lesson')
-  parent.text('Roblox calls these obstacle courses obbies. Its official building guide teaches platforms, playtesting and checkpoints. Today uses the same familiar kind of game in our own workshop. Keep this course for the next session; add a new feature only after today’s route works.',11)
-  parent.text('Source: https://create.roblox.com/docs/tutorials/curriculums/building',9)
 pp=parent.save();(R/'output/day29_page_map.json').write_text(json.dumps(dict(student=sp,parent=pp),indent=2));print('Visual edition:',len(sp),'student pages;',len(pp),'parent pages')
+
+standalone=Book(O/"Atticus_AI_Builder_2026-10-05.pdf","builder");builder_pages(standalone,A);from day29_builder_sections import parent_pages;parent_pages(standalone,A);standalone.save()
