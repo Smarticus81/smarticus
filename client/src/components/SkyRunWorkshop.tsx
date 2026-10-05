@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { newRunner, readCourse, starterCourse, stepRunner, type Platform } from "../lib/skyRun";
+import { startCanvasWorkshop } from "../lib/skyRunCanvas";
 import "../styles/sky-run.css";
 
 const SAVE = "atticus-sky-run-v1";
+let webglUnavailable = false;
 function initialCourse() { try { return readCourse(JSON.parse(localStorage.getItem(SAVE) || "null")); } catch { return starterCourse(); } }
 export function SkyRunWorkshop() {
   const [course, setCourse] = useState<Platform[]>(initialCourse);
@@ -21,9 +23,14 @@ export function SkyRunWorkshop() {
   useEffect(() => {
     if (!host.current) return;
     const node = host.current;
+    if (webglUnavailable) return startCanvasWorkshop(node,course,active,playing,jump,touch,setScore);
     let renderer: THREE.WebGLRenderer;
     try { renderer = new THREE.WebGLRenderer({antialias:true}); }
-    catch { setStatus("The 3D view could not open. Try Edge or Chrome with graphics acceleration on. Ask your parent for help; this is a setup issue."); return; }
+    catch {
+      webglUnavailable = true;
+      setStatus(playing ? "WASD or arrow keys to move. Space to jump." : "Build mode: add platforms, then try your course.");
+      return startCanvasWorkshop(node,course,active,playing,jump,touch,setScore);
+    }
     renderer.setPixelRatio(Math.min(window.devicePixelRatio,1.5));
     renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
     node.appendChild(renderer.domElement);
