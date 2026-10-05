@@ -2002,3 +2002,33 @@ Atticus sees at the same size for as long as it
 .lesson-pictures figure { margin: 20px 0; }
 .lesson-pictures img { display: block; width: 100%; height: auto; background: white; border-radius: 12px; }
 .lesson-pictures figcaption { margin-top: 10px; line-height: 1.6; color: var(--ink, #18313d); }
+.day29-lesson { display: grid; gap: 32px; color: #243847; }
+.day29-title-page { overflow: hidden; border-radius: 20px; background: #153a52; color: #fff; }
+.day29-cover-art { display: block; width: 100%; height: clamp(180px, 28vw, 300px); object-fit: cover; object-position: center 56%; }
+.day29-title-copy { padding: clamp(22px, 4vw, 42px); }
+.day29-title-copy .eyebrow { color: #e4bd71; }
+.day29-title-copy h2 { font-family: Georgia, serif; font-size: clamp(30px, 4.4vw, 48px); font-weight: 400; line-height: 1.12; margin: 22px 0; color: #fff; }
+.day29-title-copy p { max-width: 60ch; line-height: 1.65; }
+.day29-subject { display: flex; flex-wrap: wrap; gap: 12px 24px; font-weight: 600; }
+.day29-subject span { color: #e4bd71; }
+.day29-route { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.day29-route span { border: 1px solid #678091; border-radius: 999px; padding: 8px 13px; font-size: 13px; }
+.day29-section { border: 1px solid #e1e0d8; background: #faf8f3; border-radius: 16px; padding: clamp(20px, 4vw, 36px); }
+.day29-section h3, .day29-next h3 { color: #153a52; font-family: Georgia, serif; font-size: 27px; line-height: 1.25; margin: 12px 0 18px; }
+.day29-section p { line-height: 1.75; font-size: 16px; }
+.day29-section .lesson-pictures { margin: 28px 0; }
+.day29-section .lesson-pictures img { width: 100%; height: auto; }
+.day29-vocabulary { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 12px; margin: 28px 0; }
+.day29-vocabulary > div { padding: 18px; border-radius: 12px; background: #eaf2f6; }
+.day29-vocabulary strong { color: #153a52; }
+.day29-vocabulary p { margin: 8px 0 0; font-size: 14px; }
+.day29-instruction { max-width: 70ch; }
+.day29-instruction > p { margin: 0 0 24px; }
+.day29-instruction a { color: #153a52; text-decoration: underline; text-underline-offset: 4px; }
+.day29-model { padding-top: 24px; margin-top: 28px; border-top: 2px solid #c99a3d; }
+.day29-model h4 { font-size: 20px; color: #153a52; margin: 14px 0; }
+.day29-result { background: #eaf3e8; border-radius: 12px; padding: 20px; margin: 20px 0; }
+.day29-result p { margin-bottom: 0; }
+.day29-next { padding: 28px; border-radius: 16px; background: #eaf2f6; }
+.day29-next p { line-height: 1.6; }
+.day29-next button { margin-top: 12px; }

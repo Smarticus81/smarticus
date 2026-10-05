@@ -6,6 +6,7 @@ import { api } from "../../lib/api";
 import { ChoiceGroup, JournalPrompt, Scene } from "./LearningPrimitives";
 import { HandIn } from "./HandIn";
 import { LessonVisuals } from "./LessonVisuals";
+import { Day29Lesson } from "./Day29Lesson";
 
 type Journal = {
   entries: Record<string, string>;
@@ -22,6 +23,7 @@ export function UnderstandPanel({
 }) {
   const beats = instructionBeats(lesson.written_instruction);
   const [beat, setBeat] = useState(0);
+  if (lesson.date === "2026-10-05") return <Day29Lesson lesson={lesson} onExplore={onExplore} />;
   return (
     <div className="understand-panel">
       <div className="intention-card">
