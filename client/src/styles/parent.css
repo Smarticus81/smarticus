@@ -143,3 +143,5 @@
 .parent-review-notes section { padding-top: 12px; border-top: 1px solid #dbe3e7; }
 .parent-review-notes h3 { margin: 0 0 6px; font-size: 1rem; }
 .parent-review-notes p { margin: 0; line-height: 1.65; }
+
+.parent-visual-review{padding:24px;background:#FAF8F3;border:1px solid #dfd7c8;border-radius:16px;margin-bottom:24px}.parent-visual-review summary{font-size:18px;font-weight:700;cursor:pointer;color:#153A52}.parent-visual-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px;margin-top:20px}.parent-visual-grid a{color:#153A52;text-decoration:none}.parent-visual-grid img{width:100%;height:260px;object-fit:contain;background:#fff;display:block;margin-bottom:10px}

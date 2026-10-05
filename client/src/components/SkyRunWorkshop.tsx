@@ -85,7 +85,7 @@ export function SkyRunWorkshop() {
   return <main className="sky-workshop">
     <header className="sky-top"><a href="/?date=2026-10-05">← Back to Virgil</a><strong>SKY RUN <span>BUILDER WORKSHOP</span></strong><span>Inspired by Roblox obstacle courses</span></header>
     <div className="sky-layout"><aside className="sky-controls">
-      <img className="sky-characters" src="/lesson-visuals/2026-10-05/sky-run-characters.jpg" alt="A smiling young builder and robot guide beside a floating obstacle course." />
+      
       <h1>Build it. Jump it. Show it.</h1><p>Make five platforms. Add a checkpoint to 3 and a finish to 5. Then try your course.</p>
       <div className="sky-mode"><button onClick={()=>{setPlaying(false);setStatus("Build mode: pick a platform, then use the buttons below.");}} aria-pressed={!playing}>Build</button><button onClick={()=>{setPlaying(true);setRestart(n=>n+1);setStatus("WASD or arrow keys to move. Space to jump. Try reaching the finish.");}} aria-pressed={playing}>Play</button></div>
       {!playing&&<><h2>Pick a platform to change</h2><div className="sky-platforms">{course.map((p,i)=><button key={p.id} aria-pressed={p.id===active.id} onClick={()=>setSelected(p.id)}>{i+1}{p.kind==="checkpoint"?" ⚑":p.kind==="finish"?" ★":""}</button>)}</div>

@@ -16,7 +16,8 @@ export function Day29Lesson({ lesson, onExplore }: { lesson: LessonView; onExplo
   const subject = subjects[lesson.subject];
   return <div className="day29-lesson">
     <header className="day29-title-page">
-      {lesson.subject === "computer_science" ? <img className="day29-cover-art" src="/lesson-visuals/2026-10-05/sky-run-characters.jpg" alt="A smiling young builder and robot guide beside a floating obstacle course." /> : <div className={`day29-character-scene scene-${lesson.subject}`} role="img" aria-label={`A young learner and friendly robot exploring ${subject.name.toLowerCase()}.`} />}
+      {({writing:"lamp-study.jpg",french:"french-conversation.jpg",history_geography:"rome-republic.jpg"} as Record<string,string>)[lesson.subject] && <img className="day29-cover-art day29-relevant-art" src={`/lesson-visuals/2026-10-05/${({writing:"lamp-study.jpg",french:"french-conversation.jpg",history_geography:"rome-republic.jpg"} as Record<string,string>)[lesson.subject]}`} alt={lesson.subject === "writing" ? "The same recognizable desk lamp with an unlit bulb and a lit replacement bulb." : lesson.subject === "french" ? "Two classmates talking at an art table, with the boy holding a drawing pencil." : "Reconstructed scenes of Roman consuls, senators and male citizen assemblies."} />}
+
       <div className="day29-title-copy">
         <span className="eyebrow">MONDAY · DAY 29 · CHAPTER {subject.number}</span>
         <p className="day29-subject">{subject.name} <span>{subject.time}</span></p>

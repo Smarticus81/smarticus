@@ -37,10 +37,14 @@ class Book:
   d=svg2rlg(str(A/(name+'.svg')));scale=min(536/d.width,maxh/d.height);h=d.height*scale;self.ensure(h+15);self.c.saveState();self.c.translate(38,self.y-h);self.c.scale(scale,scale);renderPDF.draw(d,self.c,0,0);self.c.restoreState();self.y-=h+15
  def bitmap(self,name,maxh=335):
   im=Image.open(A/name);scale=min(536/im.width,maxh/im.height);w,h=im.width*scale,im.height*scale;self.ensure(h+15);self.c.drawImage(str(A/name),38+(536-w)/2,self.y-h,width=w,height=h);self.y-=h+15
+ def teaching_panel(self,name):
+  self.bitmap(name+'-v2.jpg',610)
  def subject_picture(self,sub):
-  order=['mathematics','writing','french','science','history_geography','literature'];i=order.index(sub);col=i%2;row=i//2
-  h=200;w=536;self.ensure(h+15);im=Image.open(A/'subject-characters.jpg');fullw=w*2;fullh=fullw*im.height/im.width;cellh=fullh/3;y=self.y-h
-  self.c.saveState();clip=self.c.beginPath();clip.rect(38,y,w,h);self.c.clipPath(clip,stroke=0);self.c.drawImage(str(A/'subject-characters.jpg'),38-col*w,y-(2-row)*cellh-(cellh-h)/2,width=fullw,height=fullh);self.c.restoreState();self.y-=h+15
+  images={'writing':'lamp-study.jpg','french':'french-conversation.jpg','history_geography':'rome-republic.jpg'}
+  if sub in images:self.bitmap(images[sub],265)
+  elif sub=='computer_science':self.graphic('sky-run-steps',265)
+  elif sub=='mathematics':self.bitmap('math_half-v2.jpg',320)
+  else:self.graphic(sub,265)
  def lines(self,n=3):
   self.ensure(n*24+10);self.c.setStrokeColor(HexColor('#AABAC3'));self.c.setLineWidth(.55)
   for _ in range(n):self.y-=24;self.c.line(38,self.y,574,self.y)
@@ -53,14 +57,14 @@ taglines=['Measure the space.','Make your reason clear.','Say what you will do.'
 def divider(b,l,i):
  sub=l['subject'];b.page(names[sub],'NEXT UP  /  '+str(i+1).zfill(2),sub);b.text(times[i]+'  |  '+str(l['estimated_minutes'])+' MINUTES',11,True,G);b.text(taglines[i],30,False,N,after=18);
  if sub=='computer_science':
-  b.bitmap('sky-run-characters.jpg');b.text('YOUR PROJECT: A ROBLOX-STYLE OBSTACLE COURSE',10,True,N);b.text('Build a real course in the workshop. The cover is story art, not a game screenshot.',9)
+  b.graphic('sky-run-steps',250);b.text('YOUR PROJECT: A ROBLOX-STYLE OBSTACLE COURSE',10,True,N);b.text('Open the workshop, build five platforms, then play your course.',11)
  else:
-  b.subject_picture(sub);b.graphic(sub,180)
+  b.subject_picture(sub)
  b.card('Today you will',l['learning_objectives'][0],GREEN);b.text('LEARN  →  SEE AN EXAMPLE  →  YOUR TURN',11,True,N);b.text('Read the teaching first. Use the picture. Then try the questions.',11)
 def cover(b,parent=False):
  b.page('A day of discovery','ATTICUS HOMESCHOOL  /  '+('PARENT GUIDE' if parent else 'STUDENT EDITION'))
  b.text('Monday, October 5',30,False,N);b.text('GRADE 6  •  DAY 29  •  9:30 AM-3:30 PM',11,True,G)
- b.c.drawImage(str(A/'sky-run-characters.jpg'),38,248,width=536,height=357,mask='auto');b.y=230;b.text('Look closely. Understand the idea. Make something of your own.',20,False,N);b.text('Seven subjects, one clear flow. Original illustrations and precise learning diagrams guide each step.',11)
+ b.c.drawImage(str(A/'rome-republic.jpg'),38,248,width=536,height=357,mask='auto');b.y=230;b.text('Look closely. Understand the idea. Make something of your own.',20,False,N);b.text('Seven subjects, one clear flow. See recognizable people and objects. Follow clearly labelled models before trying the questions.',11)
 def roadmap(b):
  b.page('Your Monday route','START HERE')
  rows=[('9:30-10:20','Mathematics','Correct height endpoints'),('10:20-10:30','Break','Water and movement'),('10:30-11:20','Writing','Explain why evidence matters'),('11:20-11:45','French','Tu asks; je answers'),('11:45-12:20','Science','Mirror direction and normals'),('12:20-1:00','Lunch','Eat and move'),('1:00-1:35','History','Who had a voice in Rome?'),('1:35-2:35','AI Builder','Build a Roblox-style obstacle course'),('2:35-2:45','Break','Step away from the screen'),('2:45-3:20','Literature','Read and connect a clue'),('3:20-3:30','Closeout','Check and file')]
@@ -71,7 +75,11 @@ def roadmap(b):
   if target:b.c.linkRect('',b.kind+'-'+target,(38,b.y,574,top),relative=0,thickness=0)
  b.card('Bring','Pencil, ruler, Friday’s work, The Westing Game, and your laptop. Stop each block on time.',GREEN)
 def teach(b,l):
- sub=l['subject'];b.page('Learn the idea','01  /  INSTRUCTION',sub)
+ sub=l['subject']
+ panels={'mathematics':['mathematics','math_half'],'writing':['writing'],'french':['french'],'history_geography':['history_geography']}
+ for panel in panels.get(sub,[]):
+  b.page('Look closely','01  /  PICTURE LESSON',sub);b.teaching_panel(panel)
+ b.page('Learn the idea','01  /  INSTRUCTION',sub)
  b.text(l['lesson_title'],20,False,N)
  for v in l['vocabulary']:b.text(v['term']+' — '+v['definition'],10,after=5)
  b.y-=8
@@ -85,7 +93,8 @@ def teach(b,l):
 def examples(b,l):
  sub=l['subject'];b.page('See how it works','02  /  WORKED EXAMPLES',sub)
  extra={'mathematics':'math_half','writing':'writing_steps','science':'science_angles','computer_science':'sky-run-steps'}
- b.graphic(extra.get(sub,sub),215)
+ 
+ if sub not in ['mathematics','writing','french','history_geography']:b.graphic(extra.get(sub,sub),215)
  for i,e in enumerate(l['worked_examples']):
   b.heading(str(i+1)+'. '+e['title']);b.text(e['problem'],11);b.card('Worked result',e['solution'],GREEN);b.text('Why: '+e['explanation'],11)
 def practice(b,l):
@@ -122,7 +131,10 @@ for x in rev['subjects']:parent.text(names[x['subject']]+': '+str(x['score'])+'%
 parent.card('Keep assessment fair','Monday has not been graded. Corrections do not silently replace Friday’s scores. The Builder explanation can be observed and submitted as new evidence.',GREEN)
 parent.card('Prepare before teaching','Have the book and ruler ready. Preview the history link; if playback fails, use the included reading. Open Sky Run in Edge or Chrome before the Builder block and check that the 3D view loads.',BLUE)
 for i,l in enumerate(day['lessons']):
- divider(parent,l,i);parent.page('Teaching notes and answers','PARENT ONLY',l['subject']);parent.text(l['teacher_notes'],10.5)
+ divider(parent,l,i)
+ for panel in {'mathematics':['mathematics','math_half'],'writing':['writing'],'french':['french'],'history_geography':['history_geography']}.get(l['subject'],[]):
+  parent.page('The teaching picture','VISUAL MODEL',l['subject']);parent.teaching_panel(panel)
+ parent.page('Teaching notes and answers','PARENT ONLY',l['subject']);parent.text(l['teacher_notes'],10.5)
  for q in l['independent_practice']+l['exit_ticket']:parent.ensure(90);parent.text(q['prompt'],10.5,True);parent.text(q['answer'],10.5,after=15)
  if l['subject']=='computer_science':
   parent.page('Sky Run: quick parent guide','PARENT ONLY',l['subject'])

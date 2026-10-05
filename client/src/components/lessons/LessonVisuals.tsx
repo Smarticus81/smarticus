@@ -28,7 +28,7 @@ const day28Pictures: typeof day27Pictures = {
 
 const day29Pictures: typeof day27Pictures = {
   mathematics: [{ file: "math_half", caption: "Two matching triangles fill the rectangle. Each covers half of its area." }, { file: "mathematics", caption: "Use two corners on the same vertical side for height. Their x addresses match; subtract their y addresses and count the gaps." }],
-  writing: [{ file: "writing_steps", caption: "Give each sentence a job: idea, exact results, reason, and another test." }, { file: "writing", caption: "A fact tells what happened. Your reason explains why that result supports your idea. Use a careful claim." }],
+  writing: [{ file: "writing", caption: "The same lamp stays dark with A, lights with B, then stays dark with A again. The picture shows the comparison; the sentences explain what it suggests." }, { file: "writing_steps", caption: "Give each sentence a job: idea, exact results, reason, and another test." }],
   french: [{ file: "french", caption: "Ask with tu vas, then answer as yourself with je vais. For no, put ne and pas around vais." }],
   science: [{ file: "science_angles", caption: "The normal is a guide line at 90 degrees to the mirror. Incoming and outgoing angles are measured from it." }, { file: "science", caption: "The mirror tilt decides which way an upward ray turns. The dashed normal makes a 90-degree corner with the mirror." }],
   history_geography: [{ file: "history_geography", caption: "Consuls, Senate and assemblies had different roles. Sharing power did not mean everyone could vote." }],
@@ -44,8 +44,9 @@ export function LessonVisuals({ lesson }: { lesson: LessonView }) {
   return <section className="lesson-pictures" aria-label="Pictures for this lesson">
     <h3>Look at the idea</h3>
     {pictures.map(({ file, caption }) => <figure key={file}>
-      <img src={`/lesson-visuals/${lesson.date}/${file}.svg`} alt={caption} />
+      <img src={`/lesson-visuals/${lesson.date}/${file}${lesson.date === "2026-10-05" && ["mathematics","math_half","writing","french","history_geography"].includes(file) ? "-v2.jpg" : ".svg"}`} alt={caption} loading="lazy" />
       <figcaption>{caption}</figcaption>
+      {lesson.date === "2026-10-05" && ["mathematics","math_half","writing","french","history_geography"].includes(file) && <a href={`/lesson-visuals/${lesson.date}/${file}-v2.jpg`} target="_blank" rel="noreferrer">Open full-size teaching picture ↗</a>}
     </figure>)}
   </section>;
 }

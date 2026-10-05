@@ -307,6 +307,11 @@ function GradeChip({grade}:{grade:SubjectGrade}) {
 function Curriculum({dashboard}:{dashboard:Dashboard}) {
   const live = new Map(dashboard.subjects.map((item)=>[item.subject,item]));
   return <>
+    <details className="parent-visual-review">
+      <summary>Monday, October 5: updated teaching pictures</summary>
+      <p>These are taught examples. The pictures show the actual lesson ideas before Atticus attempts his questions.</p>
+      <div className="parent-visual-grid">{[{file:"mathematics",title:"Count the height gaps"},{file:"math_half",title:"Two triangles make a rectangle"},{file:"writing",title:"Compare the same lamp"},{file:"french",title:"Follow the conversation"},{file:"history_geography",title:"Meet Rome’s decision-makers"}].map(item=><a key={item.file} href={`/lesson-visuals/2026-10-05/${item.file}-v2.jpg`} target="_blank" rel="noreferrer"><img src={`/lesson-visuals/2026-10-05/${item.file}-v2.jpg`} alt={item.title} loading="lazy"/><strong>{item.title} ↗</strong></a>)}</div>
+    </details>
     <div className="curriculum-title-row">
       <div>
         <span className="parent-eyebrow">Full Grade 6 curriculum</span>

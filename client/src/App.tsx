@@ -313,8 +313,8 @@ export default function App() {
               {page === "today" && !loading && !error && (
                 <>
                   {date === "2026-10-05" && <section className="monday-welcome">
-                    <img src="/lesson-visuals/2026-10-05/sky-run-characters.jpg" alt="A friendly young builder and robot guide invite you into a floating obstacle course." />
-                    <div><span>MONDAY · 9:30–3:30</span><h2>A clear step.<br />A new adventure.</h2><p>Pictures first. Short directions. Then your turn. Today in AI Builder, make a Roblox-style obstacle course you can play.</p><button className="button dark" onClick={()=>{const builder=lessons.find(l=>l.subject==="computer_science");if(builder)openLesson(builder);}}>See today’s Builder lesson →</button></div>
+                    <img src="/lesson-visuals/2026-10-05/rome-republic.jpg" alt="Three reconstructed scenes showing the people in Roman government." />
+                    <div><span>MONDAY · 9:30–3:30</span><h2>Look closely.<br />See how it works.</h2><p>Pictures first. Short directions. Then your turn. Today in AI Builder, make a Roblox-style obstacle course you can play.</p><button className="button dark" onClick={()=>{const builder=lessons.find(l=>l.subject==="computer_science");if(builder)openLesson(builder);}}>See today’s Builder lesson →</button></div>
                   </section>}
                   <div className="home-top-grid">
                     <section className="hero-card">
