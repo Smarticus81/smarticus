@@ -1,0 +1,652 @@
+{
+  "date": "2026-10-05",
+  "school_year": "2026-27",
+  "grade_level": 6,
+  "day_number": 29,
+  "school_day_label": "Monday October 5 2026",
+  "todays_goal": "Monday Day 29, 9:30 AM to 3:30 PM. 9:30-10:20 Mathematics; 10:20-10:30 Break: water and movement; 10:30-11:20 Writing; 11:20-11:45 French; 11:45-12:20 Science; 12:20-1:00 Lunch and movement; 1:00-1:35 History and geography; 1:35-2:35 AI Builder: discover and choose; 2:35-2:45 Break; 2:45-3:20 Literature and reading; 3:20-3:30 Check, file and close. Teach before practice. Stop at each block end. Builder is choice and preproduction; selected tool needs a real Windows setup check before build.",
+  "lessons": [
+    {
+      "id": "2026-10-05-mathematics",
+      "date": "2026-10-05",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "mathematics",
+      "course": "Grade 6 Mathematics",
+      "unit_id": "math-geometry-area",
+      "unit_title": "Area and Coordinate Geometry",
+      "lesson_number": 13,
+      "lesson_title": "Height comes from one vertical side",
+      "standards": [
+        "6.G.A.1",
+        "6.NS.C.6c"
+      ],
+      "previous_learning": "Friday: 75%. Plotting and triangle halving improved. Height was incorrectly written as zero.",
+      "course_context": "Day 29 builds from reviewed Day 28 work. Explain first; demonstrate; practice; check. Preserve original grades.",
+      "learning_objectives": [
+        "Choose the correct two endpoints for height.",
+        "Find rectangle and right-triangle areas with units."
+      ],
+      "why_it_matters": "Choose the correct two endpoints for height.",
+      "vocabulary": [
+        {
+          "term": "coordinate",
+          "definition": "A point address: (across, up), also called (x, y)."
+        },
+        {
+          "term": "height",
+          "definition": "The up-and-down distance, not the point address."
+        },
+        {
+          "term": "square unit",
+          "definition": "A square 1 unit wide and 1 unit tall."
+        }
+      ],
+      "written_instruction": "TIME CAP: 50 minutes. 9:30-10:20. Stop at the end of this block.\n9:30-9:35 RECONNECT. On Friday, you plotted the rectangle correctly. The next step is choosing the correct side to measure. A shape with visible height cannot have height zero.\n9:35-9:45 LEARN. In (7,1), 7 is the across address and 1 is the up address. For height, pick two corners on ONE vertical side. Their across addresses match. Their up addresses change. Count the gaps, not the grid lines.\nLook at B(7,1) and C(7,5) in the picture. Both are on x = 7. Move upward from y = 1 to y = 5: four gaps. Subtract the up addresses: 5 - 1 = 4 units. Using the two bottom corners would measure no upward change, not the rectangle height.\n9:45-10:08 PRACTICE. Use the grid for M1. Label both points used for height before subtracting. Rectangle area is width times height. For a right triangle, multiply base by perpendicular height, then divide by 2. Perpendicular means the two directions make a square corner.\n10:08-10:15 CHECK. Cover the model and try the exit. 10:15-10:20: correct one step with help or explain your method. No combined shapes today.",
+      "worked_examples": [
+        {
+          "title": "Rectangle model",
+          "problem": "A(2,1), B(7,1), C(7,5), D(2,5). Find height and area.",
+          "solution": "B to C: 5 - 1 = 4. Width: 7 - 2 = 5. Area: 5 × 4 = 20 square units.",
+          "explanation": "The two height points have the same x address. Count four gaps to check."
+        },
+        {
+          "title": "Triangle refresher",
+          "problem": "A right triangle has base 8 units and height 3 units.",
+          "solution": "8 × 3 = 24; 24 ÷ 2 = 12 square units.",
+          "explanation": "Two matching right triangles make the 8-by-3 rectangle."
+        }
+      ],
+      "guided_practice": [],
+      "independent_practice": [
+        {
+          "id": "mathematics-d29-1",
+          "prompt": "M1. Plot A(1,2), B(6,2), C(6,6), D(1,6). Join the corners. Circle the two points you use for height. Show width, height and area.",
+          "answer": "B,C or A,D; width 5, height 4, area 20 square units."
+        },
+        {
+          "id": "mathematics-d29-2",
+          "prompt": "M2. A student compares (2,3) with (8,3) and says a rectangle has height 0. Its top corners are (2,7) and (8,7). Explain the mistake and find the actual height.",
+          "answer": "Compared bottom corners; use same-x pair, 7 - 3 = 4 units."
+        },
+        {
+          "id": "mathematics-d29-3",
+          "prompt": "M3. A right triangle has base 6 units and height 5 units. Show two calculations for its area.",
+          "answer": "6 × 5 = 30; 30 ÷ 2 = 15 square units."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "mathematics-d29-exit-1",
+          "prompt": "ME1. Rectangle corners: (3,1), (8,1), (8,4), (3,4). Name your height endpoints. Find width, height and area.",
+          "answer": "Same-x endpoints; width 5, height 3, area 15 square units."
+        },
+        {
+          "id": "mathematics-d29-exit-2",
+          "prompt": "ME2. Find a right triangle area with base 7 and height 4 units. Show the halving step.",
+          "answer": "7 × 4 = 28; 28 ÷ 2 = 14 square units."
+        }
+      ],
+      "mastery_threshold": 85,
+      "materials": [
+        "Day 29 student packet",
+        "Pencil",
+        "Smarticus lesson picture",
+        "Ruler"
+      ],
+      "estimated_minutes": 50,
+      "voice_prompt": "Day 29 Monday October 5. Block 9:30-10:20; whole day 9:30 AM to 3:30 PM. Friday: 75%. Plotting and triangle halving improved. Height was incorrectly written as zero. Teach with the lesson picture and plain definitions before practice. Give one step, then wait. Use different examples, not assigned answers. Score M1 4, M2 2, M3 2, exits 2 each = 12. Both exit methods must be correct before combined area. Preserve September 30 missing-work status; these are new attempts.",
+      "teacher_notes": "Score M1 4, M2 2, M3 2, exits 2 each = 12. Both exit methods must be correct before combined area. Preserve September 30 missing-work status; these are new attempts.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-10-05-writing",
+      "date": "2026-10-05",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "writing",
+      "course": "Grade 6 Writing",
+      "unit_id": "ela-writing",
+      "unit_title": "Evidence and Reasoning",
+      "lesson_number": 19,
+      "lesson_title": "Explain why the fact matters",
+      "standards": [
+        "W.6.2",
+        "W.6.9",
+        "L.6.1"
+      ],
+      "previous_learning": "Friday: 85%. Exact evidence was good; one reason repeated the claim. Keep the short sentence-card approach.",
+      "course_context": "Day 29 builds from reviewed Day 28 work. Explain first; demonstrate; practice; check. Preserve original grades.",
+      "learning_objectives": [
+        "Connect a result to an idea using a real explanation.",
+        "Revise an actual sentence from your own paragraph."
+      ],
+      "why_it_matters": "Connect a result to an idea using a real explanation.",
+      "vocabulary": [
+        {
+          "term": "claim",
+          "definition": "The idea you are trying to support."
+        },
+        {
+          "term": "evidence",
+          "definition": "A specific fact or result you can point to."
+        },
+        {
+          "term": "reasoning",
+          "definition": "Your explanation of why that fact supports your idea."
+        }
+      ],
+      "written_instruction": "TIME CAP: 50 minutes. 10:30-11:20. Stop at the end of this block.\n10:30-10:40 LEARN. Evidence answers: What happened? Reasoning answers: Why does that make my idea more likely? Saying the same idea twice is not an explanation.\nMODEL: The lamp stays dark with Bulb A, lights with Bulb B, then stays dark with A again. A useful reason is: The lamp works with B, so the fault seems linked to A rather than a lamp that never works.\n10:40-10:50 YOUR SOURCE. These are invented test results for the same toy robot on the same route. Both batteries began fully charged. With Battery A it stopped after 8 minutes and its voltage dropped sharply. With Battery B it ran for 30 minutes without stopping. The battery was the only planned change. The tests suggest a problem with A, but do not prove every other part is perfect.\n10:50-11:08 BUILD FOUR SENTENCES. 1: My idea is ___. 2: In the test, ___. 3: This supports my idea because ___. 4: To check further, I would ___. Say each sentence before writing. Include the 8-minute and 30-minute comparison; you may combine those facts into one sentence.\n11:08-11:15 REVISE. Choose one sentence you actually wrote. Copy it, improve it, and say why the new version is clearer. 11:15-11:20 EXIT. No long essay today.",
+      "worked_examples": [
+        {
+          "title": "Fact versus reason",
+          "problem": "Lamp A/B test: which part is reasoning?",
+          "solution": "Fact: B lit the lamp. Reason: This shows the lamp can work, so A is a more likely source of the problem.",
+          "explanation": "The reason connects the result to the claim."
+        },
+        {
+          "title": "Make a reason clearer",
+          "problem": "Original: The bulb is bad because it is broken.",
+          "solution": "Improved: Bulb A may be faulty because the same lamp lights with B but not with A.",
+          "explanation": "The improved sentence gives a comparison instead of repeating bad/broken."
+        }
+      ],
+      "guided_practice": [],
+      "independent_practice": [
+        {
+          "id": "writing-d29-1",
+          "prompt": "W1. In the robot source, underline or copy two exact results that help compare A and B.",
+          "answer": "A stopped at 8 minutes with sharp voltage drop; B ran 30 minutes without stopping."
+        },
+        {
+          "id": "writing-d29-2",
+          "prompt": "W2. Use the four sentence frames to write one short paragraph. Give a reason, not just a repeated claim.",
+          "answer": "A may be failing; exact 8/30 comparison; robot can run with B so issue follows A; repeat under same conditions or test another fully charged battery."
+        },
+        {
+          "id": "writing-d29-3",
+          "prompt": "W3. Copy one sentence from W2. Write an improved version. Say what you made clearer.",
+          "answer": "Actual original sentence, meaningful revision, explanation of improvement."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "writing-d29-exit-1",
+          "prompt": "WE1. Say or write: What does the successful Battery B test tell us about the robot? Why is may be failing more careful than definitely broken?",
+          "answer": "Robot can run under B condition; tests support A problem but do not rule out all other causes."
+        }
+      ],
+      "mastery_threshold": 85,
+      "materials": [
+        "Day 29 student packet",
+        "Pencil",
+        "Smarticus lesson picture"
+      ],
+      "estimated_minutes": 50,
+      "voice_prompt": "Day 29 Monday October 5. Block 10:30-11:20; whole day 9:30 AM to 3:30 PM. Friday: 85%. Exact evidence was good; one reason repeated the claim. Keep the short sentence-card approach. Teach with the lesson picture and plain definitions before practice. Give one step, then wait. Use different examples, not assigned answers. Score evidence 4, paragraph claim 2/reason 4/further check 2, revision 4, exit 4 = 20. Accept short sentences and oral planning. Mark explanation quality, not length. Do not dictate assigned reasoning.",
+      "teacher_notes": "Score evidence 4, paragraph claim 2/reason 4/further check 2, revision 4, exit 4 = 20. Accept short sentences and oral planning. Mark explanation quality, not length. Do not dictate assigned reasoning.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-10-05-french",
+      "date": "2026-10-05",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "french",
+      "course": "Grade 6 French",
+      "unit_id": "french-futur-proche",
+      "unit_title": "Futur Proche",
+      "lesson_number": 15,
+      "lesson_title": "Ask about plans; answer as yourself",
+      "standards": [
+        "ACTFL 1.1",
+        "ACTFL 1.2"
+      ],
+      "previous_learning": "Friday: 100%, including parent-observed oral checks. Introduce je vais rather than repeating only tu/nous.",
+      "course_context": "Day 29 builds from reviewed Day 28 work. Explain first; demonstrate; practice; check. Preserve original grades.",
+      "learning_objectives": [
+        "Ask a tu question and answer with je.",
+        "Make a negative je sentence."
+      ],
+      "why_it_matters": "Ask a tu question and answer with je.",
+      "vocabulary": [
+        {
+          "term": "je",
+          "definition": "I"
+        },
+        {
+          "term": "vais",
+          "definition": "The form of aller used with je."
+        },
+        {
+          "term": "demain",
+          "definition": "Tomorrow"
+        },
+        {
+          "term": "dessiner",
+          "definition": "To draw"
+        }
+      ],
+      "written_instruction": "TIME CAP: 25 minutes. 11:20-11:45. Stop at the end of this block.\n11:20-11:25 REVIEW. Tu vas lire means You are going to read. Nous allons lire means We are going to read. Today add Je vais lire: I am going to read.\n11:25-11:32 LEARN. Build it: je + vais + action. The action stays in its basic form: lire, jouer, dessiner, regarder. To ask someone: Est-ce que tu vas lire ? To answer as yourself: Oui, je vais lire.\nTo say no: Non, je ne vais pas lire. Put ne before vais and pas after vais. The action stays after pas. Demain can go at the start: Demain, je vais dessiner.\n11:32-11:40 WRITE F1-F3, then practise a two-person exchange. 11:40-11:45: parent hears three new oral cues and records first try separately from a retry.",
+      "worked_examples": [
+        {
+          "title": "A question and reply",
+          "problem": "Ask: Are you going to draw? Answer yes as yourself.",
+          "solution": "Est-ce que tu vas dessiner ? Oui, je vais dessiner.",
+          "explanation": "The question uses tu vas; your answer uses je vais."
+        },
+        {
+          "title": "A negative reply",
+          "problem": "Say: I am not going to watch.",
+          "solution": "Je ne vais pas regarder.",
+          "explanation": "Ne and pas surround vais, not the action word."
+        }
+      ],
+      "guided_practice": [],
+      "independent_practice": [
+        {
+          "id": "french-d29-1",
+          "prompt": "F1. Translate: Tomorrow, I am going to play.",
+          "answer": "Demain, je vais jouer."
+        },
+        {
+          "id": "french-d29-2",
+          "prompt": "F2. Ask: Are you going to read? Then write a yes answer as yourself.",
+          "answer": "Est-ce que tu vas lire ? Oui, je vais lire."
+        },
+        {
+          "id": "french-d29-3",
+          "prompt": "F3. Translate: I am not going to draw.",
+          "answer": "Je ne vais pas dessiner."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "french-d29-exit-1",
+          "prompt": "FE1. With the model covered, say: I am going to read; Are you going to play?; I am not going to watch. Parent records correct or retry for each.",
+          "answer": "Je vais lire. Est-ce que tu vas jouer ? Je ne vais pas regarder."
+        }
+      ],
+      "mastery_threshold": 90,
+      "materials": [
+        "Day 29 student packet",
+        "Pencil",
+        "Smarticus lesson picture"
+      ],
+      "estimated_minutes": 25,
+      "voice_prompt": "Day 29 Monday October 5. Block 11:20-11:45; whole day 9:30 AM to 3:30 PM. Friday: 100%, including parent-observed oral checks. Introduce je vais rather than repeating only tu/nous. Teach with the lesson picture and plain definitions before practice. Give one step, then wait. Use different examples, not assigned answers. Written 4 points (F2 two), oral 3 = 7. Observed oral only; do not infer speech from writing. Record observer and date. Correct je/tu switches gently.",
+      "teacher_notes": "Written 4 points (F2 two), oral 3 = 7. Observed oral only; do not infer speech from writing. Record observer and date. Correct je/tu switches gently.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-10-05-science",
+      "date": "2026-10-05",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "science",
+      "course": "Grade 6 Science",
+      "unit_id": "science-light",
+      "unit_title": "Light and Reflection",
+      "lesson_number": 15,
+      "lesson_title": "Turn the mirror; check the light",
+      "standards": [
+        "MS-PS4-2"
+      ],
+      "previous_learning": "Friday: 80%. Old route repaired, but first mirror in the new upward route tilted the wrong way.",
+      "course_context": "Day 29 builds from reviewed Day 28 work. Explain first; demonstrate; practice; check. Preserve original grades.",
+      "learning_objectives": [
+        "Choose a mirror tilt that matches the outgoing ray.",
+        "Draw and label a normal and equal reflection angles."
+      ],
+      "why_it_matters": "Choose a mirror tilt that matches the outgoing ray.",
+      "vocabulary": [
+        {
+          "term": "ray",
+          "definition": "An arrow showing the direction light travels."
+        },
+        {
+          "term": "normal",
+          "definition": "An imaginary guide line at a square corner to the mirror."
+        },
+        {
+          "term": "reflection",
+          "definition": "Light bouncing from a surface."
+        },
+        {
+          "term": "hit point",
+          "definition": "The place the ray meets the mirror."
+        }
+      ],
+      "written_instruction": "TIME CAP: 35 minutes. 11:45-12:20. Stop at the end of this block.\n11:45-11:53 LEARN. Look at the two pictures. The same upward ray turns right from an up-right mirror, but left from a down-right mirror. Drawing the arrow you want does not make the mirror send light that way.\nThe normal is not another mirror. It is a dashed measuring guide at 90 degrees to the mirror. When the mirror turns, the normal turns too. Measure the incoming and outgoing angles from the normal, on opposite sides. These two angles match.\n11:53-12:08 DRAW. Use a ruler. For a 90-degree turn, a 45-degree diagonal mirror sits between the incoming and outgoing directions. Draw the mirror first, its normal next, and the arrows last. Label hit point, mirror and normal. Mark a small square between mirror and normal.\n12:08-12:15 explain and check. 12:15-12:20 correct one tilt or label. No laser is needed; this is a paper light-path model.",
+      "worked_examples": [
+        {
+          "title": "One upward ray",
+          "problem": "Which tilt sends an upward ray to the right?",
+          "solution": "An up-right mirror. Its normal tilts down-right. The ray angles from that normal are 45 degrees each.",
+          "explanation": "The dashed guide is perpendicular to the solid mirror."
+        },
+        {
+          "title": "Angles from the guide",
+          "problem": "The incoming angle is 35 degrees from the normal.",
+          "solution": "The outgoing angle is 35 degrees, on the other side of the normal.",
+          "explanation": "Do not measure from the mirror surface instead."
+        }
+      ],
+      "guided_practice": [],
+      "independent_practice": [
+        {
+          "id": "science-d29-1",
+          "prompt": "S1. Draw an UP then RIGHT then UP route with two mirrors. Choose both tilts. Label both normals and hit points, show arrowheads, and mark both right-angle squares. Mark each equal angle pair.",
+          "answer": "Both mirrors tilt up-right; normals down-right; two genuine turns with paired 45-degree angles."
+        },
+        {
+          "id": "science-d29-2",
+          "prompt": "S2. In one or two sentences, explain why changing Mirror 1 can make the ray miss Mirror 2. Mention the normal.",
+          "answer": "Mirror and normal rotate; reflected direction changes and can miss second mirror."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "science-d29-exit-1",
+          "prompt": "SE1. Without the picture: an upward ray must leave to the LEFT. Sketch the mirror and normal. Then answer: if an incoming angle is 25 degrees from the normal, what is the outgoing angle?",
+          "answer": "Mirror down-right, normal up-right; outgoing 25 degrees from normal."
+        }
+      ],
+      "mastery_threshold": 85,
+      "materials": [
+        "Day 29 student packet",
+        "Pencil",
+        "Smarticus lesson picture",
+        "Ruler"
+      ],
+      "estimated_minutes": 35,
+      "voice_prompt": "Day 29 Monday October 5. Block 11:45-12:20; whole day 9:30 AM to 3:30 PM. Friday: 80%. Old route repaired, but first mirror in the new upward route tilted the wrong way. Teach with the lesson picture and plain definitions before practice. Give one step, then wait. Use different examples, not assigned answers. Score S1 tilts 4/normals and right angles 4/arrows and hit points 2/equal angles 2; S2 4; exit 4 = 20. Judge intended geometry, not camera perspective or perfect freehand measurement. Hold new optics if transfer tilt remains wrong.",
+      "teacher_notes": "Score S1 tilts 4/normals and right angles 4/arrows and hit points 2/equal angles 2; S2 4; exit 4 = 20. Judge intended geometry, not camera perspective or perfect freehand measurement. Hold new optics if transfer tilt remains wrong.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-10-05-history_geography",
+      "date": "2026-10-05",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "history_geography",
+      "course": "Grade 6 History",
+      "unit_id": "history-rome",
+      "unit_title": "Ancient Rome",
+      "lesson_number": 4,
+      "lesson_title": "Rome: who had a voice?",
+      "standards": [
+        "RH.6-8.2",
+        "C3-D2.Geo.2.6-8"
+      ],
+      "previous_learning": "Friday: 100%. Geography plus human action is understood. Move to a first look at republican government.",
+      "course_context": "Day 29 builds from reviewed Day 28 work. Explain first; demonstrate; practice; check. Preserve original grades.",
+      "learning_objectives": [
+        "Identify consuls, Senate and assemblies.",
+        "Explain why sharing power did not give everyone an equal voice."
+      ],
+      "why_it_matters": "Identify consuls, Senate and assemblies.",
+      "vocabulary": [
+        {
+          "term": "republic",
+          "definition": "A government without a king, with public offices and a role for citizens."
+        },
+        {
+          "term": "consul",
+          "definition": "One of Rome’s two leading elected officials."
+        },
+        {
+          "term": "Senate",
+          "definition": "An influential council that advised officials."
+        },
+        {
+          "term": "assembly",
+          "definition": "A group of citizens meeting to vote."
+        }
+      ],
+      "written_instruction": "TIME CAP: 35 minutes. 1:00-1:35. Stop at the end of this block.\n1:00-1:05 CONNECT. The river and farmland helped Rome, but people had to use them. Rules and government are human choices, not geographic features.\n1:05-1:12 VIDEO. With a parent, open Khan Academy: Roman social and political structures. Watch up to 5 minutes, pausing once to name a group you hear. Do not try to memorise every term. If playback fails, use the picture and reading below; the lesson is complete without the video.\nVIDEO LINK: https://www.khanacademy.org/humanities/world-history/ancient-medieval/roman-empire/v/roman-social-and-political-structures\n1:12-1:20 READ. According to Roman tradition, the Republic began in 509 BCE. Rome had elected officials rather than a king. Two consuls shared leading duties, usually for one year. The Senate was an influential advisory council. Citizen assemblies voted on officials or laws. This is a simple map of roles, not a modern three-branch government.\nA republic did not mean everyone had an equal voice. Women and enslaved people could not vote. Wealth and social position affected power. Plebeians, the common citizens, struggled over time for more political rights. Roman government changed across centuries.\n1:20-1:30 use the picture for H1-H2. 1:30-1:35 finish the exit. Laws are human-made rules; writing a law does not guarantee everyone obeys it.",
+      "worked_examples": [
+        {
+          "title": "An imaginary club",
+          "problem": "A club has two leaders serving one month. How could this limit one person’s power?",
+          "solution": "They share responsibility, and the term ends.",
+          "explanation": "This models sharing power; it is not a claim that a club is identical to Rome."
+        },
+        {
+          "title": "An unequal vote",
+          "problem": "An imaginary club lets only some members vote. Is everyone equally represented?",
+          "solution": "No. People excluded from voting have less say.",
+          "explanation": "A voting system can exist without equal participation."
+        }
+      ],
+      "guided_practice": [],
+      "independent_practice": [
+        {
+          "id": "history_geography-d29-1",
+          "prompt": "H1. Match each job to consuls, Senate or assemblies: leading elected officials; influential advisers; groups that vote.",
+          "answer": "Consuls; Senate; assemblies."
+        },
+        {
+          "id": "history_geography-d29-2",
+          "prompt": "H2. Explain one way Rome shared political power, and name one group excluded from voting.",
+          "answer": "Two consuls or assemblies/Senate roles; women or enslaved people."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "history_geography-d29-exit-1",
+          "prompt": "HE1. Correct this claim in two short sentences: Rome was a republic, so every person had an equal say.",
+          "answer": "Government had citizen participation but voting excluded women and enslaved people; power also unequal among citizens."
+        }
+      ],
+      "mastery_threshold": 85,
+      "materials": [
+        "Day 29 student packet",
+        "Pencil",
+        "Smarticus lesson picture"
+      ],
+      "estimated_minutes": 35,
+      "voice_prompt": "Day 29 Monday October 5. Block 1:00-1:35; whole day 9:30 AM to 3:30 PM. Friday: 100%. Geography plus human action is understood. Move to a first look at republican government. Teach with the lesson picture and plain definitions before practice. Give one step, then wait. Use different examples, not assigned answers. H1 3, H2 4, exit 3 = 10. No test of untaught video details. Teacher background source OpenStax contains mature founding narratives; do not assign the full background page to the student. Roles lesson only.",
+      "teacher_notes": "H1 3, H2 4, exit 3 = 10. No test of untaught video details. Teacher background source OpenStax contains mature founding narratives; do not assign the full background page to the student. Roles lesson only.",
+      "answer_key": {},
+      "source_references": [
+        "https://www.khanacademy.org/humanities/world-history/ancient-medieval/roman-empire/v/roman-social-and-political-structures",
+        "https://openstax.org/books/world-history-volume-1/pages/6-4-the-roman-republic"
+      ],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-10-05-computer_science",
+      "date": "2026-10-05",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "computer_science",
+      "course": "Grade 6 Computer Science and AI",
+      "unit_id": "cs-ai-game-studio",
+      "unit_title": "AI Game Studio",
+      "lesson_number": 4,
+      "lesson_title": "Creative technology studio: choose your next build",
+      "standards": [
+        "CSTA 2-AP-13",
+        "CSTA 2-AP-17"
+      ],
+      "previous_learning": "Museum After Dark earned 90%. Reset debugging and creative direction are credited. Parent requests broader ambitious projects, not automatic small game edits.",
+      "course_context": "Day 29 builds from reviewed Day 28 work. Explain first; demonstrate; practice; check. Preserve original grades.",
+      "learning_objectives": [
+        "Discover three different creative capabilities and choose a project.",
+        "Explain one input, transformation and output in plain language.",
+        "Save a digital project brief and define the first impressive working feature."
+      ],
+      "why_it_matters": "Discover three different creative capabilities and choose a project.",
+      "vocabulary": [
+        {
+          "term": "computer vision",
+          "definition": "Software using a camera image to find things such as hand positions."
+        },
+        {
+          "term": "3D scene",
+          "definition": "A digital space with objects, light and a camera."
+        },
+        {
+          "term": "prototype",
+          "definition": "A first working version used to try an idea."
+        },
+        {
+          "term": "render",
+          "definition": "Make a finished picture or video from a digital scene."
+        }
+      ],
+      "written_instruction": "TIME CAP: 60 minutes. 1:35-2:35. Stop at the end of this block.\nLAPTOP ONLY. No paper test log. You are choosing a new creative project for several sessions. The three ideas are invitations, not a required tool list. You may invent a related idea.\n1:35-1:42 SHOW FRIDAY. Open Museum After Dark if available. Say what Reset should do, try it, and explain whether it now does that. This can supply Friday’s missing explanation point; the parent records the result, not an automatic grade change.\n1:42-1:57 DISCOVER. A: DIGITAL MAGIC. Use hand movement to conduct a light show, paint in the air, or guide a creature. New capability: connecting camera-based hand tracking to an effect. B: DIRECT A TRAILER. Invent a place and make a short animated reveal. New capability: camera, lighting and animation working together. C: IMPOSSIBLE WORLD. Invent a place with one surprising rule, such as gravity changing in certain rooms. New capability: a reusable behavior controlling several objects, not just a new decoration.\nImagine A: open hand makes a glow spread; pinch gathers it. Imagine B: a camera moves past a dark doorway and reveals a floating city. Imagine C: stepping onto a marked floor changes how objects fall. These are concept previews, not claims that finished software is already installed or tested.\n1:57-2:07 CHOOSE. Say which one you want to show someone and why. Choose your own theme. Name one thing you have not built before. Keep the first version to ONE impressive moment; later sessions expand it.\n2:07-2:25 MAKE A DIGITAL PLAN. In a local drawing or slide app already tested by your parent, make three frames: before, action, result. Add one sentence per frame, or dictate your ideas to a parent. Choose colors and a name. This is today’s guaranteed planning task, not a substitute for building in later sessions.\nIf the parent has already completed the selected tool’s setup test, use this time to create its first small working feature. Otherwise do not install unfamiliar tools or enter payment/account details. Save the visual plan and identify the exact setup blocker. Do not spend the block fighting setup.\n2:25-2:35 SAVE AND SHOW. Save and reopen the file. Show the choice and explain what a person does and what your creation does in response. Your parent handles AI services that require an adult. A camera-based project is not approved for build until a real hand-tracking test works on this laptop.",
+      "worked_examples": [
+        {
+          "title": "From idea to behavior",
+          "problem": "A student chooses an underwater music sculpture. What is one first feature?",
+          "solution": "Moving a hand up makes the sculpture grow; moving it down makes it shrink.",
+          "explanation": "Camera input means hand position. The rule maps that position to size. The visible sculpture is the output. This is different from choosing a theme alone."
+        },
+        {
+          "title": "Three trailer frames",
+          "problem": "A student wants to reveal a hidden garden.",
+          "solution": "Before: closed gate. Action: camera moves through gate. Result: glowing garden appears.",
+          "explanation": "Three frames show the intended experience before building the detailed scene."
+        }
+      ],
+      "guided_practice": [],
+      "independent_practice": [
+        {
+          "id": "computer_science-d29-1",
+          "prompt": "B1. Choose Digital Magic, Direct a Trailer, Impossible World, or a related original idea. Name the new capability and who you want to show it to.",
+          "answer": "A concrete choice, a genuinely new capability and intended audience."
+        },
+        {
+          "id": "computer_science-d29-2",
+          "prompt": "B2. Save a three-frame digital plan or, only after setup passes, a first working feature. Name one action and its result.",
+          "answer": "Three clear frames or functioning feature, with action/result and an actual saved file."
+        },
+        {
+          "id": "computer_science-d29-3",
+          "prompt": "B3. Pick the first milestone for next session. State one test that would tell you it works.",
+          "answer": "A bounded meaningful feature and observable success test, not a vague improve it."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "computer_science-d29-exit-1",
+          "prompt": "BE1. Show your saved work. Explain what you chose, what is new for you, and what must work before the next build starts.",
+          "answer": "Student explanation plus actual saved artifact; honest setup status."
+        }
+      ],
+      "mastery_threshold": 85,
+      "materials": [
+        "Windows ARM laptop",
+        "Parent-tested local drawing or slide app",
+        "Parent assistance for account and setup checks"
+      ],
+      "estimated_minutes": 60,
+      "voice_prompt": "Day 29 Monday October 5. Block 1:35-2:35; whole day 9:30 AM to 3:30 PM. Museum After Dark earned 90%. Reset debugging and creative direction are credited. Parent requests broader ambitious projects, not automatic small game edits. Teach with the lesson picture and plain definitions before practice. Give one step, then wait. Use different examples, not assigned answers. Today is discovery/preproduction, not a falsely pretested build assignment. Grade choice/new capability 3, visual plan or prototype 3, observable success test 2, saved artifact/explanation 2 = 10. No loss of points for adult setup not ready. Hardware: Windows ARM Snapdragon X Elite, 16 GB RAM, Adreno GPU, webcam confirmed. No Windows-device tests performed by assistant. Parent must test exact chosen software, permissions, save/reopen/export. Native Blender ARM available; Roblox ARM compatibility not confirmed. ChatGPT interaction for an under-13 learner must be conducted by adult. Keep camera input local in the chosen implementation; no public publishing or paid services by default. Future sessions: first working capability, personal style/integration, test and showcase. Do not default to football, a prescribed tool list or a small Museum edit.",
+      "teacher_notes": "Today is discovery/preproduction, not a falsely pretested build assignment. Grade choice/new capability 3, visual plan or prototype 3, observable success test 2, saved artifact/explanation 2 = 10. No loss of points for adult setup not ready. Hardware: Windows ARM Snapdragon X Elite, 16 GB RAM, Adreno GPU, webcam confirmed. No Windows-device tests performed by assistant. Parent must test exact chosen software, permissions, save/reopen/export. Native Blender ARM available; Roblox ARM compatibility not confirmed. ChatGPT interaction for an under-13 learner must be conducted by adult. Keep camera input local in the chosen implementation; no public publishing or paid services by default. Future sessions: first working capability, personal style/integration, test and showcase. Do not default to football, a prescribed tool list or a small Museum edit.",
+      "answer_key": {},
+      "source_references": [
+        "https://developers.google.com/edge/mediapipe/solutions/vision/hand_landmarker/web_js",
+        "https://www.blender.org/download/",
+        "https://create.roblox.com/docs/assistant/guide",
+        "https://help.openai.com/en/articles/8313401-is-chatgpt-safe-for-all-ages"
+      ],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-10-05-literature",
+      "date": "2026-10-05",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "literature",
+      "course": "Grade 6 Literature",
+      "unit_id": "westing-game",
+      "unit_title": "The Westing Game",
+      "lesson_number": 10,
+      "lesson_title": "A clue needs a reason",
+      "standards": [
+        "RL.6.1",
+        "RL.6.3",
+        "RL.6.10"
+      ],
+      "previous_learning": "Friday: 90%. Read pages 81-93 for 25 minutes. Locator and alternative improved; keep/change needs a specific evidence link.",
+      "course_context": "Day 29 builds from reviewed Day 28 work. Explain first; demonstrate; practice; check. Preserve original grades.",
+      "learning_objectives": [
+        "Read for 25 minutes from the actual bookmark after page 93.",
+        "Connect one exact detail to a clearly named theory."
+      ],
+      "why_it_matters": "Read for 25 minutes from the actual bookmark after page 93.",
+      "vocabulary": [
+        {
+          "term": "detail",
+          "definition": "Something the book actually says happened."
+        },
+        {
+          "term": "theory",
+          "definition": "An idea about what might explain the mystery."
+        },
+        {
+          "term": "alternative",
+          "definition": "Another possible explanation."
+        }
+      ],
+      "written_instruction": "TIME CAP: 35 minutes. 2:45-3:20. Stop at the end of this block.\n2:45-3:10 READ. Open The Westing Game at your actual bookmark after page 93. If the bookmark differs, record the real page. Read for 25 minutes; do not rush toward a fixed ending page.\n3:10-3:17 RECORD ONE CLUE. Name an exact action or words and where you found them. Name your theory clearly. Give another possible meaning. Then explain keep or change using that specific detail, not just I need more evidence.\nUseful frame: I will keep/change the idea that ___ because on page/chapter ___, ___. This makes my idea more/less likely because ___. A clue can fit more than one person. It does not automatically prove who caused an event.\n3:17-3:20 EXIT. Point to the passage. Explain what the detail does NOT prove. No spoilers and no invented book events.",
+      "worked_examples": [
+        {
+          "title": "Keep, with a link",
+          "problem": "Invented mystery: Mina’s umbrella is wet on page 6. Your theory is that she walked in the rain.",
+          "solution": "I keep that idea as possible because the wet umbrella fits rain. But someone else may have used it.",
+          "explanation": "The decision names the theory and connects a detail; it does not claim proof."
+        },
+        {
+          "title": "Change, with a link",
+          "problem": "On page 8 of the invented story, Mina says she borrowed the wet umbrella after entering the house.",
+          "solution": "I weaken my rain-walk idea because the umbrella could have become wet before Mina used it.",
+          "explanation": "New information changes how strong the earlier clue is."
+        }
+      ],
+      "guided_practice": [],
+      "independent_practice": [
+        {
+          "id": "literature-d29-1",
+          "prompt": "L1. Record actual starting page, ending page, and minutes read.",
+          "answer": "Actual log; target 25 minutes."
+        },
+        {
+          "id": "literature-d29-2",
+          "prompt": "L2. Complete one clue card: exact detail; page/chapter; named theory; another possible meaning; keep/change with a specific because link.",
+          "answer": "Verify passage in student edition. Do not assume event/locator accuracy without the book."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "literature-d29-exit-1",
+          "prompt": "LE1. Point to your detail. Does it prove your theory, or only make it possible or more likely? Explain.",
+          "answer": "Distinguish evidence from proof, using actual passage."
+        }
+      ],
+      "mastery_threshold": 85,
+      "materials": [
+        "Day 29 student packet",
+        "Pencil",
+        "Smarticus lesson picture",
+        "The Westing Game at actual bookmark after page 93"
+      ],
+      "estimated_minutes": 35,
+      "voice_prompt": "Day 29 Monday October 5. Block 2:45-3:20; whole day 9:30 AM to 3:30 PM. Friday: 90%. Read pages 81-93 for 25 minutes. Locator and alternative improved; keep/change needs a specific evidence link. Teach with the lesson picture and plain definitions before practice. Give one step, then wait. Use different examples, not assigned answers. Clue card 10: detail 2, locator 2, theory 2, alternative 2, decision with link 2. Record reading and exit separately. Book remains in progress; 8 reading points pending completion/comprehension. Do not set a fabricated chapter or ending page.",
+      "teacher_notes": "Clue card 10: detail 2, locator 2, theory 2, alternative 2, decision with link 2. Record reading and exit separately. Book remains in progress; 8 reading points pending completion/comprehension. Do not set a fabricated chapter or ending page.",
+      "answer_key": {},
+      "source_references": [],
+      "status": "scheduled"
+    }
+  ]
+}

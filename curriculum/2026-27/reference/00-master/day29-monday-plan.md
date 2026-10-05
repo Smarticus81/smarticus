@@ -1,0 +1,17 @@
+# Day 29 Monday October 5, 2026
+
+Monday Day 29, 9:30 AM to 3:30 PM. 9:30-10:20 Mathematics; 10:20-10:30 Break: water and movement; 10:30-11:20 Writing; 11:20-11:45 French; 11:45-12:20 Science; 12:20-1:00 Lunch and movement; 1:00-1:35 History and geography; 1:35-2:35 AI Builder: discover and choose; 2:35-2:45 Break; 2:45-3:20 Literature and reading; 3:20-3:30 Check, file and close. Teach before practice. Stop at each block end. Builder is choice and preproduction; selected tool needs a real Windows setup check before build.
+
+mathematics: Friday: 75%. Plotting and triangle halving improved. Height was incorrectly written as zero. Score M1 4, M2 2, M3 2, exits 2 each = 12. Both exit methods must be correct before combined area. Preserve September 30 missing-work status; these are new attempts.
+
+writing: Friday: 85%. Exact evidence was good; one reason repeated the claim. Keep the short sentence-card approach. Score evidence 4, paragraph claim 2/reason 4/further check 2, revision 4, exit 4 = 20. Accept short sentences and oral planning. Mark explanation quality, not length. Do not dictate assigned reasoning.
+
+french: Friday: 100%, including parent-observed oral checks. Introduce je vais rather than repeating only tu/nous. Written 4 points (F2 two), oral 3 = 7. Observed oral only; do not infer speech from writing. Record observer and date. Correct je/tu switches gently.
+
+science: Friday: 80%. Old route repaired, but first mirror in the new upward route tilted the wrong way. Score S1 tilts 4/normals and right angles 4/arrows and hit points 2/equal angles 2; S2 4; exit 4 = 20. Judge intended geometry, not camera perspective or perfect freehand measurement. Hold new optics if transfer tilt remains wrong.
+
+history_geography: Friday: 100%. Geography plus human action is understood. Move to a first look at republican government. H1 3, H2 4, exit 3 = 10. No test of untaught video details. Teacher background source OpenStax contains mature founding narratives; do not assign the full background page to the student. Roles lesson only.
+
+computer_science: Museum After Dark earned 90%. Reset debugging and creative direction are credited. Parent requests broader ambitious projects, not automatic small game edits. Today is discovery/preproduction, not a falsely pretested build assignment. Grade choice/new capability 3, visual plan or prototype 3, observable success test 2, saved artifact/explanation 2 = 10. No loss of points for adult setup not ready. Hardware: Windows ARM Snapdragon X Elite, 16 GB RAM, Adreno GPU, webcam confirmed. No Windows-device tests performed by assistant. Parent must test exact chosen software, permissions, save/reopen/export. Native Blender ARM available; Roblox ARM compatibility not confirmed. ChatGPT interaction for an under-13 learner must be conducted by adult. Keep camera input local in the chosen implementation; no public publishing or paid services by default. Future sessions: first working capability, personal style/integration, test and showcase. Do not default to football, a prescribed tool list or a small Museum edit.
+
+literature: Friday: 90%. Read pages 81-93 for 25 minutes. Locator and alternative improved; keep/change needs a specific evidence link. Clue card 10: detail 2, locator 2, theory 2, alternative 2, decision with link 2. Record reading and exit separately. Book remains in progress; 8 reading points pending completion/comprehension. Do not set a fabricated chapter or ending page.

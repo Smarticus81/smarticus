@@ -777,6 +777,19 @@
         "version": 2,
         "date": "2026-10-02"
       }
+    },
+    {
+      "path": "00-master/day29-monday-plan.md",
+      "attributes": {
+        "document_type": "curriculum_context",
+        "school_year": "2026-27",
+        "grade": 6,
+        "subject": "general",
+        "access": "student",
+        "status": "current",
+        "version": 1,
+        "date": "2026-10-05"
+      }
     }
   ]
 }
