@@ -24,3 +24,22 @@ Five weak diagrams replaced: tiled coordinate rectangle; matching cut-paper tria
 ## Builder teaching standard
 Monday AI Builder is HOVER ONE in Blender 5.2, not Sky Run. One assigned project, no menu of choices. Teach one plain-language click at a time using the illustrated guide. Explain modelling, materials, duplicate, bevel and render when used. The student builds seven parts in the prepared studio. Give direct setup help. Ask what screen he sees; never claim to see or control Blender. Do not ask him to install code, create an under-age account, use GitHub, build an actual Rocket League mod, or run arbitrary scripts. Help save .blend and .png separately. Preserve the same project for animation next session.
 Each lesson must identify the tool, installation checks, exact actions, expected results, save location, reopen test, useful visual examples and next-session continuity. Use the current hover-guide.json, not the retired Sky Run directions.
+
+
+## Completed-work review received October 6
+
+The original Monday plan above is retained as the assignment record. Current evidence and pacing follow the dated Day 29 feedback.
+
+mathematics: 11.5/12 (96%). Height selection and both independent exit methods are now correct. M3's divide-by-two calculation needs clearer notation. Remind him to name square units. Accept the visible vertical-side calculation instead of penalizing an uncircled point. Brief recap, then a small next step in area; no full restart.
+
+writing: 17/20 (85%). Credit both exact test results in the paragraph despite the blank W1 answer lines. He meaningfully changed certainty to a cautious claim and explained why. His reason still needs a clearer link, and the first half of the exit is unanswered. Keep the paragraph. Ask him what the successful comparison test tells him, then let him add one sentence. Use a different everyday example if needed; do not supply his assigned sentence.
+
+french: Written subtotal 4/4 (100%), provisional for the whole lesson. All written forms are correct. Parent observer and date are present, but the three correct/retry selections are not clearly marked in the photograph. Oral outcomes are pending confirmation, not failed. Do not erase Friday's confirmed oral checks. No written redo.
+
+science: Submitted subtotal 11/16 (69%), provisional: S1 9/12 and SE1 2/4. Blank S2 (4 points) is pending, not zero. Both mirror tilts in the two-bounce route are improved. Add clear direction arrows, hit-point and normal labels, and place each angle pair between the actual rays and their normal. The exit's number is correct, but the left-turn sketch still needs repair. Treat the left-turn sketch and the numerical angle question as separate tasks. Use a different direction as a teaching example, then let him retry the assigned turn. Judge intended geometry, not neatness or exact angles in a photo. Hold new optics until that short transfer check is secure.
+
+history_geography: 10/10 (100%). The three roles, shared power and excluded groups are correctly explained. Continue from this understanding with a short recall check; no repeat worksheet.
+
+literature: Exit reasoning reviewed positively: he distinguishes a possible explanation from proof. Monday's log and five-field clue card were not supplied; no whole-lesson score is available. Last confirmed log remains Friday pages 81-93, 25 minutes. Do not invent Monday's pages or a new event; ask for the existing missing page. Book remains in progress and reading points pending.
+
+computer_science: Monday remains ungraded pending student project evidence. The obsolete Sky Run closeout line is not an assignment failure. HOVER ONE is the later lesson. The assistant upgraded the existing cloud car to a Rocket League-inspired model with a full-turn animation; do not claim that proves Atticus performed those steps. Ask for a short demonstration of his own direction or changes, what he checked, and the saved editable project. AI-directed creation counts; no handwritten-code or paper-log requirement. Preserve Friday Museum After Dark 9/10. Keep unfamiliar terms simple and identify the exact tool, action, visible result and save step.

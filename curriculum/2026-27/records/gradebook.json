@@ -438,6 +438,62 @@
           "note": "Reviewed October 4, 2026 from the Invent a world / Museum After Dark project history and current saved HTML (version 3). Day 28 rubric: playable core 4/4, creative direction 2/2, useful iteration 2/2, saved artifact and explanation 1/2 = 9/10 (90%). The project has the Moon Key, Living Statue patrol/chase/return, Moonlit Door, inventory, movement, Start/Pause/Restart, capture reset, responsive browser audio and a 3D scene with a Canvas fallback. The student's project requests identify the expected reset of both person and statue, ask to preserve working interactions, and request more realistic visuals. Credit these as creative direction and focused debugging, not proof of independently authored code. The current artifact includes complete state reset plus immediate view reset/render and the visual upgrade. Nine executed game-logic checks passed: movement, pause, locked exit, collection, win, reset, chase, disengage, capture reset. These used a stubbed DOM/audio/renderer; no fresh visual browser or audio playtest was possible here. Prior project delivery reported a playable build. Saved artifact is confirmed; no separate student after-fix explanation or final demonstration was available in the retrieved evidence, so 1 of the 2 saved-artifact/explanation points is pending. Ask only for a brief show-and-tell: what changed, and how did trying it again show it was better? Do not require a paper test log, hand-written code, extra optional integrations, or the old ScoutLab checklist. Continue Museum After Dark from the saved version; do not restart it or default to football."
         }
       ]
+    },
+    {
+      "date": "2026-10-05",
+      "day_number": 29,
+      "note": "Reviewed October 6, 2026 (America/Chicago) from eight supplied photographs, IMG_4730-IMG_4737, of Monday October 5 Day 29. Use the Day 29 published rubric. Credit answers wherever they appear; retain earlier attempts. Math, writing and history are reviewed. French is 4/4 written with oral cue outcomes unclear. Science is a provisional subtotal on S1/SE1; blank S2 stays pending, not zero. Literature has an exit response only; the reading log/clue card are not in this batch. Builder needs student evidence separately from the assistant-built scene. Provisional subtotals and ungraded subjects stay outside transcript averages. Closeout says width is clearer and no step needs explanation; use that as student reflection, not proof that every item is complete. The obsolete Sky Run closeout prompt is not assessed.",
+      "subjects": [
+        {
+          "subject": "mathematics",
+          "score": 96,
+          "status": "reviewed",
+          "display": "11.5/12",
+          "note": "M1 4/4: all four points, width 5, height 4 and area 20 are correct. The work beside the vertical side identifies the height calculation even though the requested circles are not clear; no separate format deduction. M2 2/2: explains that height is the up-and-down distance and gives 4. M3 1.5/2: 6 times 5 = 30 and the intended result 15 are visible, but the second calculation does not clearly say divide by 2. ME1 2/2: correctly chooses (3,1) and (3,4) because x matches, then gets width 5, height 3 and area 15 square units. ME2 2/2: explicitly writes 7 times 4 = 28 and 28 divided by 2 = 14. Total 11.5/12 = 95.83%, rounded to 96%. Both exit methods are correct. The earlier height-zero misconception is repaired in this attempt. Give one quick notation repair to M3 and remind him to include square units; a short combined-area introduction is now reasonable after a brief recap. Do not overwrite the earlier 75% or the September 30 incomplete warm-up."
+        },
+        {
+          "subject": "writing",
+          "score": 85,
+          "status": "reviewed",
+          "display": "17/20",
+          "note": "Evidence 4/4: W1's answer lines are blank, but W1 permits underlining in the source and W2 correctly includes both the 8-minute A failure and 30-minute B run. Credit the visible evidence in W2; do not subtract again for its location. Paragraph claim 2/2; reason 3/4: he compares the two results, but should explicitly connect the robot working with B to why A is the likely problem. Further check 2/2: test A again; coach keeping the route and starting charge the same. Revision 4/4: changes the actual claim from 'is the problem' to 'may be the problem' and explains the uncertainty. Exit 2/4: recognizes that one round of testing needs repeating, but does not answer what the successful B run tells us about the robot. Total 17/20. Preserve his paragraph; add one short why sentence and answer the missing first part of the exit. The meaningful revision is an improvement over Friday. Do not assign a longer essay."
+        },
+        {
+          "subject": "french",
+          "score": 100,
+          "status": "provisional",
+          "display": "4/4 written; oral pending",
+          "note": "All four written responses are correct: F1 1/1; F2 question 1/1 and first-person reply 1/1; F3 negative 1/1. Written subtotal 4/4 (100%). An observer signature and date 10/5/26 are visible. However, none of the three printed correct/retry choices is clearly marked in this photo, so individual oral results cannot be inferred from the signature. The three oral points remain pending confirmation, not zero. Whole-lesson score is not yet final; exclude this provisional subtotal from transcript averages. Preserve Friday's already-confirmed oral results. Ask only which of Monday's three cues were correct or needed a retry; no written French redo is needed."
+        },
+        {
+          "subject": "science",
+          "score": 69,
+          "status": "provisional",
+          "display": "11/16 submitted; S2 pending",
+          "note": "Use the planned 20-point rubric, but keep the blank S2 explanation (4 points) pending, outside the submitted-work denominator. S1: mirror tilts 4/4 — both now tilt up-right, repairing Friday's first-mirror error; normals/right angles 3/4 — intended perpendicular guides and 90-degree marks are present, but explicit normal labels and the second right-angle square need clearer marking; arrows/hit points 1/2 — the three-leg path is clear and the final upward arrow is visible, but the first two direction arrows and labelled hit points are not clearly marked; equal angles 1/2 — the second bounce's pair is communicated, but the first pair is drawn away from the incoming/outgoing rays on their side of the mirror. S1 subtotal 9/12. SE1 2/4: the numerical answer 25 degrees is correct (2/2), but the left-turn sketch has a nearly upright mirror and an almost horizontal guide, which do not show the required diagonal mirror/normal for an up-to-left turn (0/2). The sketch and numerical 25-degree question are separate tasks; the right-angle turn uses 45-degree angles from its normal. Do not deduct for neatness or measure exact angles from the photographed page. Visible subtotal 11/16 = 68.75%, rounded to 69%, provisional; this is not an 11/20 final grade. S2 is blank in the submitted photo; accept another page or an observed oral explanation if one exists. Keep this attempt, complete S2, then redraw only the exit bounce and add missing labels/arrows. Hold new optics until he can transfer the mirror tilt to a new direction. The conceptual advance in S1 should be acknowledged even though the submitted subtotal is lower than Friday's differently structured grade."
+        },
+        {
+          "subject": "history_geography",
+          "score": 100,
+          "status": "reviewed",
+          "display": "10/10",
+          "note": "H1 3/3: all three jobs match consuls, Senate and assemblies correctly. H2 4/4: identifies shared power among these groups and women as excluded from voting. HE1 3/3: corrects the equal-say claim and names women and enslaved people as unable to vote. Total 10/10. The lesson's basic roles and unequal participation are understood. Continue the Republic sequence with a brief recall check; do not make him repeat this sheet or test untaught video details."
+        },
+        {
+          "subject": "literature",
+          "score": null,
+          "status": "not_assessed",
+          "display": "Exit reviewed; clue card pending",
+          "note": "Only LE1 is supplied in this batch. It correctly distinguishes proof from a possibility made more likely: the explosion does not prove the theory but may support the idea that someone is targeting the heirs. This is positive evidence of the reasoning goal. The Monday L1 reading log and L2 five-field clue card are not supplied, so the planned 10-point card cannot be graded. Do not assign a zero or fabricate Monday's pages, minutes, passage locator or new book events. The claimed event is not independently checked against his book. Last confirmed reading remains Friday's pages 81-93 for 25 minutes. Keep the book in progress with its 8 reading points pending completion/comprehension. Review the missing page when available; do not ask him to redo a card that may already exist."
+        },
+        {
+          "subject": "computer_science",
+          "score": null,
+          "status": "not_assessed",
+          "display": "Student demonstration pending",
+          "note": "No Monday Builder work or student demonstration is shown in these eight photos. The printed closeout still says Sky Run; that line belongs to the earlier packet and is superseded by the later HOVER ONE lesson. Its blank answer is not a Builder failure. The existing Higgsfield hover-car studio was upgraded by the assistant to a Rocket League-inspired car with an eight-second full turn in revision 3 (project bb1cdfb6-e4a6-4b6d-9187-0851e4a4abc5). That saved scene is a useful teaching resource, but its existence alone does not establish what Atticus directed, changed, tested, saved locally or explained. Do not attribute the assistant's modelling or rendering to the student. Monday remains ungraded pending a short show-and-tell of his actual project and one change he directed or made, how he checked it, and where the editable work is saved. AI-directed creative work counts; do not require hand-written code or a paper test log. Preserve Friday's 9/10 Museum After Dark grade and separate Monday's evidence from it."
+        }
+      ]
     }
   ]
 }
