@@ -180,6 +180,8 @@ describe("delegated function calls", () => {
     assert.equal(toolTimeoutMs("whiteboard_draw"), FAST_TOOL_TIMEOUT_MS);
     assert.equal(toolTimeoutMs("navigate_lesson"), FAST_TOOL_TIMEOUT_MS);
     assert.equal(toolTimeoutMs("browse_web"), TOOL_TIMEOUT_MS);
+    // It may send a frame of the shared screen to a vision model.
+    assert.equal(toolTimeoutMs("look_at_screen"), TOOL_TIMEOUT_MS);
     assert.equal(toolTimeoutMs("get_lesson_questions"), LESSON_TOOL_TIMEOUT_MS);
     assert.ok(FAST_TOOL_TIMEOUT_MS < LESSON_TOOL_TIMEOUT_MS);
     assert.ok(LESSON_TOOL_TIMEOUT_MS < TOOL_TIMEOUT_MS);

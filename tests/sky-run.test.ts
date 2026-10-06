@@ -15,9 +15,15 @@ it("jumping rises, gravity returns the runner, finish wins, and save preserves t
  assert.deepEqual(readCourse(JSON.parse(JSON.stringify(course))),course);
  assert.throws(()=>readCourse([{id:1,x:0,z:0,size:1e9,kind:"plain"}]));
 });
-it("Virgil gives plain button help for the assigned build in voice and reasoning",()=>{
- const voice=buildVoiceInstructions({studentName:"Atticus",lessonTitle:"Sky Run",subject:"computer_science"});
- assert.match(RESPONSE_QUALITY_RULES,/Do not ask him to pick a project/);
- assert.match(RESPONSE_QUALITY_RULES,/Direct help finding buttons is allowed/);
- assert.match(voice,/never offer project choices/);assert.match(voice,/one exact action per step/);
+it("Virgil keeps the assigned Blender build and knows when he can see it",()=>{
+ const voice=buildVoiceInstructions({studentName:"Atticus",lessonTitle:"Hover One",subject:"computer_science"});
+ for(const rules of [RESPONSE_QUALITY_RULES,voice]){
+  assert.match(rules,/HOVER ONE car project/);
+  assert.match(rules,/Give one clear action and check what he sees/);
+  // He can see Blender only through a whole-screen or window share, and must say so otherwise.
+  assert.match(rules,/sharing his whole screen or the Blender window/);
+  assert.match(rules,/press Share screen and choose Entire screen/);
+  assert.match(rules,/Never claim to see Blender when no such share is on/);
+  assert.match(rules,/never claim to control it/);
+ }
 });

@@ -468,6 +468,15 @@ spacious lesson surface. Motion is driven by meaning and input. */
 .zen-workspace .voice-privacy {
   font-size: 10px;
 }
+/* Shown while only the browser tab is shared: the one case where Virgil
+   cannot see a program such as Blender, and the way to fix it. */
+.share-hint {
+  flex-basis: 100%;
+  margin: 2px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--zen-muted, #657060);
+}
 .activity-intro h2 {
   margin: 10px 0;
 }

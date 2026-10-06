@@ -47,6 +47,18 @@ export const WebSearchSchema = z.object({
   query: z.string().trim().min(1).max(2_000),
 }).strict();
 
+/** A frame of the shared screen for the tutor to have described in words. */
+export const DescribeScreenSchema = z.object({
+  /** JPEG, PNG or WebP data URL. The server's own body limit caps the size. */
+  image: z
+    .string()
+    .max(2_500_000)
+    .regex(/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/, "Expected an image data URL"),
+  surface: z.enum(["monitor", "window", "browser", "unknown"]),
+  /** What the tutor wanted to know, so the description leads with it. */
+  question: z.string().max(200).nullable(),
+});
+
 export const ReadPageSchema = z
   .object({
     url: z.string().max(600).nullable(),

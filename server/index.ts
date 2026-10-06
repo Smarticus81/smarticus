@@ -136,6 +136,9 @@ export function createApp() {
     }
   });
 
+  // A frame of the shared screen is a data URL of a few hundred kilobytes, so
+  // that one route takes a larger body than the rest of the API.
+  app.use("/api/vision", express.json({ limit: "3mb" }));
   app.use(express.json({ limit: "100kb" }));
   app.use(express.urlencoded({ extended: true, limit: "100kb" }));
   app.use(sessionMiddleware);
@@ -163,6 +166,17 @@ export function createApp() {
       standardHeaders: "draft-7",
       legacyHeaders: false,
       message: { error: "Too many voice-session requests; please try again shortly." },
+    }),
+  );
+
+  app.use(
+    "/api/vision",
+    rateLimit({
+      windowMs: 15 * 60 * 1000,
+      limit: 120,
+      standardHeaders: "draft-7",
+      legacyHeaders: false,
+      message: { error: "Too many screen descriptions; please try again shortly." },
     }),
   );
 
