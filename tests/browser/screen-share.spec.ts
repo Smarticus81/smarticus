@@ -19,9 +19,17 @@ async function fakeDisplayMedia(page: Page, surface: "monitor" | "browser") {
     navigator.mediaDevices.getDisplayMedia = async (constraints) => {
       window.__displayRequests.push(constraints);
       const canvas = document.createElement("canvas");
-      canvas.width = 640; canvas.height = 360;
+      canvas.width = 1280; canvas.height = 720;
       const context = canvas.getContext("2d");
-      context.fillStyle = "#334"; context.fillRect(0, 0, 640, 360);
+      // A real screen is full of detail and never compresses to a few
+      // kilobytes; a flat canvas would, and then it would fit a budget no
+      // real frame fits. Noise keeps the fake frame honest.
+      const noise = context.createImageData(1280, 720);
+      for (let i = 0; i < noise.data.length; i += 4) {
+        noise.data[i] = Math.random() * 255; noise.data[i + 1] = Math.random() * 255;
+        noise.data[i + 2] = Math.random() * 255; noise.data[i + 3] = 255;
+      }
+      context.putImageData(noise, 0, 0);
       context.fillStyle = "#fff"; context.font = "28px sans-serif";
       context.fillText("Blender - Object Mode", 20, 60);
       // Keep drawing so the capture stream has fresh frames.
@@ -70,9 +78,10 @@ test("the picker may offer the whole screen, and look_at_screen describes it in 
   expect(request).not.toHaveProperty("preferCurrentTab");
   expect(request.selfBrowserSurface).toBe("include");
 
-  // The main voice tier allows no image bytes at all: the words stand in for the picture.
+  // The main voice tier reports a small allowance whenever its history has
+  // room, never enough for a frame: the words stand in for the picture.
   const seen = (await page.evaluate(() =>
-    window.__smarticus!.runTool("look_at_screen", { reason: "Which object is selected?" }, 0),
+    window.__smarticus!.runTool("look_at_screen", { reason: "Which object is selected?" }, 8_192),
   )) as Seen;
   expect(seen.images).toEqual([]);
   expect(seen.output.shared_screen).toContain("Object Mode");
@@ -82,7 +91,8 @@ test("the picker may offer the whole screen, and look_at_screen describes it in 
   expect(described).toHaveLength(1);
   expect(described[0].surface).toBe("monitor");
   expect(described[0].question).toBe("Which object is selected?");
-  expect(described[0].imageBytes).toBeGreaterThan(1_000);
+  // Far more than the main tier's 8KB image allowance, like any real screen.
+  expect(described[0].imageBytes).toBeGreaterThan(8_192);
   // The picture itself was a real JPEG frame of the shared canvas.
   const keys = Object.keys(seen.output);
   expect(keys[0]).toBe("shared_screen");
@@ -97,6 +107,12 @@ test("the picker may offer the whole screen, and look_at_screen describes it in 
   expect(withImage.output.screenshot).toContain("screenshot of the shared screen is attached");
   expect(described).toHaveLength(1);
 
+  // A provider with no image input at all takes the same path.
+  const none = (await page.evaluate(() => window.__smarticus!.runTool("look_at_screen", { reason: null }, 0))) as Seen;
+  expect(none.images).toEqual([]);
+  expect(none.output.shared_screen).toContain("Object Mode");
+  expect(described).toHaveLength(2);
+
   await page.evaluate(() => window.__smarticus!.screenShare.stop());
   const off = (await page.evaluate(() => window.__smarticus!.runTool("look_at_screen", { reason: null }, 0))) as Seen;
   expect(off.output.screenshot).toMatch(/Screen share is off/);
@@ -107,7 +123,7 @@ test("a tab-only share says Blender is not in the picture and how to change that
   await fakeDisplayMedia(page, "browser");
   await openLesson(page, () => ({ description: "The lesson page in the browser." }));
   await page.evaluate(() => window.__smarticus!.screenShare.start());
-  const seen = (await page.evaluate(() => window.__smarticus!.runTool("look_at_screen", { reason: null }, 0))) as Seen;
+  const seen = (await page.evaluate(() => window.__smarticus!.runTool("look_at_screen", { reason: null }, 8_192))) as Seen;
   expect(seen.output.shared_screen).toBe("The lesson page in the browser.");
   expect(seen.output.screenshot).toContain("only this browser tab");
   expect(seen.output.screenshot).toContain("choose Entire screen");
@@ -117,8 +133,9 @@ test("a failed description still returns the interface, and says the picture cou
   await fakeDisplayMedia(page, "monitor");
   await openLesson(page, () => 502);
   await page.evaluate(() => window.__smarticus!.screenShare.start());
-  const seen = (await page.evaluate(() => window.__smarticus!.runTool("look_at_screen", { reason: null }, 0))) as Seen;
+  const seen = (await page.evaluate(() => window.__smarticus!.runTool("look_at_screen", { reason: null }, 8_192))) as Seen;
   expect(seen.output.shared_screen).toBeUndefined();
+  expect(seen.images).toEqual([]);
   expect(seen.output.interface).toContain("Open section");
   expect(seen.output.screenshot).toContain("could not be described");
 });

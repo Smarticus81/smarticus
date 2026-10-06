@@ -1,6 +1,7 @@
 import { api } from "../lib/api";
 import { voiceToolDefinitions } from "../../../shared/voice/tools";
 import type { ToolExecutor } from "./liveSession";
+import { utf8Bytes } from "./liveEvents";
 import { captureUiSnapshot } from "./uiSnapshot";
 import { ScreenShare } from "./screenShare";
 import { lessonNavigator, whiteboard, type LessonSection } from "./whiteboardStore";
@@ -35,7 +36,8 @@ function nullableText(value: unknown): string | undefined {
 export function createToolExecutors(context: ToolContext): Record<string, ToolExecutor> {
   const { lessonId, screenShare } = context;
   const lessonIdOr = (value: unknown) => text(value) || lessonId;
-  const canSendImage = () => (context.imageAllowance?.() ?? 0) > 0;
+  const imageAllowance = () => context.imageAllowance?.() ?? 0;
+  const canSendImage = () => imageAllowance() > 0;
 
   /**
    * The shared screen in words, for a session whose backend cannot take the
@@ -43,9 +45,7 @@ export function createToolExecutors(context: ToolContext): Record<string, ToolEx
    * back small enough to ride in the tool output. This is the only way the
    * tutor sees a desktop program such as Blender on the main voice tier.
    */
-  async function describeSharedScreen(question: string | null): Promise<string | null> {
-    const frame = await screenShare.captureFrame();
-    if (!frame) return null;
+  async function describeSharedScreen(frame: string, question: string | null): Promise<string | null> {
     try {
       const { description } = await api.tool.describeScreen({
         image: frame,
@@ -71,15 +71,17 @@ export function createToolExecutors(context: ToolContext): Record<string, ToolEx
       const withImages = canSendImage();
       const sharing = screenShare.active;
       const surface = screenShare.surface;
-      // Every capture at once: this tool holds the turn open, and the learner
-      // hears nothing while it runs, so the waits should overlap.
-      const [frame, boardImage, described] = await Promise.all([
-        withImages && sharing ? screenShare.captureFrame() : Promise.resolve(null),
-        withImages && whiteboard.getSnapshot().open
-          ? Promise.resolve(whiteboard.image())
-          : Promise.resolve(null),
-        !withImages && sharing ? describeSharedScreen(reason) : Promise.resolve(null),
-      ]);
+      const boardImage =
+        withImages && whiteboard.getSnapshot().open ? whiteboard.image() : null;
+      // The frame is measured against the backend's real room, not against
+      // whether it has any room at all: the main tier's history can never hold
+      // a screenshot, yet it reports a small allowance whenever there is space.
+      // A frame that would only be dropped at send time goes to be described
+      // instead, so the tutor gets words rather than a note that the picture
+      // could not be attached.
+      const captured = sharing ? await screenShare.captureFrame() : null;
+      const frame = captured && utf8Bytes(captured) <= imageAllowance() ? captured : null;
+      const described = captured && !frame ? await describeSharedScreen(captured, reason) : null;
       const images = frame ? [frame] : [];
       if (boardImage) images.push(boardImage);
       const shared = sharing ? `He is sharing ${ScreenShare.describeSurface(surface)}.` : "";
@@ -96,7 +98,7 @@ export function createToolExecutors(context: ToolContext): Record<string, ToolEx
           screenshot: frame
             ? `A screenshot of the shared screen is attached. ${shared}${tabOnly}`
             : described
-              ? `${shared} The shared_screen text above describes the picture, since this session cannot take an image.${tabOnly}`
+              ? `${shared} The shared_screen text above describes the picture, since this session cannot take an image. You can see what it says; do not tell him you cannot see his screen.${tabOnly}`
               : sharing
                 ? `${shared} The picture could not be described this time, so the interface description above is what you have. It is read from the live interface and includes his drafts, so trust it.${tabOnly}`
                 : "Screen share is off; the description above was read directly from the live interface. Ask Atticus to press “Share screen” if you need to see something the description does not cover, and to choose Entire screen if it is a program such as Blender.",
