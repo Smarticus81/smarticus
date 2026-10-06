@@ -787,7 +787,7 @@
         "subject": "general",
         "access": "student",
         "status": "current",
-        "version": 6,
+        "version": 7,
         "date": "2026-10-05"
       }
     },
@@ -865,7 +865,7 @@
         "subject": "literature",
         "access": "student",
         "status": "current",
-        "version": 1,
+        "version": 2,
         "date": "2026-10-05"
       }
     },
@@ -891,7 +891,7 @@
         "subject": "all",
         "access": "student",
         "status": "current",
-        "version": 1,
+        "version": 2,
         "date": "2026-10-06"
       }
     }
