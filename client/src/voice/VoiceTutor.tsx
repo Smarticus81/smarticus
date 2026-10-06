@@ -23,7 +23,7 @@ import {
   wakeGreetingCommentary,
   type LiveFunctionCall,
 } from "./liveEvents";
-import { ScreenShare } from "./screenShare";
+import { ScreenShare, type ShareSurface } from "./screenShare";
 import { whiteboard } from "./whiteboardStore";
 
 type ConnectionState = "idle" | "connecting" | "connected" | "error";
@@ -196,6 +196,7 @@ export function VoiceTutor({
   const [currentUtterance, setCurrentUtterance] = useState("");
   const [activity, setActivity] = useState<string | null>(null);
   const [screenSharing, setScreenSharing] = useState(false);
+  const [shareSurface, setShareSurface] = useState<ShareSurface>("unknown");
   const [models, setModels] = useState<{ voice: string; backend: string } | null>(null);
   const [provider, setProvider] = useState<VoiceProvider>("openai");
   const mountedRef = useRef(true);
@@ -245,7 +246,14 @@ export function VoiceTutor({
   const wakeSequenceRef = useRef(0);
   const fragmentRunRef = useRef<string[]>([]);
   if (!screenShareRef.current) screenShareRef.current = new ScreenShare();
-  useEffect(() => screenShareRef.current?.onChange(setScreenSharing), []);
+  useEffect(
+    () =>
+      screenShareRef.current?.onChange((active) => {
+        setScreenSharing(active);
+        setShareSurface(active ? (screenShareRef.current?.surface ?? "unknown") : "unknown");
+      }),
+    [],
+  );
 
   const appendTranscript = useCallback(
     (role: TranscriptLine["role"], text: string) => {
@@ -705,7 +713,13 @@ export function VoiceTutor({
     }
     try {
       await share.start();
-      sessionRef.current?.appendThinking("[UI] Atticus is now sharing his screen. look_at_screen returns a screenshot.");
+      sessionRef.current?.appendThinking(
+        `[UI] Atticus is now sharing ${ScreenShare.describeSurface(share.surface)}. look_at_screen now describes that picture.${
+          share.surface === "browser"
+            ? " If you need to see Blender or another program, ask him to press Stop sharing, then Share screen, and choose Entire screen."
+            : ""
+        }`,
+      );
     } catch (caught) {
       if (!(caught instanceof DOMException && caught.name === "NotAllowedError")) {
         setError("Screen sharing didn’t start. You can keep talking without it.");
@@ -893,6 +907,12 @@ export function VoiceTutor({
               {screenSharing ? "Stop sharing" : "Share screen"}
             </button>
           )}
+          {screenSharing && shareSurface === "browser" && (
+            <small className="share-hint" role="status">
+              Only this tab is shared. To show Virgil a program such as Blender, press Stop sharing,
+              then Share screen and choose Entire screen.
+            </small>
+          )}
           <button
             className="button outline"
             type="button"
@@ -970,7 +990,7 @@ export function VoiceTutor({
           ? isMuted
             ? "Microphone muted · Session connected"
             : screenSharing
-              ? "Microphone on · Screen shared · Session connected"
+              ? `Microphone on · ${shareSurface === "monitor" ? "Whole screen" : shareSurface === "window" ? "One window" : shareSurface === "browser" ? "This tab" : "Screen"} shared · Session connected`
               : "Microphone on · Session connected"
           : connection === "connecting"
             ? "Microphone setup in progress"

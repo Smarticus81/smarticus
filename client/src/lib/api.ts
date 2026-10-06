@@ -137,6 +137,19 @@ export const api = {
         method: "POST",
         body: JSON.stringify({ query }),
       }),
+    describeScreen: (body: {
+      image: string;
+      surface: "monitor" | "window" | "browser" | "unknown";
+      question: string | null;
+    }) =>
+      request<{ description: string }>("/api/vision/screen", {
+        method: "POST",
+        body: JSON.stringify(body),
+        // The picture is a few hundred kilobytes and the model reads it; the
+        // tool holds the turn open meanwhile and is itself cut off at twenty
+        // seconds, so this gives up first and the tool still answers in time.
+        signal: AbortSignal.timeout(15_000),
+      }),
     readPage: (body: { url: string | null; query: string | null }) =>
       request<{ page: ReaderPage; summary: string; searchNote: string | null }>(
         "/api/read/page",

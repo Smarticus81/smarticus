@@ -162,13 +162,14 @@ const FAST_TOOLS = new Set([
  * The deadline for one tool.
  *
  * A turn stays open until every call in it is answered, so the learner hears
- * nothing while a call hangs. Only `browse_web` fetches a page from the open
- * internet and deserves the full twenty seconds; a local one that has not
- * answered in five is broken, and waiting out the difference is dead air.
+ * nothing while a call hangs. Only `browse_web`, which fetches a page from the
+ * open internet, and `look_at_screen`, which may send a frame of the shared
+ * screen to a vision model, deserve the full twenty seconds; a local one that
+ * has not answered in five is broken, and waiting out the difference is dead air.
  */
 export function toolTimeoutMs(name: string): number {
   if (FAST_TOOLS.has(name)) return FAST_TOOL_TIMEOUT_MS;
-  if (name === "browse_web") return TOOL_TIMEOUT_MS;
+  if (name === "browse_web" || name === "look_at_screen") return TOOL_TIMEOUT_MS;
   return LESSON_TOOL_TIMEOUT_MS;
 }
 

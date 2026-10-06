@@ -82,6 +82,72 @@ export async function createLiveSession(params: LiveSessionRequest) {
   };
 }
 
+/** Most characters a screen description may run to: it rides in a tool output of about 1.5KB. */
+export const SCREEN_DESCRIPTION_MAX_CHARS = 700;
+
+export const SCREEN_DESCRIPTION_INSTRUCTIONS =
+  "You are the eyes of a voice tutor helping a Grade 6 student who has shared his screen. Describe what is on it so the tutor can help without seeing it. Name the program (for example Blender, a browser tab, a file window). Then, in order of use to the tutor: the question asked, any dialog, error or warning text word for word, which mode, tab or menu is open, the selected or named object and any visible values with their labels, and what the student seems to be in the middle of. Plain words, no greeting, no advice, no guesses about what is off-screen; say so if the picture is blurred or too small to read. At most 90 words.";
+
+export interface ScreenDescriptionRequest {
+  /** JPEG, PNG or WebP data URL. */
+  image: string;
+  surface: "monitor" | "window" | "browser" | "unknown";
+  question: string | null;
+}
+
+/** The text sent beside the picture: what is shared and what the tutor asked. */
+export function screenDescriptionPrompt(params: Omit<ScreenDescriptionRequest, "image">): string {
+  const surface =
+    params.surface === "monitor"
+      ? "The student is sharing his whole screen."
+      : params.surface === "window"
+        ? "The student is sharing one program window."
+        : params.surface === "browser"
+          ? "The student is sharing only his browser tab with the lesson in it."
+          : "The student is sharing his screen.";
+  const question = params.question?.trim();
+  return question
+    ? `${surface} The tutor wants to know: ${question}`
+    : `${surface} Describe what matters most on it.`;
+}
+
+/** Trim a description to the characters a tool output can carry, on a word. */
+export function clipDescription(text: string, maxChars = SCREEN_DESCRIPTION_MAX_CHARS): string {
+  const clean = text.replace(/\s+/g, " ").trim();
+  if (clean.length <= maxChars) return clean;
+  const cut = clean.slice(0, maxChars - 1);
+  const space = cut.lastIndexOf(" ");
+  return `${space > maxChars / 2 ? cut.slice(0, space) : cut}…`;
+}
+
+/**
+ * Put one frame of the shared screen into words.
+ *
+ * The voice session's delegated backend cannot take a picture (its whole input
+ * history is smaller than one), so the frame goes to a vision model here and
+ * only the words go back into the session.
+ */
+export async function describeScreen(params: ScreenDescriptionRequest): Promise<string> {
+  const response = await getOpenAI().responses.create({
+    model: env.SCREEN_VISION_MODEL,
+    instructions: SCREEN_DESCRIPTION_INSTRUCTIONS,
+    input: [
+      {
+        role: "user",
+        content: [
+          { type: "input_text", text: screenDescriptionPrompt(params) },
+          { type: "input_image", image_url: params.image, detail: "high" },
+        ],
+      },
+    ],
+    max_output_tokens: 320,
+    store: false,
+  });
+  const text = response.output_text?.trim();
+  if (!text) throw new Error("The vision model returned no description.");
+  return clipDescription(text);
+}
+
 export async function searchVectorStore(params: {
   query: string;
   maxResults?: number;

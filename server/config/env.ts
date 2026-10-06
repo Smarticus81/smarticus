@@ -42,6 +42,12 @@ export const envSchema = z
       .default("low"),
     WEB_SEARCH_MODEL: z.string().default("gpt-5.6"),
     /**
+     * Describes a frame of the shared screen in words for the voice session,
+     * whose delegated backend cannot take the picture itself (its input
+     * history is far too small for one). A vision-capable Responses model.
+     */
+    SCREEN_VISION_MODEL: z.string().default("gpt-6-astra"),
+    /**
      * Free-tier fallback for when the OpenAI quota runs out. Leave the key empty
      * to disable the fallback entirely; the studio then reports the quota error
      * as before.

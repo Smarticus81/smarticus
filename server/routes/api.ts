@@ -30,6 +30,7 @@ import {
   SearchCurriculumSchema,
   WebSearchSchema,
   ReadPageSchema,
+  DescribeScreenSchema,
   LessonActionSchema,
   TodayScheduleQuerySchema,
   SubjectParamsSchema,
@@ -38,7 +39,8 @@ import {
   LessonQuestionLookupSchema,
   SubmitLessonWorkSchema,
 } from "../../shared/schemas/api.js";
-import { searchVectorStore, searchWeb } from "../lib/openai.js";
+import { describeScreen, searchVectorStore, searchWeb } from "../lib/openai.js";
+import { env } from "../config/env.js";
 import { readPage, summarizeForTutor } from "../services/reader.js";
 import { log } from "../lib/logger.js";
 import { getLessonSubmissions, submitLessonWork } from "../services/submissions.js";
@@ -309,6 +311,37 @@ apiRouter.post(
       res.status(422).json({
         error: error instanceof Error ? error.message : "That page could not be opened.",
       });
+    }
+  }),
+);
+
+/**
+ * Put a frame of the shared screen into words.
+ *
+ * The voice session's reasoning backend keeps a history too small for any
+ * picture, so when Atticus shares his screen the browser sends one frame here
+ * and gets back a short description the tool result can carry. This is how the
+ * tutor sees a desktop program such as Blender, which no interface snapshot
+ * can describe.
+ */
+apiRouter.post(
+  "/vision/screen",
+  asyncHandler(async (req, res) => {
+    const body = DescribeScreenSchema.parse(req.body);
+    log({ message: "Tool call", toolName: "look_at_screen", requestId: req.ctx.requestId });
+    if (!env.OPENAI_API_KEY) {
+      return res.status(503).json({ error: "Screen description is not configured on this server." });
+    }
+    try {
+      res.json({ description: await describeScreen(body) });
+    } catch (error) {
+      log({
+        level: "warn",
+        message: "Screen description failed",
+        requestId: req.ctx.requestId,
+        error: error instanceof Error ? error.message : String(error),
+      });
+      res.status(502).json({ error: "The screen could not be described just now." });
     }
   }),
 );

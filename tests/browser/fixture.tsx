@@ -129,6 +129,8 @@ declare global {
       whiteboard: typeof whiteboard;
       lessonNavigator: typeof lessonNavigator;
       captureUiSnapshot: typeof captureUiSnapshot;
+      /** The one screen share the tools see, so a check can start it first. */
+      screenShare: ScreenShare;
       runTool: (
       name: string,
       args: Record<string, unknown>,
@@ -137,14 +139,16 @@ declare global {
     };
   }
 }
+const screenShare = new ScreenShare();
 window.__smarticus = {
   whiteboard,
   lessonNavigator,
   captureUiSnapshot,
+  screenShare,
   runTool: (name, args, imageBytes = 0) => {
     const executors = createToolExecutors({
       lessonId: "test-lesson",
-      screenShare: new ScreenShare(),
+      screenShare,
       imageAllowance: () => imageBytes,
     });
     const executor = executors[name];
