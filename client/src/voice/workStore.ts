@@ -1,3 +1,4 @@
+import { answersChanged } from "../../../shared/submissionRecord";
 import { useSyncExternalStore } from "react";
 import type { SubmissionView } from "../lib/api";
 
@@ -79,6 +80,16 @@ class LessonWork {
     this.setState({ ...empty, version: this.state.version + 1 });
   }
 
+  restore(view: SubmissionView) {
+    if (!this.state.last && !this.state.submitting) this.setState({...this.state,last:view});
+  }
+  loadError() {
+    if (!this.state.last) this.setState({...this.state,error:"Earlier hand-ins could not load. Your local draft is still here. Reopen the lesson to try again."});
+  }
+  hasUnsentChanges(): boolean {
+    return !!this.state.last && this.state.last.mode === "platform" && answersChanged(this.collect(), this.state.last.answers ?? []);
+  }
+
   collect(): WorkAnswer[] {
     return this.handlers?.collect() ?? [];
   }
@@ -94,10 +105,11 @@ class LessonWork {
 
   async submit(request: SubmitRequest): Promise<SubmissionView> {
     if (!this.handlers) throw new Error("No lesson is open to hand in.");
+    const handlers = this.handlers;
     this.setState({ ...this.state, submitting: true, error: null });
     try {
-      const view = await this.handlers.submit(request);
-      this.setState({
+      const view = await handlers.submit(request);
+      if (handlers === this.handlers) this.setState({
         last: view,
         submitting: false,
         error: null,
@@ -107,7 +119,7 @@ class LessonWork {
     } catch (error) {
       const message =
         error instanceof Error ? error.message : "That could not be handed in.";
-      this.setState({ ...this.state, submitting: false, error: message });
+      if (handlers === this.handlers) this.setState({ ...this.state, submitting: false, error: message });
       throw error;
     }
   }

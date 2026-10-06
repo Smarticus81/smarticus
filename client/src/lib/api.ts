@@ -1,3 +1,4 @@
+import type { SubmissionView } from "../../../shared/submissionRecord";
 import type { ReaderPage } from "../voice/readerStore";
 import type { FallbackProvider } from "../../../shared/voice/fallbackBridge";
 import type {
@@ -183,13 +184,4 @@ export interface SubmitWorkBody {
   note?: string;
 }
 
-export interface SubmissionView {
-  id: string;
-  lesson_id: string;
-  mode: "platform" | "paper";
-  submitted_at: string;
-  answered: number;
-  total: number;
-  photos: number;
-  note: string | null;
-}
+export type { SubmissionView } from "../../../shared/submissionRecord";

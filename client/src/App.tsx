@@ -1,3 +1,4 @@
+import "./styles/day30.css";
 import {
   lazy,
   Suspense,
@@ -312,6 +313,7 @@ export default function App() {
               ) : null}
               {page === "today" && !loading && !error && (
                 <>
+                  {date === "2026-10-06" && <section className="day30-welcome"><div><span className="eyebrow">TUESDAY · DAY 30 · 9:30–3:30</span><h2>Your classroom.<br/>All on screen.</h2><p>Learn with the pictures. Type your answers. Hand in each subject and check for its receipt.</p><p><strong>AI Builder:</strong> Continue your saved car. Send a short progress update; the project can stay in progress.</p><button className="button" onClick={()=>{const first=lessons.find(l=>l.subject==="mathematics");if(first)openLesson(first);}}>Open today’s math →</button></div><img src="/lesson-visuals/2026-10-06/rome-written-laws.jpg" alt="Today in history: an artist’s imagined scene of people discussing Rome’s posted laws."/></section>}
                   {date === "2026-10-05" && <section className="monday-welcome">
                     <img src="/lesson-visuals/2026-10-05/rome-republic.jpg" alt="Three reconstructed scenes showing the people in Roman government." />
                     <div><span>MONDAY · 9:30–3:30</span><h2>Look closely.<br />See how it works.</h2><p>Pictures first. Short directions. Then your turn. Today in AI Builder, build a 3D hover-car in Blender and make its reveal poster.</p><button className="button dark" onClick={()=>{const builder=lessons.find(l=>l.subject==="computer_science");if(builder)openLesson(builder);}}>See today’s Builder lesson →</button></div>

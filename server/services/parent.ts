@@ -1,3 +1,4 @@
+import { submissionView } from "../../shared/submissionRecord.js";
 import { omitDeferredLessons } from "./dailyOverrides.js";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
@@ -208,6 +209,19 @@ export async function getParentDashboard() {
     }),
   ]);
 
+  const submittedRows = await prisma.submission.findMany({
+    where: { studentId: student.id },
+    orderBy: { createdAt: "desc" },
+    take: 100,
+    select: { id:true, content:true, submittedAt:true, createdAt:true,
+      assignment: { select: { lesson: { select: { id:true,date:true,subject:true,lessonTitle:true } } } }
+    },
+  });
+  const submissions = submittedRows.flatMap(row => {
+    const lesson = row.assignment.lesson;
+    if (!lesson) return [];
+    return [{...submissionView(row, lesson.id), date:isoDate(lesson.date), subject:lesson.subject, title:lesson.lessonTitle}];
+  });
   const lessons = await omitDeferredLessons(loadedLessons);
   const overrides = new Map<string, ParentGradeDay>();
   for (const review of dbReviews) {
@@ -342,5 +356,6 @@ export async function getParentDashboard() {
       description: course.description,
     })),
     official_curriculum: roadmap,
+    submissions,
   };
 }

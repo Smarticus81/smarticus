@@ -1,3 +1,5 @@
+import type { SubmissionView } from "../../../shared/submissionRecord";
+import "../styles/day30.css";
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import "../styles/parent.css";
 
@@ -72,9 +74,10 @@ type Dashboard = {
   portfolio: Array<{ title: string; subject: string; status: string; description: string; date?: string }>;
   course_descriptions: Array<{ subject: string; title: string; description: string }>;
   official_curriculum: OfficialCurriculum;
+  submissions?: Array<SubmissionView & {date:string;subject:string;title:string}>;
 };
 
-type Tab = "overview" | "grades" | "curriculum" | "transcript" | "portfolio";
+type Tab = "submissions" | "overview" | "grades" | "curriculum" | "transcript" | "portfolio";
 const subjectNames: Record<string,string> = {
   mathematics:"Math", literature:"Literature", writing:"Writing", science:"Science",
   history_geography:"History", french:"French", computer_science:"Builder Lab",
@@ -143,9 +146,9 @@ export function ParentPortal() {
       </header>
       <div className="parent-layout">
         <nav className="parent-nav no-print" aria-label="Parent records">
-          {(["overview","grades","curriculum","transcript","portfolio"] as Tab[]).map((item) => (
+          {(["overview","submissions","grades","curriculum","transcript","portfolio"] as Tab[]).map((item) => (
             <button className={tab===item ? "active" : ""} key={item} onClick={() => setTab(item)}>
-              {item === "overview" ? "Overview" : item === "grades" ? "Daily grades" : item === "curriculum" ? "Curriculum" : item === "transcript" ? "Transcript" : "Portfolio"}
+              {item === "submissions" ? "Submitted work" : item === "overview" ? "Overview" : item === "grades" ? "Daily grades" : item === "curriculum" ? "Curriculum" : item === "transcript" ? "Transcript" : "Portfolio"}
             </button>
           ))}
         </nav>
@@ -153,6 +156,7 @@ export function ParentPortal() {
           {loading && <div className="parent-card">Loading parent records…</div>}
           {error && <div className="parent-card parent-error">{error}</div>}
           {!loading && dashboard && tab === "overview" && <Overview dashboard={dashboard} setTab={setTab} />}
+          {!loading && dashboard && tab === "submissions" && <SubmittedWork dashboard={dashboard} onRefresh={loadDashboard}/>}
           {!loading && dashboard && tab === "grades" && <Grades dashboard={dashboard} onRefresh={loadDashboard} />}
           {!loading && dashboard && tab === "curriculum" && <Curriculum dashboard={dashboard} />}
           {!loading && dashboard && tab === "transcript" && <Transcript dashboard={dashboard} />}
@@ -194,6 +198,7 @@ function Overview({dashboard,setTab}:{dashboard:Dashboard;setTab:(tab:Tab)=>void
     <span className="parent-eyebrow">Parent dashboard</span>
     <h1>{dashboard.student.preferred_name}’s academic picture</h1>
     <p className="parent-subtitle">A living Grade {dashboard.student.grade_level} record: what has been graded, where each course is now, and what comes next.</p>
+    {dashboard.summary.today === "2026-10-06" && <section className="parent-card"><span className="parent-eyebrow">Tuesday · 9:30–3:30 · All online</span><h2>Today’s work comes straight here.</h2><p>Seven lessons include teaching before practice. Atticus types his answers and clicks Hand in my answers in each class. Local drafts stay on his device until handed in.</p><p>AI Builder continues the saved HOVER ONE car. Its progress update does not mark the whole project finished. French speaking results stay pending until a parent listens.</p><button className="parent-button" onClick={()=>setTab("submissions")}>Review submitted answers →</button></section>}
     <div className="parent-kpis">
       <Kpi label="Running average" value={dashboard.summary.overall_average === null ? "—" : `${dashboard.summary.overall_average}% · ${dashboard.summary.overall_letter}`} />
       <Kpi label="Formally graded days" value={String(dashboard.summary.graded_days)} />
@@ -456,4 +461,12 @@ function Portfolio({dashboard}:{dashboard:Dashboard}) {
 
 function formatDate(value:string) {
   return new Intl.DateTimeFormat("en-US",{month:"short",day:"numeric",year:"numeric",timeZone:"UTC"}).format(new Date(`${value}T00:00:00Z`));
+}
+
+export function SubmittedWork({dashboard,onRefresh}:{dashboard:Pick<Dashboard,"submissions"|"summary">;onRefresh:()=>void}) {
+ const [date,setDate]=useState(dashboard.summary.today);
+ const submissions=(dashboard.submissions??[]).filter(s=>!date||s.date===date);
+ return <section className="parent-card"><span className="parent-eyebrow">Online hand-ins</span><h1>Submitted work</h1><p>Open a hand-in to read the exact questions and answers. Newer versions appear first. These are submissions awaiting review; handing in is not an automatic grade.</p><div className="parent-submission-filter"><label>Lesson date <input type="date" value={date} onChange={e=>setDate(e.target.value)}/></label><button className="parent-button" onClick={()=>setDate("")}>All recent dates</button><button className="parent-button" onClick={onRefresh}>Refresh hand-ins</button></div><p className="parent-submission-note">Showing up to the 100 most recent hand-ins. Empty answer boxes remain visible and are not automatically scored zero.</p>{!submissions.length&&<p>No hand-ins for this date yet. Drafts appear here after Atticus clicks Hand in my answers.</p>}
+ {submissions.map((s,index)=><details className="parent-submission" key={s.id}><summary>{subjectNames[s.subject]??s.subject} · {s.title}<br/><small>{formatDate(s.date)} · Sent {new Date(s.submitted_at).toLocaleString()} · {s.answered}/{s.total} written responses{!submissions.slice(0,index).some(prior=>prior.lesson_id===s.lesson_id)?" · Latest version":" · Earlier version"}</small></summary>{s.subject==="computer_science"&&s.date==="2026-10-06"&&<p>Ongoing project · progress update only.</p>}{s.note&&<p><strong>Student note:</strong> {s.note}</p>}{s.photos>0&&<p>{s.photos} photograph(s) saved with this hand-in.</p>}<ol>{s.answers.map(a=><li key={a.section+":"+a.item_id}><strong>{a.item_id} · {a.prompt}</strong><div className="parent-submitted-answer">{a.answer.trim()?a.answer:"No written answer submitted."}</div></li>)}</ol></details>)}
+ </section>;
 }

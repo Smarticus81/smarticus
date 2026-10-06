@@ -34,6 +34,7 @@ import {
   type LessonSection,
 } from "../voice/whiteboardStore";
 import "../styles/lessons.css";
+import "../styles/day30.css";
 
 const VoiceTutor = lazy(() =>
   import("../voice/VoiceTutor").then((module) => ({
@@ -66,7 +67,7 @@ export function LessonWorkspace({
      * behind one menu. Monday opens it first for instruction. Virgil and the shared board are the
      * lesson; everything else is reference material you reach for.
      */
-    [menuOpen, setMenuOpen] = useState(lesson.date === "2026-10-05");
+    [menuOpen, setMenuOpen] = useState(["2026-10-05", "2026-10-06"].includes(lesson.date));
   const [completed, setCompleted] = useState(lesson.status === "completed"),
     [completing, setCompleting] = useState(false);
   const [completionError, setCompletionError] = useState<string | null>(null);
@@ -210,7 +211,24 @@ export function LessonWorkspace({
           ...(request.note ? { note: request.note } : {}),
         }),
     });
-    return () => lessonWork.register(null);
+    let active = true;
+    void api.tool.submissions(lesson.id).then(rows => {
+      if (!active) return;
+      const latest = rows[0];
+      if (latest) lessonWork.restore(latest);
+      const typed = rows.find(row => row.mode === "platform" && row.answers?.length);
+      if (typed) setAnswers(previous => {
+        const next = {...previous};
+        for (const entry of typed.answers) {
+          const sectionIndex = sections.findIndex(([name])=>name===entry.section);
+          if (sectionIndex < 0 || !sections[sectionIndex][1].some(item=>item.id===entry.item_id)) continue;
+          const key = `${sectionIndex}-${entry.item_id}`;
+          if (next[key] === undefined) next[key] = entry.answer;
+        }
+        return next;
+      });
+    }).catch(()=>{ if(active) lessonWork.loadError(); });
+    return () => { active = false; lessonWork.register(null); };
   }, [lesson.id, lesson.guided_practice, lesson.independent_practice, lesson.exit_ticket]);
   useEffect(() => {
     // Let the voice tutor move the interface: open a section, jump to a question.
@@ -448,8 +466,10 @@ export function LessonWorkspace({
                 <UnderstandPanel
                   lesson={lesson}
                   journal={journal}
-                  onExplore={() => changeSection("explore")}
+                  onExplore={() => changeSection(lesson.date === "2026-10-06" ? "practice" : "explore")}
                 />
+              ) : tab === "explore" && lesson.date === "2026-10-06" ? (
+                <UnderstandPanel lesson={lesson} journal={journal} onExplore={()=>changeSection("practice")}/>
               ) : tab === "explore" ? (
                 <LessonActivities
                   lesson={lesson}

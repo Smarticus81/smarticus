@@ -15,73 +15,12 @@ import { getDefaultStudent, parseDate } from "./student.js";
  * as JSON and photographs become portfolio artifacts beside them.
  */
 
-export interface SubmittedAnswer {
-  item_id: string;
-  section: "guided_practice" | "independent_practice" | "exit_ticket";
-  prompt: string;
-  answer: string;
-}
-
+import { submissionView as toView, type SubmittedAnswer, type SubmissionView } from "../../shared/submissionRecord.js";
+export type { SubmittedAnswer, SubmissionView } from "../../shared/submissionRecord.js";
 export interface SubmitLessonWorkInput {
-  lessonId: string;
-  mode: "platform" | "paper";
-  answers: SubmittedAnswer[];
-  photos: string[];
-  note?: string;
+ lessonId:string; mode:"platform"|"paper"; answers:SubmittedAnswer[]; photos:string[]; note?:string;
 }
-
-/** What the browser and the tutor are told about a submission. */
-export interface SubmissionView {
-  id: string;
-  lesson_id: string;
-  mode: "platform" | "paper";
-  submitted_at: string;
-  answered: number;
-  total: number;
-  photos: number;
-  note: string | null;
-}
-
-interface StoredSubmission {
-  mode: "platform" | "paper";
-  answers: SubmittedAnswer[];
-  photo_ids: string[];
-  note?: string;
-}
-
-function parseStored(content: string | null): StoredSubmission | null {
-  if (!content) return null;
-  try {
-    const parsed = JSON.parse(content) as Partial<StoredSubmission>;
-    if (!parsed || typeof parsed !== "object") return null;
-    return {
-      mode: parsed.mode === "paper" ? "paper" : "platform",
-      answers: Array.isArray(parsed.answers) ? (parsed.answers as SubmittedAnswer[]) : [],
-      photo_ids: Array.isArray(parsed.photo_ids) ? (parsed.photo_ids as string[]) : [],
-      ...(typeof parsed.note === "string" ? { note: parsed.note } : {}),
-    };
-  } catch {
-    return null;
-  }
-}
-
-function toView(
-  row: { id: string; content: string | null; submittedAt: Date | null; createdAt: Date },
-  lessonId: string,
-): SubmissionView {
-  const stored = parseStored(row.content);
-  const answers = stored?.answers ?? [];
-  return {
-    id: row.id,
-    lesson_id: lessonId,
-    mode: stored?.mode ?? "platform",
-    submitted_at: (row.submittedAt ?? row.createdAt).toISOString(),
-    answered: answers.filter((entry) => entry.answer.trim()).length,
-    total: answers.length,
-    photos: stored?.photo_ids.length ?? 0,
-    note: stored?.note ?? null,
-  };
-}
+interface StoredSubmission {mode:"platform"|"paper";answers:SubmittedAnswer[];photo_ids:string[];note?:string;}
 
 /**
  * The assignment a lesson's work belongs to.

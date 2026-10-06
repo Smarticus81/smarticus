@@ -6,6 +6,8 @@ import { api } from "../../lib/api";
 import { ChoiceGroup, JournalPrompt, Scene } from "./LearningPrimitives";
 import { HandIn } from "./HandIn";
 import { LessonVisuals } from "./LessonVisuals";
+import { Day30Lesson } from "./Day30Lesson";
+import { LPlan, MirrorAnswer } from "./Day30Visuals";
 import { Day29Lesson } from "./Day29Lesson";
 
 type Journal = {
@@ -23,6 +25,7 @@ export function UnderstandPanel({
 }) {
   const beats = instructionBeats(lesson.written_instruction);
   const [beat, setBeat] = useState(0);
+  if (lesson.date === "2026-10-06") return <Day30Lesson lesson={lesson} onExplore={onExplore} />;
   if (lesson.date === "2026-10-05") return <Day29Lesson lesson={lesson} onExplore={onExplore} />;
   return (
     <div className="understand-panel">
@@ -319,7 +322,7 @@ export function PracticePanel({
           Next question →
         </button>
       </div>
-      <HandIn />
+      <HandIn paperless={lesson.date === "2026-10-06"} />
       <p className="learning-fineprint">
         Your drafts save as you type, on this device. Handing them in sends them
         to your record. Either way, a written answer isn’t automatically graded
@@ -362,13 +365,16 @@ function QuestionCard({
       <label htmlFor={`answer-${item.key}`}>
         <h3>{item.prompt}</h3>
       </label>
-      <textarea
+      {item.id === "m30-2" && <LPlan width={8} height={4} sideWidth={3} sideHeight={2}/>}
+      {item.id === "me30-1" && <LPlan width={5} height={3} sideWidth={2} sideHeight={2}/>}
+      {(item.id.startsWith("f30-") || item.id === "fe30-1") && <div className="day30-accents"><span>Add a character:</span>{["é","è","ê","à","ç","’"].map(c=><button key={c} aria-label={`Add ${c}`} onClick={()=>onAnswer(answer+c)}>{c}</button>)}</div>}
+      {["s30-1","se30-1"].includes(item.id) ? <MirrorAnswer itemId={item.id} answer={answer} onAnswer={onAnswer}/> : <textarea
         id={`answer-${item.key}`}
         value={answer}
         onChange={(e) => onAnswer(e.target.value)}
         rows={6}
         placeholder="Show how you’re thinking. A first step is enough to begin."
-      />
+      />}
       <div className="learning-actions">
         <button
           className="text-button"

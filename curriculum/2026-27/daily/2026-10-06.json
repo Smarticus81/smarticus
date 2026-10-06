@@ -1,0 +1,719 @@
+{
+  "date": "2026-10-06",
+  "school_year": "2026-27",
+  "grade_level": 6,
+  "day_number": 30,
+  "school_day_label": "Tuesday October 6 2026",
+  "todays_goal": "Tuesday Day 30, 9:30 AM to 3:30 PM. 9:30-10:20 Math; 10:20-10:30 Break; 10:30-11:20 Writing; 11:20-11:45 French; 11:45-12:20 Science; 12:20-1:00 Lunch; 1:00-1:35 History; 1:35-2:35 AI Builder (continue HOVER ONE); 2:35-2:45 Break; 2:45-3:20 Reading; 3:20-3:30 Check hand-ins. Complete and submit all answers online. No printer or paper needed.",
+  "lessons": [
+    {
+      "id": "2026-10-06-mathematics",
+      "date": "2026-10-06",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "mathematics",
+      "course": "Grade 6 Mathematics",
+      "unit_id": "math-geometry-area",
+      "unit_title": "Area and Coordinate Geometry",
+      "lesson_number": 14,
+      "lesson_title": "Find the area in two pieces",
+      "standards": [
+        "6.G.A.1",
+        "6.NS.C.6c"
+      ],
+      "previous_learning": "Monday: 96%. Correct height corners and both area exit methods. Today takes one small next step: add two rectangle areas.",
+      "course_context": "Day 30 follows the reviewed Monday work. Teach first, show full examples, then answer online. Preserve previous attempts. Stop at each scheduled time.",
+      "learning_objectives": [
+        "Split an L-shaped space into two rectangles.",
+        "Find each area, then add without counting a part twice."
+      ],
+      "why_it_matters": "Room plans and garden plans often have corners that do not make one rectangle. Two smaller rectangles make the job easier.",
+      "vocabulary": [
+        {
+          "term": "area",
+          "definition": "The space inside a flat shape."
+        },
+        {
+          "term": "square unit",
+          "definition": "A square one unit on each side."
+        },
+        {
+          "term": "split",
+          "definition": "Separate a shape into smaller parts."
+        },
+        {
+          "term": "overlap",
+          "definition": "Cover the same space twice."
+        }
+      ],
+      "written_instruction": "9:30-9:35 · START WITH YESTERDAY. You chose two corners with the same x-number to find height. The x-number tells how far across a point sits. Keep that method. For a triangle, write the two steps clearly: multiply base by height, then divide by 2.\n9:35-9:45 · THE NEW IDEA. An L-shaped floor can be split into two rectangles. A split is a line you imagine inside the shape. The two pieces must fill the whole floor. They must not leave a gap or cover the same space twice.\nUse three steps: 1. Find the area of the first rectangle. 2. Find the area of the second. 3. Add the two areas. Each area tells you how many one-unit squares fit inside that piece.\nLOOK AT THE COURTYARD. The blue part is 6 units wide and 4 units high. The gold part beside it is 3 units wide and 2 units high. The two parts touch along an edge. That shared edge has no area, so it is not counted twice.\n6 × 4 = 24 square units. 3 × 2 = 6 square units. 24 + 6 = 30 square units altogether. You can type * for multiply and / for divide in your answers.\n9:45-10:00 · TRY THE PICTURE. Use Show the two pieces to see the split. Trace each part with your pointer. Read the labels before using numbers. You are finding the space inside, not the distance around the outside.\n10:00-10:15 · YOUR TURN. Open Practice. You will type your calculations beside the on-screen shape. You do not need to draw or print a grid.\n10:15-10:20 · CHECK AND HAND IN. Complete the short exit check without reopening the example. Click Hand in my answers and look for the time shown in the receipt. Stop at 10:20.",
+      "worked_examples": [
+        {
+          "title": "Two rectangles, one courtyard",
+          "problem": "A courtyard has a 6-by-4 main part and a 3-by-2 side part. The pieces do not overlap.",
+          "solution": "Main: 6 × 4 = 24. Side: 3 × 2 = 6. Total: 24 + 6 = 30 square units.",
+          "explanation": "Each piece is counted once. Adding their areas covers the whole courtyard."
+        },
+        {
+          "title": "Keep the halving step",
+          "problem": "A right triangle has base 8 units and height 3 units.",
+          "solution": "8 × 3 = 24. Then 24 ÷ 2 = 12 square units.",
+          "explanation": "Two matching right triangles fill the 8-by-3 rectangle, so one covers half."
+        }
+      ],
+      "guided_practice": [],
+      "independent_practice": [
+        {
+          "id": "m30-1",
+          "prompt": "M1. A rectangle has corners (2,1), (7,1), (7,4), (2,4). Name two corners for height. Find width, height and area. Type your calculations.",
+          "answer": "Same-x pair (2,1)/(2,4) or (7,1)/(7,4); width 5, height 3, area 15 square units.",
+          "hint": "For height, choose one up-and-down side."
+        },
+        {
+          "id": "m30-2",
+          "prompt": "M2. Use the L-shaped plan below: the main part is 8 by 4 units; the side part is 3 by 2 units. Find each area and the total.",
+          "answer": "8 × 4 = 32; 3 × 2 = 6; 32 + 6 = 38 square units.",
+          "hint": "Count each coloured piece once."
+        },
+        {
+          "id": "m30-3",
+          "prompt": "M3. Why must the two pieces not overlap when we add their areas? One clear sentence is enough.",
+          "answer": "An overlapping part would be counted twice."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "me30-1",
+          "prompt": "ME1. A new plan has a 5-by-3 main part and a 2-by-2 side part, with no overlap. Find the total area. Show both smaller areas first.",
+          "answer": "5 × 3 = 15; 2 × 2 = 4; total 19 square units."
+        },
+        {
+          "id": "me30-2",
+          "prompt": "ME2. A right triangle has base 9 and height 4 units. Type the multiplying step and the dividing step.",
+          "answer": "9 × 4 = 36; 36 ÷ 2 = 18 square units."
+        }
+      ],
+      "mastery_threshold": 85,
+      "materials": [
+        "Virgil on the laptop",
+        "Keyboard or on-screen keyboard"
+      ],
+      "estimated_minutes": 50,
+      "voice_prompt": "Tuesday October 6, Day 30. The whole day runs 9:30 AM to 3:30 PM. Paper-free: teach in Understand, then open Practice. All assigned responses, including mirror choices, save through Hand in my answers. Local drafts alone are not submitted. Use simple words, one step at a time. Explain every dimension before the new area task. Use the courtyard picture; do not introduce subtraction of cutouts or hidden side-length problems today. The interactive example is ungraded. Do not reveal assigned results.",
+      "teacher_notes": "Monday 11.5/12 (96%): both exits correct, so one small step to composite area is appropriate. Today M1 3, M2 3, M3 2, ME1 3, ME2 1 = 12. Judge method and square units; accept * and /. If M1 reveals a height error, use a five-minute same-side recap rather than allowing math to consume the next block. Do not mark a submitted subtotal as full mastery.",
+      "answer_key": {
+        "m30-1": "Same-x pair (2,1)/(2,4) or (7,1)/(7,4); width 5, height 3, area 15 square units.",
+        "m30-2": "8 × 4 = 32; 3 × 2 = 6; 32 + 6 = 38 square units.",
+        "m30-3": "An overlapping part would be counted twice.",
+        "me30-1": "5 × 3 = 15; 2 × 2 = 4; total 19 square units.",
+        "me30-2": "9 × 4 = 36; 36 ÷ 2 = 18 square units."
+      },
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-10-06-writing",
+      "date": "2026-10-06",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "writing",
+      "course": "Grade 6 Writing",
+      "unit_id": "ela-writing",
+      "unit_title": "Evidence and Reasoning",
+      "lesson_number": 20,
+      "lesson_title": "Say why the clue matters",
+      "standards": [
+        "W.6.2",
+        "W.6.9",
+        "L.6.1"
+      ],
+      "previous_learning": "Monday: 85%. Your revision was meaningful. Now make the why sentence and both parts of the exit answer clearer.",
+      "course_context": "Day 30 follows the reviewed Monday work. Teach first, show full examples, then answer online. Preserve previous attempts. Stop at each scheduled time.",
+      "learning_objectives": [
+        "Use a test result and explain why it supports an idea.",
+        "Keep a claim cautious when the evidence is limited."
+      ],
+      "why_it_matters": "A useful explanation lets another person follow your thinking. You can do that in four short sentences.",
+      "vocabulary": [
+        {
+          "term": "evidence",
+          "definition": "A detail you can point to."
+        },
+        {
+          "term": "reason",
+          "definition": "Why that detail supports your idea."
+        },
+        {
+          "term": "claim",
+          "definition": "The idea you are trying to support."
+        },
+        {
+          "term": "cautious",
+          "definition": "Careful about what you know."
+        }
+      ],
+      "written_instruction": "10:30-10:38 · KEEP YOUR IMPROVEMENT. Yesterday you changed “is the problem” to “may be the problem.” That was a useful change: one test does not prove everything. Today keep that careful wording and make the why clearer.\nEvidence says what happened. A reason says why that result helps your idea. “It worked better” is a start. Make it clearer by naming what stayed the same and what changed.\n10:38-10:48 · WATCH THE COMPARISON. Imagine the same lamp stays dark with Bulb A, lights with Bulb B, then stays dark with A again. The lamp can work with B. That makes A a more likely cause of the trouble. It does not prove that the lamp will never fail.\n10:48-10:55 · READ YOUR NEW SOURCE. This is an invented test, not a real experiment you need to do. Leo uses the same laptop, headphones, song and volume. With Cable A, the sound cuts out three times in two minutes. With Cable B, the sound stays clear for two minutes. He tries Cable A again, and the sound cuts out again. Changing the cable is the only planned change.\n10:55-11:10 · BUILD FOUR SHORT SENTENCES. 1. My idea is ___. 2. The test showed ___. 3. This supports my idea because ___. 4. To check further, I would ___. The third sentence should explain the comparison, not just repeat the first. You can say your sentences aloud before typing.\n11:10-11:16 · MAKE ONE SENTENCE CLEARER. Copy a sentence from your own paragraph. Improve it. Name what you changed: an unclear word, a missing detail or a claim that was too certain.\n11:16-11:20 · HAND IN. Answer both parts of the exit check. Click Hand in my answers. This is a short paragraph, not a long essay. Stop at 11:20.",
+      "worked_examples": [
+        {
+          "title": "A fact and its meaning",
+          "problem": "The same lamp stays dark with A, lights with B, and stays dark with A again.",
+          "solution": "Fact: The lamp lights with Bulb B. Reason: The lamp can work, so Bulb A may be causing the trouble.",
+          "explanation": "The reason connects the successful comparison to the likely cause."
+        },
+        {
+          "title": "A careful improvement",
+          "problem": "Original: This proves the lamp is perfect.",
+          "solution": "Improved: The lamp worked with Bulb B during this test.",
+          "explanation": "This names what was actually shown. It does not promise that every part is always perfect."
+        }
+      ],
+      "guided_practice": [],
+      "independent_practice": [
+        {
+          "id": "w30-1",
+          "prompt": "W1. From Leo’s headphone test, type one exact result with Cable A and one with Cable B.",
+          "answer": "A cuts out three times in two minutes; B is clear for two minutes. A again also cuts out.",
+          "hint": "Use the test facts above, not a guess."
+        },
+        {
+          "id": "w30-2",
+          "prompt": "W2. Write one four-sentence paragraph using idea → results → reason → further test. Explain why the comparison supports your idea.",
+          "answer": "Cautious Cable A claim; exact comparison; same headphones/laptop work under B so the issue follows A; repeat controlled trials or another compatible cable.",
+          "hint": "What stayed the same while the cable changed?"
+        },
+        {
+          "id": "w30-3",
+          "prompt": "W3. Copy one sentence from W2, improve it, then say what you made clearer.",
+          "answer": "Visible original, meaningful revision, and a reason for the change."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "we30-1",
+          "prompt": "WE1. Answer BOTH parts: What does the clear sound with Cable B tell us about the headphones and laptop during that test? Why is “may be faulty” more careful than “definitely broken”?",
+          "answer": "The same headphones/laptop can produce clear sound with B in this test; limited trials do not rule out every other cause or prove A always fails."
+        }
+      ],
+      "mastery_threshold": 85,
+      "materials": [
+        "Virgil on the laptop",
+        "Keyboard or on-screen keyboard"
+      ],
+      "estimated_minutes": 50,
+      "voice_prompt": "Tuesday October 6, Day 30. The whole day runs 9:30 AM to 3:30 PM. Paper-free: teach in Understand, then open Practice. All assigned responses, including mirror choices, save through Hand in my answers. Local drafts alone are not submitted. Use simple words, one step at a time. Short words, short sentences. Explain evidence versus why using the lamp model, then let him apply it to headphones. Do not write his paragraph for him.",
+      "teacher_notes": "Monday 17/20. Credit evidence where it appears. Today evidence 4; paragraph claim 2/reason 4/further check 2; revision 4; exit 4 = 20. Meaning, not paragraph length, is the goal. Exit 2 points for the comparison meaning and 2 for uncertainty. Do not dictate the assigned reason. The generated headphone image is illustrative; written source controls all results.",
+      "answer_key": {
+        "w30-1": "A cuts out three times in two minutes; B is clear for two minutes. A again also cuts out.",
+        "w30-2": "Cautious Cable A claim; exact comparison; same headphones/laptop work under B so the issue follows A; repeat controlled trials or another compatible cable.",
+        "w30-3": "Visible original, meaningful revision, and a reason for the change.",
+        "we30-1": "The same headphones/laptop can produce clear sound with B in this test; limited trials do not rule out every other cause or prove A always fails."
+      },
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-10-06-french",
+      "date": "2026-10-06",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "french",
+      "course": "Grade 6 French",
+      "unit_id": "french-futur-proche",
+      "unit_title": "Futur Proche",
+      "lesson_number": 16,
+      "lesson_title": "Make a plan together",
+      "standards": [
+        "ACTFL 1.1",
+        "ACTFL 1.2"
+      ],
+      "previous_learning": "Monday: all four written responses correct. Today builds a short shared plan; Monday’s speaking results remain unconfirmed.",
+      "course_context": "Day 30 follows the reviewed Monday work. Teach first, show full examples, then answer online. Preserve previous attempts. Stop at each scheduled time.",
+      "learning_objectives": [
+        "Ask about a plan with tu vas and answer with je vais.",
+        "Add a shared plan using nous allons."
+      ],
+      "why_it_matters": "You can ask a friend what they will do, answer for yourself, and suggest a plan together.",
+      "vocabulary": [
+        {
+          "term": "demain",
+          "definition": "Tomorrow."
+        },
+        {
+          "term": "ensemble",
+          "definition": "Together."
+        },
+        {
+          "term": "je vais",
+          "definition": "I am going to."
+        },
+        {
+          "term": "nous allons",
+          "definition": "We are going to."
+        }
+      ],
+      "written_instruction": "11:20-11:25 · RECALL. Yesterday your written je vais sentences were correct. Today use them in a short exchange. Say: Je vais lire. That means I am going to read.\n11:25-11:32 · LISTEN AND READ. To ask one friend, start Est-ce que tu vas…? To answer as yourself, switch to je vais. To speak for you and someone else, use nous allons. Keep the last action word in its basic form: lire, jouer, dessiner, regarder.\nAva: Est-ce que tu vas dessiner demain ? Are you going to draw tomorrow?\nNoah: Oui, je vais dessiner. Yes, I am going to draw.\nAva: Nous allons dessiner ensemble. We are going to draw together.\nTo say a plan will not happen, put ne and pas around vais: Je ne vais pas jouer. With allons, ne becomes n’: Nous n’allons pas jouer. The action stays after pas.\n11:32-11:40 · WRITE ONLINE. Open Practice and type F1-F4. The small word buttons can insert French accents if you need them. A straight apostrophe is fine.\n11:40-11:45 · SPEAK, THEN RECORD. Ask a parent to listen to the three cues in the final question. The parent types correct, correct after retry, or not heard beside each one, then adds initials and the date. Typing a French sentence is not proof it was spoken. If nobody can listen now, type “Speaking check pending” and hand in your written work.",
+      "worked_examples": [
+        {
+          "title": "Question → my answer → our plan",
+          "problem": "A friend asks whether you will draw.",
+          "solution": "Est-ce que tu vas dessiner ? Oui, je vais dessiner. Nous allons dessiner ensemble.",
+          "explanation": "Tu asks about the other person. Je answers for yourself. Nous includes you and someone else."
+        },
+        {
+          "title": "Change a plan to no",
+          "problem": "Je vais jouer. Nous allons jouer.",
+          "solution": "Je ne vais pas jouer. Nous n’allons pas jouer.",
+          "explanation": "Ne…pas wraps around the matching form of aller. Use n’ before allons."
+        }
+      ],
+      "guided_practice": [],
+      "independent_practice": [
+        {
+          "id": "f30-1",
+          "prompt": "F1. Translate: Tomorrow, I am going to read.",
+          "answer": "Demain, je vais lire."
+        },
+        {
+          "id": "f30-2",
+          "prompt": "F2. Ask one friend: Are you going to play? Then answer yes as yourself.",
+          "answer": "Est-ce que tu vas jouer ? Oui, je vais jouer."
+        },
+        {
+          "id": "f30-3",
+          "prompt": "F3. Translate: We are going to watch together.",
+          "answer": "Nous allons regarder ensemble."
+        },
+        {
+          "id": "f30-4",
+          "prompt": "F4. Make this plan negative: Nous allons dessiner.",
+          "answer": "Nous n’allons pas dessiner."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "fe30-1",
+          "prompt": "FE1. Speaking check. Say without the model: (1) I am going to read. (2) Are you going to play? (3) We are not going to draw. Parent: type each result (correct / correct after retry / not heard), your initials and today’s date. If no observer is available, type “Speaking check pending.”",
+          "answer": "Je vais lire. Est-ce que tu vas jouer ? Nous n’allons pas dessiner. Score only observed performance, preserving retry information."
+        }
+      ],
+      "mastery_threshold": 90,
+      "materials": [
+        "Virgil on the laptop",
+        "Keyboard or on-screen keyboard"
+      ],
+      "estimated_minutes": 25,
+      "voice_prompt": "Tuesday October 6, Day 30. The whole day runs 9:30 AM to 3:30 PM. Paper-free: teach in Understand, then open Practice. All assigned responses, including mirror choices, save through Hand in my answers. Local drafts alone are not submitted. Use simple words, one step at a time. Use natural French, then brief plain English if needed. Do not restart alphabet or greetings. Teach tu → je and nous allons; parent observation must be recorded for speaking credit.",
+      "teacher_notes": "Monday written 4/4; oral outcomes remain unconfirmed. Do not retroactively infer them from today. Today written F1 1/F2 2/F3 1/F4 1 = 5; oral 3 = 8. Record first try/retry separately and observer/date. If oral unobserved, written subtotal only, not an 8-point zero-adjusted grade.",
+      "answer_key": {
+        "f30-1": "Demain, je vais lire.",
+        "f30-2": "Est-ce que tu vas jouer ? Oui, je vais jouer.",
+        "f30-3": "Nous allons regarder ensemble.",
+        "f30-4": "Nous n’allons pas dessiner.",
+        "fe30-1": "Je vais lire. Est-ce que tu vas jouer ? Nous n’allons pas dessiner. Score only observed performance, preserving retry information."
+      },
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-10-06-science",
+      "date": "2026-10-06",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "science",
+      "course": "Grade 6 Science",
+      "unit_id": "science-light",
+      "unit_title": "Light and Reflection",
+      "lesson_number": 16,
+      "lesson_title": "Turn the mirror, change the path",
+      "standards": [
+        "MS-PS4-2"
+      ],
+      "previous_learning": "Monday’s two-mirror route improved. The exit tilt and missing explanation need a short, focused repair.",
+      "course_context": "Day 30 follows the reviewed Monday work. Teach first, show full examples, then answer online. Preserve previous attempts. Stop at each scheduled time.",
+      "learning_objectives": [
+        "Choose a mirror tilt that sends light in the intended direction.",
+        "Explain why a turned mirror changes where light goes."
+      ],
+      "why_it_matters": "A mirror turns a beam of light. The tilt matters more than the arrow you wish it would follow.",
+      "vocabulary": [
+        {
+          "term": "ray",
+          "definition": "A line showing light’s direction."
+        },
+        {
+          "term": "normal",
+          "definition": "A measuring line at a right angle."
+        },
+        {
+          "term": "hit point",
+          "definition": "Where the light meets the mirror."
+        },
+        {
+          "term": "reflect",
+          "definition": "Bounce off a surface."
+        }
+      ],
+      "written_instruction": "11:45-11:52 · NOTICE WHAT IMPROVED. Your two-mirror route now has the right mirror tilts. Today use one mirror at a time so the measuring lines and turns are easy to see.\nA ray shows the way light travels. Its arrow points in the travel direction. The hit point is where it meets the mirror. The normal is an imaginary measuring line through that point. It makes a 90-degree corner with the mirror, like the corner of a book.\n11:52-12:02 · TRY THE LIGHT TABLE. In the example, light travels right from the left side. Pick an up-right mirror and it turns upward. Pick a down-right mirror and it turns downward. The normal turns with the mirror. It is not a second mirror.\nMeasure the incoming and outgoing angles from the normal on the side where the light travels. Those two angles match. A 90-degree change in travel direction uses two 45-degree angles from the normal. The 90-degree square between mirror and normal is a different angle.\nChanging the mirror changes the normal. The light then leaves in a different direction. If a second mirror stays still, the new ray can miss it.\n12:02-12:15 · BUILD YOUR ANSWER ONLINE. In Practice, choose the mirror tilt and normal direction. The drawing keeps your choices. It does not tell you which choice is correct. Type your reason below it. Nothing needs to be drawn on paper.\n12:15-12:20 · EXIT AND HAND IN. Try the new incoming direction in the exit check. Then answer the separate angle-number question. The sketch and number question are different situations. Hand in your choices and words. Stop at 12:20.",
+      "worked_examples": [
+        {
+          "title": "The normal moves too",
+          "problem": "A mirror turns while the light source stays still.",
+          "solution": "The normal turns with the mirror. The reflected ray changes direction.",
+          "explanation": "The normal must always make a square corner with the mirror, so it cannot stay fixed when the mirror turns."
+        },
+        {
+          "title": "Measure from the same guide",
+          "problem": "An incoming ray makes 35 degrees with the normal.",
+          "solution": "The outgoing ray makes 35 degrees with the normal, on its other side.",
+          "explanation": "The matching angles are measured from the normal, not along the mirror."
+        }
+      ],
+      "guided_practice": [],
+      "independent_practice": [
+        {
+          "id": "s30-1",
+          "prompt": "S1. Light travels UP to the hit point and must leave LEFT. Choose the mirror tilt and normal direction below. Explain what the normal is.",
+          "answer": "Mirror down-right; normal up-right; normal is a guide through hit point perpendicular to mirror.",
+          "hint": "The normal makes a square corner with the mirror."
+        },
+        {
+          "id": "s30-2",
+          "prompt": "S2. Finish yesterday’s idea: if Mirror 1 turns but Mirror 2 stays still, why could the light miss Mirror 2? Mention the normal.",
+          "answer": "Mirror and normal rotate together, changing reflected direction so light may no longer meet Mirror 2.",
+          "hint": "Say what changes first, then what happens to the outgoing ray."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "se30-1",
+          "prompt": "SE1. New direction: light now travels DOWN to the hit point and must leave LEFT. Choose the mirror and normal without reopening the teaching example.",
+          "answer": "Mirror up-right; normal down-right."
+        },
+        {
+          "id": "se30-2",
+          "prompt": "SE2. Separate number question: the incoming angle is 28 degrees from the normal. What is the outgoing angle from the normal?",
+          "answer": "28 degrees."
+        }
+      ],
+      "mastery_threshold": 85,
+      "materials": [
+        "Virgil on the laptop",
+        "Keyboard or on-screen keyboard"
+      ],
+      "estimated_minutes": 35,
+      "voice_prompt": "Tuesday October 6, Day 30. The whole day runs 9:30 AM to 3:30 PM. Paper-free: teach in Understand, then open Practice. All assigned responses, including mirror choices, save through Hand in my answers. Local drafts alone are not submitted. Use simple words, one step at a time. Use the live teaching diagram. The assessment diagram does not auto-mark. Do not reveal assigned mirror choices. Explain the exact difference between the square corner and the two light angles; keep sketch task separate from numeric angle task.",
+      "teacher_notes": "Monday visible 11/16 (69%), S2 pending. This is targeted repair, not a new optics topic. Today S1 mirror2/normal2/definition2 =6; S2=4; SE1 mirror2/normal2=4; SE2=2; total16. The online selectors save both directions in the submitted answer. If incomplete keep outstanding work distinct. Preserve Monday’s first attempt; today’s S2 can be recorded as a later completion, never silently replacing the original. Require a correct independent transfer tilt before moving to new optics.",
+      "answer_key": {
+        "s30-1": "Mirror down-right; normal up-right; normal is a guide through hit point perpendicular to mirror.",
+        "s30-2": "Mirror and normal rotate together, changing reflected direction so light may no longer meet Mirror 2.",
+        "se30-1": "Mirror up-right; normal down-right.",
+        "se30-2": "28 degrees."
+      },
+      "source_references": [],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-10-06-history_geography",
+      "date": "2026-10-06",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "history_geography",
+      "course": "Grade 6 History",
+      "unit_id": "history-rome",
+      "unit_title": "Ancient Rome",
+      "lesson_number": 5,
+      "lesson_title": "Why write the rules down?",
+      "standards": [
+        "RH.6-8.2",
+        "C3-D2.Geo.2.6-8"
+      ],
+      "previous_learning": "Monday: 100%. You correctly named the roles and explained that voting was unequal. Today builds on that idea.",
+      "course_context": "Day 30 follows the reviewed Monday work. Teach first, show full examples, then answer online. Preserve previous attempts. Stop at each scheduled time.",
+      "learning_objectives": [
+        "Explain how public written rules can help people.",
+        "Explain why written rules do not guarantee fairness."
+      ],
+      "why_it_matters": "Rules are easier to question when people can find out what they say. But a rule can still be unfair.",
+      "vocabulary": [
+        {
+          "term": "law",
+          "definition": "A rule made by a government."
+        },
+        {
+          "term": "plebeians",
+          "definition": "Roman citizens outside the patrician families."
+        },
+        {
+          "term": "patricians",
+          "definition": "Members of Rome’s old leading families."
+        },
+        {
+          "term": "public",
+          "definition": "Open for people to see."
+        }
+      ],
+      "written_instruction": "1:00-1:05 · CONNECT. Yesterday you explained that consuls, the Senate and assemblies shared roles, but not everyone had an equal say. Today ask how ordinary citizens could find out the rules.\n1:05-1:12 · WATCH AND NOTICE. Open the short Khan Academy video below with a parent. Watch up to five minutes about Roman social and political groups. Pause if a word is unfamiliar. The reading here teaches everything needed for the questions, even if the video will not play.\nVIDEO LINK: https://www.khanacademy.org/humanities/world-history/ancient-medieval/roman-empire/v/roman-social-and-political-structures\n1:12-1:22 · READ. In the Roman Republic, old leading families were called patricians. Other Roman citizens were called plebeians. Plebeians were not all poor. Over time, they pressed for a stronger voice in government.\nAround 450 BCE, Rome’s laws were written in a collection called the Twelve Tables and displayed publicly. These were law tablets, not twelve dining tables. A written rule could be checked rather than being known only through what a powerful person said.\nNot everyone could read, but someone could read a public rule aloud. Posting laws helped people know what the rules said. It did not make every rule fair or give everyone an equal vote. Women and enslaved people still could not vote.\nLook at the scene as an artist’s reconstruction, not a photograph of the original tablets. The lesson is about access to rules, not guessing facts from the artwork.\n1:22-1:30 · USE AN EVERYDAY EXAMPLE. A posted playground rule lets players check the same words. A rule that gives one team extra turns is still unfair, even if it is written neatly. Knowing a rule and having a fair rule are two different things.\n1:30-1:35 · YOUR TURN. Answer the three short questions online and hand them in. Stop at 1:35.",
+      "worked_examples": [
+        {
+          "title": "A rule people can check",
+          "problem": "A referee announces a new playground rule after the game begins. Players disagree about what the rule was.",
+          "solution": "Posting the rules before play gives everyone the same words to check.",
+          "explanation": "The example shows why a visible record helps; it is not an ancient Roman event."
+        },
+        {
+          "title": "Written does not always mean fair",
+          "problem": "The posted rule says the blue team gets two turns for every one red-team turn.",
+          "solution": "Both teams can read it, but one team still gets an unfair advantage.",
+          "explanation": "Being able to find a rule is different from the rule treating people fairly."
+        }
+      ],
+      "guided_practice": [],
+      "independent_practice": [
+        {
+          "id": "h30-1",
+          "prompt": "H1. What were the Twelve Tables, and how could displaying them help Roman citizens?",
+          "answer": "A written collection of Roman laws; citizens could learn/check the publicly displayed rules."
+        },
+        {
+          "id": "h30-2",
+          "prompt": "H2. A student says, “Once Rome wrote its laws down, everyone had an equal say.” Correct this in two short sentences.",
+          "answer": "Public laws helped people know rules but did not guarantee equal voice/fairness; women and enslaved people could not vote."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "he30-1",
+          "prompt": "HE1. A club posts its rules, but one rule gives only older members a vote. Explain one thing the club has improved and one thing that is still unequal.",
+          "answer": "Posted rules improve access/clarity; younger members still lack a vote."
+        }
+      ],
+      "mastery_threshold": 85,
+      "materials": [
+        "Virgil on the laptop",
+        "Keyboard or on-screen keyboard"
+      ],
+      "estimated_minutes": 35,
+      "voice_prompt": "Tuesday October 6, Day 30. The whole day runs 9:30 AM to 3:30 PM. Paper-free: teach in Understand, then open Practice. All assigned responses, including mirror choices, save through Hand in my answers. Local drafts alone are not submitted. Use simple words, one step at a time. Keep Republic roles clear. Do not equate plebeian with always poor, republic with universal voting, or written law with guaranteed fairness. Use the club example after the Roman reading.",
+      "teacher_notes": "Monday 10/10. Today H1 4/H2 3/exit3=10. Teach public rules versus fairness, not mature punishments or founding narratives. Do not assign the whole teacher background article. Video is optional support, not assessed trivia. Sources verified October 6, 2026.",
+      "answer_key": {
+        "h30-1": "A written collection of Roman laws; citizens could learn/check the publicly displayed rules.",
+        "h30-2": "Public laws helped people know rules but did not guarantee equal voice/fairness; women and enslaved people could not vote.",
+        "he30-1": "Posted rules improve access/clarity; younger members still lack a vote."
+      },
+      "source_references": [
+        "https://openstax.org/books/world-history-volume-1/pages/6-4-the-roman-republic",
+        "https://www.khanacademy.org/humanities/world-history/ancient-medieval/roman-empire/v/roman-social-and-political-structures"
+      ],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-10-06-computer_science",
+      "date": "2026-10-06",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "computer_science",
+      "course": "Grade 6 Computer Science and AI",
+      "unit_id": "cs-ai-game-studio",
+      "unit_title": "Create a 3D vehicle and reveal trailer",
+      "lesson_number": 5,
+      "lesson_title": "HOVER ONE: continue your car",
+      "standards": [],
+      "previous_learning": "Parent-confirmed ongoing HOVER ONE project. Continue the saved car and record progress; no new project today.",
+      "course_context": "Day 30 follows the reviewed Monday work. Teach first, show full examples, then answer online. Preserve previous attempts. Stop at each scheduled time.",
+      "learning_objectives": [
+        "Continue the same saved car project from the last unfinished step.",
+        "Check one change and keep the editable work saved."
+      ],
+      "why_it_matters": "Game artists keep improving the same model. A saved working version lets you continue without losing what already looks good.",
+      "vocabulary": [
+        {
+          "term": "model",
+          "definition": "A 3D object you can edit."
+        },
+        {
+          "term": "material",
+          "definition": "A part’s colour and surface finish."
+        },
+        {
+          "term": "render",
+          "definition": "Make a finished picture of the scene."
+        },
+        {
+          "term": "version",
+          "definition": "A saved copy at one stage."
+        }
+      ],
+      "written_instruction": "1:35-1:40 · REOPEN YOUR WORK. Your parent confirms that this project is still ongoing. Continue HOVER ONE. Do not start a new car, change software, or replace a more detailed car with the original simple example.\nIn Windows File Explorer, open Documents > Atticus-AI-Builder. Find your newest saved .blend file, such as Hover-One-v02.blend. Double-click it to open Blender. If your family is using the existing Higgsfield scene instead, open that same saved scene with your parent. Keep working where your project actually lives.\nIf you cannot find the saved model, stop and ask a parent to help locate it. Do not download a blank starter over your work. The picture in this lesson shows the assistant’s reference car; it is not proof that you made every part.\n1:40-2:05 · FINISH THE NEXT UNFINISHED STEP. Use the original illustrated build guide below. Continue from your last saved step: body, window cover, engines/wheels, rear wing, colours or the saved picture. Skip parts already finished. A Rocket League-style car has a clear shape, visible wheels and a bold colour plan; use that idea while keeping your own model.\nChoose the first unfinished step in the guide and finish that step. If your car is already more detailed or already turns, keep those features. Today is a continuation block, not a new animation assignment.\n2:05-2:20 · CHECK ONE CHANGE. Look at the car from the front and side. Pick the unfinished part you just worked on and check it: is it attached where you wanted, visible, and the right colour? If not, ask Virgil or the same parent-operated builder for one clear fix: “I am using ___. I changed ___. I expected ___. I see ___. Help me fix this one part and keep the rest.”\nApply only a change you understand. Look again from the same view. If it looks worse, undo it. You do not need to read or type computer code to explain what you changed.\n2:20-2:30 · SAVE. In local Blender, press Ctrl+S. To keep an earlier version, use File > Save As and add the next version number in Documents > Atticus-AI-Builder. If a finished picture is ready, use Render > Render Image, then in the result window Image > Save As to save a PNG. The .blend file is the editable model; the PNG is only the picture. Rendering can wait if time runs out.\nFor the existing cloud scene, confirm with your parent that the change is saved in that same project. Keep its project link. Do not create an account, publish the work, install a new tool or move it into a game engine today.\n2:30-2:35 · RECORD A SHORT UPDATE ONLINE. Open Practice. Say what you worked on, what you checked, and the exact saved filename or existing project link. It is fine to write “still working on…” and name the next step. Click Hand in my answers to submit the update, then stop at 2:35.",
+      "worked_examples": [
+        {
+          "title": "Ask for one useful fix",
+          "problem": "A wheel looks partly hidden inside the body after you moved it.",
+          "solution": "“I am working on my car in Blender. I moved the front wheel. I wanted it beside the body, but half of it is hidden. Tell me the first control to check. Keep the other parts.”",
+          "explanation": "The request names the tool, the change, what you expected and what you can see."
+        },
+        {
+          "title": "Save work you can change later",
+          "problem": "You saved a picture named Car.png, but want to move a wheel tomorrow.",
+          "solution": "Keep the .blend model as well as the PNG. Reopen the .blend file and check that its parts can still be selected.",
+          "explanation": "A picture shows the car, but it does not keep all the editable 3D parts."
+        }
+      ],
+      "guided_practice": [],
+      "independent_practice": [
+        {
+          "id": "b30-1",
+          "prompt": "B1. What did you work on today? Name the part or saved step. A short update is enough.",
+          "answer": "Specific student-directed change or unfinished task. This is a progress record, not an invented completed project."
+        },
+        {
+          "id": "b30-2",
+          "prompt": "B2. What did you expect to see, what actually happened, and what did you do after checking?",
+          "answer": "Specific expected/actual comparison, change kept or undone, or truthful blocker."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "be30-1",
+          "prompt": "B3. Type the exact saved model filename and folder, or the existing cloud project link. Say whether you reopened or checked the saved work. Finish: “My next step is…”",
+          "answer": "Actual saved location plus check and honest next step. Do not infer successful saving or independently authored geometry."
+        }
+      ],
+      "mastery_threshold": 85,
+      "materials": [
+        "Existing saved HOVER ONE project",
+        "The already-used Blender or parent-operated cloud scene",
+        "Virgil for the short online update"
+      ],
+      "estimated_minutes": 60,
+      "voice_prompt": "Tuesday October 6, Day 30. The whole day runs 9:30 AM to 3:30 PM. Paper-free: teach in Understand, then open Practice. All assigned responses, including mirror choices, save through Hand in my answers. Local drafts alone are not submitted. Use simple words, one step at a time. Parent says project is ongoing. Follow the exact saved project, not a new choice. First ask which screen/unfinished step he is on if unknown. Help with one click. Keep all existing improvements including animation. The short online update is not a declaration of completion. Do not impose the original seven-part count on a more developed model.",
+      "teacher_notes": "Parent explicitly confirmed October 6 that Builder is ongoing. Keep Monday and today ungraded until appropriate work evidence is reviewed. This lesson is a continuation/status record, not a deadline to finish the car. Accept AI-directed creative decisions, testing and saved project evidence. Preserve advanced features and existing workflow. No new installation, account or hardware demand. Original Windows ARM setup and remote-tested Blender guide remain available; no claim of testing the student laptop. Local save/render directions checked against Blender manual. Do not mistake assistant-built reference render for student work. No GitHub requirement, public publishing, or game-engine import today.",
+      "answer_key": {
+        "b30-1": "Specific student-directed change or unfinished task. This is a progress record, not an invented completed project.",
+        "b30-2": "Specific expected/actual comparison, change kept or undone, or truthful blocker.",
+        "be30-1": "Actual saved location plus check and honest next step. Do not infer successful saving or independently authored geometry."
+      },
+      "source_references": [
+        "https://docs.blender.org/manual/en/5.2/files/blend/open_save.html",
+        "https://docs.blender.org/manual/en/5.2/render/output/properties/output.html"
+      ],
+      "status": "scheduled"
+    },
+    {
+      "id": "2026-10-06-literature",
+      "date": "2026-10-06",
+      "school_year": "2026-27",
+      "grade_level": 6,
+      "subject": "literature",
+      "course": "Grade 6 Literature",
+      "unit_id": "westing-game",
+      "unit_title": "The Westing Game",
+      "lesson_number": 11,
+      "lesson_title": "One clue, one clear reason",
+      "standards": [
+        "RL.6.1",
+        "RL.6.3",
+        "RL.6.10"
+      ],
+      "previous_learning": "Monday’s exit distinguished evidence from proof. The reading log and clue card were not supplied. Continue from the actual bookmark.",
+      "course_context": "Day 30 follows the reviewed Monday work. Teach first, show full examples, then answer online. Preserve previous attempts. Stop at each scheduled time.",
+      "learning_objectives": [
+        "Read for 25 minutes from your actual bookmark.",
+        "Record a clue and explain what it supports without calling it proof."
+      ],
+      "why_it_matters": "A clue can help an idea without proving it. Naming the exact detail lets someone else check your thinking.",
+      "vocabulary": [
+        {
+          "term": "clue",
+          "definition": "A detail that may help explain something."
+        },
+        {
+          "term": "theory",
+          "definition": "An idea you are trying to check."
+        },
+        {
+          "term": "another explanation",
+          "definition": "A different way the detail could fit."
+        },
+        {
+          "term": "locator",
+          "definition": "The page or chapter to find it."
+        }
+      ],
+      "written_instruction": "2:45-3:10 · READ FIRST. Open The Westing Game at your actual bookmark. The last confirmed log ended at page 93 on Friday, but do not reread pages you have already finished. Record your real starting page. Read for 25 minutes; your ending page depends on your pace.\nYour Monday exit correctly said a clue does not prove the whole theory. The Monday reading log and clue card were not supplied. Today complete a fresh online card from the reading you actually do. Do not invent yesterday’s page count.\n3:10-3:17 · MAKE ONE CLUE CARD. There are five short boxes: (1) an exact detail from the book, (2) its page or chapter, (3) your idea, (4) another possible explanation, and (5) keep or change with a reason. One clear sentence per box is enough.\nFor the last box, name your idea and link it to the detail: “I will keep/change the idea that ___ because ___.” Do more than say you need more evidence. Explain how this detail affects this idea.\nA detail might fit two different people or reasons. That is normal in a mystery. Do not jump to a name just because someone seems strange. Use what the book actually says, and avoid looking up spoilers.\n3:17-3:20 · EXIT AND HAND IN. Say what the clue does not prove. Check the page/chapter field and reading times, then click Hand in my answers.\n3:20-3:30 · CLOSE THE DAY. Open each subject you worked on and check its hand-in receipt. If you changed an answer after sending it, hand it in again. Builder can remain in progress. Save the car project before closing it.",
+      "worked_examples": [
+        {
+          "title": "A clue is not proof",
+          "problem": "Invented mystery: On page 6, Mina’s umbrella is wet. Your idea is that she walked in the rain.",
+          "solution": "I keep my rain idea as possible because the wet umbrella fits rain. But someone else might have used it.",
+          "explanation": "The detail supports one idea and still allows another explanation. This is not an event from your novel."
+        },
+        {
+          "title": "A reason to change",
+          "problem": "In the invented story, page 8 says Mina borrowed the umbrella after she entered the house.",
+          "solution": "I weaken my rain idea because the umbrella could have been wet before Mina borrowed it.",
+          "explanation": "The new detail changes how strongly the earlier clue supports the idea."
+        }
+      ],
+      "guided_practice": [],
+      "independent_practice": [
+        {
+          "id": "l30-1",
+          "prompt": "L1. Reading log: type your actual starting page, ending page and minutes read.",
+          "answer": "Actual log; target 25 minutes. Never infer pages."
+        },
+        {
+          "id": "l30-2",
+          "prompt": "L2a. Exact detail: what action or words did you notice in today’s reading?",
+          "answer": "Specific book detail, independently checked only when passage is available."
+        },
+        {
+          "id": "l30-3",
+          "prompt": "L2b. Where is that detail? Type the page or chapter.",
+          "answer": "A usable actual locator."
+        },
+        {
+          "id": "l30-4",
+          "prompt": "L2c. What is your idea about what the detail might mean?",
+          "answer": "Clear plausible theory tied to reported detail."
+        },
+        {
+          "id": "l30-5",
+          "prompt": "L2d. What is one other possible explanation?",
+          "answer": "Plausible different explanation; avoid spoilers."
+        },
+        {
+          "id": "l30-6",
+          "prompt": "L2e. Keep or change your idea? Explain how that exact detail affects it.",
+          "answer": "Explicit decision names theory and connects detail to its strength."
+        }
+      ],
+      "exit_ticket": [
+        {
+          "id": "le30-1",
+          "prompt": "LE1. What does your clue NOT prove? Explain briefly.",
+          "answer": "Distinguishes limited evidence from proof without making unverified book claims."
+        }
+      ],
+      "mastery_threshold": 85,
+      "materials": [
+        "The Westing Game",
+        "Virgil answer boxes",
+        "A timer"
+      ],
+      "estimated_minutes": 35,
+      "voice_prompt": "Tuesday October 6, Day 30. The whole day runs 9:30 AM to 3:30 PM. Paper-free: teach in Understand, then open Practice. All assigned responses, including mirror choices, save through Hand in my answers. Local drafts alone are not submitted. Use simple words, one step at a time. Keep spoiler-free. Ask for real page/chapter and actual detail. Help link evidence to a reason with the invented Mina example. Do not invent an event or tell him a suspect. Today’s online fields are the submission, not the scratchpad.",
+      "teacher_notes": "Monday exit response only was reviewed; Monday log/card not supplied. Do not award or deduct a full card score retroactively. Today card L2a-e 2 each =10; log and exit record separately. Accept brief typed answers. Book facts/locators remain student-reported unless actual passage is provided. Last confirmed log 81-93/25min, but continue actual bookmark. AR 8 points remain pending book completion/comprehension.",
+      "answer_key": {
+        "l30-1": "Actual log; target 25 minutes. Never infer pages.",
+        "l30-2": "Specific book detail, independently checked only when passage is available.",
+        "l30-3": "A usable actual locator.",
+        "l30-4": "Clear plausible theory tied to reported detail.",
+        "l30-5": "Plausible different explanation; avoid spoilers.",
+        "l30-6": "Explicit decision names theory and connects detail to its strength.",
+        "le30-1": "Distinguishes limited evidence from proof without making unverified book claims."
+      },
+      "source_references": [],
+      "status": "scheduled"
+    }
+  ]
+}

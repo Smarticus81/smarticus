@@ -878,8 +878,21 @@
         "subject": "computer_science",
         "access": "student",
         "status": "current",
-        "version": 1,
+        "version": 2,
         "date": "2026-10-05"
+      }
+    },
+    {
+      "path": "00-master/day30-tuesday-plan.md",
+      "attributes": {
+        "document_type": "curriculum_context",
+        "school_year": "2026-27",
+        "grade": 6,
+        "subject": "all",
+        "access": "student",
+        "status": "current",
+        "version": 1,
+        "date": "2026-10-06"
       }
     }
   ]

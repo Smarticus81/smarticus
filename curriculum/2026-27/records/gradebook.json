@@ -32,6 +32,12 @@
       "subject": "computer_science",
       "status": "in_progress",
       "description": "ScoutLab v2 exists. October 1 brief A/B/C notes show an attempt, but the full test log, D result, screenshot, and observed demo still need evidence."
+    },
+    {
+      "title": "HOVER ONE",
+      "subject": "computer_science",
+      "status": "in_progress",
+      "description": "Parent-confirmed ongoing car project. Day 30 continues the saved model and records a short online progress update."
     }
   ],
   "days": [
@@ -490,8 +496,8 @@
           "subject": "computer_science",
           "score": null,
           "status": "not_assessed",
-          "display": "Student demonstration pending",
-          "note": "No Monday Builder work or student demonstration is shown in these eight photos. The printed closeout still says Sky Run; that line belongs to the earlier packet and is superseded by the later HOVER ONE lesson. Its blank answer is not a Builder failure. The existing Higgsfield hover-car studio was upgraded by the assistant to a Rocket League-inspired car with an eight-second full turn in revision 3 (project bb1cdfb6-e4a6-4b6d-9187-0851e4a4abc5). That saved scene is a useful teaching resource, but its existence alone does not establish what Atticus directed, changed, tested, saved locally or explained. Do not attribute the assistant's modelling or rendering to the student. Monday remains ungraded pending a short show-and-tell of his actual project and one change he directed or made, how he checked it, and where the editable work is saved. AI-directed creative work counts; do not require hand-written code or a paper test log. Preserve Friday's 9/10 Museum After Dark grade and separate Monday's evidence from it."
+          "display": "In progress",
+          "note": "No Monday Builder work or student demonstration is shown in these eight photos. The printed closeout still says Sky Run; that line belongs to the earlier packet and is superseded by the later HOVER ONE lesson. Its blank answer is not a Builder failure. The existing Higgsfield hover-car studio was upgraded by the assistant to a Rocket League-inspired car with an eight-second full turn in revision 3 (project bb1cdfb6-e4a6-4b6d-9187-0851e4a4abc5). That saved scene is a useful teaching resource, but its existence alone does not establish what Atticus directed, changed, tested, saved locally or explained. Do not attribute the assistant's modelling or rendering to the student. Monday remains ungraded pending a short show-and-tell of his actual project and one change he directed or made, how he checked it, and where the editable work is saved. AI-directed creative work counts; do not require hand-written code or a paper test log. Preserve Friday's 9/10 Museum After Dark grade and separate Monday's evidence from it. Parent update October 6: the project is still ongoing. Continue it during Day 30; no completion grade is due yet."
         }
       ]
     }

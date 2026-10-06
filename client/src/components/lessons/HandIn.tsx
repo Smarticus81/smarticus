@@ -22,7 +22,7 @@ function receipt(mode: "platform" | "paper", when: string): string {
  * not sent: how many questions have something in them, and a timestamp once
  * they are in.
  */
-export function HandIn() {
+export function HandIn({paperless=false}:{paperless?:boolean}) {
   const work = useLessonWork();
   const cameraState = useCamera();
   const { answered, total } = lessonWork.progress();
@@ -74,7 +74,7 @@ export function HandIn() {
           <Icon name="check" size={16} />
           {work.submitting ? "Handing in…" : "Hand in my answers"}
         </button>
-        <button
+        {!paperless && <button
           className="text-button"
           onClick={() => void camera.start().catch(() => undefined)}
           disabled={work.submitting || cameraState.starting || cameraState.active}
@@ -84,7 +84,7 @@ export function HandIn() {
             : cameraState.starting
               ? "Opening camera…"
               : "Did it on paper? Open the camera"}
-        </button>
+        </button>}
       </div>
       {!cameraState.active && cameraState.error && (
         <p className="inline-error" role="alert">
@@ -93,16 +93,16 @@ export function HandIn() {
       )}
       {nothingYet && (
         <p className="hand-in-hint">
-          Write something in at least one answer box first, or photograph your
-          paper with the camera.
+          {paperless ? "Type an answer in at least one box first." : "Write something in at least one answer box first, or photograph your paper with the camera."}
         </p>
       )}
       {work.last && (
         <p className="hand-in-receipt" role="status">
           <Icon name="check" size={14} />
-          {receipt(work.last.mode, work.last.submitted_at)}
+          {receipt(work.last.mode, work.last.submitted_at)} {work.last.mode === "platform" && `${work.last.answered} of ${work.last.total} answers sent.`}
         </p>
       )}
+      {lessonWork.hasUnsentChanges() && <p className="hand-in-unsent" role="status">You changed answers after your last hand-in. Click <strong>Hand in my answers</strong> again to send the new version.</p>}
       {work.error && (
         <p className="inline-error" role="alert">
           {work.error}
