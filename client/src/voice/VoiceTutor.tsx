@@ -25,6 +25,7 @@ import {
 } from "./liveEvents";
 import { ScreenShare, type ShareSurface } from "./screenShare";
 import { whiteboard } from "./whiteboardStore";
+import { useLessonWork } from "./workStore";
 
 type ConnectionState = "idle" | "connecting" | "connected" | "error";
 
@@ -196,6 +197,8 @@ export function VoiceTutor({
   const [currentUtterance, setCurrentUtterance] = useState("");
   const [activity, setActivity] = useState<string | null>(null);
   const [screenSharing, setScreenSharing] = useState(false);
+  // Handing work in is worth a cheer from him.
+  const work = useLessonWork();
   const [shareSurface, setShareSurface] = useState<ShareSurface>("unknown");
   const [models, setModels] = useState<{ voice: string; backend: string } | null>(null);
   const [provider, setProvider] = useState<VoiceProvider>("openai");
@@ -787,12 +790,15 @@ export function VoiceTutor({
                 ? "speaking"
                 : isMuted
                   ? "muted"
-                  : connection === "connected"
-                    ? "listening"
-                    : "idle"
+                  : activity
+                    ? "thinking"
+                    : connection === "connected"
+                      ? "listening"
+                      : "idle"
         }
         analyser={outputAnalyserRef}
         active={connection === "connected"}
+        cheerKey={ended ? "session-saved" : (work.last?.submitted_at ?? null)}
       />
       <h2>One thought at a time.</h2>
       {currentUtterance && (
