@@ -30,6 +30,7 @@ export const MasteryRecordSchema = z.object({
   standard: ShortTextSchema,
   score: z.number().min(0).max(100).nullable(),
   status: MasteryStatusEnum,
+  evidence: z.string().trim().min(1).max(4_000).optional(),
 }).strict();
 
 export const TutorNoteSchema = z.object({

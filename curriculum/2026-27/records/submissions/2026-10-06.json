@@ -1,0 +1,362 @@
+{
+  "date": "2026-10-06",
+  "source": "Virgil server-saved submissions retrieved after parent completion report",
+  "submissions": {
+    "mathematics": [
+      {
+        "id": "cmuwt6ud0000o02mst7zxznus",
+        "lesson_id": "cmuwodyb8000102pkzevi3y0k",
+        "mode": "platform",
+        "submitted_at": "2026-10-06T15:03:45.971Z",
+        "answered": 5,
+        "total": 5,
+        "photos": 0,
+        "note": null,
+        "answers": [
+          {
+            "item_id": "m30-1",
+            "section": "independent_practice",
+            "prompt": "M1. A rectangle has corners (2,1), (7,1), (7,4), (2,4). Name two corners for height. Find width, height and area. Type your calculations.",
+            "answer": "width: 7-2 equals 5\nheight: 4-1 equals 3\narea: 5 times 4 is 20\n"
+          },
+          {
+            "item_id": "m30-2",
+            "section": "independent_practice",
+            "prompt": "M2. Use the L-shaped plan below: the main part is 8 by 4 units; the side part is 3 by 2 units. Find each area and the total.",
+            "answer": "32 plus 6 equals 38 square units"
+          },
+          {
+            "item_id": "m30-3",
+            "section": "independent_practice",
+            "prompt": "M3. Why must the two pieces not overlap when we add their areas? One clear sentence is enough.",
+            "answer": "If you overlap it you will be counting it twice.\n"
+          },
+          {
+            "item_id": "me30-1",
+            "section": "exit_ticket",
+            "prompt": "ME1. A new plan has a 5-by-3 main part and a 2-by-2 side part, with no overlap. Find the total area. Show both smaller areas first.",
+            "answer": "15 plus 4 equals 19 square units"
+          },
+          {
+            "item_id": "me30-2",
+            "section": "exit_ticket",
+            "prompt": "ME2. A right triangle has base 9 and height 4 units. Type the multiplying step and the dividing step.",
+            "answer": "9 times 4 equals 36, then if you divide it by 2 then you get 18\n"
+          }
+        ]
+      },
+      {
+        "id": "cmuwt5y91000n02mswrceq6ch",
+        "lesson_id": "cmuwodyb8000102pkzevi3y0k",
+        "mode": "platform",
+        "submitted_at": "2026-10-06T15:03:04.357Z",
+        "answered": 5,
+        "total": 5,
+        "photos": 0,
+        "note": "I liked it",
+        "answers": [
+          {
+            "item_id": "m30-1",
+            "section": "independent_practice",
+            "prompt": "M1. A rectangle has corners (2,1), (7,1), (7,4), (2,4). Name two corners for height. Find width, height and area. Type your calculations.",
+            "answer": "width: 7-2 equals 5\nheight: 4-1 equals 3\narea: 5 times 4 is 20\n"
+          },
+          {
+            "item_id": "m30-2",
+            "section": "independent_practice",
+            "prompt": "M2. Use the L-shaped plan below: the main part is 8 by 4 units; the side part is 3 by 2 units. Find each area and the total.",
+            "answer": "32 plus 6 equals 38 square units"
+          },
+          {
+            "item_id": "m30-3",
+            "section": "independent_practice",
+            "prompt": "M3. Why must the two pieces not overlap when we add their areas? One clear sentence is enough.",
+            "answer": "If you overlap it you will be counting it twice.\n"
+          },
+          {
+            "item_id": "me30-1",
+            "section": "exit_ticket",
+            "prompt": "ME1. A new plan has a 5-by-3 main part and a 2-by-2 side part, with no overlap. Find the total area. Show both smaller areas first.",
+            "answer": "15 plus 4 equals 19 square units"
+          },
+          {
+            "item_id": "me30-2",
+            "section": "exit_ticket",
+            "prompt": "ME2. A right triangle has base 9 and height 4 units. Type the multiplying step and the dividing step.",
+            "answer": "9 times 4 equals 36, then if you divide it by 2 then you get 18\n"
+          }
+        ]
+      }
+    ],
+    "writing": [
+      {
+        "id": "cmuwwemxy000u02msx55oj3oh",
+        "lesson_id": "cmuwodybo000302pkrpavmr34",
+        "mode": "platform",
+        "submitted_at": "2026-10-06T16:33:48.453Z",
+        "answered": 4,
+        "total": 4,
+        "photos": 0,
+        "note": null,
+        "answers": [
+          {
+            "item_id": "w30-1",
+            "section": "independent_practice",
+            "prompt": "W1. From Leo’s headphone test, type one exact result with Cable A and one with Cable B.",
+            "answer": "CABLE A: cable A had cut out 3 times in 2 minutes. CABLE B: cable B had stayed clear for 2 minutes."
+          },
+          {
+            "item_id": "w30-2",
+            "section": "independent_practice",
+            "prompt": "W2. Write one four-sentence paragraph using idea → results → reason → further test. Explain why the comparison supports your idea.",
+            "answer": "Cable A may be the problem. With cable A, the sound cut out 3 times in two minutes, with cable B it stayed clear for 2 minutes. This supports my idea because they both ran for 2 minutes and cable B did not cut out and cable A did. I would test with another cable."
+          },
+          {
+            "item_id": "w30-3",
+            "section": "independent_practice",
+            "prompt": "W3. Copy one sentence from W2, improve it, then say what you made clearer.",
+            "answer": "original: This supports my idea because they ran for 2 minutes,\nimproved: This supports my idea because both cables ran for 2 minutes.\nwhat i changed: I changed they to both cables."
+          },
+          {
+            "item_id": "we30-1",
+            "section": "exit_ticket",
+            "prompt": "WE1. Answer BOTH parts: What does the clear sound with Cable B tell us about the headphones and laptop during that test? Why is “may be faulty” more careful than “definitely broken”?",
+            "answer": "Both the laptop and headphones were working during that test."
+          }
+        ]
+      }
+    ],
+    "french": [
+      {
+        "id": "cmuwuzf3w000r02ms8n5wdw9u",
+        "lesson_id": "cmuwodyc0000502pkekdi53cp",
+        "mode": "platform",
+        "submitted_at": "2026-10-06T15:53:58.844Z",
+        "answered": 5,
+        "total": 5,
+        "photos": 0,
+        "note": null,
+        "answers": [
+          {
+            "item_id": "f30-1",
+            "section": "independent_practice",
+            "prompt": "F1. Translate: Tomorrow, I am going to read.",
+            "answer": "demain, je vais lire "
+          },
+          {
+            "item_id": "f30-2",
+            "section": "independent_practice",
+            "prompt": "F2. Ask one friend: Are you going to play? Then answer yes as yourself.",
+            "answer": "est-ce que tu vas jouer?"
+          },
+          {
+            "item_id": "f30-3",
+            "section": "independent_practice",
+            "prompt": "F3. Translate: We are going to watch together.",
+            "answer": "nous allons regarder ensemble."
+          },
+          {
+            "item_id": "f30-4",
+            "section": "independent_practice",
+            "prompt": "F4. Make this plan negative: Nous allons dessiner.",
+            "answer": "nous n’allons pas dessiner"
+          },
+          {
+            "item_id": "fe30-1",
+            "section": "exit_ticket",
+            "prompt": "FE1. Speaking check. Say without the model: (1) I am going to read. (2) Are you going to play? (3) We are not going to draw. Parent: type each result (correct / correct after retry / not heard), your initials and today’s date. If no observer is available, type “Speaking check pending.”",
+            "answer": "TKM DATE: 10/6/26"
+          }
+        ]
+      }
+    ],
+    "science": [
+      {
+        "id": "cmuwyk9dg000w02msu3of6aux",
+        "lesson_id": "cmuwodycb000702pkdyiy0ki4",
+        "mode": "platform",
+        "submitted_at": "2026-10-06T17:34:10.035Z",
+        "answered": 4,
+        "total": 4,
+        "photos": 0,
+        "note": null,
+        "answers": [
+          {
+            "item_id": "s30-1",
+            "section": "independent_practice",
+            "prompt": "S1. Light travels UP to the hit point and must leave LEFT. Choose the mirror tilt and normal direction below. Explain what the normal is.",
+            "answer": "Mirror: down-right\nNormal: up-right\nReason: The normal is perpendicular to the mirror."
+          },
+          {
+            "item_id": "s30-2",
+            "section": "independent_practice",
+            "prompt": "S2. Finish yesterday’s idea: if Mirror 1 turns but Mirror 2 stays still, why could the light miss Mirror 2? Mention the normal.",
+            "answer": "turning mirror 1 changes its normal, so the light reflects off so it could miss mirror 2."
+          },
+          {
+            "item_id": "se30-1",
+            "section": "exit_ticket",
+            "prompt": "SE1. New direction: light now travels DOWN to the hit point and must leave LEFT. Choose the mirror and normal without reopening the teaching example.",
+            "answer": "Mirror: up-right\nNormal: down-right\nReason: the normal meets the mirror at a 90 degree angle."
+          },
+          {
+            "item_id": "se30-2",
+            "section": "exit_ticket",
+            "prompt": "SE2. Separate number question: the incoming angle is 28 degrees from the normal. What is the outgoing angle from the normal?",
+            "answer": "the outgoing angle is 28 degrees"
+          }
+        ]
+      }
+    ],
+    "history_geography": [
+      {
+        "id": "cmuwzdbt0000x02ms6xtsosu8",
+        "lesson_id": "cmuwodycl000902pkr285xdns",
+        "mode": "platform",
+        "submitted_at": "2026-10-06T17:56:46.212Z",
+        "answered": 3,
+        "total": 3,
+        "photos": 0,
+        "note": null,
+        "answers": [
+          {
+            "item_id": "h30-1",
+            "section": "independent_practice",
+            "prompt": "H1. What were the Twelve Tables, and how could displaying them help Roman citizens?",
+            "answer": "romes written laws that helped citizens know thier rights."
+          },
+          {
+            "item_id": "h30-2",
+            "section": "independent_practice",
+            "prompt": "H2. A student says, “Once Rome wrote its laws down, everyone had an equal say.” Correct this in two short sentences.",
+            "answer": "Writing laws down did not make everyone equal. Rich romans still had more power"
+          },
+          {
+            "item_id": "he30-1",
+            "section": "exit_ticket",
+            "prompt": "HE1. A club posts its rules, but one rule gives only older members a vote. Explain one thing the club has improved and one thing that is still unequal.",
+            "answer": "Posting the rules makes them clear, but only older members could vote."
+          }
+        ]
+      }
+    ],
+    "computer_science": [
+      {
+        "id": "cmux311hs000202p90wc1s4qg",
+        "lesson_id": "cmuwodycw000b02pkn8nwhile",
+        "mode": "platform",
+        "submitted_at": "2026-10-06T19:39:11.439Z",
+        "answered": 3,
+        "total": 3,
+        "photos": 0,
+        "note": null,
+        "answers": [
+          {
+            "item_id": "b30-1",
+            "section": "independent_practice",
+            "prompt": "B1. What did you work on today? Name the part or saved step. A short update is enough.",
+            "answer": "we built the engines"
+          },
+          {
+            "item_id": "b30-2",
+            "section": "independent_practice",
+            "prompt": "B2. What did you expect to see, what actually happened, and what did you do after checking?",
+            "answer": "everything we did was what i was expecting."
+          },
+          {
+            "item_id": "be30-1",
+            "section": "exit_ticket",
+            "prompt": "B3. Type the exact saved model filename and folder, or the existing cloud project link. Say whether you reopened or checked the saved work. Finish: “My next step is…”",
+            "answer": "\"C:\\Users\\tmuso\\Downloads\\Atticus_Hover_One_Starter_Kit\\Hover-Studio.blend\" \nHover-Studio\ni did not reopen anything\nMy next step is to sharpen the edges and add more parts"
+          }
+        ]
+      },
+      {
+        "id": "cmux31167000102p9g67r4cme",
+        "lesson_id": "cmuwodycw000b02pkn8nwhile",
+        "mode": "platform",
+        "submitted_at": "2026-10-06T19:39:11.022Z",
+        "answered": 3,
+        "total": 3,
+        "photos": 0,
+        "note": null,
+        "answers": [
+          {
+            "item_id": "b30-1",
+            "section": "independent_practice",
+            "prompt": "B1. What did you work on today? Name the part or saved step. A short update is enough.",
+            "answer": "we built the engines"
+          },
+          {
+            "item_id": "b30-2",
+            "section": "independent_practice",
+            "prompt": "B2. What did you expect to see, what actually happened, and what did you do after checking?",
+            "answer": "everything we did was what i was expecting."
+          },
+          {
+            "item_id": "be30-1",
+            "section": "exit_ticket",
+            "prompt": "B3. Type the exact saved model filename and folder, or the existing cloud project link. Say whether you reopened or checked the saved work. Finish: “My next step is…”",
+            "answer": "\"C:\\Users\\tmuso\\Downloads\\Atticus_Hover_One_Starter_Kit\\Hover-Studio.blend\" \nHover-Studio\ni did not reopen anything\nMy next step is to sharpen the edges and add more parts"
+          }
+        ]
+      }
+    ],
+    "literature": [
+      {
+        "id": "cmux4w9ok000502p9vauo2bpk",
+        "lesson_id": "cmuwodyd7000d02pk8bbvn20l",
+        "mode": "platform",
+        "submitted_at": "2026-10-06T20:31:28.003Z",
+        "answered": 7,
+        "total": 7,
+        "photos": 0,
+        "note": null,
+        "answers": [
+          {
+            "item_id": "l30-1",
+            "section": "independent_practice",
+            "prompt": "L1. Reading log: type your actual starting page, ending page and minutes read.",
+            "answer": "104-115 25 minutes"
+          },
+          {
+            "item_id": "l30-2",
+            "section": "independent_practice",
+            "prompt": "L2a. Exact detail: what action or words did you notice in today’s reading?",
+            "answer": "one of the heirs read about otis amber, it said he dropped out of 4th grade and has an IQ of 50."
+          },
+          {
+            "item_id": "l30-3",
+            "section": "independent_practice",
+            "prompt": "L2b. Where is that detail? Type the page or chapter.",
+            "answer": "page 107"
+          },
+          {
+            "item_id": "l30-4",
+            "section": "independent_practice",
+            "prompt": "L2c. What is your idea about what the detail might mean?",
+            "answer": "This suggest that he might see things that other people wont, and hes kind of smart a little bit."
+          },
+          {
+            "item_id": "l30-5",
+            "section": "independent_practice",
+            "prompt": "L2d. What is one other possible explanation?",
+            "answer": "Otis Amber seems shy and quiet."
+          },
+          {
+            "item_id": "l30-6",
+            "section": "independent_practice",
+            "prompt": "L2e. Keep or change your idea? Explain how that exact detail affects it.",
+            "answer": "im keeping my idea because the detail shows that hes very quiet and he is not very talkative."
+          },
+          {
+            "item_id": "le30-1",
+            "section": "exit_ticket",
+            "prompt": "LE1. What does your clue NOT prove? Explain briefly.",
+            "answer": "it doesnt prove hes not smart because it does not matter about his IQ or dropping out."
+          }
+        ]
+      }
+    ]
+  }
+}

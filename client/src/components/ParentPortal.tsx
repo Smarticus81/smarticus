@@ -70,7 +70,7 @@ type Dashboard = {
   subjects: SubjectSummary[];
   transcript: Array<{ subject: string; course: string; grade: number | null; letter: string; graded_records: number; status: string }>;
   attendance: { instructional_days: number; present: number; partial: number; absent: number };
-  ar: { semester_goal: number; earned: number; current_book: string; current_book_points: number; status: string } | null;
+  ar: { semester_goal: number; earned: number; current_book: string; current_book_points: number; status: string; last_reading?: { date: string; start_page: number; end_page: number; minutes: number } } | null;
   portfolio: Array<{ title: string; subject: string; status: string; description: string; date?: string }>;
   course_descriptions: Array<{ subject: string; title: string; description: string }>;
   official_curriculum: OfficialCurriculum;
@@ -225,6 +225,7 @@ function Overview({dashboard,setTab}:{dashboard:Dashboard;setTab:(tab:Tab)=>void
         <div className="parent-card">
           <h2>Reading</h2>
           <p><strong>{dashboard.ar?.current_book ?? "No current book"}</strong></p>
+          {dashboard.ar?.last_reading && <p>Latest reading: pages {dashboard.ar.last_reading.start_page}–{dashboard.ar.last_reading.end_page} · {dashboard.ar.last_reading.minutes} minutes · {formatDate(dashboard.ar.last_reading.date)}</p>}
           <p>{dashboard.ar ? `${dashboard.ar.current_book_points} points pending at completion · semester target ${dashboard.ar.semester_goal}` : "Reading tracker not configured."}</p>
         </div>
       </section>

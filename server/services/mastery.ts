@@ -59,6 +59,7 @@ export async function recordMastery(params: {
   standard: string;
   score: number | null;
   status?: MasteryStatus;
+  evidence?: string;
 }) {
   const student = await getDefaultStudent();
   const settings = await getParentSettings();
@@ -80,7 +81,7 @@ export async function recordMastery(params: {
       score: params.score,
       status,
       recordType: "AI_OBSERVATION",
-      evidence: `Verbal/session evidence recorded at ${new Date().toISOString()}`,
+      evidence: params.evidence ?? `Verbal/session evidence recorded at ${new Date().toISOString()}`,
     },
   });
 

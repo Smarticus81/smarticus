@@ -6,7 +6,14 @@
     "earned": 0,
     "current_book": "The Westing Game",
     "current_book_points": 8,
-    "status": "in_progress"
+    "status": "in_progress",
+    "last_reading": {
+      "date": "2026-10-06",
+      "start_page": 104,
+      "end_page": 115,
+      "minutes": 25,
+      "source_submission_id": "cmux4w9ok000502p9vauo2bpk"
+    }
   },
   "portfolio": [
     {
@@ -37,7 +44,7 @@
       "title": "HOVER ONE",
       "subject": "computer_science",
       "status": "in_progress",
-      "description": "Parent-confirmed ongoing car project. Day 30 continues the saved model and records a short online progress update."
+      "description": "October 6 student update: engines added; Hover-Studio.blend location recorded. Student says the file was not reopened. Next: reopen/check saved engines, then refine edges and add parts. Daily progress submitted; project remains ongoing, not independently inspected or graded."
     }
   ],
   "days": [
@@ -448,7 +455,7 @@
     {
       "date": "2026-10-05",
       "day_number": 29,
-      "note": "Reviewed October 6, 2026 (America/Chicago) from eight supplied photographs, IMG_4730-IMG_4737, of Monday October 5 Day 29. Use the Day 29 published rubric. Credit answers wherever they appear; retain earlier attempts. Math, writing and history are reviewed. French is 4/4 written with oral cue outcomes unclear. Science is a provisional subtotal on S1/SE1; blank S2 stays pending, not zero. Literature update October 6: the parent later supplied the Monday reading log and clue card; both are now received. The log records pages 93-104; handwritten minutes are unclear between 15 and 25. This addition is recorded without changing the grade. Builder needs student evidence separately from the assistant-built scene. Provisional subtotals and ungraded subjects stay outside transcript averages. Closeout says width is clearer and no step needs explanation; use that as student reflection, not proof that every item is complete. The obsolete Sky Run closeout prompt is not assessed.",
+      "note": "Reviewed October 6, 2026 (America/Chicago) from eight supplied photographs, IMG_4730-IMG_4737, of Monday October 5 Day 29. Use the Day 29 published rubric. Credit answers wherever they appear; retain earlier attempts. Math, writing and history are reviewed. French is 4/4 written with oral cue outcomes unclear. Science is a provisional subtotal on S1/SE1; blank S2 stays pending, not zero. Literature update October 6: the parent later supplied the Monday reading log and clue card; both are now received. The log records pages 93-104; handwritten minutes are unclear between 15 and 25. This addition is recorded without changing the grade. Builder needs student evidence separately from the assistant-built scene. Provisional subtotals and ungraded subjects stay outside transcript averages. Closeout says width is clearer and no step needs explanation; use that as student reflection, not proof that every item is complete. The obsolete Sky Run closeout prompt is not assessed. October 6 later science completion: Day 30 S2 closes the missing Monday explanation; Monday science is now 15/20 with the original attempt preserved.",
       "subjects": [
         {
           "subject": "mathematics",
@@ -473,10 +480,10 @@
         },
         {
           "subject": "science",
-          "score": 69,
-          "status": "provisional",
-          "display": "11/16 submitted; S2 pending",
-          "note": "Use the planned 20-point rubric, but keep the blank S2 explanation (4 points) pending, outside the submitted-work denominator. S1: mirror tilts 4/4 — both now tilt up-right, repairing Friday's first-mirror error; normals/right angles 3/4 — intended perpendicular guides and 90-degree marks are present, but explicit normal labels and the second right-angle square need clearer marking; arrows/hit points 1/2 — the three-leg path is clear and the final upward arrow is visible, but the first two direction arrows and labelled hit points are not clearly marked; equal angles 1/2 — the second bounce's pair is communicated, but the first pair is drawn away from the incoming/outgoing rays on their side of the mirror. S1 subtotal 9/12. SE1 2/4: the numerical answer 25 degrees is correct (2/2), but the left-turn sketch has a nearly upright mirror and an almost horizontal guide, which do not show the required diagonal mirror/normal for an up-to-left turn (0/2). The sketch and numerical 25-degree question are separate tasks; the right-angle turn uses 45-degree angles from its normal. Do not deduct for neatness or measure exact angles from the photographed page. Visible subtotal 11/16 = 68.75%, rounded to 69%, provisional; this is not an 11/20 final grade. S2 is blank in the submitted photo; accept another page or an observed oral explanation if one exists. Keep this attempt, complete S2, then redraw only the exit bounce and add missing labels/arrows. Hold new optics until he can transfer the mirror tilt to a new direction. The conceptual advance in S1 should be acknowledged even though the submitted subtotal is lower than Friday's differently structured grade."
+          "score": 75,
+          "status": "reviewed",
+          "display": "15/20; S2 added Oct 6",
+          "note": "Use the planned 20-point rubric, but keep the blank S2 explanation (4 points) pending, outside the submitted-work denominator. S1: mirror tilts 4/4 — both now tilt up-right, repairing Friday's first-mirror error; normals/right angles 3/4 — intended perpendicular guides and 90-degree marks are present, but explicit normal labels and the second right-angle square need clearer marking; arrows/hit points 1/2 — the three-leg path is clear and the final upward arrow is visible, but the first two direction arrows and labelled hit points are not clearly marked; equal angles 1/2 — the second bounce's pair is communicated, but the first pair is drawn away from the incoming/outgoing rays on their side of the mirror. S1 subtotal 9/12. SE1 2/4: the numerical answer 25 degrees is correct (2/2), but the left-turn sketch has a nearly upright mirror and an almost horizontal guide, which do not show the required diagonal mirror/normal for an up-to-left turn (0/2). The sketch and numerical 25-degree question are separate tasks; the right-angle turn uses 45-degree angles from its normal. Do not deduct for neatness or measure exact angles from the photographed page. Visible subtotal 11/16 = 68.75%, rounded to 69%, provisional; this is not an 11/20 final grade. S2 is blank in the submitted photo; accept another page or an observed oral explanation if one exists. Keep this attempt, complete S2, then redraw only the exit bounce and add missing labels/arrows. Hold new optics until he can transfer the mirror tilt to a new direction. The conceptual advance in S1 should be acknowledged even though the submitted subtotal is lower than Friday's differently structured grade. Later completion, October 6: Day 30 S2 supplies the missing normal/turn explanation, earning 4/4. Monday is now 15/20 (75%) with that dated addition; original 11/16 submitted subtotal and original exit remain preserved above. Today’s improved transfer is graded separately in Day 30, not substituted into Monday’s exit."
         },
         {
           "subject": "history_geography",
@@ -498,6 +505,62 @@
           "status": "not_assessed",
           "display": "In progress",
           "note": "No Monday Builder work or student demonstration is shown in these eight photos. The printed closeout still says Sky Run; that line belongs to the earlier packet and is superseded by the later HOVER ONE lesson. Its blank answer is not a Builder failure. The existing Higgsfield hover-car studio was upgraded by the assistant to a Rocket League-inspired car with an eight-second full turn in revision 3 (project bb1cdfb6-e4a6-4b6d-9187-0851e4a4abc5). That saved scene is a useful teaching resource, but its existence alone does not establish what Atticus directed, changed, tested, saved locally or explained. Do not attribute the assistant's modelling or rendering to the student. Monday remains ungraded pending a short show-and-tell of his actual project and one change he directed or made, how he checked it, and where the editable work is saved. AI-directed creative work counts; do not require hand-written code or a paper test log. Preserve Friday's 9/10 Museum After Dark grade and separate Monday's evidence from it. Parent update October 6: the project is still ongoing. Continue it during Day 30; no completion grade is due yet."
+        }
+      ]
+    },
+    {
+      "date": "2026-10-06",
+      "day_number": 30,
+      "note": "Latest server-saved submission per subject; preserve earlier duplicate hand-ins. Existing Day 30 rubrics; partial credit within stated totals. Parent requested end-of-day review. All seven daily blocks submitted; project completion and oral confirmation remain separate. Reading: pages 104-115 for 25 minutes. HOVER ONE engines added (student report); file location recorded, reopen check not yet done. Latest hand-ins graded once; earlier versions retained. French 80% is written-only, excluded from final averages until speaking outcomes are recorded.",
+      "subjects": [
+        {
+          "subject": "mathematics",
+          "score": 92,
+          "status": "reviewed",
+          "display": "11/12",
+          "note": "M1 2/3: width 7-2=5 and height 4-1=3 are correct, but he multiplies 5 by 4 instead of using his calculated height. Credit the demonstrated vertical-coordinate method; naming the two corners is still a completion reminder, not another deduction. M2 3/3: both areas and total are correct with square units. M3 2/2: correctly explains double-counting overlap. ME1 3/3: both smaller areas and total correct. ME2 1/1: multiplying and halving are correct; add square units. Total 11/12 = 91.67%, rounded to 92%. New combined-area work and both exits are secure in this attempt. This is a consistency/checking error in M1, not evidence that height is still zero. Brief correction only; no whole-unit restart. Earlier duplicate hand-in included the reflection “I liked it”; preserve it."
+        },
+        {
+          "subject": "writing",
+          "score": 80,
+          "status": "reviewed",
+          "display": "16/20",
+          "note": "W1 evidence 4/4: both exact A/B results given. W2 claim 2/2: cautious “may”; reason 3/4: a clear equal-time comparison, but the paragraph should explicitly link the same headphones/laptop working with B to why A is suspect; further check 2/2: another cable is a reasonable follow-up. W3 3/4: changing “they both” to “both cables” usefully clarifies the subject, and he explains the change. The copied original is shortened, and the improved version drops the rest of the comparison about A cutting out and B staying clear. Credit the real clarification; retain that useful comparison when revising the complete sentence. WE1 2/4: correctly says the laptop/headphones worked in that test; omits why “may be faulty” is more careful than “definitely broken.” Total 16/20 (80%). Keep the paragraph; revise one sentence actually present and answer the second exit part. The deduction is for incomplete evidence of revision/answering, not paragraph length or spelling."
+        },
+        {
+          "subject": "french",
+          "score": 80,
+          "status": "provisional",
+          "display": "4/5 written; oral pending",
+          "note": "F1 1/1; F2 1/2: the question is correct, but the requested yes-answer as himself is missing; F3 1/1; F4 1/1. Written subtotal 4/5 = 80%. FE1 supplies TKM and 10/6/26 but no correct/retry/not-heard result for any of the three cues. Do not infer oral correctness from initials/date; the 3 oral points remain pending, not zero. Today is not a 4/8 grade and must stay outside final transcript averages. Ask only for the missing short F2 reply and the three oral outcomes. Preserve Monday and Friday oral records separately."
+        },
+        {
+          "subject": "science",
+          "score": 100,
+          "status": "reviewed",
+          "display": "16/16",
+          "note": "S1 6/6: up-to-left mirror down-right, normal up-right, and perpendicular definition all correct. S2 4/4: connects turning Mirror 1 to its changed normal and a reflected path that could miss Mirror 2; accept this concise causal explanation. SE1 4/4: correctly transfers to down-to-left with mirror up-right and normal down-right; right-angle explanation is correct. SE2 2/2: outgoing angle 28 degrees. Total 16/16 (100%). Targeted transfer check is now met; no need to repeat the full mirror worksheet. Use a brief later recall to check retention before the next optics idea. S2 also supplies Monday’s outstanding explanation as a dated later completion; preserve Monday’s original first attempt and separate today’s repaired exit from Monday’s original exit score."
+        },
+        {
+          "subject": "history_geography",
+          "score": 100,
+          "status": "reviewed",
+          "display": "10/10",
+          "note": "H1 4/4: identifies written Roman laws and citizens knowing their rights; this adequately communicates public access to rules. H2 3/3: corrects the equality claim and explains that rich Romans retained more power. This is a valid example of unequal power; the prompt does not require only the answer-key examples of excluded voters. HE1 3/3: distinguishes clearer posted rules from unequal voting. Total 10/10 (100%). Reasoning transfers to the new club example. Do not deduct for spelling or require a longer answer. Continue the Republic sequence with a brief recall, not repetition."
+        },
+        {
+          "subject": "computer_science",
+          "score": null,
+          "status": "not_assessed",
+          "display": "Progress recorded; ongoing",
+          "note": "Day 30 progress update received. B1: “we built the engines.” B2: reports that everything behaved as expected, without a specific visible check. B3 identifies C:\\Users\\tmuso\\Downloads\\Atticus_Hover_One_Starter_Kit\\Hover-Studio.blend and explicitly says he did not reopen it. Next step in his words: “sharpen the edges and add more parts.” Record this as student-reported progress and a file location, not an independently inspected or reopened artifact. Daily Builder block is complete; HOVER ONE project remains ongoing and ungraded as planned. At the next session, save the current work, reopen the saved model to check the engines remain, then continue his chosen improvement with exact tool directions. Do not restart the project, require GitHub, or impose a new installation. No render, playable game, Unity import or completed animation is established by this submission."
+        },
+        {
+          "subject": "literature",
+          "score": 60,
+          "status": "reviewed",
+          "display": "6/10 response",
+          "note": "L1: The Westing Game pages 104-115, 25 minutes. L2a detail 2/2: a specific student-reported description of Otis Amber’s schooling/reported IQ; L2b locator 2/2: page 107 supplied. Credit specificity and a usable locator, not independent verification of the novel or edition. L2c theory 1/2: a possible idea about noticing things others miss, but the quoted detail does not explain that connection. L2d alternative 0/2: “shy and quiet” is a new description, not an alternative explanation of the submitted clue. L2e decision 1/2: explicitly keeps the idea, but switches to quiet/not talkative, which the submitted detail does not show and which does not support the named theory. Card 6/10 (60%), assessing evidence-to-reason links rather than overall reading ability. LE1 is separate: usefully resists treating schooling/a reported score as a complete judgment of a person; do not endorse the absolute claim that those details have no meaning. Coach the limited conclusion supported by the passage. Keep the same clue and reread page 107; explain one supported idea and one alternative, then link the decision to that detail. Do not supply spoilers or invent what the page says. Latest reading endpoint 115; continue from the actual bookmark. Book and its 8 reading points remain pending completion/comprehension."
         }
       ]
     }

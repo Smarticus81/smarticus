@@ -31,6 +31,7 @@ type GradebookSeed = {
     current_book: string;
     current_book_points: number;
     status: string;
+    last_reading?: { date: string; start_page: number; end_page: number; minutes: number };
   };
   portfolio?: Array<{
     title: string;

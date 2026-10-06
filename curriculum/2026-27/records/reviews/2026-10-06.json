@@ -1,0 +1,84 @@
+{
+  "date": "2026-10-06",
+  "day_number": 30,
+  "review_basis": "Latest server-saved submission per subject; preserve earlier duplicate hand-ins. Existing Day 30 rubrics; partial credit within stated totals. Parent requested end-of-day review. All seven daily blocks submitted; project completion and oral confirmation remain separate.",
+  "subjects": [
+    {
+      "subject": "mathematics",
+      "score": 92,
+      "status": "reviewed",
+      "display": "11/12",
+      "note": "M1 2/3: width 7-2=5 and height 4-1=3 are correct, but he multiplies 5 by 4 instead of using his calculated height. Credit the demonstrated vertical-coordinate method; naming the two corners is still a completion reminder, not another deduction. M2 3/3: both areas and total are correct with square units. M3 2/2: correctly explains double-counting overlap. ME1 3/3: both smaller areas and total correct. ME2 1/1: multiplying and halving are correct; add square units. Total 11/12 = 91.67%, rounded to 92%. New combined-area work and both exits are secure in this attempt. This is a consistency/checking error in M1, not evidence that height is still zero. Brief correction only; no whole-unit restart. Earlier duplicate hand-in included the reflection “I liked it”; preserve it.",
+      "student_feedback": "You added the two areas correctly and explained why overlap would count twice. In M1, compare the height you found with the number you multiplied. Name your two height corners and check square units.",
+      "submission_id": "cmuwt6ud0000o02mst7zxznus",
+      "submitted_at": "2026-10-06T15:03:45.971Z",
+      "lesson_id": "cmuwodyb8000102pkzevi3y0k"
+    },
+    {
+      "subject": "writing",
+      "score": 80,
+      "status": "reviewed",
+      "display": "16/20",
+      "note": "W1 evidence 4/4: both exact A/B results given. W2 claim 2/2: cautious “may”; reason 3/4: a clear equal-time comparison, but the paragraph should explicitly link the same headphones/laptop working with B to why A is suspect; further check 2/2: another cable is a reasonable follow-up. W3 3/4: changing “they both” to “both cables” usefully clarifies the subject, and he explains the change. The copied original is shortened, and the improved version drops the rest of the comparison about A cutting out and B staying clear. Credit the real clarification; retain that useful comparison when revising the complete sentence. WE1 2/4: correctly says the laptop/headphones worked in that test; omits why “may be faulty” is more careful than “definitely broken.” Total 16/20 (80%). Keep the paragraph; revise one sentence actually present and answer the second exit part. The deduction is for incomplete evidence of revision/answering, not paragraph length or spelling.",
+      "student_feedback": "Your test results are exact, and you correctly said the laptop and headphones worked in that test. Finish the second exit question. For W3, copy a sentence exactly as it appears in your paragraph before changing it.",
+      "submission_id": "cmuwwemxy000u02msx55oj3oh",
+      "submitted_at": "2026-10-06T16:33:48.453Z",
+      "lesson_id": "cmuwodybo000302pkrpavmr34"
+    },
+    {
+      "subject": "french",
+      "score": 80,
+      "status": "provisional",
+      "display": "4/5 written; oral pending",
+      "note": "F1 1/1; F2 1/2: the question is correct, but the requested yes-answer as himself is missing; F3 1/1; F4 1/1. Written subtotal 4/5 = 80%. FE1 supplies TKM and 10/6/26 but no correct/retry/not-heard result for any of the three cues. Do not infer oral correctness from initials/date; the 3 oral points remain pending, not zero. Today is not a 4/8 grade and must stay outside final transcript averages. Ask only for the missing short F2 reply and the three oral outcomes. Preserve Monday and Friday oral records separately.",
+      "student_feedback": "Your French sentences and question are correct. F2 also asks you to answer yes as yourself; add that reply. Your parent’s initials and date are saved, but the three speaking results still need recording.",
+      "submission_id": "cmuwuzf3w000r02ms8n5wdw9u",
+      "submitted_at": "2026-10-06T15:53:58.844Z",
+      "lesson_id": "cmuwodyc0000502pkekdi53cp"
+    },
+    {
+      "subject": "science",
+      "score": 100,
+      "status": "reviewed",
+      "display": "16/16",
+      "note": "S1 6/6: up-to-left mirror down-right, normal up-right, and perpendicular definition all correct. S2 4/4: connects turning Mirror 1 to its changed normal and a reflected path that could miss Mirror 2; accept this concise causal explanation. SE1 4/4: correctly transfers to down-to-left with mirror up-right and normal down-right; right-angle explanation is correct. SE2 2/2: outgoing angle 28 degrees. Total 16/16 (100%). Targeted transfer check is now met; no need to repeat the full mirror worksheet. Use a brief later recall to check retention before the next optics idea. S2 also supplies Monday’s outstanding explanation as a dated later completion; preserve Monday’s original first attempt and separate today’s repaired exit from Monday’s original exit score.",
+      "student_feedback": "Both mirror choices are correct, including the new direction. Your normal explanation and angle answer are correct too. You also finished Monday’s missing mirror explanation. Keep this work; you do not need another full mirror worksheet.",
+      "submission_id": "cmuwyk9dg000w02msu3of6aux",
+      "submitted_at": "2026-10-06T17:34:10.035Z",
+      "lesson_id": "cmuwodycb000702pkdyiy0ki4"
+    },
+    {
+      "subject": "history_geography",
+      "score": 100,
+      "status": "reviewed",
+      "display": "10/10",
+      "note": "H1 4/4: identifies written Roman laws and citizens knowing their rights; this adequately communicates public access to rules. H2 3/3: corrects the equality claim and explains that rich Romans retained more power. This is a valid example of unequal power; the prompt does not require only the answer-key examples of excluded voters. HE1 3/3: distinguishes clearer posted rules from unequal voting. Total 10/10 (100%). Reasoning transfers to the new club example. Do not deduct for spelling or require a longer answer. Continue the Republic sequence with a brief recall, not repetition.",
+      "student_feedback": "You explained the key difference: people can know the rules even when the rules or voting rights are unequal. Your club example shows that you can use this idea in a new setting.",
+      "submission_id": "cmuwzdbt0000x02ms6xtsosu8",
+      "submitted_at": "2026-10-06T17:56:46.212Z",
+      "lesson_id": "cmuwodycl000902pkr285xdns"
+    },
+    {
+      "subject": "computer_science",
+      "score": null,
+      "status": "not_assessed",
+      "display": "Progress recorded; ongoing",
+      "note": "Day 30 progress update received. B1: “we built the engines.” B2: reports that everything behaved as expected, without a specific visible check. B3 identifies C:\\Users\\tmuso\\Downloads\\Atticus_Hover_One_Starter_Kit\\Hover-Studio.blend and explicitly says he did not reopen it. Next step in his words: “sharpen the edges and add more parts.” Record this as student-reported progress and a file location, not an independently inspected or reopened artifact. Daily Builder block is complete; HOVER ONE project remains ongoing and ungraded as planned. At the next session, save the current work, reopen the saved model to check the engines remain, then continue his chosen improvement with exact tool directions. Do not restart the project, require GitHub, or impose a new installation. No render, playable game, Unity import or completed animation is established by this submission.",
+      "student_feedback": "You reported adding the engines and saved the model’s location. Next time, first reopen your saved Blender file and check that the engines are there. Then continue the edges and extra parts you planned. The project is still in progress.",
+      "submission_id": "cmux311hs000202p90wc1s4qg",
+      "submitted_at": "2026-10-06T19:39:11.439Z",
+      "lesson_id": "cmuwodycw000b02pkn8nwhile"
+    },
+    {
+      "subject": "literature",
+      "score": 60,
+      "status": "reviewed",
+      "display": "6/10 response",
+      "note": "L1: The Westing Game pages 104-115, 25 minutes. L2a detail 2/2: a specific student-reported description of Otis Amber’s schooling/reported IQ; L2b locator 2/2: page 107 supplied. Credit specificity and a usable locator, not independent verification of the novel or edition. L2c theory 1/2: a possible idea about noticing things others miss, but the quoted detail does not explain that connection. L2d alternative 0/2: “shy and quiet” is a new description, not an alternative explanation of the submitted clue. L2e decision 1/2: explicitly keeps the idea, but switches to quiet/not talkative, which the submitted detail does not show and which does not support the named theory. Card 6/10 (60%), assessing evidence-to-reason links rather than overall reading ability. LE1 is separate: usefully resists treating schooling/a reported score as a complete judgment of a person; do not endorse the absolute claim that those details have no meaning. Coach the limited conclusion supported by the passage. Keep the same clue and reread page 107; explain one supported idea and one alternative, then link the decision to that detail. Do not supply spoilers or invent what the page says. Latest reading endpoint 115; continue from the actual bookmark. Book and its 8 reading points remain pending completion/comprehension.",
+      "student_feedback": "You recorded pages 104–115, 25 minutes, and a clue on page 107. Now make each idea fit that clue. Your answer changes to “quiet” and “shy,” but the detail you typed does not show those things. Reread page 107 and link your reason to what it actually says.",
+      "submission_id": "cmux4w9ok000502p9vauo2bpk",
+      "submitted_at": "2026-10-06T20:31:28.003Z",
+      "lesson_id": "cmuwodyd7000d02pk8bbvn20l"
+    }
+  ]
+}

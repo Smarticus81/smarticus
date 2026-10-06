@@ -99,8 +99,8 @@
         "Keyboard or on-screen keyboard"
       ],
       "estimated_minutes": 50,
-      "voice_prompt": "Tuesday October 6, Day 30. The whole day runs 9:30 AM to 3:30 PM. Paper-free: teach in Understand, then open Practice. All assigned responses, including mirror choices, save through Hand in my answers. Local drafts alone are not submitted. Use simple words, one step at a time. Explain every dimension before the new area task. Use the courtyard picture; do not introduce subtraction of cutouts or hidden side-length problems today. The interactive example is ungraded. Do not reveal assigned results.",
-      "teacher_notes": "Monday 11.5/12 (96%): both exits correct, so one small step to composite area is appropriate. Today M1 3, M2 3, M3 2, ME1 3, ME2 1 = 12. Judge method and square units; accept * and /. If M1 reveals a height error, use a five-minute same-side recap rather than allowing math to consume the next block. Do not mark a submitted subtotal as full mastery.",
+      "voice_prompt": "Tuesday October 6, Day 30. The whole day runs 9:30 AM to 3:30 PM. Paper-free: teach in Understand, then open Practice. All assigned responses, including mirror choices, save through Hand in my answers. Local drafts alone are not submitted. Use simple words, one step at a time. Explain every dimension before the new area task. Use the courtyard picture; do not introduce subtraction of cutouts or hidden side-length problems today. The interactive example is ungraded. Do not reveal assigned results.\nPOST-SUBMISSION FEEDBACK, OCTOBER 6: You added the two areas correctly and explained why overlap would count twice. In M1, compare the height you found with the number you multiplied. Name your two height corners and check square units. The parent confirmed the day is finished. Do not initiate more work now; use this feedback if asked and for the next session. Preserve submitted answers. Daily block completion is separate from project completion or speaking confirmation.",
+      "teacher_notes": "Monday 11.5/12 (96%): both exits correct, so one small step to composite area is appropriate. Today M1 3, M2 3, M3 2, ME1 3, ME2 1 = 12. Judge method and square units; accept * and /. If M1 reveals a height error, use a five-minute same-side recap rather than allowing math to consume the next block. Do not mark a submitted subtotal as full mastery.\nEND-OF-DAY REVIEW, OCTOBER 6: M1 2/3: width 7-2=5 and height 4-1=3 are correct, but he multiplies 5 by 4 instead of using his calculated height. Credit the demonstrated vertical-coordinate method; naming the two corners is still a completion reminder, not another deduction. M2 3/3: both areas and total are correct with square units. M3 2/2: correctly explains double-counting overlap. ME1 3/3: both smaller areas and total correct. ME2 1/1: multiplying and halving are correct; add square units. Total 11/12 = 91.67%, rounded to 92%. New combined-area work and both exits are secure in this attempt. This is a consistency/checking error in M1, not evidence that height is still zero. Brief correction only; no whole-unit restart. Earlier duplicate hand-in included the reflection “I liked it”; preserve it.",
       "answer_key": {
         "m30-1": "Same-x pair (2,1)/(2,4) or (7,1)/(7,4); width 5, height 3, area 15 square units.",
         "m30-2": "8 × 4 = 32; 3 × 2 = 6; 32 + 6 = 38 square units.",
@@ -109,7 +109,7 @@
         "me30-2": "9 × 4 = 36; 36 ÷ 2 = 18 square units."
       },
       "source_references": [],
-      "status": "scheduled"
+      "status": "completed"
     },
     {
       "id": "2026-10-06-writing",
@@ -200,8 +200,8 @@
         "Keyboard or on-screen keyboard"
       ],
       "estimated_minutes": 50,
-      "voice_prompt": "Tuesday October 6, Day 30. The whole day runs 9:30 AM to 3:30 PM. Paper-free: teach in Understand, then open Practice. All assigned responses, including mirror choices, save through Hand in my answers. Local drafts alone are not submitted. Use simple words, one step at a time. Short words, short sentences. Explain evidence versus why using the lamp model, then let him apply it to headphones. Do not write his paragraph for him.",
-      "teacher_notes": "Monday 17/20. Credit evidence where it appears. Today evidence 4; paragraph claim 2/reason 4/further check 2; revision 4; exit 4 = 20. Meaning, not paragraph length, is the goal. Exit 2 points for the comparison meaning and 2 for uncertainty. Do not dictate the assigned reason. The generated headphone image is illustrative; written source controls all results.",
+      "voice_prompt": "Tuesday October 6, Day 30. The whole day runs 9:30 AM to 3:30 PM. Paper-free: teach in Understand, then open Practice. All assigned responses, including mirror choices, save through Hand in my answers. Local drafts alone are not submitted. Use simple words, one step at a time. Short words, short sentences. Explain evidence versus why using the lamp model, then let him apply it to headphones. Do not write his paragraph for him.\nPOST-SUBMISSION FEEDBACK, OCTOBER 6: Your test results are exact, and you correctly said the laptop and headphones worked in that test. Finish the second exit question. For W3, copy a sentence exactly as it appears in your paragraph before changing it. The parent confirmed the day is finished. Do not initiate more work now; use this feedback if asked and for the next session. Preserve submitted answers. Daily block completion is separate from project completion or speaking confirmation.",
+      "teacher_notes": "Monday 17/20. Credit evidence where it appears. Today evidence 4; paragraph claim 2/reason 4/further check 2; revision 4; exit 4 = 20. Meaning, not paragraph length, is the goal. Exit 2 points for the comparison meaning and 2 for uncertainty. Do not dictate the assigned reason. The generated headphone image is illustrative; written source controls all results.\nEND-OF-DAY REVIEW, OCTOBER 6: W1 evidence 4/4: both exact A/B results given. W2 claim 2/2: cautious “may”; reason 3/4: a clear equal-time comparison, but the paragraph should explicitly link the same headphones/laptop working with B to why A is suspect; further check 2/2: another cable is a reasonable follow-up. W3 3/4: changing “they both” to “both cables” usefully clarifies the subject, and he explains the change. The copied original is shortened, and the improved version drops the rest of the comparison about A cutting out and B staying clear. Credit the real clarification; retain that useful comparison when revising the complete sentence. WE1 2/4: correctly says the laptop/headphones worked in that test; omits why “may be faulty” is more careful than “definitely broken.” Total 16/20 (80%). Keep the paragraph; revise one sentence actually present and answer the second exit part. The deduction is for incomplete evidence of revision/answering, not paragraph length or spelling.",
       "answer_key": {
         "w30-1": "A cuts out three times in two minutes; B is clear for two minutes. A again also cuts out.",
         "w30-2": "Cautious Cable A claim; exact comparison; same headphones/laptop work under B so the issue follows A; repeat controlled trials or another compatible cable.",
@@ -209,7 +209,7 @@
         "we30-1": "The same headphones/laptop can produce clear sound with B in this test; limited trials do not rule out every other cause or prove A always fails."
       },
       "source_references": [],
-      "status": "scheduled"
+      "status": "completed"
     },
     {
       "id": "2026-10-06-french",
@@ -302,8 +302,8 @@
         "Keyboard or on-screen keyboard"
       ],
       "estimated_minutes": 25,
-      "voice_prompt": "Tuesday October 6, Day 30. The whole day runs 9:30 AM to 3:30 PM. Paper-free: teach in Understand, then open Practice. All assigned responses, including mirror choices, save through Hand in my answers. Local drafts alone are not submitted. Use simple words, one step at a time. Use natural French, then brief plain English if needed. Do not restart alphabet or greetings. Teach tu → je and nous allons; parent observation must be recorded for speaking credit.",
-      "teacher_notes": "Monday written 4/4; oral outcomes remain unconfirmed. Do not retroactively infer them from today. Today written F1 1/F2 2/F3 1/F4 1 = 5; oral 3 = 8. Record first try/retry separately and observer/date. If oral unobserved, written subtotal only, not an 8-point zero-adjusted grade.",
+      "voice_prompt": "Tuesday October 6, Day 30. The whole day runs 9:30 AM to 3:30 PM. Paper-free: teach in Understand, then open Practice. All assigned responses, including mirror choices, save through Hand in my answers. Local drafts alone are not submitted. Use simple words, one step at a time. Use natural French, then brief plain English if needed. Do not restart alphabet or greetings. Teach tu → je and nous allons; parent observation must be recorded for speaking credit.\nPOST-SUBMISSION FEEDBACK, OCTOBER 6: Your French sentences and question are correct. F2 also asks you to answer yes as yourself; add that reply. Your parent’s initials and date are saved, but the three speaking results still need recording. The parent confirmed the day is finished. Do not initiate more work now; use this feedback if asked and for the next session. Preserve submitted answers. Daily block completion is separate from project completion or speaking confirmation.",
+      "teacher_notes": "Monday written 4/4; oral outcomes remain unconfirmed. Do not retroactively infer them from today. Today written F1 1/F2 2/F3 1/F4 1 = 5; oral 3 = 8. Record first try/retry separately and observer/date. If oral unobserved, written subtotal only, not an 8-point zero-adjusted grade.\nEND-OF-DAY REVIEW, OCTOBER 6: F1 1/1; F2 1/2: the question is correct, but the requested yes-answer as himself is missing; F3 1/1; F4 1/1. Written subtotal 4/5 = 80%. FE1 supplies TKM and 10/6/26 but no correct/retry/not-heard result for any of the three cues. Do not infer oral correctness from initials/date; the 3 oral points remain pending, not zero. Today is not a 4/8 grade and must stay outside final transcript averages. Ask only for the missing short F2 reply and the three oral outcomes. Preserve Monday and Friday oral records separately.",
       "answer_key": {
         "f30-1": "Demain, je vais lire.",
         "f30-2": "Est-ce que tu vas jouer ? Oui, je vais jouer.",
@@ -312,7 +312,7 @@
         "fe30-1": "Je vais lire. Est-ce que tu vas jouer ? Nous n’allons pas dessiner. Score only observed performance, preserving retry information."
       },
       "source_references": [],
-      "status": "scheduled"
+      "status": "completed"
     },
     {
       "id": "2026-10-06-science",
@@ -401,8 +401,8 @@
         "Keyboard or on-screen keyboard"
       ],
       "estimated_minutes": 35,
-      "voice_prompt": "Tuesday October 6, Day 30. The whole day runs 9:30 AM to 3:30 PM. Paper-free: teach in Understand, then open Practice. All assigned responses, including mirror choices, save through Hand in my answers. Local drafts alone are not submitted. Use simple words, one step at a time. Use the live teaching diagram. The assessment diagram does not auto-mark. Do not reveal assigned mirror choices. Explain the exact difference between the square corner and the two light angles; keep sketch task separate from numeric angle task.",
-      "teacher_notes": "Monday visible 11/16 (69%), S2 pending. This is targeted repair, not a new optics topic. Today S1 mirror2/normal2/definition2 =6; S2=4; SE1 mirror2/normal2=4; SE2=2; total16. The online selectors save both directions in the submitted answer. If incomplete keep outstanding work distinct. Preserve Monday’s first attempt; today’s S2 can be recorded as a later completion, never silently replacing the original. Require a correct independent transfer tilt before moving to new optics.",
+      "voice_prompt": "Tuesday October 6, Day 30. The whole day runs 9:30 AM to 3:30 PM. Paper-free: teach in Understand, then open Practice. All assigned responses, including mirror choices, save through Hand in my answers. Local drafts alone are not submitted. Use simple words, one step at a time. Use the live teaching diagram. The assessment diagram does not auto-mark. Do not reveal assigned mirror choices. Explain the exact difference between the square corner and the two light angles; keep sketch task separate from numeric angle task.\nPOST-SUBMISSION FEEDBACK, OCTOBER 6: Both mirror choices are correct, including the new direction. Your normal explanation and angle answer are correct too. You also finished Monday’s missing mirror explanation. Keep this work; you do not need another full mirror worksheet. The parent confirmed the day is finished. Do not initiate more work now; use this feedback if asked and for the next session. Preserve submitted answers. Daily block completion is separate from project completion or speaking confirmation.",
+      "teacher_notes": "Monday visible 11/16 (69%), S2 pending. This is targeted repair, not a new optics topic. Today S1 mirror2/normal2/definition2 =6; S2=4; SE1 mirror2/normal2=4; SE2=2; total16. The online selectors save both directions in the submitted answer. If incomplete keep outstanding work distinct. Preserve Monday’s first attempt; today’s S2 can be recorded as a later completion, never silently replacing the original. Require a correct independent transfer tilt before moving to new optics.\nEND-OF-DAY REVIEW, OCTOBER 6: S1 6/6: up-to-left mirror down-right, normal up-right, and perpendicular definition all correct. S2 4/4: connects turning Mirror 1 to its changed normal and a reflected path that could miss Mirror 2; accept this concise causal explanation. SE1 4/4: correctly transfers to down-to-left with mirror up-right and normal down-right; right-angle explanation is correct. SE2 2/2: outgoing angle 28 degrees. Total 16/16 (100%). Targeted transfer check is now met; no need to repeat the full mirror worksheet. Use a brief later recall to check retention before the next optics idea. S2 also supplies Monday’s outstanding explanation as a dated later completion; preserve Monday’s original first attempt and separate today’s repaired exit from Monday’s original exit score.",
       "answer_key": {
         "s30-1": "Mirror down-right; normal up-right; normal is a guide through hit point perpendicular to mirror.",
         "s30-2": "Mirror and normal rotate together, changing reflected direction so light may no longer meet Mirror 2.",
@@ -410,7 +410,7 @@
         "se30-2": "28 degrees."
       },
       "source_references": [],
-      "status": "scheduled"
+      "status": "completed"
     },
     {
       "id": "2026-10-06-history_geography",
@@ -493,8 +493,8 @@
         "Keyboard or on-screen keyboard"
       ],
       "estimated_minutes": 35,
-      "voice_prompt": "Tuesday October 6, Day 30. The whole day runs 9:30 AM to 3:30 PM. Paper-free: teach in Understand, then open Practice. All assigned responses, including mirror choices, save through Hand in my answers. Local drafts alone are not submitted. Use simple words, one step at a time. Keep Republic roles clear. Do not equate plebeian with always poor, republic with universal voting, or written law with guaranteed fairness. Use the club example after the Roman reading.",
-      "teacher_notes": "Monday 10/10. Today H1 4/H2 3/exit3=10. Teach public rules versus fairness, not mature punishments or founding narratives. Do not assign the whole teacher background article. Video is optional support, not assessed trivia. Sources verified October 6, 2026.",
+      "voice_prompt": "Tuesday October 6, Day 30. The whole day runs 9:30 AM to 3:30 PM. Paper-free: teach in Understand, then open Practice. All assigned responses, including mirror choices, save through Hand in my answers. Local drafts alone are not submitted. Use simple words, one step at a time. Keep Republic roles clear. Do not equate plebeian with always poor, republic with universal voting, or written law with guaranteed fairness. Use the club example after the Roman reading.\nPOST-SUBMISSION FEEDBACK, OCTOBER 6: You explained the key difference: people can know the rules even when the rules or voting rights are unequal. Your club example shows that you can use this idea in a new setting. The parent confirmed the day is finished. Do not initiate more work now; use this feedback if asked and for the next session. Preserve submitted answers. Daily block completion is separate from project completion or speaking confirmation.",
+      "teacher_notes": "Monday 10/10. Today H1 4/H2 3/exit3=10. Teach public rules versus fairness, not mature punishments or founding narratives. Do not assign the whole teacher background article. Video is optional support, not assessed trivia. Sources verified October 6, 2026.\nEND-OF-DAY REVIEW, OCTOBER 6: H1 4/4: identifies written Roman laws and citizens knowing their rights; this adequately communicates public access to rules. H2 3/3: corrects the equality claim and explains that rich Romans retained more power. This is a valid example of unequal power; the prompt does not require only the answer-key examples of excluded voters. HE1 3/3: distinguishes clearer posted rules from unequal voting. Total 10/10 (100%). Reasoning transfers to the new club example. Do not deduct for spelling or require a longer answer. Continue the Republic sequence with a brief recall, not repetition.",
       "answer_key": {
         "h30-1": "A written collection of Roman laws; citizens could learn/check the publicly displayed rules.",
         "h30-2": "Public laws helped people know rules but did not guarantee equal voice/fairness; women and enslaved people could not vote.",
@@ -504,7 +504,7 @@
         "https://openstax.org/books/world-history-volume-1/pages/6-4-the-roman-republic",
         "https://www.khanacademy.org/humanities/world-history/ancient-medieval/roman-empire/v/roman-social-and-political-structures"
       ],
-      "status": "scheduled"
+      "status": "completed"
     },
     {
       "id": "2026-10-06-computer_science",
@@ -585,8 +585,8 @@
         "Virgil for the short online update"
       ],
       "estimated_minutes": 60,
-      "voice_prompt": "Tuesday October 6, Day 30. The whole day runs 9:30 AM to 3:30 PM. Paper-free: teach in Understand, then open Practice. All assigned responses, including mirror choices, save through Hand in my answers. Local drafts alone are not submitted. Use simple words, one step at a time. Parent says project is ongoing. Follow the exact saved project, not a new choice. First ask which screen/unfinished step he is on if unknown. Help with one click. Keep all existing improvements including animation. The short online update is not a declaration of completion. Do not impose the original seven-part count on a more developed model.",
-      "teacher_notes": "Parent explicitly confirmed October 6 that Builder is ongoing. Keep Monday and today ungraded until appropriate work evidence is reviewed. This lesson is a continuation/status record, not a deadline to finish the car. Accept AI-directed creative decisions, testing and saved project evidence. Preserve advanced features and existing workflow. No new installation, account or hardware demand. Original Windows ARM setup and remote-tested Blender guide remain available; no claim of testing the student laptop. Local save/render directions checked against Blender manual. Do not mistake assistant-built reference render for student work. No GitHub requirement, public publishing, or game-engine import today.",
+      "voice_prompt": "Tuesday October 6, Day 30. The whole day runs 9:30 AM to 3:30 PM. Paper-free: teach in Understand, then open Practice. All assigned responses, including mirror choices, save through Hand in my answers. Local drafts alone are not submitted. Use simple words, one step at a time. Parent says project is ongoing. Follow the exact saved project, not a new choice. First ask which screen/unfinished step he is on if unknown. Help with one click. Keep all existing improvements including animation. The short online update is not a declaration of completion. Do not impose the original seven-part count on a more developed model.\nPOST-SUBMISSION FEEDBACK, OCTOBER 6: You reported adding the engines and saved the model’s location. Next time, first reopen your saved Blender file and check that the engines are there. Then continue the edges and extra parts you planned. The project is still in progress. The parent confirmed the day is finished. Do not initiate more work now; use this feedback if asked and for the next session. Preserve submitted answers. Daily block completion is separate from project completion or speaking confirmation.",
+      "teacher_notes": "Parent explicitly confirmed October 6 that Builder is ongoing. Keep Monday and today ungraded until appropriate work evidence is reviewed. This lesson is a continuation/status record, not a deadline to finish the car. Accept AI-directed creative decisions, testing and saved project evidence. Preserve advanced features and existing workflow. No new installation, account or hardware demand. Original Windows ARM setup and remote-tested Blender guide remain available; no claim of testing the student laptop. Local save/render directions checked against Blender manual. Do not mistake assistant-built reference render for student work. No GitHub requirement, public publishing, or game-engine import today.\nEND-OF-DAY REVIEW, OCTOBER 6: Day 30 progress update received. B1: “we built the engines.” B2: reports that everything behaved as expected, without a specific visible check. B3 identifies C:\\Users\\tmuso\\Downloads\\Atticus_Hover_One_Starter_Kit\\Hover-Studio.blend and explicitly says he did not reopen it. Next step in his words: “sharpen the edges and add more parts.” Record this as student-reported progress and a file location, not an independently inspected or reopened artifact. Daily Builder block is complete; HOVER ONE project remains ongoing and ungraded as planned. At the next session, save the current work, reopen the saved model to check the engines remain, then continue his chosen improvement with exact tool directions. Do not restart the project, require GitHub, or impose a new installation. No render, playable game, Unity import or completed animation is established by this submission.",
       "answer_key": {
         "b30-1": "Specific student-directed change or unfinished task. This is a progress record, not an invented completed project.",
         "b30-2": "Specific expected/actual comparison, change kept or undone, or truthful blocker.",
@@ -596,7 +596,7 @@
         "https://docs.blender.org/manual/en/5.2/files/blend/open_save.html",
         "https://docs.blender.org/manual/en/5.2/render/output/properties/output.html"
       ],
-      "status": "scheduled"
+      "status": "completed"
     },
     {
       "id": "2026-10-06-literature",
@@ -701,8 +701,8 @@
         "A timer"
       ],
       "estimated_minutes": 35,
-      "voice_prompt": "Tuesday October 6, Day 30. The whole day runs 9:30 AM to 3:30 PM. Paper-free: teach in Understand, then open Practice. All assigned responses, including mirror choices, save through Hand in my answers. Local drafts alone are not submitted. Use simple words, one step at a time. Keep spoiler-free. Ask for real page/chapter and actual detail. Help link evidence to a reason with the invented Mina example. Do not invent an event or tell him a suspect. Today’s online fields are the submission, not the scratchpad.",
-      "teacher_notes": "Monday log and clue card received as a late addition October 6. Reading range 93-104; handwritten minutes unclear between 15 and 25, so do not mark a confirmed duration or infer it from the assigned target. This record-only update leaves Monday’s score pending review. Preserve the previously reviewed exit. Do not ask for the received page again. Today card L2a-e 2 each =10; log and exit record separately. Accept brief typed answers. Book facts/locators remain student-reported unless actual passage is provided. Continue from the actual bookmark at page 104 or farther. AR 8 points remain pending book completion/comprehension.",
+      "voice_prompt": "Tuesday October 6, Day 30. The whole day runs 9:30 AM to 3:30 PM. Paper-free: teach in Understand, then open Practice. All assigned responses, including mirror choices, save through Hand in my answers. Local drafts alone are not submitted. Use simple words, one step at a time. Keep spoiler-free. Ask for real page/chapter and actual detail. Help link evidence to a reason with the invented Mina example. Do not invent an event or tell him a suspect. Today’s online fields are the submission, not the scratchpad.\nPOST-SUBMISSION FEEDBACK, OCTOBER 6: You recorded pages 104–115, 25 minutes, and a clue on page 107. Now make each idea fit that clue. Your answer changes to “quiet” and “shy,” but the detail you typed does not show those things. Reread page 107 and link your reason to what it actually says. The parent confirmed the day is finished. Do not initiate more work now; use this feedback if asked and for the next session. Preserve submitted answers. Daily block completion is separate from project completion or speaking confirmation.",
+      "teacher_notes": "Monday log and clue card received as a late addition October 6. Reading range 93-104; handwritten minutes unclear between 15 and 25, so do not mark a confirmed duration or infer it from the assigned target. This record-only update leaves Monday’s score pending review. Preserve the previously reviewed exit. Do not ask for the received page again. Today card L2a-e 2 each =10; log and exit record separately. Accept brief typed answers. Book facts/locators remain student-reported unless actual passage is provided. Continue from the actual bookmark at page 104 or farther. AR 8 points remain pending book completion/comprehension.\nEND-OF-DAY REVIEW, OCTOBER 6: L1: The Westing Game pages 104-115, 25 minutes. L2a detail 2/2: a specific student-reported description of Otis Amber’s schooling/reported IQ; L2b locator 2/2: page 107 supplied. Credit specificity and a usable locator, not independent verification of the novel or edition. L2c theory 1/2: a possible idea about noticing things others miss, but the quoted detail does not explain that connection. L2d alternative 0/2: “shy and quiet” is a new description, not an alternative explanation of the submitted clue. L2e decision 1/2: explicitly keeps the idea, but switches to quiet/not talkative, which the submitted detail does not show and which does not support the named theory. Card 6/10 (60%), assessing evidence-to-reason links rather than overall reading ability. LE1 is separate: usefully resists treating schooling/a reported score as a complete judgment of a person; do not endorse the absolute claim that those details have no meaning. Coach the limited conclusion supported by the passage. Keep the same clue and reread page 107; explain one supported idea and one alternative, then link the decision to that detail. Do not supply spoilers or invent what the page says. Latest reading endpoint 115; continue from the actual bookmark. Book and its 8 reading points remain pending completion/comprehension.",
       "answer_key": {
         "l30-1": "Actual log; target 25 minutes. Never infer pages.",
         "l30-2": "Specific book detail, independently checked only when passage is available.",
@@ -713,7 +713,7 @@
         "le30-1": "Distinguishes limited evidence from proof without making unverified book claims."
       },
       "source_references": [],
-      "status": "scheduled"
+      "status": "completed"
     }
   ]
 }
