@@ -76,6 +76,8 @@ export function LessonWorkspace({
   );
   const tutorRef = useRef<HTMLDivElement>(null);
   const journeyRef = useRef<HTMLElement>(null);
+  const menuRef = useRef<HTMLElement>(null);
+  useEffect(() => { menuRef.current?.scrollTo({ top:0 }); }, [tab]);
   const board = useWhiteboard();
   const readerState = useReader();
   const cameraState = useCamera();
@@ -408,13 +410,13 @@ export function LessonWorkspace({
                   >
                     Open the whiteboard
                   </button>
-                  <button
+                  {lesson.date === "2026-10-06" ? <button className="text-button" onClick={()=>{setMenuOpen(true);changeSection("practice");}}>Open my answer boxes</button> : <button
                     className="text-button"
                     disabled={cameraState.starting}
                     onClick={() => void camera.start().catch(() => undefined)}
                   >
                     {cameraState.starting ? "Opening camera…" : "Show Virgil my paper"}
-                  </button>
+                  </button>}
                 </div>
               </div>
             )}
@@ -430,7 +432,7 @@ export function LessonWorkspace({
             onClick={() => setMenuOpen(false)}
           />
         )}
-        <aside id="lesson-menu" className="lesson-menu" hidden={!menuOpen}>
+        <aside id="lesson-menu" ref={menuRef} className={`lesson-menu${lesson.date === "2026-10-06" ? " day30-menu" : ""}`} hidden={!menuOpen}>
           <div className="lesson-menu-head">
             <h2>Lesson</h2>
             <button className="text-button" onClick={() => setMenuOpen(false)}>
