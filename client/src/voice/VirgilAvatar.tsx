@@ -2,39 +2,67 @@ import { useCallback, useEffect, useId, useRef, useState, type RefObject } from 
 import { useReducedMotion } from "motion/react";
 import { speechEnergy } from "./speechSignal";
 import { createVirgilRig, type VirgilRig, type VirgilState } from "./virgilRig";
+import type { Gesture, VirgilPose } from "./virgilAnimator";
+import type { VirgilScene } from "./virgilScene";
 
 export type AvatarState = VirgilState;
 
+/** Either body answers to the same calls. */
+type Body = {
+  frame(energy: number, now: number): VirgilPose;
+  setState(state: VirgilState): void;
+  setPointer(x: number | null, y: number | null): void;
+  gesture(name: Gesture): void;
+  dispose(): void;
+};
+
+/** Which body to use: the 3D scene when WebGL allows, else the drawing. */
+export type AvatarRenderer = "auto" | "3d" | "svg";
+
+function webglAvailable(): boolean {
+  try {
+    const probe = document.createElement("canvas");
+    return Boolean(probe.getContext("webgl2") || probe.getContext("webgl"));
+  } catch {
+    return false;
+  }
+}
+
 /**
- * Virgil, drawn as a layered character and brought to life by virgilRig.
+ * Virgil: a round-headed scholar in big glasses and a hoodie, with a
+ * mortarboard he has not quite grown into. Big glossy eyes that blink, wander
+ * and follow the pointer, brows that carry the mood, a mouth that opens with
+ * the actual audio, hands that wave hello and go to the chin to think.
  *
- * A round-headed scholar in big glasses and a hoodie, with a mortarboard he
- * has not quite grown into: big glossy eyes that blink, wander and follow the
- * pointer, brows that carry the mood, a mouth that opens with the actual
- * audio, hands that wave hello and go to the chin to think. Flat colour and a
- * bold outline, so it stays crisp at any size and needs no WebGL.
- *
- * Every part the rig moves carries a `data-part` name. Nothing here re-renders
- * per frame: the rig writes transforms straight to the elements.
+ * He has two bodies moved by one animator. The drawing below (a layered SVG,
+ * flat colour and a bold outline) is on screen at once and stays when WebGL
+ * is unavailable; where it is available, the three.js scene in virgilScene
+ * loads and takes over, so his head really turns and his eyes really roll.
+ * Every part the rig moves carries a `data-part` name. Nothing here
+ * re-renders per frame: the bodies write their own transforms.
  */
 export function VirgilAvatar({
   state,
   analyser,
   active = false,
   cheerKey,
+  renderer = "auto",
 }: {
   state: AvatarState;
   analyser?: RefObject<AnalyserNode | null>;
   active?: boolean;
   /** Changes to this value make him cheer: work handed in, a session saved. */
   cheerKey?: string | number | null;
+  renderer?: AvatarRenderer;
 }) {
   const hostRef = useRef<HTMLDivElement | null>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
-  const rigRef = useRef<VirgilRig | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const rigRef = useRef<Body | null>(null);
   const stateRef = useRef(state);
   const activeRef = useRef(active);
   const [live, setLive] = useState(false);
+  const [mode, setMode] = useState<"svg" | "3d">("svg");
   const reduced = useReducedMotion() ?? false;
   // Two Virgils can be on one page, so the clip paths get their own ids;
   // kept to plain characters so every browser's url(#…) reads them.
@@ -55,29 +83,80 @@ export function VirgilAvatar({
     if (cheerKey) rigRef.current?.gesture("cheer");
   }, [cheerKey]);
 
+  // Try for the 3D body once; fall back to (or stay with) the drawing.
   useEffect(() => {
-    const svg = svgRef.current;
-    const host = hostRef.current;
-    if (!svg || !host) return;
-    const rig = createVirgilRig(svg, { reducedMotion: reduced });
-    rigRef.current = rig;
-    rig.setState(stateRef.current);
-    setLive(true);
+    if (renderer === "svg" || mode === "3d") return;
+    if (renderer === "auto" && !webglAvailable()) return;
+    let cancelled = false;
+    void import("./virgilScene")
+      .then(() => {
+        if (!cancelled) setMode("3d");
+      })
+      .catch((error) => {
+        console.warn("Virgil's 3D scene could not load; keeping the drawing.", error);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [renderer, mode]);
 
+  useEffect(() => {
+    const host = hostRef.current;
+    if (!host) return;
+    let rig: Body | null = null;
+    let scene: VirgilScene | null = null;
+    let observer: ResizeObserver | null = null;
+    let disposed = false;
     let frame = 0;
     let samples = new Uint8Array(0);
-    const loop = (now: number) => {
+
+    const run = (body: Body) => {
+      if (disposed) return;
+      rig = body;
+      rigRef.current = body;
+      body.setState(stateRef.current);
+      setLive(true);
+      const loop = (now: number) => {
+        frame = requestAnimationFrame(loop);
+        let energy = 0;
+        const source = analyser?.current;
+        if (activeRef.current && source && !document.hidden) {
+          if (samples.length !== source.fftSize) samples = new Uint8Array(source.fftSize);
+          source.getByteTimeDomainData(samples);
+          energy = speechEnergy(samples);
+        }
+        // The latest pose is left on the element for checks to read.
+        (host as HTMLDivElement & { __virgilPose?: VirgilPose }).__virgilPose = body.frame(energy, now);
+      };
       frame = requestAnimationFrame(loop);
-      let energy = 0;
-      const source = analyser?.current;
-      if (activeRef.current && source && !document.hidden) {
-        if (samples.length !== source.fftSize) samples = new Uint8Array(source.fftSize);
-        source.getByteTimeDomainData(samples);
-        energy = speechEnergy(samples);
-      }
-      rig.frame(energy, now);
     };
-    frame = requestAnimationFrame(loop);
+
+    if (mode === "3d") {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      void import("./virgilScene").then((module) => {
+        if (disposed) return;
+        try {
+          scene = module.createVirgilScene(canvas, { reducedMotion: reduced });
+        } catch (error) {
+          console.warn("Virgil's 3D scene could not start; using the drawing.", error);
+          setMode("svg");
+          return;
+        }
+        const fit = () => {
+          const rect = host.getBoundingClientRect();
+          scene?.resize(Math.max(1, rect.width), Math.max(1, rect.height));
+        };
+        fit();
+        observer = new ResizeObserver(fit);
+        observer.observe(host);
+        run(scene);
+      });
+    } else {
+      const svg = svgRef.current;
+      if (!svg) return;
+      run(createVirgilRig(svg, { reducedMotion: reduced }));
+    }
 
     // His eyes follow the pointer anywhere on the page, the way a person at a
     // desk follows the one they are talking to, and wander again when it goes.
@@ -87,41 +166,46 @@ export function VirgilAvatar({
       const cx = rect.left + rect.width / 2;
       const cy = rect.top + rect.height * 0.4;
       const reach = Math.max(rect.width, 240) * 2.2;
-      rig.setPointer((event.clientX - cx) / reach, (event.clientY - cy) / reach);
+      rig?.setPointer((event.clientX - cx) / reach, (event.clientY - cy) / reach);
       window.clearTimeout(pointerTimer);
-      pointerTimer = window.setTimeout(() => rig.setPointer(null, null), 2_800);
+      pointerTimer = window.setTimeout(() => rig?.setPointer(null, null), 2_800);
     };
-    const onLeave = () => rig.setPointer(null, null);
+    const onLeave = () => rig?.setPointer(null, null);
     if (!reduced) {
       window.addEventListener("pointermove", onPointer, { passive: true });
       document.addEventListener("pointerleave", onLeave);
     }
 
     return () => {
+      disposed = true;
       cancelAnimationFrame(frame);
       window.clearTimeout(pointerTimer);
       window.removeEventListener("pointermove", onPointer);
       document.removeEventListener("pointerleave", onLeave);
-      rig.dispose();
+      observer?.disconnect();
+      rig?.dispose();
       rigRef.current = null;
       setLive(false);
     };
-  }, [analyser, reduced]);
+  }, [analyser, reduced, mode]);
 
   const poke = useCallback(() => rigRef.current?.gesture("poke"), []);
 
   return (
     <div
       ref={hostRef}
-      className={`virgil-avatar avatar-${state} ${live ? "is-live" : "is-still"}`}
+      className={`virgil-avatar avatar-${state} ${live ? "is-live" : "is-still"} ${mode === "3d" ? "is-3d" : "is-drawn"}`}
       data-testid="virgil-avatar"
       data-state={state}
+      data-renderer={mode}
       // The rig drops breathing, sway, blinks and wandering eyes when this is
       // on. Reflecting it here makes the accessibility promise checkable.
       data-reduced-motion={reduced}
       aria-hidden="true"
       onPointerDown={poke}
     >
+      {mode === "3d" && <canvas ref={canvasRef} className="virgil-canvas" data-testid="virgil-canvas" />}
+      {mode === "svg" && (
       <svg
         ref={svgRef}
         className="virgil-figure"
@@ -302,6 +386,7 @@ export function VirgilAvatar({
           style={{ opacity: 0 }}
         />
       </svg>
+      )}
     </div>
   );
 }

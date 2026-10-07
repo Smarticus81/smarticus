@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import App from "../../client/src/App";
-import { VirgilAvatar, type AvatarState } from "../../client/src/voice/VirgilAvatar";
+import { VirgilAvatar, type AvatarRenderer, type AvatarState } from "../../client/src/voice/VirgilAvatar";
 import { speechEnergy } from "../../client/src/voice/speechSignal";
 import { lessonNavigator, whiteboard } from "../../client/src/voice/whiteboardStore";
 import { captureUiSnapshot } from "../../client/src/voice/uiSnapshot";
@@ -94,6 +94,7 @@ function AudioFixture() {
         analyser={analyser}
         active={active}
         cheerKey={cheers || null}
+        renderer={(new URLSearchParams(location.search).get("renderer") as AvatarRenderer | null) ?? "auto"}
       />
       <button onClick={() => setCheers((n) => n + 1)}>Cheer</button>
       <output data-testid="source-energy">{energy}</output>
