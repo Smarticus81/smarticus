@@ -67,7 +67,7 @@ export function LessonWorkspace({
      * behind one menu. Monday opens it first for instruction. Virgil and the shared board are the
      * lesson; everything else is reference material you reach for.
      */
-    [menuOpen, setMenuOpen] = useState(["2026-10-05", "2026-10-06"].includes(lesson.date));
+    [menuOpen, setMenuOpen] = useState(["2026-10-05", "2026-10-06", "2026-10-07"].includes(lesson.date));
   const [completed, setCompleted] = useState(lesson.status === "completed"),
     [completing, setCompleting] = useState(false);
   const [completionError, setCompletionError] = useState<string | null>(null);
@@ -410,7 +410,7 @@ export function LessonWorkspace({
                   >
                     Open the whiteboard
                   </button>
-                  {lesson.date === "2026-10-06" ? <button className="text-button" onClick={()=>{setMenuOpen(true);changeSection("practice");}}>Open my answer boxes</button> : <button
+                  {["2026-10-06","2026-10-07"].includes(lesson.date) ? <button className="text-button" onClick={()=>{setMenuOpen(true);changeSection("practice");}}>Open my answer boxes</button> : <button
                     className="text-button"
                     disabled={cameraState.starting}
                     onClick={() => void camera.start().catch(() => undefined)}
@@ -432,7 +432,7 @@ export function LessonWorkspace({
             onClick={() => setMenuOpen(false)}
           />
         )}
-        <aside id="lesson-menu" ref={menuRef} className={`lesson-menu${lesson.date === "2026-10-06" ? " day30-menu" : ""}`} hidden={!menuOpen}>
+        <aside id="lesson-menu" ref={menuRef} className={`lesson-menu${["2026-10-06","2026-10-07"].includes(lesson.date) ? " day30-menu" : ""}`} hidden={!menuOpen}>
           <div className="lesson-menu-head">
             <h2>Lesson</h2>
             <button className="text-button" onClick={() => setMenuOpen(false)}>
@@ -468,9 +468,9 @@ export function LessonWorkspace({
                 <UnderstandPanel
                   lesson={lesson}
                   journal={journal}
-                  onExplore={() => changeSection(lesson.date === "2026-10-06" ? "practice" : "explore")}
+                  onExplore={() => changeSection(["2026-10-06","2026-10-07"].includes(lesson.date) ? "practice" : "explore")}
                 />
-              ) : tab === "explore" && lesson.date === "2026-10-06" ? (
+              ) : tab === "explore" && ["2026-10-06","2026-10-07"].includes(lesson.date) ? (
                 <UnderstandPanel lesson={lesson} journal={journal} onExplore={()=>changeSection("practice")}/>
               ) : tab === "explore" ? (
                 <LessonActivities

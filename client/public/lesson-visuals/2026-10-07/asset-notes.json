@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-07",
+  "assets": [
+    {
+      "file": "library-readers.jpg",
+      "kind": "AI-generated imagined educational scene",
+      "use": "Writing and French library setting; not evidence for the invented borrowing results"
+    },
+    {
+      "file": "tribune-veto.jpg",
+      "kind": "AI-generated imagined reconstruction",
+      "use": "Explain the tribune\u2019s role; not a documented event or exact reconstruction of Roman clothing or buildings"
+    },
+    {
+      "file": "hover-tested-poster.jpg",
+      "kind": "Actual Blender 5.2 reference render",
+      "use": "Bevel and CPU render test; not student submission",
+      "project_id": "bb1cdfb6-e4a6-4b6d-9187-0851e4a4abc5",
+      "revision_read": 3,
+      "operation_id": "day31-test-bevel-cpu-render-v1",
+      "committed_scene_changes": false,
+      "tested_settings": {
+        "bevel_width_type": "PERCENT",
+        "amount": 1,
+        "segments": 2,
+        "clamp_overlap": true,
+        "render_engine": "CYCLES",
+        "device": "CPU",
+        "samples": 16,
+        "resolution": [
+          960,
+          600
+        ]
+      }
+    }
+  ]
+}

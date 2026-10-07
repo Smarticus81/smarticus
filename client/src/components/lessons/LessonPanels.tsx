@@ -6,6 +6,8 @@ import { api } from "../../lib/api";
 import { ChoiceGroup, JournalPrompt, Scene } from "./LearningPrimitives";
 import { HandIn } from "./HandIn";
 import { LessonVisuals } from "./LessonVisuals";
+import { Day31Lesson } from "./Day31Lesson";
+import { SplitFloor, OralResult } from "./Day31Visuals";
 import { Day30Lesson } from "./Day30Lesson";
 import { LPlan, MirrorAnswer } from "./Day30Visuals";
 import { Day29Lesson } from "./Day29Lesson";
@@ -25,6 +27,7 @@ export function UnderstandPanel({
 }) {
   const beats = instructionBeats(lesson.written_instruction);
   const [beat, setBeat] = useState(0);
+  if (lesson.date === "2026-10-07") return <Day31Lesson lesson={lesson} onExplore={onExplore} />;
   if (lesson.date === "2026-10-06") return <Day30Lesson lesson={lesson} onExplore={onExplore} />;
   if (lesson.date === "2026-10-05") return <Day29Lesson lesson={lesson} onExplore={onExplore} />;
   return (
@@ -322,7 +325,7 @@ export function PracticePanel({
           Next question →
         </button>
       </div>
-      <HandIn paperless={lesson.date === "2026-10-06"} />
+      <HandIn paperless={["2026-10-06","2026-10-07"].includes(lesson.date)} />
       <p className="learning-fineprint">
         Your drafts save as you type, on this device. Handing them in sends them
         to your record. Either way, a written answer isn’t automatically graded
@@ -365,10 +368,13 @@ function QuestionCard({
       <label htmlFor={`answer-${item.key}`}>
         <h3>{item.prompt}</h3>
       </label>
+      {item.id === "m31-2" && <SplitFloor leftWidth={7} height={5} rightWidth={3} lowerHeight={2}/>}
+      {item.id === "m31-3" && <SplitFloor leftWidth={7} height={5} rightWidth={3} lowerHeight={2} initial="horizontal"/>}
+      {item.id === "me31-2" && <SplitFloor leftWidth={5} height={5} rightWidth={3} lowerHeight={2} initial="horizontal"/>}
       {item.id === "m30-2" && <LPlan width={8} height={4} sideWidth={3} sideHeight={2}/>}
       {item.id === "me30-1" && <LPlan width={5} height={3} sideWidth={2} sideHeight={2}/>}
-      {(item.id.startsWith("f30-") || item.id === "fe30-1") && <div className="day30-accents"><span>Add a character:</span>{["é","è","ê","à","ç","’"].map(c=><button key={c} aria-label={`Add ${c}`} onClick={()=>onAnswer(answer+c)}>{c}</button>)}</div>}
-      {["s30-1","se30-1"].includes(item.id) ? <MirrorAnswer itemId={item.id} answer={answer} onAnswer={onAnswer}/> : <textarea
+      {(item.id.startsWith("f30-") || item.id.startsWith("f31-") || item.id === "fe30-1") && <div className="day30-accents"><span>Add a character:</span>{["é","è","ê","à","ç","’"].map(c=><button key={c} aria-label={`Add ${c}`} onClick={()=>onAnswer(answer+c)}>{c}</button>)}</div>}
+      {["fe31-1","fe31-2","fe31-3"].includes(item.id) ? <OralResult itemId={item.id} answer={answer} onAnswer={onAnswer}/> : ["s30-1","se30-1"].includes(item.id) ? <MirrorAnswer itemId={item.id} answer={answer} onAnswer={onAnswer}/> : <textarea
         id={`answer-${item.key}`}
         value={answer}
         onChange={(e) => onAnswer(e.target.value)}
