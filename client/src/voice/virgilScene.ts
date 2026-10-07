@@ -1,406 +1,548 @@
 /**
- * Virgil, built in three.js: a friendly robot scholar in a mortarboard whose
- * face is a live screen.
+ * Virgil in three dimensions.
  *
- * Everything the learner hears drives what they see. A single audio envelope
- * feeds the mouth, the ear rings, the head lift and the halo, so the character
- * is genuinely in sync rather than looping a canned animation next to the
- * voice. The geometry is built from primitives — no model files — so the
- * avatar ships as code and stays crisp at any size.
+ * The same character as the drawing in VirgilAvatar.tsx, built from
+ * primitives (no model files) with toon shading and an inked outline so it
+ * keeps the flat cartoon look, and moved by the same animator, so the two
+ * bodies agree on every blink, glance and gesture. In 3D the head really
+ * turns toward the pointer and the eyes are spheres that roll, which the
+ * drawing can only fake.
  *
- * This module is imported dynamically: three.js is large, and nothing here is
- * needed until the avatar is actually on screen.
+ * Coordinates follow the drawing: one unit is 100 px of the 320x340 canvas,
+ * the origin is the chin, and y points up. Imported dynamically, since three.js
+ * is large and nothing here is needed until the avatar is on screen.
  */
 import {
-  AmbientLight,
+  BackSide,
+  BoxGeometry,
   CanvasTexture,
+  CircleGeometry,
   Color,
+  ConeGeometry,
+  CylinderGeometry,
+  DataTexture,
   DirectionalLight,
+  DoubleSide,
   Group,
   HemisphereLight,
-  Mesh,
-  MeshStandardMaterial,
-  PerspectiveCamera,
-  PointLight,
-  Scene,
-  SRGBColorSpace,
-  SphereGeometry,
-  TorusGeometry,
-  CylinderGeometry,
-  WebGLRenderer,
-  ACESFilmicToneMapping,
   MathUtils,
+  Mesh,
+  MeshBasicMaterial,
+  MeshToonMaterial,
+  NearestFilter,
+  Object3D,
+  PerspectiveCamera,
+  PlaneGeometry,
+  Quaternion,
+  RedFormat,
+  Scene,
+  SphereGeometry,
+  SRGBColorSpace,
+  TorusGeometry,
+  Vector3,
+  WebGLRenderer,
 } from "three";
 import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry.js";
+import {
+  clamp,
+  createVirgilAnimator,
+  mouthPath,
+  type Gesture,
+  type VirgilPose,
+  type VirgilState,
+} from "./virgilAnimator";
 
-export type VirgilState =
-  "idle" | "connecting" | "listening" | "speaking" | "muted" | "error";
-
-/** Palette taken from the character sheet. */
 const PALETTE = {
-  shell: 0xf4f6fa,
-  navy: 0x1b2340,
-  navyDeep: 0x0f1628,
-  glow: 0x7fd8ff,
+  skin: 0xa9b4f4,
+  navy: 0x27315a,
+  navyDeep: 0x1e2748,
+  navyLight: 0x334071,
+  hair: 0x1b2340,
+  outline: 0x151b33,
   gold: 0xf5b843,
+  glow: 0x7fd8ff,
+  white: 0xffffff,
+  blush: 0xff8fa8,
+  iris: 0x2d3f80,
+  sweat: 0x9fe0ff,
 };
 
-/** The face is a 2D screen, so it is drawn on a canvas and used as a texture. */
-const FACE_SIZE = 512;
-
-interface FaceParams {
-  /** 0 closed (blink) … 1 fully open. */
-  lid: number;
-  /** 0 resting mouth … 1 wide open. */
-  mouth: number;
-  mode: "happy" | "alert" | "rest" | "error";
-}
-
-function drawFace(ctx: CanvasRenderingContext2D, params: FaceParams) {
-  const S = FACE_SIZE;
-  ctx.clearRect(0, 0, S, S);
-  // The screen itself. Emissive elsewhere, so keep this dark and flat.
-  ctx.fillStyle = "#151d36";
-  ctx.fillRect(0, 0, S, S);
-
-  const glow = params.mode === "error" ? "#ffcf8a" : "#8fe3ff";
-  ctx.strokeStyle = glow;
-  ctx.fillStyle = glow;
-  ctx.shadowColor = glow;
-  ctx.shadowBlur = 26;
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
-
-  const eyeY = S * 0.42;
-  const eyeDx = S * 0.17;
-  const lid = Math.max(0.04, params.lid);
-
-  const drawEye = (cx: number) => {
-    ctx.beginPath();
-    if (params.mode === "alert") {
-      // Wide, attentive eyes: rounded capsules that squash when blinking.
-      const rx = S * 0.055;
-      const ry = S * 0.062 * lid;
-      ctx.ellipse(cx, eyeY, rx, Math.max(ry, S * 0.008), 0, 0, Math.PI * 2);
-      ctx.fill();
-      return;
-    }
-    if (params.mode === "rest") {
-      // At rest the eyes are gentle flat curves, like a contented sleep.
-      ctx.lineWidth = S * 0.032;
-      ctx.moveTo(cx - S * 0.062, eyeY);
-      ctx.quadraticCurveTo(cx, eyeY + S * 0.022, cx + S * 0.062, eyeY);
-      ctx.stroke();
-      return;
-    }
-    // The signature happy arc, squashed flat while blinking.
-    ctx.lineWidth = S * 0.034;
-    const rise = S * 0.05 * lid;
-    ctx.moveTo(cx - S * 0.065, eyeY + rise * 0.5);
-    ctx.quadraticCurveTo(cx, eyeY - rise, cx + S * 0.065, eyeY + rise * 0.5);
-    ctx.stroke();
-  };
-
-  drawEye(S * 0.5 - eyeDx);
-  drawEye(S * 0.5 + eyeDx);
-
-  // Mouth: a small smile that opens into a rounded speaking shape.
-  const mouthY = S * 0.6;
-  const open = params.mouth;
-  ctx.beginPath();
-  if (open < 0.08) {
-    ctx.lineWidth = S * 0.026;
-    ctx.moveTo(S * 0.5 - S * 0.042, mouthY);
-    ctx.quadraticCurveTo(S * 0.5, mouthY + S * 0.038, S * 0.5 + S * 0.042, mouthY);
-    ctx.stroke();
-  } else {
-    const rx = S * (0.042 + open * 0.022);
-    const ry = S * (0.012 + open * 0.062);
-    ctx.ellipse(S * 0.5, mouthY + ry * 0.35, rx, ry, 0, 0, Math.PI * 2);
-    ctx.fill();
-  }
-  ctx.shadowBlur = 0;
-}
+const DEG = Math.PI / 180;
 
 export interface VirgilScene {
-  /** Feed the current audio envelope (0…1) and let the scene advance. */
-  frame(energy: number, now: number): void;
+  frame(energy: number, now: number): VirgilPose;
   setState(state: VirgilState): void;
+  setPointer(x: number | null, y: number | null): void;
+  gesture(name: Gesture): void;
   resize(width: number, height: number): void;
   dispose(): void;
 }
 
-export function createVirgilScene(
-  canvas: HTMLCanvasElement,
-  options: { reducedMotion?: boolean } = {},
-): VirgilScene {
-  const reduced = options.reducedMotion ?? false;
+/** Three-step toon ramp: shadow, mid, light. */
+function toonRamp(): DataTexture {
+  const ramp = new DataTexture(new Uint8Array([120, 200, 255]), 3, 1, RedFormat);
+  ramp.minFilter = NearestFilter;
+  ramp.magFilter = NearestFilter;
+  ramp.needsUpdate = true;
+  return ramp;
+}
+
+export function createVirgilScene(canvas: HTMLCanvasElement, options: { reducedMotion?: boolean } = {}): VirgilScene {
+  const animator = createVirgilAnimator(options);
   const renderer = new WebGLRenderer({ canvas, antialias: true, alpha: true });
   renderer.setClearColor(0x000000, 0);
-  renderer.toneMapping = ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.05;
   renderer.outputColorSpace = SRGBColorSpace;
 
   const scene = new Scene();
-  const camera = new PerspectiveCamera(30, 1, 0.1, 100);
-  camera.position.set(0, 0.25, 9.6);
+  const camera = new PerspectiveCamera(26, 1, 0.1, 100);
+  camera.position.set(0, 0.62, 8.4);
+  camera.lookAt(0, 0.62, 0);
 
-  // Soft studio lighting: a cool key, a warm fill, and a rim to separate the
-  // white shell from a light background.
-  scene.add(new HemisphereLight(0xdfe9ff, 0x9aa6bb, 1.15));
-  scene.add(new AmbientLight(0xffffff, 0.35));
-  const key = new DirectionalLight(0xffffff, 1.5);
-  key.position.set(2.4, 3.2, 3.4);
+  scene.add(new HemisphereLight(0xffffff, 0x8a93b8, 1.25));
+  const key = new DirectionalLight(0xffffff, 1.7);
+  key.position.set(2.2, 3.4, 4.2);
   scene.add(key);
-  const rim = new DirectionalLight(0x9fd2ff, 0.9);
-  rim.position.set(-3, 1.2, -2.2);
-  scene.add(rim);
-  const faceLight = new PointLight(PALETTE.glow, 0.7, 6);
-  faceLight.position.set(0, 0.15, 1.9);
-  scene.add(faceLight);
+  const fill = new DirectionalLight(0xdbe8ff, 0.5);
+  fill.position.set(-3, 1, 2);
+  scene.add(fill);
 
-  const shellMaterial = new MeshStandardMaterial({
-    color: PALETTE.shell,
-    roughness: 0.42,
-    metalness: 0.06,
-  });
-  const navyMaterial = new MeshStandardMaterial({
-    color: PALETTE.navy,
-    roughness: 0.5,
-    metalness: 0.1,
-  });
-  const goldMaterial = new MeshStandardMaterial({
-    color: PALETTE.gold,
-    roughness: 0.38,
-    metalness: 0.25,
-    emissive: new Color(PALETTE.gold).multiplyScalar(0.12),
-  });
-  const glowMaterial = new MeshStandardMaterial({
-    color: PALETTE.glow,
-    emissive: new Color(PALETTE.glow),
-    emissiveIntensity: 1.5,
-    roughness: 0.3,
-  });
+  const ramp = toonRamp();
+  const disposables: Array<{ dispose(): void }> = [ramp];
+  const toon = (color: number, extra: ConstructorParameters<typeof MeshToonMaterial>[0] = {}) => {
+    const material = new MeshToonMaterial({ color, gradientMap: ramp, ...extra });
+    disposables.push(material);
+    return material;
+  };
+  const flat = (color: number, extra: ConstructorParameters<typeof MeshBasicMaterial>[0] = {}) => {
+    const material = new MeshBasicMaterial({ color, ...extra });
+    disposables.push(material);
+    return material;
+  };
+  const outlineMaterial = flat(PALETTE.outline, { side: BackSide });
 
+  /** A mesh with an inked edge: the same shape, slightly larger, inside out. */
+  function inked(mesh: Mesh, grow: number): Mesh {
+    const hull = new Mesh(mesh.geometry, outlineMaterial);
+    hull.scale.setScalar(grow);
+    mesh.add(hull);
+    return mesh;
+  }
+
+  const geometries: Array<{ dispose(): void }> = [];
+  const geo = <T extends { dispose(): void }>(geometry: T): T => {
+    geometries.push(geometry);
+    return geometry;
+  };
+
+  /** A cylinder from one point to another. */
+  function beam(from: Vector3, to: Vector3, radius: number, color: number): Mesh {
+    const length = from.distanceTo(to);
+    const mesh = new Mesh(geo(new CylinderGeometry(radius, radius, length, 10)), toon(color));
+    mesh.position.copy(from).add(to).multiplyScalar(0.5);
+    const direction = new Vector3().subVectors(to, from).normalize();
+    mesh.quaternion.copy(new Quaternion().setFromUnitVectors(new Vector3(0, 1, 0), direction));
+    return mesh;
+  }
+
+  // ---- Layout: the figure scales about its feet; the chin is the origin. --
   const root = new Group();
-  root.rotation.y = 0.16;
   scene.add(root);
+  const figure = new Group();
+  figure.position.y = -0.88;
+  root.add(figure);
+  const stand = new Group();
+  stand.position.y = 0.88;
+  figure.add(stand);
 
-  // ---- Body ----------------------------------------------------------------
-  const body = new Mesh(new SphereGeometry(1.02, 40, 32), shellMaterial);
-  body.scale.set(1.12, 0.6, 0.86);
-  body.position.y = -1.9;
-  root.add(body);
+  // Ground shadow.
+  const shadow = new Mesh(geo(new CircleGeometry(0.72, 32)), flat(PALETTE.outline, { transparent: true, opacity: 0.14, depthWrite: false }));
+  shadow.rotation.x = -Math.PI / 2;
+  shadow.scale.y = 0.16;
+  shadow.position.y = -0.9;
+  root.add(shadow);
 
-  const collar = new Mesh(new CylinderGeometry(0.4, 0.46, 0.34, 28), navyMaterial);
-  collar.position.y = -1.12;
-  root.add(collar);
-
-  // ---- Head ----------------------------------------------------------------
-  const head = new Group();
-  head.position.y = 0.05;
-  root.add(head);
-
-  const skull = new Mesh(new RoundedBoxGeometry(2.35, 2.05, 1.75, 6, 0.52), shellMaterial);
-  head.add(skull);
-
-  // The face screen sits proud of the shell so the bezel reads as a rim.
-  const faceCanvas = document.createElement("canvas");
-  faceCanvas.width = FACE_SIZE;
-  faceCanvas.height = FACE_SIZE;
-  const faceCtx = faceCanvas.getContext("2d")!;
-  const faceTexture = new CanvasTexture(faceCanvas);
-  faceTexture.colorSpace = SRGBColorSpace;
-  const screenMaterial = new MeshStandardMaterial({
-    map: faceTexture,
-    emissiveMap: faceTexture,
-    emissive: 0xffffff,
-    emissiveIntensity: 1.25,
-    roughness: 0.22,
-    metalness: 0,
-  });
-  const screen = new Mesh(new RoundedBoxGeometry(1.82, 1.5, 0.12, 5, 0.34), screenMaterial);
-  screen.position.z = 0.84;
-  head.add(screen);
-
-  // ---- Ears ----------------------------------------------------------------
-  const ears: Mesh[] = [];
+  // ---- Legs and sneakers -----------------------------------------------------
+  const body = new Group();
+  stand.add(body);
   for (const side of [-1, 1]) {
-    // A shallow white housing with a glowing ring on its outer face, the way
-    // the character sheet draws the ears.
-    const housing = new Mesh(new CylinderGeometry(0.38, 0.34, 0.26, 32), shellMaterial);
-    housing.rotation.z = Math.PI / 2;
-    housing.position.set(side * 1.2, -0.06, 0.18);
-    head.add(housing);
-
-    const socket = new Mesh(new CylinderGeometry(0.27, 0.27, 0.06, 28), navyMaterial);
-    socket.rotation.z = Math.PI / 2;
-    socket.position.set(side * 1.33, -0.06, 0.18);
-    head.add(socket);
-
-    const ring = new Mesh(new TorusGeometry(0.2, 0.072, 16, 36), glowMaterial.clone());
-    ring.position.set(side * 1.36, -0.06, 0.18);
-    ring.rotation.y = Math.PI / 2;
-    head.add(ring);
-    ears.push(ring);
+    const leg = new Mesh(geo(new CylinderGeometry(0.13, 0.13, 0.46, 16)), toon(PALETTE.navy));
+    leg.position.set(side * 0.19, -0.5, 0);
+    body.add(inked(leg, 1.12));
+    const shoe = new Mesh(geo(new RoundedBoxGeometry(0.5, 0.24, 0.5, 4, 0.11)), toon(PALETTE.white));
+    shoe.position.set(side * 0.21, -0.8, 0.06);
+    body.add(inked(shoe, 1.1));
+    const sole = new Mesh(geo(new BoxGeometry(0.42, 0.05, 0.44)), flat(PALETTE.glow));
+    sole.position.set(side * 0.21, -0.86, 0.08);
+    body.add(sole);
   }
 
-  // ---- Mortarboard ---------------------------------------------------------
-  const cap = new Group();
-  cap.position.y = 1.02;
-  head.add(cap);
+  // ---- Hoodie ----------------------------------------------------------------
+  const torso = new Mesh(geo(new SphereGeometry(1, 40, 28)), toon(PALETTE.navy));
+  torso.scale.set(0.6, 0.5, 0.46);
+  torso.position.set(0, -0.14, 0);
+  body.add(inked(torso, 1.06));
+  const pocket = new Mesh(geo(new RoundedBoxGeometry(0.68, 0.3, 0.1, 4, 0.1)), toon(PALETTE.navyDeep));
+  pocket.position.set(0, -0.31, 0.42);
+  body.add(inked(pocket, 1.08));
+  const collar = new Mesh(geo(new SphereGeometry(1, 32, 16)), toon(PALETTE.navyLight));
+  collar.scale.set(0.52, 0.17, 0.32);
+  collar.position.set(0, 0.26, 0.1);
+  body.add(inked(collar, 1.06));
+  for (const side of [-1, 1]) {
+    const string = beam(new Vector3(side * 0.1, 0.16, 0.46), new Vector3(side * 0.14, -0.24, 0.5), 0.02, PALETTE.gold);
+    body.add(string);
+    const knob = new Mesh(geo(new SphereGeometry(0.04, 12, 8)), toon(PALETTE.gold));
+    knob.position.set(side * 0.14, -0.26, 0.51);
+    body.add(knob);
+  }
 
-  const capBase = new Mesh(new CylinderGeometry(0.56, 0.78, 0.3, 28), navyMaterial);
-  capBase.position.y = 0.12;
-  cap.add(capBase);
+  // ---- Arms: a group at each shoulder, hanging down, hand at the end -------
+  function makeArm(side: -1 | 1): Group {
+    const group = new Group();
+    group.position.set(side * 0.52, 0.16, 0.12);
+    const inner = new Group();
+    inner.rotation.z = side * 0.236;
+    group.add(inner);
+    const upper = new Mesh(geo(new CylinderGeometry(0.15, 0.15, 0.3, 16)), toon(PALETTE.navy));
+    upper.position.y = -0.28;
+    inner.add(inked(upper, 1.12));
+    const cap = new Mesh(geo(new SphereGeometry(0.15, 16, 12)), toon(PALETTE.navy));
+    cap.position.y = -0.13;
+    inner.add(inked(cap, 1.12));
+    const hand = new Mesh(geo(new SphereGeometry(0.15, 18, 14)), toon(PALETTE.skin));
+    hand.position.y = -0.55;
+    inner.add(inked(hand, 1.12));
+    return group;
+  }
+  const armLeft = makeArm(-1);
+  const armRight = makeArm(1);
+  stand.add(armLeft, armRight);
 
-  const board = new Mesh(new RoundedBoxGeometry(2.5, 0.12, 2.5, 3, 0.06), navyMaterial);
-  board.position.y = 0.33;
-  board.rotation.x = -0.09;
-  board.rotation.z = 0.05;
-  cap.add(board);
+  // ---- Head ------------------------------------------------------------------
+  const head = new Group();
+  stand.add(head);
+  const skull = new Mesh(geo(new SphereGeometry(1, 48, 36)), toon(PALETTE.skin));
+  skull.scale.set(1, 0.94, 0.9);
+  skull.position.set(0, 0.94, 0);
+  head.add(inked(skull, 1.045));
+  for (const side of [-1, 1]) {
+    const ear = new Mesh(geo(new SphereGeometry(0.15, 16, 12)), toon(PALETTE.skin));
+    ear.position.set(side * 0.98, 0.82, 0);
+    head.add(inked(ear, 1.2));
+  }
 
-  const button = new Mesh(new SphereGeometry(0.09, 16, 12), navyMaterial);
-  button.position.y = 0.42;
-  cap.add(button);
+  // Cheeks.
+  const cheeks: Mesh[] = [];
+  for (const side of [-1, 1]) {
+    const cheek = new Mesh(geo(new SphereGeometry(0.15, 16, 12)), flat(PALETTE.blush, { transparent: true, opacity: 0.3, depthWrite: false }));
+    cheek.scale.set(1, 0.55, 0.35);
+    cheek.position.set(side * 0.64, 0.5, 0.57);
+    head.add(cheek);
+    cheeks.push(cheek);
+  }
 
-  // Tassel: a cord and a tuft on a spring, so it swings when the head moves.
-  const tassel = new Group();
-  tassel.position.set(1.06, 0.3, 1.02);
-  cap.add(tassel);
-  const cord = new Mesh(new CylinderGeometry(0.032, 0.032, 0.86, 10), goldMaterial);
-  cord.position.y = -0.43;
-  tassel.add(cord);
-  const knot = new Mesh(new SphereGeometry(0.075, 14, 10), goldMaterial);
-  knot.position.y = -0.86;
-  tassel.add(knot);
-  const tuft = new Mesh(new CylinderGeometry(0.1, 0.17, 0.46, 16), goldMaterial);
-  tuft.position.y = -1.14;
-  tassel.add(tuft);
-
-  // ---- Halo ----------------------------------------------------------------
-  const halo = new Mesh(
-    new TorusGeometry(2.55, 0.022, 10, 90),
-    new MeshStandardMaterial({
-      color: PALETTE.glow,
-      emissive: new Color(PALETTE.glow),
-      emissiveIntensity: 1.2,
-      transparent: true,
-      opacity: 0,
-    }),
+  // Mouth: a decal drawn on a canvas, so it can take any shape the pose asks.
+  const MOUTH_PX = 256;
+  const mouthCanvas = document.createElement("canvas");
+  mouthCanvas.width = MOUTH_PX;
+  mouthCanvas.height = MOUTH_PX;
+  const mouthCtx = mouthCanvas.getContext("2d")!;
+  const mouthTexture = new CanvasTexture(mouthCanvas);
+  mouthTexture.colorSpace = SRGBColorSpace;
+  disposables.push(mouthTexture);
+  const mouth = new Mesh(
+    geo(new PlaneGeometry(1, 1)),
+    flat(PALETTE.white, { map: mouthTexture, transparent: true, depthWrite: false }),
   );
-  halo.position.y = 0.05;
-  root.add(halo);
-
-  // ---- Animation state -----------------------------------------------------
-  let state: VirgilState = "idle";
-  let mouth = 0;
-  let lid = 1;
-  let blinkAt = 1.6;
-  let tasselVel = 0;
-  let tasselAngle = 0;
-  let lastHeadRot = 0;
-  let faceDirty = true;
-  let lastFaceDraw = 0;
-  let lastMouthDrawn = -1;
-  let lastLidDrawn = -1;
-  let lastModeDrawn = "";
-
-  const faceMode = (): FaceParams["mode"] =>
-    state === "error" ? "error" : state === "muted" ? "rest" : state === "listening" ? "alert" : "happy";
-
-  function frame(energy: number, now: number) {
-    const t = now / 1000;
-    const speaking = state === "speaking";
-    const target = speaking ? energy : 0;
-    // Mouth chases the envelope quickly on the way open and relaxes slowly,
-    // which is how a jaw actually behaves.
-    mouth += (target - mouth) * (target > mouth ? 0.55 : 0.16);
-
-    // Blink on an irregular schedule; a metronome blink looks synthetic.
-    if (!reduced && state !== "muted") {
-      if (t > blinkAt) {
-        lid = 0.04;
-        blinkAt = t + 2.4 + Math.random() * 4.2;
-      } else {
-        lid += (1 - lid) * 0.24;
-      }
-    } else if (state === "muted") {
-      lid += (0.05 - lid) * 0.2;
-    }
-
-    // Head: a slow breathing drift, a lift on loud syllables, and a tilt when
-    // she is taking something in.
-    const bob = reduced ? 0 : Math.sin(t * 1.15) * 0.045;
-    const sway = reduced ? 0 : Math.sin(t * 0.72) * 0.07;
-    const listenTilt = state === "listening" ? 0.16 : 0;
-    head.position.y = 0.05 + bob + mouth * 0.05;
-    head.rotation.y = sway * 1.4 + (state === "connecting" && !reduced ? Math.sin(t * 2.4) * 0.1 : 0);
-    head.rotation.z += (listenTilt - head.rotation.z) * 0.08;
-    head.rotation.x += ((state === "muted" ? 0.14 : -mouth * 0.05) - head.rotation.x) * 0.1;
-    body.position.y = -1.9 + bob * 0.4;
-    body.scale.x = 1.12 + Math.sin(t * 1.15) * 0.01;
-
-    // Tassel: a damped spring driven by how fast the head is turning.
-    if (!reduced) {
-      const delta = head.rotation.y - lastHeadRot;
-      lastHeadRot = head.rotation.y;
-      tasselVel += -tasselAngle * 0.05 - delta * 7;
-      tasselVel *= 0.9;
-      tasselAngle += tasselVel;
-      tasselAngle = MathUtils.clamp(tasselAngle, -0.7, 0.7);
-      tassel.rotation.z = tasselAngle;
-      tassel.rotation.x = Math.sin(t * 0.9) * 0.05;
-    }
-
-    // Ears and halo carry the amplitude so the face can stay calm.
-    const pulse = state === "listening" ? 0.5 + Math.sin(t * 3.4) * 0.28 : 0;
-    for (const ear of ears) {
-      const material = ear.material as MeshStandardMaterial;
-      material.emissiveIntensity = 1.1 + energy * 2.4 + pulse;
-    }
-    faceLight.intensity = 0.55 + energy * 1.4;
-    const haloMaterial = halo.material as MeshStandardMaterial;
-    haloMaterial.opacity += ((speaking ? 0.18 + energy * 0.5 : 0) - haloMaterial.opacity) * 0.12;
-    halo.rotation.z = t * 0.25;
-    halo.scale.setScalar(1 + energy * 0.04);
-
-    // Redraw the screen only when it would actually change, and never more
-    // than ~40 times a second: the texture upload is the expensive part.
-    const mode = faceMode();
-    if (
-      Math.abs(mouth - lastMouthDrawn) > 0.012 ||
-      Math.abs(lid - lastLidDrawn) > 0.02 ||
-      mode !== lastModeDrawn ||
-      faceDirty
-    ) {
-      if (now - lastFaceDraw > 24) {
-        drawFace(faceCtx, { lid, mouth, mode });
-        faceTexture.needsUpdate = true;
-        lastFaceDraw = now;
-        lastMouthDrawn = mouth;
-        lastLidDrawn = lid;
-        lastModeDrawn = mode;
-        faceDirty = false;
-      }
-    }
-
-    // A whisper of parallax gives the scene depth without moving the subject.
-    camera.position.x += (sway * 0.5 - camera.position.x) * 0.05;
-    camera.lookAt(0, -0.15, 0);
-    renderer.render(scene, camera);
+  mouth.position.set(0, 0.36, 0.8);
+  mouth.rotation.x = -0.32;
+  head.add(mouth);
+  let lastMouthKey = "";
+  function drawMouth(pose: VirgilPose) {
+    const key = `${pose.mouthOpen.toFixed(2)}|${pose.smile.toFixed(2)}|${pose.mouthWidth.toFixed(2)}`;
+    if (key === lastMouthKey) return;
+    lastMouthKey = key;
+    const ctx = mouthCtx;
+    const S = MOUTH_PX;
+    // 2.4 canvas px per drawing px, mouth centre a little above the middle so
+    // an open jaw has room below.
+    const k = 2.4;
+    ctx.clearRect(0, 0, S, S);
+    ctx.save();
+    ctx.translate(S / 2, S * 0.42);
+    ctx.scale(k, k);
+    const path = new Path2D(mouthPath(0, 0, pose.mouthOpen, pose.smile, pose.mouthWidth));
+    ctx.fillStyle = "#3a1f2e";
+    ctx.fill(path);
+    ctx.save();
+    ctx.clip(path);
+    ctx.globalAlpha = clamp((pose.mouthOpen - 0.18) * 4, 0, 1);
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(-30, -14, 60, 12 - pose.smile * 6);
+    ctx.globalAlpha = clamp((pose.mouthOpen - 0.4) * 3, 0, 1);
+    ctx.fillStyle = "#ff7f93";
+    ctx.beginPath();
+    ctx.ellipse(0, 30, 18, 12, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+    ctx.lineWidth = 5;
+    ctx.lineJoin = "round";
+    ctx.strokeStyle = "#151b33";
+    ctx.stroke(path);
+    ctx.restore();
+    mouthTexture.needsUpdate = true;
   }
 
-  function setState(next: VirgilState) {
-    if (state === next) return;
-    state = next;
-    faceDirty = true;
-    const error = next === "error";
-    (screen.material as MeshStandardMaterial).emissiveIntensity = error ? 1.05 : 1.25;
-    for (const ear of ears) {
-      (ear.material as MeshStandardMaterial).color.set(error ? 0xffcf8a : PALETTE.glow);
-      (ear.material as MeshStandardMaterial).emissive.set(error ? 0xffcf8a : PALETTE.glow);
+  // Eyes: a white ball, a pupil group that rolls, lids that are skin-coloured
+  // caps rotating over the ball, and a line that shows when the eye is shut.
+  interface Eye {
+    pupil: Group;
+    upperLid: Group;
+    lowerLid: Group;
+    closed: Mesh;
+    glint: Mesh;
+  }
+  function makeEye(side: -1 | 1): Eye {
+    const group = new Group();
+    group.position.set(side * 0.38, 0.88, 0.62);
+    head.add(group);
+    // Unlit, so the whites stay white instead of shading blue in the ramp.
+    const ball = new Mesh(geo(new SphereGeometry(0.3, 28, 20)), flat(PALETTE.white));
+    group.add(inked(ball, 1.1));
+
+    const pupil = new Group();
+    group.add(pupil);
+    // The pupil sits just proud of the ball, and inside the lids' reach.
+    const iris = new Mesh(geo(new SphereGeometry(0.16, 20, 14)), flat(PALETTE.iris));
+    iris.scale.z = 0.4;
+    iris.position.z = 0.24;
+    pupil.add(iris);
+    const dot = new Mesh(geo(new SphereGeometry(0.105, 18, 12)), flat(PALETTE.outline));
+    dot.scale.z = 0.4;
+    dot.position.z = 0.27;
+    pupil.add(dot);
+    const shine = new Mesh(geo(new SphereGeometry(0.045, 12, 8)), flat(PALETTE.white));
+    shine.position.set(-0.06, 0.07, 0.3);
+    pupil.add(shine);
+    const shine2 = new Mesh(geo(new SphereGeometry(0.022, 10, 6)), flat(PALETTE.white));
+    shine2.position.set(0.06, -0.06, 0.3);
+    pupil.add(shine2);
+
+    // Lids: the front half of a sphere a little larger than the ball, drawn
+    // on both sides so it reads as a solid cap whichever way it is turned.
+    const capGeometry = geo(new SphereGeometry(0.355, 28, 14, 0, Math.PI));
+    const lidMaterial = toon(PALETTE.skin, { side: DoubleSide });
+    const upperLid = new Group();
+    upperLid.add(new Mesh(capGeometry, lidMaterial));
+    group.add(upperLid);
+    const lowerLid = new Group();
+    lowerLid.add(new Mesh(capGeometry, lidMaterial));
+    group.add(lowerLid);
+
+    const closed = new Mesh(geo(new TorusGeometry(0.2, 0.025, 8, 20, Math.PI * 0.7)), flat(PALETTE.outline, { transparent: true, opacity: 0 }));
+    closed.position.set(0, 0.04, 0.37);
+    closed.rotation.z = Math.PI + (Math.PI - Math.PI * 0.7) / 2;
+    group.add(closed);
+
+    // Glasses, on the same group so they ride with the eye.
+    const rim = new Mesh(geo(new TorusGeometry(0.37, 0.036, 10, 40)), toon(PALETTE.outline));
+    rim.position.z = 0.36;
+    group.add(rim);
+    const lens = new Mesh(geo(new CircleGeometry(0.34, 32)), flat(PALETTE.white, { transparent: true, opacity: 0.1, depthWrite: false }));
+    lens.position.z = 0.35;
+    group.add(lens);
+    const glint = new Mesh(geo(new PlaneGeometry(0.07, 0.42)), flat(PALETTE.white, { transparent: true, opacity: 0.55, depthWrite: false }));
+    glint.position.set(-0.14, 0, 0.355);
+    glint.rotation.z = -0.5;
+    group.add(glint);
+    return { pupil, upperLid, lowerLid, closed, glint };
+  }
+  const eyeLeft = makeEye(-1);
+  const eyeRight = makeEye(1);
+  const bridge = new Mesh(geo(new TorusGeometry(0.06, 0.03, 8, 12, Math.PI)), toon(PALETTE.outline));
+  bridge.position.set(0, 0.9, 0.98);
+  head.add(bridge);
+  for (const side of [-1, 1]) {
+    head.add(beam(new Vector3(side * 0.74, 0.9, 0.96), new Vector3(side * 0.96, 0.84, 0.18), 0.03, PALETTE.outline));
+  }
+
+  // Brows: arcs on the forehead, each on a pivot for lift and rotation.
+  function makeBrow(side: -1 | 1): Group {
+    const group = new Group();
+    group.position.set(side * 0.38, 1.3, 0.8);
+    const arc = new Mesh(geo(new TorusGeometry(0.27, 0.042, 8, 18, 1.4)), toon(PALETTE.outline));
+    arc.rotation.z = Math.PI / 2 - 0.7;
+    arc.position.y = -0.2;
+    group.add(arc);
+    head.add(group);
+    return group;
+  }
+  const browLeft = makeBrow(-1);
+  const browRight = makeBrow(1);
+
+  // Hair: a cap swept to one side, with a stray tuft.
+  const hair = new Group();
+  hair.position.set(0, 0.94, 0);
+  head.add(hair);
+  const cap = new Mesh(geo(new SphereGeometry(1.05, 40, 20, 0, Math.PI * 2, 0, 0.78)), toon(PALETTE.hair));
+  cap.scale.set(1, 0.94, 0.9);
+  cap.rotation.x = 0.1;
+  cap.rotation.z = -0.14;
+  hair.add(cap);
+  const tuft = new Mesh(geo(new ConeGeometry(0.13, 0.36, 10)), toon(PALETTE.hair));
+  tuft.position.set(0.3, 0.9, 0.5);
+  tuft.rotation.z = -0.6;
+  tuft.rotation.x = 0.3;
+  hair.add(tuft);
+
+  // Mortarboard, worn at an angle, with a tassel on a spring.
+  const hat = new Group();
+  hat.position.set(0.5, 1.74, 0.12);
+  hat.rotation.z = 0.17;
+  head.add(hat);
+  const hatBase = new Mesh(geo(new CylinderGeometry(0.16, 0.2, 0.2, 20)), toon(PALETTE.hair));
+  hat.add(inked(hatBase, 1.08));
+  const board = new Mesh(geo(new BoxGeometry(0.92, 0.05, 0.92)), toon(PALETTE.navy));
+  board.position.y = 0.12;
+  board.rotation.y = Math.PI / 4;
+  hat.add(inked(board, 1.05));
+  const button = new Mesh(geo(new SphereGeometry(0.035, 10, 8)), toon(PALETTE.gold));
+  button.position.y = 0.16;
+  hat.add(button);
+  const tassel = new Group();
+  tassel.position.set(0.42, 0.12, 0.42);
+  hat.add(tassel);
+  const cord = new Mesh(geo(new CylinderGeometry(0.015, 0.015, 0.34, 8)), toon(PALETTE.gold));
+  cord.position.y = -0.17;
+  tassel.add(cord);
+  const tuftGold = new Mesh(geo(new ConeGeometry(0.05, 0.16, 10)), toon(PALETTE.gold));
+  tuftGold.position.y = -0.4;
+  tuftGold.rotation.x = Math.PI;
+  tassel.add(tuftGold);
+
+  // ---- Thought bubble, sweat drop, sound ripples --------------------------
+  const thoughtGroup = new Group();
+  root.add(thoughtGroup);
+  const thoughtDots: Mesh[] = [];
+  const thoughtMaterials: MeshBasicMaterial[] = [];
+  for (const [x, y, r] of [
+    [0.92, 1.14, 0.05],
+    [1.08, 1.32, 0.08],
+    [1.32, 1.58, 0.15],
+  ]) {
+    const material = flat(PALETTE.white, { transparent: true, opacity: 0, depthWrite: false });
+    const edge = flat(PALETTE.outline, { side: BackSide, transparent: true, opacity: 0, depthWrite: false });
+    thoughtMaterials.push(material, edge);
+    const dot = new Mesh(geo(new SphereGeometry(r, 16, 12)), material);
+    dot.position.set(x, y, 0.2);
+    dot.renderOrder = 2;
+    const hull = new Mesh(dot.geometry, edge);
+    hull.scale.setScalar(1.25);
+    hull.renderOrder = 1;
+    dot.add(hull);
+    thoughtGroup.add(dot);
+    thoughtDots.push(dot);
+  }
+
+  const sweat = new Group();
+  sweat.position.set(0.94, 1.3, 0.5);
+  root.add(sweat);
+  const sweatMaterial = flat(PALETTE.sweat, { transparent: true, opacity: 0, depthWrite: false });
+  const drop = new Mesh(geo(new SphereGeometry(0.07, 14, 10)), sweatMaterial);
+  sweat.add(drop);
+  const dropTop = new Mesh(geo(new ConeGeometry(0.07, 0.16, 12)), sweatMaterial);
+  dropTop.position.y = 0.09;
+  sweat.add(dropTop);
+
+  const ripples: Array<{ group: Group; side: number }> = [];
+  const rippleMaterials: MeshBasicMaterial[] = [];
+  for (const side of [-1, 1]) {
+    const group = new Group();
+    group.position.set(side * 1.28, 0.9, 0);
+    root.add(group);
+    for (const [radius, alpha] of [
+      [0.32, 1],
+      [0.52, 0.55],
+    ]) {
+      const material = flat(PALETTE.glow, { transparent: true, opacity: 0, depthWrite: false });
+      rippleMaterials.push(material);
+      (material as MeshBasicMaterial & { baseOpacity: number }).baseOpacity = alpha;
+      const arc = new Mesh(geo(new TorusGeometry(radius, 0.03, 8, 24, 1.3)), material);
+      arc.rotation.z = side < 0 ? Math.PI - 0.65 : -0.65;
+      group.add(arc);
     }
+    ripples.push({ group, side });
+  }
+
+  // ---- Applying a pose -----------------------------------------------------
+  function apply(pose: VirgilPose) {
+    drawMouth(pose);
+
+    const lidOpen = clamp(pose.lidOpen, 0, 1);
+    const squint = clamp(pose.squintLift / 18, 0, 1);
+    for (const eye of [eyeLeft, eyeRight]) {
+      eye.pupil.rotation.y = pose.gazeX * 0.5;
+      eye.pupil.rotation.x = pose.gazeY * 0.45;
+      // Only across the face: scaling depth would sink the pupil into the ball.
+      eye.pupil.scale.set(pose.pupil, pose.pupil, 1);
+      // Each lid is a front hemisphere. Swung to the back it is hidden inside
+      // the ball; swung forward it covers the eye, the top lid coming down
+      // and the bottom one coming up into a squint.
+      // Each lid is the front half of a sphere. Open, it is swung round to
+      // the back of the ball and hidden; shutting, the top lid comes forward
+      // over the top and down, and the bottom one comes up into a squint.
+      eye.upperLid.rotation.x = -Math.PI * lidOpen;
+      eye.lowerLid.rotation.x = Math.PI - (Math.PI / 2) * squint * 0.7;
+      (eye.closed.material as MeshBasicMaterial).opacity = pose.closedLine;
+      eye.glint.position.x = -0.14 + pose.glintX / 200;
+      (eye.glint.material as MeshBasicMaterial).opacity = pose.glintOpacity;
+    }
+
+    browLeft.position.y = 1.3 - pose.browLeftY / 100;
+    browRight.position.y = 1.3 - pose.browRightY / 100;
+    browLeft.rotation.z = -pose.browLeftRot * DEG;
+    browRight.rotation.z = -pose.browRightRot * DEG;
+
+    head.position.set(pose.headX / 100, -pose.headY / 100, 0);
+    head.rotation.set(pose.turnY * 0.22, pose.turnX * 0.4, -pose.tilt * DEG);
+    hair.rotation.z = -pose.hairSwing * DEG;
+    tassel.rotation.z = -pose.tasselSwing * DEG;
+    body.scale.set(1 / pose.breath, pose.breath, 1 / pose.breath);
+
+    armLeft.rotation.z = -pose.armLeft * DEG;
+    armRight.rotation.z = -pose.armRight * DEG;
+    armLeft.scale.y = pose.stretchLeft;
+    armRight.scale.y = pose.stretchRight;
+    // A raised arm comes forward, so the hand reaches the chin or waves in
+    // front of the head instead of disappearing inside it.
+    armLeft.position.z = 0.12 + Math.min(1, Math.abs(pose.armLeft) / 100) * 0.75;
+    armRight.position.z = 0.12 + Math.min(1, Math.abs(pose.armRight) / 100) * 0.75;
+
+    const s = pose.squash;
+    figure.scale.set(1 - s * 0.6, 1 + s, 1 - s * 0.6);
+
+    for (const cheek of cheeks) (cheek.material as MeshBasicMaterial).opacity = pose.blush;
+    for (const material of thoughtMaterials) material.opacity = pose.thought;
+    thoughtDots.forEach((dot, index) => dot.scale.setScalar(pose.thoughtPulse[index] ?? 1));
+    sweatMaterial.opacity = pose.sweat;
+    sweat.position.y = 1.3 - pose.sweatDrip / 100;
+    for (const material of rippleMaterials) {
+      material.opacity = pose.ripple * (material as MeshBasicMaterial & { baseOpacity: number }).baseOpacity;
+    }
+    for (const { group, side } of ripples) {
+      group.scale.setScalar(pose.rippleScale);
+      group.position.x = side * (1.28 + (pose.rippleScale - 1) * 0.4);
+    }
+  }
+
+  function frame(energy: number, now: number): VirgilPose {
+    const pose = animator.frame(energy, now);
+    apply(pose);
+    // A whisper of parallax: the camera drifts a little against the sway.
+    camera.position.x += (MathUtils.clamp(pose.turnX, -1, 1) * -0.25 - camera.position.x) * 0.05;
+    camera.lookAt(0, 0.62, 0);
+    renderer.render(scene, camera);
+    return pose;
   }
 
   function resize(width: number, height: number) {
@@ -408,24 +550,30 @@ export function createVirgilScene(
     renderer.setPixelRatio(dpr);
     renderer.setSize(width, height, false);
     camera.aspect = width / Math.max(1, height);
+    // A narrow box must still show the whole figure: widen the view to fit.
+    camera.fov = camera.aspect < 1 ? 26 / Math.max(0.6, camera.aspect) : 26;
     camera.updateProjectionMatrix();
   }
 
   function dispose() {
-    scene.traverse((object) => {
-      if (object instanceof Mesh) {
-        object.geometry.dispose();
-        const material = object.material;
-        if (Array.isArray(material)) material.forEach((entry) => entry.dispose());
-        else material.dispose();
-      }
+    scene.traverse((object: Object3D) => {
+      if (object instanceof Mesh) object.geometry.dispose();
     });
-    faceTexture.dispose();
+    for (const item of [...geometries, ...disposables]) item.dispose();
     renderer.dispose();
   }
 
-  drawFace(faceCtx, { lid: 1, mouth: 0, mode: "happy" });
-  faceTexture.needsUpdate = true;
+  frame(0, 0);
 
-  return { frame, setState, resize, dispose };
+  return {
+    frame,
+    setState: animator.setState,
+    setPointer: animator.setPointer,
+    gesture: animator.gesture,
+    resize,
+    dispose,
+  };
 }
+
+/** Exposed so a check can confirm the palette matches the drawing. */
+export const SCENE_PALETTE = { ...PALETTE, toString: () => new Color(PALETTE.skin).getStyle() };

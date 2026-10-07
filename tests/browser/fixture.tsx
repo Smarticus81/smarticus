@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import App from "../../client/src/App";
-import { VirgilAvatar } from "../../client/src/voice/VirgilAvatar";
+import { VirgilAvatar, type AvatarRenderer, type AvatarState } from "../../client/src/voice/VirgilAvatar";
 import { speechEnergy } from "../../client/src/voice/speechSignal";
 import { lessonNavigator, whiteboard } from "../../client/src/voice/whiteboardStore";
 import { captureUiSnapshot } from "../../client/src/voice/uiSnapshot";
@@ -16,7 +16,10 @@ function AudioFixture() {
     gain = useRef<GainNode | null>(null);
   const [active, setActive] = useState(false),
     [playing, setPlaying] = useState(false),
-    [energy, setEnergy] = useState(0);
+    [energy, setEnergy] = useState(0),
+    // A state the checks can set by hand, so every expression can be looked at.
+    [forced, setForced] = useState<AvatarState | null>(null),
+    [cheers, setCheers] = useState(0);
   useEffect(() => {
     if (!active) {
       setEnergy(0);
@@ -87,11 +90,29 @@ function AudioFixture() {
         service.
       </p>
       <VirgilAvatar
-        state={playing ? "speaking" : "idle"}
+        state={forced ?? (playing ? "speaking" : "idle")}
         analyser={analyser}
         active={active}
+        cheerKey={cheers || null}
+        renderer={(new URLSearchParams(location.search).get("renderer") as AvatarRenderer | null) ?? "auto"}
       />
+      <button onClick={() => setCheers((n) => n + 1)}>Cheer</button>
       <output data-testid="source-energy">{energy}</output>
+      <label>
+        Virgil state
+        <select
+          data-testid="avatar-state"
+          value={forced ?? ""}
+          onChange={(event) => setForced((event.target.value || null) as AvatarState | null)}
+        >
+          <option value="">(from audio)</option>
+          {(["idle", "connecting", "listening", "thinking", "speaking", "muted", "error"] as const).map((name) => (
+            <option key={name} value={name}>
+              {name}
+            </option>
+          ))}
+        </select>
+      </label>
       <button onClick={() => void start()} disabled={active}>
         Start output
       </button>
