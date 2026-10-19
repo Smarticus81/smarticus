@@ -69,6 +69,10 @@ function studentSearchFilter(subject?: string) {
 }
 
 export const apiRouter = Router();
+// School planning data is deliberately parent-only, even when the studio is public.
+apiRouter.get("/school-context", (_req, res) => {
+  res.status(401).json({ error: "School planning notes are available in the parent portal only." });
+});
 
 apiRouter.get(
   "/schedule/dates",

@@ -8,7 +8,9 @@ function createPrismaClient() {
   const adapter = new PrismaPg({ connectionString: env.DATABASE_URL });
   const client = new PrismaClient({
     adapter,
-    log: process.env.NODE_ENV === "development" ? ["error", "warn"] : ["error"],
+    // Prisma error text can echo write arguments containing educational records.
+    // Route/service handlers log bounded, sanitized failures instead.
+    log: [],
   });
   if (process.env.NODE_ENV !== "production") {
     globalForPrisma.prisma = client;

@@ -21,7 +21,7 @@
 .parent-nav { border-right:1px solid var(--parent-line); padding:28px 18px; }
 .parent-nav button { width:100%; border:0; background:transparent; padding:12px 14px; border-radius:10px; text-align:left; margin-bottom:6px; font-weight:650; color:#536058; }
 .parent-nav button.active { background:var(--parent-green); color:white; }
-.parent-main { padding:34px; max-width:1220px; width:100%; }
+.parent-main { padding:34px; max-width:1220px; width:100%; min-width:0; }
 .parent-eyebrow { font-size:11px; letter-spacing:1.6px; text-transform:uppercase; color:#748176; font-weight:750; }
 .parent-main h1 { font-size:36px; margin:6px 0 8px; }
 .parent-subtitle { color:var(--parent-muted); max-width:760px; }
@@ -105,7 +105,7 @@
 .curriculum-source-link small { display:block; color:#7b7464; font-size:10px; margin-top:2px; }
 .source-arrow { color:#7a6a42; font-size:16px; }
 @media (max-width:900px) {
-  .parent-layout { grid-template-columns:1fr; }
+  .parent-layout { grid-template-columns:minmax(0,1fr); }
   .parent-nav { display:flex; overflow:auto; border-right:0; border-bottom:1px solid var(--parent-line); padding:12px; gap:6px; }
   .parent-nav button { width:auto; white-space:nowrap; margin:0; }
   .parent-main { padding:22px; }
@@ -119,7 +119,8 @@
   .parent-kpis,.parent-grid,.portfolio-grid,.transcript-meta { grid-template-columns:1fr; }
   .curriculum-course-head { flex-direction:column; }
   .curriculum-grade-box { text-align:left; }
-  .parent-topbar { padding:14px 16px; }
+  .parent-topbar { padding:14px 16px; flex-wrap:wrap; gap:12px; }
+  .parent-actions { flex-wrap:wrap; }
   .grade-edit-grid { grid-template-columns:1fr 90px; }
   .grade-edit-grid textarea,.grade-edit-grid select { grid-column:auto; }
 }

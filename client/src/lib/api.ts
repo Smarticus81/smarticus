@@ -1,11 +1,13 @@
 import type { SubmissionView } from "../../../shared/submissionRecord";
 import type { ReaderPage } from "../voice/readerStore";
 import type { FallbackProvider } from "../../../shared/voice/fallbackBridge";
+import type { SchoolContext } from "../../../shared/schoolContext";
 import type {
   AnswerSupport,
   LessonView,
   ScheduleView,
   StudentSnapshot,
+  SchoolPlanState,
 } from "./types";
 
 const API_BASE = "";
@@ -43,6 +45,12 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export const api = {
+  parentSchoolContext: () => request<SchoolPlanState>("/api/parent/school-context"),
+  saveSchoolContext: (expectedRevision: number, context: SchoolContext) =>
+    request<SchoolPlanState>("/api/parent/school-context", {
+      method: "PUT",
+      body: JSON.stringify({ expectedRevision, context }),
+    }),
   login: (password: string) =>
     request<{ authenticated: boolean }>("/api/auth/login", {
       method: "POST",

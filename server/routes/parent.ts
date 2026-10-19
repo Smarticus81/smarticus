@@ -5,6 +5,9 @@ import { env } from "../config/env.js";
 import { asyncHandler } from "../middleware/http.js";
 import { getParentDashboard, saveParentGradeDay, type ParentGradeDay } from "../services/parent.js";
 
+import { SaveSchoolContextSchema } from "../../shared/schoolContext.js";
+import { readSchoolContext, saveSchoolContext, SchoolContextConflict } from "../services/schoolContext.js";
+
 const CodeSchema = z.object({ code: z.string().min(4).max(64) }).strict();
 const GradeDaySchema = z.object({
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
@@ -79,3 +82,19 @@ parentRouter.put(
     res.json(await saveParentGradeDay(body));
   }),
 );
+
+parentRouter.get("/school-context", asyncHandler(async (_req, res) => {
+  const state = await readSchoolContext();
+  res.json({ ...state, lessons: [] });
+}));
+parentRouter.put("/school-context", asyncHandler(async (req, res) => {
+  const parsed = SaveSchoolContextSchema.safeParse(req.body);
+  if (!parsed.success) return res.status(400).json({ error: "Invalid school plan. Check the required fields and limits." });
+  try {
+    await saveSchoolContext(parsed.data.context, parsed.data.expectedRevision);
+    res.json({ ...(await readSchoolContext()), lessons: [] });
+  } catch (error) {
+    if (error instanceof SchoolContextConflict) return res.status(409).json({ error: error.message });
+    return res.status(500).json({ error: "The private school plan could not be saved. Existing records were kept." });
+  }
+}));

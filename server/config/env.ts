@@ -98,8 +98,13 @@ export const envSchema = z
     TRUST_PROXY: booleanEnvironment("false"),
     SHUTDOWN_TIMEOUT_MS: z.coerce.number().int().positive().default(10_000),
     AUTO_INGEST_CURRICULUM: booleanEnvironment("true"),
+    /** Read only by server startup; never expose with a VITE_ prefix or embed in artifacts. */
+    PRIVATE_SCHOOL_CONTEXT_JSON: optionalString,
   })
   .superRefine((values, context) => {
+    if (values.PRIVATE_SCHOOL_CONTEXT_JSON && !values.PARENT_ACCESS_CODE) {
+      context.addIssue({ code: z.ZodIssueCode.custom, path: ["PRIVATE_SCHOOL_CONTEXT_JSON"], message: "Private school context requires parent sign-in" });
+    }
     if (values.NODE_ENV !== "production") return;
 
     if (!values.OPENAI_API_KEY) {

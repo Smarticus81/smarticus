@@ -83,3 +83,11 @@ docker run --rm -p 3000:3000 --env-file .env atticus-tutor
 ```
 
 Back up PostgreSQL before deployment and treat transcripts, student records, and logs as sensitive educational data. Keep `/health` and `/ready` reachable by the platform, but do not expose the service itself without TLS.
+
+## Private school reference
+
+The parent portal includes a **School plan** tab behind the existing parent sign-in. It stores a manually maintained, source-dated snapshot in the separate `PrivateSchoolContext` table. Course guidance, schedule notes, unknown time zones and verification status remain distinct from official school records. Saves validate the shared schema and require the last known revision, so concurrent edits cannot silently overwrite one another.
+
+The student workspace and voice tutor do not fetch this private reference. Generic school-tutoring instructions instead ask the learner for the current lesson, defer to school and teacher requirements, distinguish practice from independent assessments, and preserve earlier homeschool work as historical or optional enrichment. No school-portal sync or official submission is performed.
+
+For an initial private import, a service-scoped `PRIVATE_SCHOOL_CONTEXT_JSON` environment value may contain `{ "importId": "unique-import-id", "expectedRevision": 0, "context": ... }`, where `context` passes `SchoolContextSchema`. It requires the existing `PARENT_ACCESS_CODE`. Startup imports only at the expected revision, skips repeated imports and never replaces a parent edit. Keep the value out of Git, client-prefixed variables, build artifacts and logs. It can be cleared after successful import; subsequent edits belong in the parent portal.

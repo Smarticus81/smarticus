@@ -30,6 +30,8 @@ import {
 import { attachFallbackBridge } from "./voice/fallbackBridge.js";
 import { configuredFallbacks } from "./lib/fallbackProviders.js";
 
+import { bootstrapSchoolContext } from "./services/schoolContext.js";
+
 const PostgresSessionStore = connectPgSimple(session);
 let sessionPool: Pool | undefined;
 let curriculumWatcher: FSWatcher | undefined;
@@ -339,6 +341,7 @@ export function startServer() {
 async function registerShutdownHandlers() {
   await bootstrapDatabase({ ensureDatabase: false, seedIfEmpty: true });
   await syncDailyCurriculumBeforeStart();
+  await bootstrapSchoolContext();
 
   let shuttingDown = false;
 

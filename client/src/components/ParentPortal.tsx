@@ -2,6 +2,7 @@ import type { SubmissionView } from "../../../shared/submissionRecord";
 import "../styles/day30.css";
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import "../styles/parent.css";
+import { SchoolContextEditor } from "./SchoolContextEditor";
 
 type SubjectGrade = {
   subject: string;
@@ -77,7 +78,7 @@ type Dashboard = {
   submissions?: Array<SubmissionView & {date:string;subject:string;title:string}>;
 };
 
-type Tab = "submissions" | "overview" | "grades" | "curriculum" | "transcript" | "portfolio";
+type Tab = "school" | "submissions" | "overview" | "grades" | "curriculum" | "transcript" | "portfolio";
 const subjectNames: Record<string,string> = {
   mathematics:"Math", literature:"Literature", writing:"Writing", science:"Science",
   history_geography:"History", french:"French", computer_science:"Builder Lab",
@@ -146,15 +147,16 @@ export function ParentPortal() {
       </header>
       <div className="parent-layout">
         <nav className="parent-nav no-print" aria-label="Parent records">
-          {(["overview","submissions","grades","curriculum","transcript","portfolio"] as Tab[]).map((item) => (
-            <button className={tab===item ? "active" : ""} key={item} onClick={() => setTab(item)}>
-              {item === "submissions" ? "Submitted work" : item === "overview" ? "Overview" : item === "grades" ? "Daily grades" : item === "curriculum" ? "Curriculum" : item === "transcript" ? "Transcript" : "Portfolio"}
+          {(["overview","school","submissions","grades","curriculum","transcript","portfolio"] as Tab[]).map((item) => (
+            <button className={tab===item ? "active" : ""} aria-current={tab === item ? "page" : undefined} key={item} onClick={() => setTab(item)}>
+              {item === "school" ? "School plan" : item === "submissions" ? "Submitted work" : item === "overview" ? "Overview" : item === "grades" ? "Daily grades" : item === "curriculum" ? "Curriculum" : item === "transcript" ? "Transcript" : "Portfolio"}
             </button>
           ))}
         </nav>
         <main className="parent-main">
-          {loading && <div className="parent-card">Loading parent records…</div>}
-          {error && <div className="parent-card parent-error">{error}</div>}
+          {loading && tab !== "school" && <div className="parent-card">Loading parent records…</div>}
+          {error && tab !== "school" && <div className="parent-card parent-error">{error}</div>}
+          <div hidden={tab !== "school"}><SchoolContextEditor /></div>
           {!loading && dashboard && tab === "overview" && <Overview dashboard={dashboard} setTab={setTab} />}
           {!loading && dashboard && tab === "submissions" && <SubmittedWork dashboard={dashboard} onRefresh={loadDashboard}/>}
           {!loading && dashboard && tab === "grades" && <Grades dashboard={dashboard} onRefresh={loadDashboard} />}

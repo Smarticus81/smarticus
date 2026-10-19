@@ -9,6 +9,7 @@ const productionEnv = {
   DATABASE_URL: "postgresql://app:secret@database:5432/atticus",
   SESSION_SECRET: "a-production-only-secret-with-more-than-32-characters",
   APP_ACCESS_PASSWORD: "a-unique-family-access-password",
+  PARENT_ACCESS_CODE: "test-parent-code",
 };
 
 describe("production environment validation", () => {
@@ -26,8 +27,16 @@ describe("production environment validation", () => {
     if (!result.success) {
       assert.deepEqual(
         new Set(result.error.issues.map((issue) => issue.path[0])),
-        new Set(["OPENAI_API_KEY", "SESSION_SECRET", "APP_ACCESS_PASSWORD", "DATABASE_URL"]),
+        new Set(["OPENAI_API_KEY", "SESSION_SECRET", "APP_ACCESS_PASSWORD", "PARENT_ACCESS_CODE", "DATABASE_URL"]),
       );
     }
+  });
+});
+
+
+describe("private school bootstrap validation", () => {
+  it("requires only the existing parent protection for a private parent plan", () => {
+    assert.equal(envSchema.safeParse({ NODE_ENV: "development", PRIVATE_SCHOOL_CONTEXT_JSON: "{}" }).success, false);
+    assert.equal(envSchema.safeParse({ NODE_ENV: "development", PRIVATE_SCHOOL_CONTEXT_JSON: "{}", PARENT_ACCESS_CODE: "test-parent-code" }).success, true);
   });
 });

@@ -1,3 +1,9 @@
+import type { SchoolContextState } from "../../../shared/schoolContext";
+
+export type SchoolPlanState = Omit<SchoolContextState, "lessons"> & {
+  lessons: LessonView[];
+};
+
 export interface WorkedExample {
   title: string;
   problem: string;

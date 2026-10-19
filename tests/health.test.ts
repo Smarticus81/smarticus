@@ -42,6 +42,15 @@ describe("HTTP health endpoint", () => {
     assert.match(await response.text(), /API route not found/);
   });
 
+  it("keeps all school planning routes parent-only even with a public student app", async () => {
+    for (const [path, method] of [["/api/school-context", "GET"], ["/api/parent/school-context", "GET"], ["/api/parent/school-context", "PUT"]]) {
+      const response = await fetch(`${baseUrl}${path}`, { method });
+      assert.equal(response.status, 401, `${method} ${path}`);
+      const body = await response.text();
+      assert.equal(body.includes("courses"), false);
+    }
+  });
+
   it("returns a client error for malformed JSON", async () => {
     const response = await fetch(`${baseUrl}/api/auth/login`, {
       method: "POST",
