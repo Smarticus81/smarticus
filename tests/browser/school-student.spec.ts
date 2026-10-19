@@ -192,6 +192,7 @@ test.describe("private voice routing", () => {
     const mock = await fixture(page);
     await page.goto(homeUrl); await openMath(page);
     await page.getByRole("button", { name: "Talk with Virgil" }).click();
+    await page.getByRole("button", { name: "Agree and start this session", exact: true }).click();
     await expect.poll(() => mock.calls.some(call => call.path === "/api/parent/school-tutor/live")).toBe(true);
     const request = mock.calls.find(call => call.path === "/api/parent/school-tutor/live")!;
     expect(request.body).toMatchObject({ assignmentId: "ratios-now", expectedRevision: 4 });

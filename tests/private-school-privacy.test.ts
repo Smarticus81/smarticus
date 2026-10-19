@@ -14,6 +14,7 @@ async function isolated(script: string) {
     DOTENV_CONFIG_PATH: "tests/no-local-config.env",
   };
   delete childEnv.PRIVATE_SCHOOL_CONTEXT_JSON;
+  delete childEnv.PRIVATE_SCHOOL_CONTEXT_JSON_PART_2;
   return promisify(execFile)(process.execPath, [
     "--import", "tsx", "--input-type=module", "--eval", script,
   ], { env: childEnv, timeout: 15_000 });
@@ -35,6 +36,57 @@ it("the shared Prisma client does not print private arguments on validation fail
     } finally { await disconnectPrisma(); }
   `);
   assert.match(stdout, /validation failure was not logged/);
+  assert.equal((stdout + stderr).includes(sentinel), false);
+});
+
+it("a large two-part import applies once at the expected revision without logging its content", async () => {
+  const { stdout, stderr } = await isolated(`
+    import assert from "node:assert/strict";
+    const context = {
+      schemaVersion: 1, active: true, sourceName: "Example school", schoolYear: "2026-27",
+      asOf: "2026-10-01T12:00:00Z", timeZone: null, timezoneNote: "",
+      summary: "${sentinel}",
+      courses: [{ id: "math", label: "Mathematics", subject: "mathematics", focus: "", units: [], instructions: [] }],
+      assignments: Array.from({ length: 35 }, (_, index) => ({
+        id: "synthetic-" + index, courseId: "math", title: "Synthetic assignment " + index,
+        unit: "Example unit", kind: "practice", status: "next",
+        instructions: ["Synthetic practice directions. ".repeat(32).trim()], tutoringFocus: "Use a separate example.",
+        sequence: index, timingNote: "",
+      })),
+      schedule: [], workload: [], cautions: [], sources: [],
+    };
+    const raw = JSON.stringify({ context, expectedRevision: 1, importId: "synthetic-large-import" });
+    assert.ok(raw.length > 32768 && raw.length < 50000);
+    process.env.PRIVATE_SCHOOL_CONTEXT_JSON = raw.slice(0, 24000);
+    process.env.PRIVATE_SCHOOL_CONTEXT_JSON_PART_2 = raw.slice(24000);
+    let writes = 0;
+    const row = { revision: 1, bootstrapId: "previous-import", parentEdited: false, content: null };
+    globalThis.prisma = {
+      $transaction: async work => work({ privateSchoolContext: {
+        findUnique: async () => row,
+        updateMany: async ({ where, data }) => {
+          assert.equal(where.revision, 1);
+          assert.equal(where.parentEdited, false);
+          writes++;
+          row.content = data.content;
+          row.revision += data.revision.increment;
+          row.bootstrapId = data.bootstrapId;
+          return { count: 1 };
+        },
+      }}),
+    };
+    const { bootstrapSchoolContext } = await import("./server/services/schoolContext.ts");
+    await bootstrapSchoolContext();
+    await bootstrapSchoolContext();
+    assert.equal(writes, 1);
+    assert.equal(row.revision, 2);
+    assert.equal(row.content.assignments.length, 35);
+    assert.deepEqual(row.content, context);
+    console.log("split bootstrap preserved full context exactly once");
+  `);
+  assert.match(stdout, /"revision":2/);
+  assert.match(stdout, /bootstrap applied/);
+  assert.match(stdout, /bootstrap skipped/);
   assert.equal((stdout + stderr).includes(sentinel), false);
 });
 

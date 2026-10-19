@@ -47,7 +47,7 @@ export async function saveSchoolContext(context: SchoolContext, expectedRevision
           id: "default", content, revision: 1, parentEdited: !bootstrapId, bootstrapId: bootstrapId ?? null,
         } });
       }
-      return { applied: true };
+      return { applied: true, revision: expectedRevision + 1 };
     }, { timeout: 20000 });
   } catch (error) {
     if (error instanceof SchoolContextConflict || (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002")) {
@@ -58,8 +58,19 @@ export async function saveSchoolContext(context: SchoolContext, expectedRevision
   }
 }
 
+export function assembleSchoolBootstrap(first?: string, continuation?: string): string | undefined {
+  if (!first) {
+    if (continuation) throw new Error("Private school plan bootstrap is incomplete.");
+    return undefined;
+  }
+  const raw = first + (continuation ?? "");
+  // The validated context is capped at 50,000 characters, plus its small envelope.
+  if (raw.length > 52_000) throw new Error("Private school plan bootstrap is too large.");
+  return raw;
+}
+
 export async function bootstrapSchoolContext() {
-  const raw = env.PRIVATE_SCHOOL_CONTEXT_JSON;
+  const raw = assembleSchoolBootstrap(env.PRIVATE_SCHOOL_CONTEXT_JSON, env.PRIVATE_SCHOOL_CONTEXT_JSON_PART_2);
   if (!raw) return;
   // Keep this runtime-only value out of build output, logs, errors and responses.
   let input: unknown;
@@ -68,7 +79,8 @@ export async function bootstrapSchoolContext() {
   if (!result.success) throw new Error("Private school plan bootstrap validation failed.");
   try {
     const saved = await saveSchoolContext(result.data.context, result.data.expectedRevision, result.data.importId);
-    log({ message: saved.applied ? "Private school plan bootstrap applied" : "Private school plan bootstrap skipped", toolOutcome: "success" });
+    log({ message: saved.applied ? "Private school plan bootstrap applied" : "Private school plan bootstrap skipped", toolOutcome: "success",
+      ...(saved.applied ? { revision: saved.revision } : {}) });
   } catch (error) {
     if (error instanceof SchoolContextConflict) {
       // A concurrent importer or parent edit won. Preserve it and keep serving.

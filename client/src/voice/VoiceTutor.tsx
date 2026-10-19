@@ -3,7 +3,7 @@ import { api, ApiError } from "../lib/api";
 import { createToolExecutors } from "./tools";
 import { createSchoolToolExecutors } from "./schoolTools";
 import { negotiateSchoolSession, SCHOOL_CONNECTION_ERROR, type SchoolTutorSession } from "./schoolSession";
-import { camera } from "./camera";
+import { camera, useCamera } from "./camera";
 import { Icon } from "../components/Icon";
 import { createSessionPayload, type TranscriptLine } from "./sessionPayload";
 import { VirgilAvatar } from "./VirgilAvatar";
@@ -45,7 +45,8 @@ interface VoiceTutorProps {
    * "Talk with Virgil" used to only load this component, which then asked for a
    * second click on "Connect microphone". One intention, two buttons, and the
    * first one promised what the second one did. The card now mounts this with
-   * `autoStart`, so the one click reaches the microphone prompt.
+   * `autoStart`, so the one click reaches the microphone prompt for public
+   * lessons. Private school sessions first require their own informed consent.
    */
   autoStart?: boolean;
 }
@@ -205,6 +206,12 @@ export function VoiceTutor({
   const [currentUtterance, setCurrentUtterance] = useState("");
   const [activity, setActivity] = useState<string | null>(null);
   const [screenSharing, setScreenSharing] = useState(false);
+  const [showSchoolConsent, setShowSchoolConsent] = useState(false);
+  const schoolConsentHeadingRef = useRef<HTMLHeadingElement>(null);
+  const connectButtonRef = useRef<HTMLButtonElement>(null);
+  const [schoolCameraSharing, setSchoolCameraSharing] = useState(false);
+  const schoolCameraSharingRef = useRef(false);
+  const cameraState = useCamera();
   // Handing work in is worth a cheer from him.
   const work = useLessonWork();
   const [shareSurface, setShareSurface] = useState<ShareSurface>("unknown");
@@ -213,6 +220,17 @@ export function VoiceTutor({
   const mountedRef = useRef(true);
   const sessionGenerationRef = useRef(0);
   const connectingRef = useRef(false);
+
+  useEffect(() => {
+    if (showSchoolConsent) schoolConsentHeadingRef.current?.focus({ preventScroll: true });
+  }, [showSchoolConsent]);
+
+  useEffect(() => camera.onChange(state => {
+    if (!state.active) {
+      schoolCameraSharingRef.current = false;
+      setSchoolCameraSharing(false);
+    }
+  }), []);
 
   useEffect(() => {
     onBusyChange?.(
@@ -434,6 +452,9 @@ export function VoiceTutor({
     setIsSpeaking(false);
     setIsAwake(false);
     if (isSchoolMode) {
+      setShowSchoolConsent(false);
+      schoolCameraSharingRef.current = false;
+      setSchoolCameraSharing(false);
       // Private school work never reaches public session persistence, and is
       // forgotten when the connection/workspace ends or access is lost.
       tutorSessionIdRef.current = null;
@@ -544,8 +565,18 @@ export function VoiceTutor({
     setSaving(false);
   }, [cleanup, lessonTitle, transcript, isSchoolMode]);
 
-  const connect = useCallback(async () => {
+  const connect = useCallback(async (schoolConsentForThisAttempt = false) => {
     if (connectingRef.current || connection === "connecting" || connection === "connected") return;
+    // Consent is supplied only by this attempt's affirmative button. Never
+    // remember it in storage or reuse it for a retry, reconnect or autoStart.
+    // Even the access check and microphone request must stay below this gate.
+    if (schoolSession && !schoolConsentForThisAttempt) {
+      setShowSchoolConsent(true);
+      return;
+    }
+    setShowSchoolConsent(false);
+    schoolCameraSharingRef.current = false;
+    setSchoolCameraSharing(false);
     connectingRef.current = true;
     const generation = ++sessionGenerationRef.current;
     const current = () => mountedRef.current && sessionGenerationRef.current === generation;
@@ -597,7 +628,7 @@ export function VoiceTutor({
         imageAllowance: () => sessionRef.current?.imageAllowance ?? 0,
       };
       const tools = schoolSession
-        ? createSchoolToolExecutors({ ...schoolSession, ...toolContext, isActive: current, onAccessLost: schoolAccessLost })
+        ? createSchoolToolExecutors({ ...schoolSession, ...toolContext, isActive: current, isCameraShared: () => schoolCameraSharingRef.current, onAccessLost: schoolAccessLost })
         : createToolExecutors(toolContext);
 
       const attach = (session: TutorSession) => {
@@ -806,6 +837,24 @@ export function VoiceTutor({
     }
   }, [appendTranscript, cleanup, connection, lessonId, markSpeaking, noteUtteranceQuality, remindNotToStall, schoolSession, schoolAccessLost, setWakeState, showActivity, startVisualizer]);
 
+  const toggleSchoolCameraShare = useCallback(async () => {
+    if (!isSchoolMode || connection !== "connected") return;
+    if (schoolCameraSharingRef.current) {
+      schoolCameraSharingRef.current = false;
+      setSchoolCameraSharing(false);
+      return;
+    }
+    const generation = sessionGenerationRef.current;
+    try {
+      await camera.start();
+      if (!mountedRef.current || sessionGenerationRef.current !== generation || sessionRef.current?.status !== "connected" || !camera.active) return;
+      schoolCameraSharingRef.current = true;
+      setSchoolCameraSharing(true);
+    } catch {
+      // The local camera preview shows the permission/device error.
+    }
+  }, [connection, isSchoolMode]);
+
   const toggleMute = useCallback(async () => {
     const session = sessionRef.current;
     if (!session) return;
@@ -855,7 +904,7 @@ export function VoiceTutor({
   }, [cleanup]);
 
   /**
-   * Reach the microphone on the click that asked for it.
+   * Reach the microphone (or private School consent) on the initial click.
    *
    * Guarded by a ref rather than the connection state so that ending a session
    * leaves it ended: without that, the effect would reconnect the moment the
@@ -919,7 +968,7 @@ export function VoiceTutor({
       <h2>One thought at a time.</h2>
       {isSchoolMode && (
         <p className="voice-instruction" role="note">
-          School tutor: {lessonTitle}. Conversations and whiteboard work stay in this session and are not saved as school submissions.
+          School tutor: {lessonTitle}. Conversations and whiteboard work are not saved as school submissions.
         </p>
       )}
       {currentUtterance && (
@@ -973,8 +1022,28 @@ export function VoiceTutor({
           </p>
         </div>
       )}
-      {(connection === "idle" || connection === "error") && !saveFailed && (
+      {showSchoolConsent && isSchoolMode && (
+        <section className="school-tutor-consent" aria-labelledby="school-tutor-consent-title">
+          <h3 id="school-tutor-consent-title" ref={schoolConsentHeadingRef} tabIndex={-1}>Share with OpenAI for this session?</h3>
+          <p>To tutor you on <strong>{lessonTitle}</strong>, Virgil sends OpenAI:</p>
+          <ul>
+            <li>This selected assignment and its course instructions, plus saved school details, schedule, workload notes and cautions.</li>
+            <li>Your microphone audio, conversation, and any workspace notes and whiteboard work the tutor reads.</li>
+            <li>Screen or camera images only if you choose “Share screen” or “Share camera with Virgil” during this session. Opening the camera preview alone does not share it.</li>
+          </ul>
+          <p>This permission is only for this session. Starting again or retrying needs a new choice. You can cancel and keep using the assignment without voice tutoring.</p>
+          <div className="school-tutor-consent-actions">
+            <button className="button outline" type="button" onClick={() => {
+              setShowSchoolConsent(false);
+              window.setTimeout(() => connectButtonRef.current?.focus(), 0);
+            }}>Cancel</button>
+            <button className="button primary" type="button" onClick={() => void connect(true)}>Agree and start this session</button>
+          </div>
+        </section>
+      )}
+      {(connection === "idle" || connection === "error") && !saveFailed && !showSchoolConsent && (
         <button
+          ref={connectButtonRef}
           className="button primary"
           onClick={() => void connect()}
           disabled={saving}
@@ -984,7 +1053,7 @@ export function VoiceTutor({
             ? isSchoolMode ? "Ending your session…" : "Saving your session…"
             : ended
               ? "Start another conversation"
-              : "Connect microphone"}
+              : isSchoolMode ? "Review and start tutoring" : "Connect microphone"}
         </button>
       )}
       {connection === "connecting" && (
@@ -1039,6 +1108,18 @@ export function VoiceTutor({
               Only this tab is shared. To show Virgil a program such as Blender, press Stop sharing,
               then Share screen and choose Entire screen.
             </small>
+          )}
+          {isSchoolMode && (
+            <button
+              className="button outline"
+              type="button"
+              aria-pressed={schoolCameraSharing}
+              disabled={cameraState.starting}
+              onClick={() => void toggleSchoolCameraShare()}
+            >
+              <Icon name="camera" size={16} />
+              {schoolCameraSharing ? "Stop sharing camera" : cameraState.starting ? "Opening camera…" : "Share camera with Virgil"}
+            </button>
           )}
           <button
             className="button outline"

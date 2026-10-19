@@ -10,6 +10,7 @@ import { whiteboard } from "../client/src/voice/whiteboardStore.js";
 import type { LiveFunctionCall } from "../client/src/voice/liveEvents.js";
 import type { LiveSessionResponse } from "../client/src/lib/api.js";
 import { LiveVoiceSession } from "../client/src/voice/liveSession.js";
+import { camera } from "../client/src/voice/camera.js";
 
 // Synthetic fixtures only. No real learner records or school-portal content.
 const context = SchoolContextSchema.parse({
@@ -125,6 +126,25 @@ it("closes access on private vision 401 and hides unsafe error bodies", async ()
   assert.equal(JSON.stringify(result).includes("UNSAFE_PROVIDER_DETAIL"), false);
 });
 
+it("drops a screen frame that resolves after Stop sharing or school session exit", async () => {
+  const image = "data:image/jpeg;base64,U1lOVEhFVElD";
+  globalThis.fetch = async () => { assert.fail("A late screen frame must not reach private vision"); };
+  for (const imageBytes of [0, 10_000]) {
+    for (const endSession of [false, true]) {
+      let sharing = true, active = true, captures = 0;
+      const screenShare = {
+        get active() { return sharing; }, surface: "window",
+        captureFrame: async () => { captures++; if (endSession) active = false; else sharing = false; return image; },
+      } as ScreenShare;
+      const tools = createSchoolToolExecutors({ ...school, screenShare, isActive: () => active, imageAllowance: () => imageBytes });
+      const result = await tools.look_at_screen({}, call("look_at_screen"));
+      assert.equal(captures, 1);
+      assert.equal(JSON.stringify(result).includes(image), false);
+      assert.match(JSON.stringify(result), /Screen sharing is off|session is closed/);
+    }
+  }
+});
+
 it("ignores late tool calls after exit without modifying the board or transmitting", async () => {
   globalThis.fetch = async () => { assert.fail("A closed school session must not send requests"); };
   const tools = createSchoolToolExecutors({ ...school, screenShare: new ScreenShare(), isActive: () => false });
@@ -133,6 +153,63 @@ it("ignores late tool calls after exit without modifying the board or transmitti
     assert.match(JSON.stringify(result), /school session is closed/);
   }
   assert.equal(whiteboard.getSnapshot().ops.length, 0);
+});
+
+it("does not capture a preview-only school camera, even when the camera is active", async () => {
+  const captureFrame = camera.captureFrame;
+  Object.defineProperty(camera, "active", { configurable: true, value: true });
+  camera.captureFrame = async () => { assert.fail("Preview-only camera must never be captured"); };
+  globalThis.fetch = async () => { assert.fail("Preview-only camera must never be transmitted"); };
+  try {
+    for (const isCameraShared of [undefined, () => false]) {
+      const tools = createSchoolToolExecutors({ ...school, screenShare: new ScreenShare(), isCameraShared });
+      const result = await tools.look_through_camera({}, call("look_through_camera"));
+      assert.match(JSON.stringify(result), /Camera sharing is off/);
+    }
+  } finally {
+    camera.captureFrame = captureFrame;
+    Reflect.deleteProperty(camera, "active");
+  }
+});
+
+it("shares a camera frame only while the current school session and camera sharing remain active", async () => {
+  const captureFrame = camera.captureFrame;
+  const image = "data:image/jpeg;base64,U1lOVEhFVElD";
+  Object.defineProperty(camera, "active", { configurable: true, value: true });
+  globalThis.fetch = async () => { assert.fail("An allowed small image should use only the current session"); };
+  let shared = true;
+  let active = true;
+  try {
+    const tools = createSchoolToolExecutors({ ...school, screenShare: new ScreenShare(), isActive: () => active, isCameraShared: () => shared, imageAllowance: () => 10_000 });
+    camera.captureFrame = async () => image;
+    const allowed = await tools.look_through_camera({}, call("look_through_camera"));
+    assert.deepEqual((allowed as { images: string[] }).images, [image]);
+    for (const revoke of [() => { shared = false; }, () => { active = false; }]) {
+      shared = true; active = true;
+      camera.captureFrame = async () => { revoke(); return image; };
+      const stopped = await tools.look_through_camera({}, call("look_through_camera"));
+      assert.equal(JSON.stringify(stopped).includes(image), false);
+      assert.match(JSON.stringify(stopped), /sharing ended|session is closed/);
+    }
+  } finally {
+    camera.captureFrame = captureFrame;
+    Reflect.deleteProperty(camera, "active");
+  }
+});
+
+it("requires a fresh affirmative UI action before any private connection work", () => {
+  const voice = readFileSync(new URL("../client/src/voice/VoiceTutor.tsx", import.meta.url), "utf8");
+  const connect = voice.slice(voice.indexOf("const connect ="), voice.indexOf("const toggleSchoolCameraShare ="));
+  assert.match(connect, /async \(schoolConsentForThisAttempt = false\)/);
+  const gate = connect.indexOf("if (schoolSession && !schoolConsentForThisAttempt)");
+  assert.ok(gate > 0);
+  assert.match(connect.slice(gate), /^if \(schoolSession && !schoolConsentForThisAttempt\) \{\s*setShowSchoolConsent\(true\);\s*return;/);
+  assert.ok(gate < connect.indexOf("await api.parentSession()"));
+  assert.ok(gate < connect.indexOf("await requestMicrophone()"));
+  assert.equal(voice.match(/connect\(true\)/g)?.length, 1);
+  assert.match(voice, /onClick=\{\(\) => void connect\(true\)\}>Agree and start this session/);
+  assert.match(voice, /if \(!autoStart \|\| autoStartedRef.current\) return;\s*autoStartedRef.current = true;\s*void connect\(\)/);
+  assert.doesNotMatch(voice, /defaultChecked|defaultValue="(?:yes|agree)"/);
 });
 
 it("keeps school UI away from public writes, fallback and browser persistence", () => {

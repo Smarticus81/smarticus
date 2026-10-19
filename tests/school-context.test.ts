@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { SchoolContextSchema, BootstrapSchoolContextSchema } from "../shared/schoolContext.js";
-import { bootstrapMayApply } from "../server/services/schoolContext.js";
+import { assembleSchoolBootstrap, bootstrapMayApply } from "../server/services/schoolContext.js";
 import { SCHOOL_TUTOR_RULES } from "../server/services/schoolPrompt.js";
 
 const example = {
@@ -60,6 +60,15 @@ describe("private school context validation", () => {
 });
 
 describe("idempotent private bootstrap", () => {
+  it("reassembles a two-part runtime value exactly, without trimming either part", () => {
+    const raw = JSON.stringify({ summary: "A synthetic plan with spaces and Unicode: \u00e9\ud83c\udf31" });
+    const split = raw.indexOf(" spaces");
+    assert.equal(assembleSchoolBootstrap(raw.slice(0, split), raw.slice(split)), raw);
+    assert.equal(assembleSchoolBootstrap(raw), raw);
+    assert.equal(assembleSchoolBootstrap(undefined, undefined), undefined);
+    assert.throws(() => assembleSchoolBootstrap(undefined, "private fragment"), /bootstrap is incomplete/);
+    assert.throws(() => assembleSchoolBootstrap("x".repeat(32_000), "x".repeat(21_000)), /bootstrap is too large/);
+  });
   it("only creates an initial context at revision zero", () => {
     assert.equal(bootstrapMayApply(null, { expectedRevision: 0, importId: "one" }), true);
     assert.equal(bootstrapMayApply(null, { expectedRevision: 1, importId: "one" }), false);

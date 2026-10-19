@@ -39,4 +39,10 @@ describe("private school bootstrap validation", () => {
     assert.equal(envSchema.safeParse({ NODE_ENV: "development", PRIVATE_SCHOOL_CONTEXT_JSON: "{}" }).success, false);
     assert.equal(envSchema.safeParse({ NODE_ENV: "development", PRIVATE_SCHOOL_CONTEXT_JSON: "{}", PARENT_ACCESS_CODE: "test-parent-code" }).success, true);
   });
+  it("allows a protected continuation but rejects a missing first part", () => {
+    const common = { NODE_ENV: "development", PARENT_ACCESS_CODE: "test-parent-code" };
+    assert.equal(envSchema.safeParse({ ...common, PRIVATE_SCHOOL_CONTEXT_JSON: "{", PRIVATE_SCHOOL_CONTEXT_JSON_PART_2: "}" }).success, true);
+    assert.equal(envSchema.safeParse({ ...common, PRIVATE_SCHOOL_CONTEXT_JSON_PART_2: "}" }).success, false);
+    assert.equal(envSchema.safeParse({ PRIVATE_SCHOOL_CONTEXT_JSON_PART_2: "}" }).success, false);
+  });
 });

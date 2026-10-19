@@ -13,6 +13,8 @@ interface SchoolToolContext extends SchoolTutorSession {
   imageAllowance?: () => number;
   /** A late tool cannot act after the workspace was closed or access expired. */
   isActive?: () => boolean;
+  /** Opening the local preview is not permission to transmit camera images. */
+  isCameraShared?: () => boolean;
   onAccessLost?: () => void;
 }
 
@@ -114,25 +116,31 @@ export function createSchoolToolExecutors(context: SchoolToolContext): Record<st
       const notes = root ? [...root.querySelectorAll<HTMLTextAreaElement>("textarea")]
         .map(field => field.value.trim()).filter(Boolean).slice(0, 4).map(value => value.slice(0, 2000)) : [];
       const visibleText = root?.innerText?.slice(0, 2400) ?? "";
-      const captured = context.screenShare.active ? await context.screenShare.captureFrame() : null;
+      const pendingFrame = context.screenShare.active ? await context.screenShare.captureFrame() : null;
+      // Stop sharing or exit can happen while a first frame is still loading.
+      const captured = active() && context.screenShare.active ? pendingFrame : null;
       const frame = captured && utf8Bytes(captured) <= allowance() ? captured : null;
       const description = captured && !frame
         ? await describeImage(captured, optionalText(args.reason), context.screenShare.surface) : null;
+      const screenStillShared = active() && context.screenShare.active;
       return {
         output: {
           selected_assignment: selection(),
           workspace: visibleText,
           learner_notes: notes,
           whiteboard: whiteboard.summary(),
-          shared_screen: description ?? (frame ? "The shared screen image is attached." : context.screenShare.active ? "The shared picture could not be read. Ask the learner to show or read the relevant question." : "Screen sharing is off. The saved school assignment and workspace above are available."),
+          shared_screen: !screenStillShared ? "Screen sharing is off. The saved school assignment and workspace above are available." : description ?? (frame ? "The shared screen image is attached." : "The shared picture could not be read. Ask the learner to show or read the relevant question."),
           note: NOT_SAVED,
         },
-        images: frame ? [frame] : [],
+        images: screenStillShared && frame ? [frame] : [],
       };
     },
     look_through_camera: async () => {
+      if (!context.isCameraShared?.()) return { error: "Camera sharing is off. Ask the learner to choose Share camera with Virgil before reading the page. The local preview is not shared." };
       if (!camera.active) return { error: "The camera is off. Ask the learner to turn it on before reading the page." };
       const captured = await camera.captureFrame();
+      // A frame that resolves after Stop sharing or session cleanup is private.
+      if (!active() || !context.isCameraShared?.() || !camera.active) return { error: "Camera sharing ended. No camera image was shared." };
       const frame = captured && utf8Bytes(captured) <= allowance() ? captured : null;
       const description = captured && !frame
         ? await describeImage(captured, "Read the schoolwork visible on the learner's page. Say if it is blurred or cut off.", "unknown") : null;

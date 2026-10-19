@@ -20,6 +20,6 @@ export function SchoolCameraView() {
     <div><h3>Your paper, in view</h3><button className="text-button" onClick={() => camera.stop()}>Close camera</button></div>
     <video ref={videoRef} muted playsInline aria-label="What your camera can see" />
     {playbackFailed && <p role="alert">The camera preview couldn’t play. <button className="text-button" onClick={play}>Try preview again</button></p>}
-    <p>Hold up your page and ask Virgil to explain it. This preview doesn’t save or submit a photo.</p>
+    <p>Opening this preview alone keeps images on your device. During voice tutoring, choose “Share camera with Virgil” to let OpenAI read images of your page. A preview doesn’t save or submit a photo.</p>
   </section>;
 }

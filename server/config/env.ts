@@ -100,10 +100,15 @@ export const envSchema = z
     AUTO_INGEST_CURRICULUM: booleanEnvironment("true"),
     /** Read only by server startup; never expose with a VITE_ prefix or embed in artifacts. */
     PRIVATE_SCHOOL_CONTEXT_JSON: optionalString,
+    /** Optional continuation for runtime platforms with a per-variable size limit. */
+    PRIVATE_SCHOOL_CONTEXT_JSON_PART_2: optionalString,
   })
   .superRefine((values, context) => {
-    if (values.PRIVATE_SCHOOL_CONTEXT_JSON && !values.PARENT_ACCESS_CODE) {
+    if ((values.PRIVATE_SCHOOL_CONTEXT_JSON || values.PRIVATE_SCHOOL_CONTEXT_JSON_PART_2) && !values.PARENT_ACCESS_CODE) {
       context.addIssue({ code: z.ZodIssueCode.custom, path: ["PRIVATE_SCHOOL_CONTEXT_JSON"], message: "Private school context requires parent sign-in" });
+    }
+    if (values.PRIVATE_SCHOOL_CONTEXT_JSON_PART_2 && !values.PRIVATE_SCHOOL_CONTEXT_JSON) {
+      context.addIssue({ code: z.ZodIssueCode.custom, path: ["PRIVATE_SCHOOL_CONTEXT_JSON_PART_2"], message: "Private school context continuation requires its first part" });
     }
     if (values.NODE_ENV !== "production") return;
 
