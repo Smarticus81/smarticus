@@ -24,6 +24,24 @@ export class ApiError extends Error {
   }
 }
 
+export interface LiveSessionResponse {
+  sdp: string;
+  sessionId: string;
+  lessonId: string;
+  lessonMarker: string;
+  voiceModel: string;
+  backendModel: string;
+  voice: string;
+}
+
+export interface SchoolVisionRequest {
+  assignmentId: string;
+  expectedRevision: number;
+  image: string;
+  surface: "monitor" | "window" | "browser" | "unknown";
+  question: string | null;
+}
+
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`, {
     ...init,
@@ -45,7 +63,22 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export const api = {
+  parentSession: () => request<{ authenticated: boolean; configured: boolean }>("/api/parent/session", { cache: "no-store" }),
   parentSchoolContext: () => request<SchoolPlanState>("/api/parent/school-context"),
+  schoolLiveSession: (assignmentId: string, expectedRevision: number, sdp: string) =>
+    request<LiveSessionResponse>("/api/parent/school-tutor/live", {
+      method: "POST",
+      body: JSON.stringify({ assignmentId, expectedRevision, sdp }),
+      signal: AbortSignal.timeout(45_000),
+      cache: "no-store",
+    }),
+  describeSchoolScreen: (body: SchoolVisionRequest) =>
+    request<{ description: string }>("/api/parent/school-tutor/vision", {
+      method: "POST",
+      body: JSON.stringify(body),
+      signal: AbortSignal.timeout(15_000),
+      cache: "no-store",
+    }),
   saveSchoolContext: (expectedRevision: number, context: SchoolContext) =>
     request<SchoolPlanState>("/api/parent/school-context", {
       method: "PUT",
@@ -78,15 +111,7 @@ export const api = {
       `/api/mastery/${encodeURIComponent(subject)}${standard ? `?standard=${encodeURIComponent(standard)}` : ""}`,
     ),
   liveSession: (lesson_id: string, sdp: string) =>
-    request<{
-      sdp: string;
-      sessionId: string;
-      lessonId: string;
-      lessonMarker: string;
-      voiceModel: string;
-      backendModel: string;
-      voice: string;
-    }>("/api/realtime/live", {
+    request<LiveSessionResponse>("/api/realtime/live", {
       method: "POST",
       body: JSON.stringify({ lesson_id, sdp }),
       signal: AbortSignal.timeout(45_000),

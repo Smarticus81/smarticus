@@ -113,6 +113,50 @@ describe("ScreenShare.start", () => {
     assert.deepEqual(seen, [true, false]);
     assert.equal(await share.captureFrame(), null);
   });
+
+  it("shares one pending picker between repeated presses", async () => {
+    let release: (stream: FakeStream) => void = () => undefined;
+    answer = () => new Promise(resolve => { release = resolve; });
+    const share = new ScreenShare();
+    const first = share.start();
+    const second = share.start();
+    assert.equal(first, second);
+    assert.equal(requests.length, 1);
+    release(new FakeStream([new FakeTrack("monitor")]));
+    await first;
+    assert.equal(share.active, true);
+    share.stop();
+  });
+
+  it("stops a late picker result after the workspace closes", async () => {
+    let release: (stream: FakeStream) => void = () => undefined;
+    answer = () => new Promise(resolve => { release = resolve; });
+    const share = new ScreenShare();
+    const pending = share.start();
+    share.stop();
+    const late = new FakeStream([new FakeTrack("monitor")]);
+    release(late);
+    await pending;
+    assert.equal(share.active, false);
+    assert.equal(late.tracks[0].readyState, "ended");
+  });
+
+  it("cannot replace a new share with an old permission result", async () => {
+    let release: (stream: FakeStream) => void = () => undefined;
+    answer = () => new Promise(resolve => { release = resolve; });
+    const share = new ScreenShare();
+    const old = share.start();
+    share.stop();
+    answer = async () => new FakeStream([new FakeTrack("browser")]);
+    await share.start();
+    const late = new FakeStream([new FakeTrack("monitor")]);
+    release(late);
+    await old;
+    assert.equal(share.active, true);
+    assert.equal(share.surface, "browser");
+    assert.equal(late.tracks[0].readyState, "ended");
+    share.stop();
+  });
 });
 
 describe("ScreenShare.describeSurface", () => {

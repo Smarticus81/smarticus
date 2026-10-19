@@ -8,6 +8,7 @@ const context: SchoolContext = {
   asOf: "2026-10-07T14:30:00Z", timeZone: null,
   timezoneNote: "The school time zone has not yet been confirmed. Do not convert the listed times.",
   summary: "Use this course snapshot to choose what to discuss with your tutor.",
+  assignments: [],
   courses: [
     { id: "math-1", label: "Mathematics foundations", subject: "mathematics", focus: "Explain number relationships with examples.", units: ["Ratios", "Number sense"], instructions: ["Ask for the current assigned lesson first."], sourceUrl: "https://example.org/courses/math" },
     { id: "science-1", label: "Science inquiry", subject: "science", focus: "Practice observations and evidence.", units: ["Scientific investigations"], instructions: [] },
@@ -83,7 +84,7 @@ async function openParent(page: Page) {
 }
 const writes = (calls: Array<{ method: string; path: string }>) => calls.filter((call) => call.method === "PUT");
 
-test("private school reference shows source dates, literal times, and verification only in parent records", async ({ page }) => {
+test("parent school preview shows source dates, literal times, and verification", async ({ page }) => {
   await mockApi(page);
   await openParent(page);
   await page.getByText("View saved school reference", { exact: true }).click();
@@ -98,20 +99,22 @@ test("private school reference shows source dates, literal times, and verificati
   await expect(panel).toContainText("Time zone: America/Chicago");
   await expect(panel.locator(".school-verification")).toHaveText(["reported", "verified", "unconfirmed"]);
   await expect(panel.getByRole("link", { name: "Example course overview" })).toHaveAttribute("href", "https://example.org/courses");
-  await expect(page.getByText("It is not sent to the student workspace or voice tutor.", { exact: false })).toBeVisible();
+  await expect(page.getByText("The active plan is available to the student school workspace", { exact: false })).toBeVisible();
   await expect(panel.getByRole("button", { name: /Open tutor/ })).toHaveCount(0);
   await panel.screenshot({ path: "test-results/school-plan-parent-desktop.png" });
 });
 
-test("student workspace does not request or display any private school context", async ({ page }) => {
+test("date links preserve the enrichment archive without loading the private plan", async ({ page }) => {
   const calls = await mockApi(page, { empty: true });
-  await page.goto("/tests/browser/school-context.html");
+  await page.goto("/tests/browser/school-context.html?date=2026-09-01");
   await expect(page.getByRole("heading", { name: "Your learning path" })).toBeVisible();
   await expect(schoolPanel(page)).toHaveCount(0);
   await expect(page.getByText("Example school reference")).toHaveCount(0);
-  await page.getByLabel("Learning day").fill("2026-09-01");
+  await page.getByLabel("Learning day").fill("2026-09-02");
   await expect(page.getByRole("heading", { name: "Your learning path" })).toBeVisible();
   expect(calls.filter((call) => call.path.includes("school-context"))).toHaveLength(0);
+  await page.getByRole("button", { name: "Open current school day" }).click();
+  await expect(page.getByRole("heading", { name: "Your schoolwork", exact: true })).toBeVisible();
 });
 
 test("private parent reference and editor fit a narrow screen", async ({ page }) => {

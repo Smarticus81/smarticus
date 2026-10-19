@@ -103,6 +103,7 @@ export class Camera {
   private stream: MediaStream | null = null;
   private video: HTMLVideoElement | null = null;
   private pending: Promise<void> | null = null;
+  private generation = 0;
   private state: CameraState = { active: false, starting: false, error: null };
   private readonly listeners = new Set<(state: CameraState) => void>();
 
@@ -163,13 +164,15 @@ export class Camera {
   start(): Promise<void> {
     if (this.active) return Promise.resolve();
     if (this.pending) return this.pending;
-    this.pending = this.open().finally(() => {
-      this.pending = null;
+    const generation = ++this.generation;
+    const pending = this.open(generation).finally(() => {
+      if (this.pending === pending) this.pending = null;
     });
-    return this.pending;
+    this.pending = pending;
+    return pending;
   }
 
-  private async open(): Promise<void> {
+  private async open(generation: number): Promise<void> {
     this.setState({ starting: true, error: null });
     try {
       if (!Camera.supported) {
@@ -178,7 +181,11 @@ export class Camera {
       if (!window.isSecureContext) {
         throw new Error("Camera access requires HTTPS or localhost.");
       }
-      const stream = await this.request();
+      const stream = await this.request(generation);
+      if (generation !== this.generation) {
+        stream.getTracks().forEach(track => track.stop());
+        return;
+      }
       this.stream = stream;
       stream.getVideoTracks().forEach((track) => {
         // Unplugging the camera, or another app taking it over, ends the track
@@ -196,16 +203,18 @@ export class Camera {
       void video.play().catch(() => undefined);
       this.setState({ starting: false, error: null });
     } catch (error) {
+      // A late permission result after stop/logout belongs to the old request.
+      if (generation !== this.generation) return;
       this.setState({ starting: false, error: describeCameraError(error) });
       throw error;
     }
   }
 
-  private async request(): Promise<MediaStream> {
+  private async request(generation: number): Promise<MediaStream> {
     try {
       return await this.requestWithin(PREFERRED_CONSTRAINTS);
     } catch (error) {
-      if (!worthRetryingPlainly(error)) throw error;
+      if (generation !== this.generation || !worthRetryingPlainly(error)) throw error;
       return this.requestWithin(FALLBACK_CONSTRAINTS);
     }
   }
@@ -231,13 +240,15 @@ export class Camera {
   }
 
   stop() {
+    this.generation += 1;
+    this.pending = null;
     this.stream?.getTracks().forEach((track) => track.stop());
     this.stream = null;
     if (this.video) {
       this.video.srcObject = null;
       this.video = null;
     }
-    this.notify();
+    this.setState({ starting: false });
   }
 
   /** Forget the last failure, for a panel that has shown it and been dismissed. */

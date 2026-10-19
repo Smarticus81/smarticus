@@ -35,6 +35,8 @@ export interface LiveSessionOptions {
   /** Send the browser's SDP offer to the app server, which creates the OpenAI session. */
   negotiate: (sdp: string) => Promise<{ sdp: string; sessionId: string }>;
   tools: Record<string, ToolExecutor>;
+  /** Private school errors may quote learner data; never log or echo it. */
+  privateContext?: boolean;
 }
 
 const DATA_CHANNEL = "oai-events";
@@ -79,7 +81,8 @@ export class LiveVoiceSession implements TutorSession {
       try {
         (handler as unknown as (...inner: Parameters<TutorSessionEvents[K]>) => void)(...args);
       } catch (error) {
-        console.error(`Live listener for ${event} failed`, error);
+        if (this.options.privateContext) console.error("Private voice listener failed");
+        else console.error(`Live listener for ${event} failed`, error);
       }
     }
   }
@@ -97,7 +100,7 @@ export class LiveVoiceSession implements TutorSession {
       channel.send(JSON.stringify(event));
       return true;
     } catch (error) {
-      this.emit("error", error instanceof Error ? error.message : "Failed to send event");
+      this.emit("error", this.options.privateContext ? "The private voice connection could not send an event." : error instanceof Error ? error.message : "Failed to send event");
       return false;
     }
   }
@@ -297,7 +300,8 @@ export class LiveVoiceSession implements TutorSession {
         if (HISTORY_FULL_ERROR.test(message)) {
           // Our accounting and the backend's disagree; believe the backend and
           // stop adding to the history so the rest of the session still works.
-          console.warn("Backend input history is full", message, this.history.usage);
+          if (this.options.privateContext) console.warn("Private voice history is full");
+          else console.warn("Backend input history is full", message, this.history.usage);
           this.history.markFull();
           this.emit("history_full", this.history.usage);
           return;
@@ -306,12 +310,13 @@ export class LiveVoiceSession implements TutorSession {
           // The turn the backend is complaining about is already lost. Drop our
           // bookkeeping for it so the next turn starts clean, and keep the
           // recovered hiccup out of the learner's face.
-          console.warn("Recovered from a Live tool-protocol error", message);
+          if (this.options.privateContext) console.warn("Recovered from a private voice tool-protocol error");
+          else console.warn("Recovered from a Live tool-protocol error", message);
           this.tracker.reset();
           this.continuationQueued = false;
           return;
         }
-        this.emit("error", message);
+        this.emit("error", this.options.privateContext ? "The private voice connection reported an error." : message);
         return;
       }
       case "session.closed":
@@ -355,7 +360,7 @@ export class LiveVoiceSession implements TutorSession {
       );
     } catch (error) {
       ok = false;
-      output = { error: error instanceof Error ? error.message : "Tool failed" };
+      output = { error: this.options.privateContext ? "The private tutor could not complete that action." : error instanceof Error ? error.message : "Tool failed" };
     }
     this.emit("tool_result", call, ok);
     // Fit the answer to whatever history is left rather than dropping it: an

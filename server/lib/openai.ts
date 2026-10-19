@@ -20,6 +20,8 @@ export interface LiveSessionRequest {
   safetyIdentifier: string;
   voiceInstructions: string;
   backendInstructions: string;
+  /** Private school sessions must never send their context to a web search. */
+  allowWebSearch?: boolean;
   /**
    * Text-only history seeded before the session starts: today's schedule, the
    * learner's open threads and recent feedback. It gives the speaking model the
@@ -59,7 +61,9 @@ export async function createLiveSession(params: LiveSessionRequest) {
           responses: {
             model: env.LIVE_BACKEND_MODEL,
             instructions: params.backendInstructions,
-            tools: [...params.tools, { type: "web_search" }],
+            tools: params.allowWebSearch === false
+              ? [...params.tools]
+              : [...params.tools, { type: "web_search" }],
             tool_choice: "auto",
             parallel_tool_calls: true,
             reasoning: { effort: env.LIVE_BACKEND_REASONING },

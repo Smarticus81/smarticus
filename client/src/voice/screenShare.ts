@@ -31,6 +31,8 @@ const CAPTURE_WIDTH: Record<ShareSurface, number> = {
 export class ScreenShare {
   private stream: MediaStream | null = null;
   private video: HTMLVideoElement | null = null;
+  private pending: Promise<void> | null = null;
+  private generation = 0;
   private listeners = new Set<(active: boolean) => void>();
 
   get active(): boolean {
@@ -82,8 +84,18 @@ export class ScreenShare {
     for (const listener of this.listeners) listener(active);
   }
 
-  async start(): Promise<void> {
-    if (this.active) return;
+  start(): Promise<void> {
+    if (this.active) return Promise.resolve();
+    if (this.pending) return this.pending;
+    const generation = ++this.generation;
+    const pending = this.open(generation).finally(() => {
+      if (this.pending === pending) this.pending = null;
+    });
+    this.pending = pending;
+    return pending;
+  }
+
+  private async open(generation: number): Promise<void> {
     const stream = await navigator.mediaDevices.getDisplayMedia({
       video: { frameRate: 5 },
       audio: false,
@@ -97,6 +109,10 @@ export class ScreenShare {
         monitorTypeSurfaces: "include",
       } as Record<string, unknown>),
     });
+    if (generation !== this.generation) {
+      stream.getTracks().forEach(track => track.stop());
+      return;
+    }
     this.stream = stream;
     const video = document.createElement("video");
     video.muted = true;
@@ -113,6 +129,8 @@ export class ScreenShare {
   }
 
   stop() {
+    this.generation += 1;
+    this.pending = null;
     this.stream?.getTracks().forEach((track) => track.stop());
     this.stream = null;
     if (this.video) {

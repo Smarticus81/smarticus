@@ -1,0 +1,141 @@
+import { test, expect, type Page } from "@playwright/test";
+import type { SchoolContext } from "../../shared/schoolContext";
+
+test.use({
+  launchOptions: { executablePath: process.env.PLAYWRIGHT_EXECUTABLE_PATH || undefined, args: ["--use-fake-ui-for-media-stream", "--use-fake-device-for-media-stream"] },
+  permissions: ["microphone"],
+});
+
+const context: SchoolContext = {
+  schemaVersion: 1, active: true, sourceName: "Synthetic School", schoolYear: "2026-27",
+  asOf: "2026-10-01T12:00:00Z", timeZone: null, timezoneNote: "Time zone unconfirmed", summary: "Synthetic plan",
+  courses: [{ id: "math", label: "Example Mathematics", subject: "mathematics", focus: "Fractions", units: [], instructions: [] }],
+  assignments: [{ id: "fractions", courseId: "math", title: "Synthetic fraction lesson", unit: "Fractions", kind: "practice", status: "current", instructions: ["Draw one half."], tutoringFocus: "Explain the denominator", sequence: 1, timingNote: "" }],
+  schedule: [], workload: [], cautions: [], sources: [],
+};
+
+type VoiceProbe = {
+  streams: MediaStream[];
+  channels: Array<{ onmessage: ((event: { data: string }) => void) | null; readyState: string }>;
+};
+
+async function openVoice(page: Page, options: { fail?: boolean; wrongMarker?: boolean } = {}) {
+  let authenticated = true;
+  const requests: Array<{ path: string; method: string; body: any }> = [];
+  const webSockets: string[] = [];
+  page.on("websocket", socket => { webSockets.push(socket.url()); });
+  await page.addInitScript(() => {
+    const probe: VoiceProbe = { streams: [], channels: [] };
+    (window as unknown as { schoolVoiceProbe: VoiceProbe }).schoolVoiceProbe = probe;
+    const getUserMedia = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
+    navigator.mediaDevices.getUserMedia = async constraints => {
+      const stream = await getUserMedia(constraints);
+      probe.streams.push(stream);
+      return stream;
+    };
+    // Synthetic transport only. The actual VoiceTutor, negotiator, tools and
+    // lifecycle still run, but no microphone audio reaches an AI provider.
+    class FakePeer {
+      iceGatheringState = "complete";
+      localDescription: RTCSessionDescriptionInit | null = null;
+      channel: { onmessage: ((event: { data: string }) => void) | null; readyState: string; send: (data: string) => void; close: () => void } | null = null;
+      addTrack() {}
+      createDataChannel() {
+        const channel = { onmessage: null as ((event: { data: string }) => void) | null, readyState: "open", send: (_data: string) => {}, close: () => { channel.readyState = "closed"; } };
+        this.channel = channel;
+        probe.channels.push(channel);
+        return channel;
+      }
+      async createOffer() { return { type: "offer" as const, sdp: "synthetic-offer" }; }
+      async setLocalDescription(value: RTCSessionDescriptionInit) { this.localDescription = value; }
+      async setRemoteDescription() {
+        this.channel?.onmessage?.({ data: JSON.stringify({ type: "session.started", session: { id: "synthetic-private-session" } }) });
+      }
+      close() { this.channel?.close(); }
+    }
+    window.RTCPeerConnection = FakePeer as unknown as typeof RTCPeerConnection;
+  });
+  await page.route("**/api/**", route => {
+    const request = route.request();
+    const path = new URL(request.url()).pathname;
+    requests.push({ path, method: request.method(), body: request.postData() ? request.postDataJSON() : null });
+    if (path === "/api/parent/session") return route.fulfill({ json: { authenticated, configured: true } });
+    if (path === "/api/parent/logout") { authenticated = false; return route.fulfill({ status: 204 }); }
+    if (path === "/api/parent/school-context") return authenticated
+      ? route.fulfill({ json: { context, revision: 3, updatedAt: context.asOf, lessons: [] } })
+      : route.fulfill({ status: 401, json: { error: "Access required" } });
+    if (path === "/api/parent/school-tutor/live") {
+      if (options.fail) return route.fulfill({ status: 402, json: { error: "SYNTHETIC_PRIVATE_PROVIDER_DETAIL", fallbacks: ["gemini", "grok", "elevenlabs"] } });
+      return route.fulfill({ json: { sdp: "synthetic-answer", sessionId: "synthetic-private-session", lessonId: "school:fractions", lessonMarker: options.wrongMarker ? "[SELECTED_LESSON:fractions]" : "[SELECTED_SCHOOL_ASSIGNMENT:fractions]", voiceModel: "synthetic-live", backendModel: "synthetic-reasoner", voice: "synthetic" } });
+    }
+    return route.fulfill({ status: 503, json: { error: "Unexpected route in synthetic private-voice test" } });
+  });
+  await page.goto("/tests/browser/school-context.html");
+  await page.getByRole("region", { name: "Start here", exact: true }).getByRole("button", { name: "Open assignment" }).click();
+  await page.getByRole("button", { name: "Talk with Virgil" }).click();
+  return { requests, webSockets, expire: () => { authenticated = false; } };
+}
+
+async function microphoneStates(page: Page) {
+  return page.evaluate(() => (window as unknown as { schoolVoiceProbe: VoiceProbe }).schoolVoiceProbe.streams.flatMap(stream => stream.getTracks().map(track => track.readyState)));
+}
+
+test("connected School voice keeps transcript in memory and ends without public session writes", async ({ page }) => {
+  const mock = await openVoice(page);
+  await expect(page.getByRole("button", { name: "End session", exact: true })).toBeVisible();
+  expect(mock.requests.filter(request => request.method === "POST")).toEqual([{ path: "/api/parent/school-tutor/live", method: "POST", body: { assignmentId: "fractions", expectedRevision: 3, sdp: "synthetic-offer" } }]);
+  await page.evaluate(() => {
+    const probe = (window as unknown as { schoolVoiceProbe: VoiceProbe }).schoolVoiceProbe;
+    probe.channels[0].onmessage?.({ data: JSON.stringify({ type: "session.output_transcript.delta", delta: "SYNTHETIC_PRIVATE_CONVERSATION", start_ms: 0, end_ms: 1000 }) });
+  });
+  await expect(page.locator(".live-utterance")).toContainText("SYNTHETIC_PRIVATE_CONVERSATION");
+  expect((await microphoneStates(page)).every(state => state === "live")).toBe(true);
+  await page.getByRole("button", { name: "End session", exact: true }).click();
+  await expect(page.locator(".voice-hud")).toContainText("School conversation ended");
+  await expect(page.getByText("SYNTHETIC_PRIVATE_CONVERSATION", { exact: true })).toHaveCount(0);
+  await expect(page.getByText("Session saved. Nice thinking.", { exact: true })).toHaveCount(0);
+  expect((await microphoneStates(page)).every(state => state === "ended")).toBe(true);
+  expect(mock.requests.every(request => request.path.startsWith("/api/parent/"))).toBe(true);
+  expect(mock.requests.filter(request => request.method === "POST")).toHaveLength(1);
+  expect(await page.evaluate(() => [localStorage.length, sessionStorage.length])).toEqual([0, 0]);
+});
+
+for (const hidden of [false, true]) {
+  test(`expired parent access clears connected private voice when ${hidden ? "hidden" : "focused"}`, async ({ page }) => {
+    const mock = await openVoice(page);
+    await expect(page.getByRole("button", { name: "End session", exact: true })).toBeVisible();
+    await page.getByRole("textbox", { name: /Try it out/ }).fill("SYNTHETIC_PRIVATE_NOTE");
+    mock.expire();
+    await page.evaluate(hidden => {
+      if (hidden) {
+        Object.defineProperty(document, "visibilityState", { configurable: true, get: () => "hidden" });
+        document.dispatchEvent(new Event("visibilitychange"));
+      } else window.dispatchEvent(new Event("focus"));
+    }, hidden);
+    await expect(page.getByRole("button", { name: "Unlock schoolwork", exact: true })).toBeVisible();
+    await expect(page.getByRole("region", { name: "Virgil voice tutor" })).toHaveCount(0);
+    await expect(page.getByText("Synthetic fraction lesson", { exact: true })).toHaveCount(0);
+    expect((await microphoneStates(page)).every(state => state === "ended")).toBe(true);
+    expect(mock.requests.filter(request => request.path === "/api/parent/session").length).toBeGreaterThanOrEqual(2);
+    expect(mock.requests.every(request => request.path.startsWith("/api/parent/"))).toBe(true);
+  });
+}
+
+test("a quota error cannot send private context into a fallback or expose provider details", async ({ page }) => {
+  const mock = await openVoice(page, { fail: true });
+  await expect(page.getByRole("alert")).toContainText("school tutor could not connect");
+  await expect(page.getByText("SYNTHETIC_PRIVATE_PROVIDER_DETAIL", { exact: false })).toHaveCount(0);
+  await expect(page.locator(".voice-fallback-notice")).toHaveCount(0);
+  expect(mock.requests.filter(request => request.method === "POST")).toHaveLength(1);
+  expect(mock.requests.every(request => request.path.startsWith("/api/parent/"))).toBe(true);
+  expect(mock.webSockets.filter(url => url.includes("/api/realtime/"))).toEqual([]);
+  expect((await microphoneStates(page)).every(state => state === "ended")).toBe(true);
+});
+
+test("a public lesson marker cannot start a private school conversation", async ({ page }) => {
+  const mock = await openVoice(page, { wrongMarker: true });
+  await expect(page.getByRole("alert")).toContainText("school tutor could not connect");
+  await expect(page.getByRole("button", { name: "End session", exact: true })).toHaveCount(0);
+  expect(mock.requests.filter(request => request.method === "POST")).toHaveLength(1);
+  expect((await microphoneStates(page)).every(state => state === "ended")).toBe(true);
+});

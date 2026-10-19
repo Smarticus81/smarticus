@@ -141,6 +141,7 @@ export function createApp() {
   // A frame of the shared screen is a data URL of a few hundred kilobytes, so
   // that one route takes a larger body than the rest of the API.
   app.use("/api/vision", express.json({ limit: "3mb" }));
+  app.use("/api/parent/school-tutor/vision", express.json({ limit: "3mb" }));
   app.use(express.json({ limit: "100kb" }));
   app.use(express.urlencoded({ extended: true, limit: "100kb" }));
   app.use(sessionMiddleware);

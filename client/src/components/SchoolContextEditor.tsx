@@ -16,6 +16,7 @@ function starterContext(): SchoolContext {
     timeZone: null,
     timezoneNote: "Confirm the school time zone before relying on any times.",
     summary: "",
+    assignments: [],
     courses: [{ id: "course-1", label: "Course 1", subject: "mathematics", focus: "", units: [], instructions: [] }],
     schedule: [],
     workload: [],
@@ -121,7 +122,7 @@ export function SchoolContextEditor() {
       setSaved(result);
       setDraft(serialize(result.context));
       setReview(null);
-      setSuccess(`School reference saved as revision ${result.revision}. ${result.context?.active ? "This snapshot is available in parent records only." : "The reference is marked inactive in parent records."}`);
+      setSuccess(`School reference saved as revision ${result.revision}. ${result.context?.active ? "This plan is available in the school workspace on an unlocked browser." : "The reference is marked inactive in parent records."}`);
     } catch (caught) {
       if (!mounted.current) return;
       setReview(null);
@@ -143,14 +144,14 @@ export function SchoolContextEditor() {
   return <section aria-label="Manage school reference">
     <span className="parent-eyebrow">Private parent reference</span>
     <h1>School plan</h1>
-    <p className="parent-subtitle">Keep a checked school snapshot in your private parent records. Importing or editing a file does not save it until you review and confirm.</p>
-    <p className="school-practice-notice">No automatic sync. School assignments, submissions, grades, and completion stay in the official school system. This reference is available only in the existing parent-protected records. It is not sent to the student workspace or voice tutor.</p>
+    <p className="parent-subtitle">Keep the assignments and schedule that Virgil uses for school tutoring up to date. Importing or editing a file does not save it until you review and confirm.</p>
+    <p className="school-practice-notice">No automatic sync. School assignments, submissions, grades, and completion stay in the official school system. The active plan is available to the student school workspace in a browser unlocked with the existing parent access code. Selecting an assignment gives Virgil its instructions and this school context.</p>
     {loading && <p role="status">Loading school reference…</p>}
     {saved && <p className="school-editor-help">Saved revision {saved.revision}{saved.updatedAt && <> · Saved at <time dateTime={saved.updatedAt}>{saved.updatedAt}</time></>} · {saved.context?.active ? "Active" : "Inactive"}</p>}
     {saved?.context && <details className="parent-card"><summary>View saved school reference</summary><SchoolPlanPanel context={saved.context} /></details>}
     <div className="parent-card school-editor" aria-busy={busy || loading}>
       <h2>{saved?.context ? "Update school reference" : "Import a school reference"}</h2>
-      <p className="school-editor-help" id="school-json-help">Paste a version 1 SchoolContext object, or choose a JSON file. Use the actual source-check time for asOf and checkedAt. Set unknown time zones to null; distinguish verified, reported, and unconfirmed schedule or workload notes. Do not include passwords, access tokens, or unnecessary student details.</p>
+      <p className="school-editor-help" id="school-json-help">Paste a version 1 SchoolContext object, or choose a JSON file. Include exact assignment instructions, course IDs, sequence, and current/next/later status. Use the actual source-check time for asOf and checkedAt. Set unknown time zones to null; distinguish verified, reported, and unconfirmed schedule or workload notes. Do not include passwords, access tokens, or unnecessary student details.</p>
       <fieldset disabled={busy || loading} style={{ border: 0, padding: 0, margin: 0, minWidth: 0 }}>
         <label htmlFor="school-json-file">Import JSON from this device</label>
         <input id="school-json-file" type="file" accept="application/json,.json" onChange={async (event) => {
@@ -183,9 +184,9 @@ export function SchoolContextEditor() {
       </div>}
       {review && <div className="school-save-review" role="group" aria-label="Confirm school reference save">
         <h3>Review before saving</h3>
-        <p><strong>{review.sourceName}</strong> · {review.schoolYear} · {review.courses.length} course{review.courses.length === 1 ? "" : "s"} · {review.active ? "Active" : "Inactive"}</p>
+        <p><strong>{review.sourceName}</strong> · {review.schoolYear} · {review.courses.length} course{review.courses.length === 1 ? "" : "s"} · {review.assignments.length} assignments · {review.active ? "Active" : "Inactive"}</p>
         <p>Snapshot as of {review.asOf}. Time zone: {review.timeZone ?? "Not confirmed"}.</p>
-        <p>This will replace revision {saved?.revision} of the private parent reference. {review.active ? "The snapshot will be marked active in parent records only." : "The snapshot will be marked inactive in parent records."} It does not update the school’s records.</p>
+        <p>This will replace revision {saved?.revision} of the private parent reference. {review.active ? "The plan will be available in the unlocked student school workspace and its tutor." : "The snapshot will be marked inactive in parent records."} It does not update the school’s records.</p>
         <details><summary>Preview this revision</summary><SchoolPlanPanel context={review} /></details>
         <div className="school-editor-actions"><button className="parent-button primary" disabled={busy || loading || replacing} onClick={() => void save()}>{busy ? "Saving…" : "Confirm save"}</button><button className="parent-button" disabled={busy} onClick={() => setReview(null)}>Keep editing</button></div>
       </div>}

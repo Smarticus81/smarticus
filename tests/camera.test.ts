@@ -177,6 +177,53 @@ describe("Camera.start", () => {
     assert.equal(camera.active, true);
   });
 
+  it("releases permission granted after stop instead of reopening the camera", async () => {
+    let release: (stream: FakeStream) => void = () => undefined;
+    answer = () => new Promise(resolve => { release = resolve; });
+    const camera = new Camera();
+    const pending = camera.start();
+    camera.stop();
+    assert.equal(camera.getSnapshot().starting, false);
+    const lateStream = new FakeStream();
+    release(lateStream);
+    await pending;
+    assert.equal(camera.active, false);
+    assert.equal(camera.preview, null);
+    assert.equal(lateStream.tracks[0].readyState, "ended");
+    assert.equal(videos.length, 0);
+  });
+
+  it("does not let an old permission request replace a new session's camera", async () => {
+    let releaseOld: (stream: FakeStream) => void = () => undefined;
+    answer = () => new Promise(resolve => { releaseOld = resolve; });
+    const camera = new Camera();
+    const old = camera.start();
+    camera.stop();
+    const currentStream = new FakeStream();
+    answer = async () => currentStream;
+    await camera.start();
+    const lateStream = new FakeStream();
+    releaseOld(lateStream);
+    await old;
+    assert.equal(camera.active, true);
+    assert.equal(camera.preview, currentStream);
+    assert.equal(lateStream.tracks[0].readyState, "ended");
+    camera.stop();
+  });
+
+  it("does not retry a late failed device request after stop", async () => {
+    let rejectOld: (error: Error) => void = () => undefined;
+    answer = () => new Promise((_resolve, reject) => { rejectOld = reject; });
+    const camera = new Camera();
+    const pending = camera.start();
+    camera.stop();
+    rejectOld(domError("NotReadableError"));
+    await pending;
+    assert.equal(requests.length, 1);
+    assert.equal(camera.active, false);
+    assert.equal(camera.error, null);
+  });
+
   it("turns off when the track ends on its own, and on stop", async () => {
     const stream = new FakeStream();
     let handed = false;

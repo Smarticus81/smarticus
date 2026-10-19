@@ -36,6 +36,23 @@ describe("private school context validation", () => {
     assert.equal(SchoolContextSchema.safeParse({ ...example, courses: [{ ...example.courses[0], id: "../bad" }] }).success, false);
     assert.equal(SchoolContextSchema.safeParse({ ...example, sources: [{ ...example.sources[0], url: "javascript:alert(1)" }] }).success, false);
   });
+  it("keeps older private snapshots compatible without inventing assignments", () => {
+    assert.deepEqual(SchoolContextSchema.parse(example).assignments, []);
+  });
+  it("validates assignment ownership and preserves the explicit prerequisite sequence", () => {
+    const assignment = {
+      id: "math-review", courseId: "math", title: "Review current topic", unit: "Number sense",
+      kind: "lesson", status: "current", instructions: ["Use the teacher review before the test."],
+      tutoringFocus: "Use separate examples.", sequence: 10, timingNote: "Prerequisites govern the order.",
+    };
+    const parsed = SchoolContextSchema.parse({ ...example, assignments: [assignment] });
+    assert.equal(parsed.assignments[0].sequence, 10);
+    assert.equal(parsed.assignments[0].status, "current");
+    assert.equal(SchoolContextSchema.safeParse({ ...example, assignments: [assignment, assignment] }).success, false);
+    assert.equal(SchoolContextSchema.safeParse({ ...example, assignments: [{ ...assignment, courseId: "unknown" }] }).success, false);
+    assert.equal(SchoolContextSchema.safeParse({ ...example, assignments: [{ ...assignment, instructions: [] }] }).success, false);
+    assert.equal(SchoolContextSchema.safeParse({ ...example, assignments: [{ ...assignment, sourceUrl: "http://example.edu" }] }).success, false);
+  });
   it("requires an import ID and an expected revision", () => {
     assert.equal(BootstrapSchoolContextSchema.safeParse({ context: example }).success, false);
     assert.equal(BootstrapSchoolContextSchema.safeParse({ context: example, expectedRevision: 0, importId: "sample-v1" }).success, true);

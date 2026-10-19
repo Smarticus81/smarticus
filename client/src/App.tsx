@@ -13,6 +13,7 @@ import { api, ApiError } from "./lib/api";
 import type { LessonView, ScheduleView, StudentSnapshot } from "./lib/types";
 import { friendlyDate, localDate, subjectInfo } from "./lib/subjects";
 import { Icon, type IconName } from "./components/Icon";
+import { SchoolHome } from "./components/SchoolHome";
 
 const LessonWorkspace = lazy(() =>
   import("./components/LessonWorkspace").then((module) => ({
@@ -20,24 +21,19 @@ const LessonWorkspace = lazy(() =>
   })),
 );
 
-/**
- * Two pages: the day's plan, and the record of how it is going.
- *
- * "My subjects" showed the same lessons as the day's plan, for the same date,
- * as cards with a filter and a search over about seven items. The Discovery
- * Lab was two fixed demos wired to no lesson and no record. Neither was a
- * place anything happened, and both competed with the lesson for attention.
- */
-type Page = "today" | "progress";
+// Current schoolwork is the home. Date links continue to open the enrichment archive.
+type Page = "school" | "today" | "progress";
 const navigation: Array<{ id: Page; label: string; icon: IconName }> = [
-  { id: "today", label: "My day", icon: "home" },
-  { id: "progress", label: "My progress", icon: "chart" },
+  { id: "school", label: "School day", icon: "home" },
+  { id: "today", label: "Enrichment archive", icon: "book" },
+  { id: "progress", label: "Archive progress", icon: "chart" },
 ];
 
 export default function App() {
   const [page, setPage] = useState<Page>(() => {
     const requested = new URLSearchParams(window.location.search).get("view");
-    return navigation.find((item) => item.id === requested)?.id ?? "today";
+    return navigation.find((item) => item.id === requested)?.id ??
+      (new URLSearchParams(window.location.search).has("date") ? "today" : "school");
   });
   const [schedule, setSchedule] = useState<ScheduleView | null>(null);
   const [snapshot, setSnapshot] = useState<StudentSnapshot | null>(null);
@@ -88,21 +84,23 @@ export default function App() {
       .catch(() => setProgressError(true));
   }, []);
   useEffect(() => {
-    void load(date);
-  }, [date, load]);
+    if (page !== "school") void load(date);
+  }, [date, load, page]);
   useEffect(() => {
     const url = new URL(window.location.href);
-    url.searchParams.set("date", date);
+    if (page === "school") url.searchParams.delete("date");
+    else url.searchParams.set("date", date);
     url.searchParams.set("view", page);
     window.history.replaceState(null, "", url);
   }, [date, page]);
   useEffect(() => {
+    if (page === "school") return;
     void api
       .scheduleDates()
       .then(setDates)
       .catch(() => undefined);
     loadProgress();
-  }, [loadProgress]);
+  }, [loadProgress, page]);
   useEffect(() => {
     mainRef.current?.focus({ preventScroll: true });
     window.scrollTo({ top: 0 });
@@ -162,7 +160,7 @@ export default function App() {
           href="#"
           onClick={(event) => {
             event.preventDefault();
-            if (!voiceBusy && !selectionPending) navigate("today");
+            if (!voiceBusy && !selectionPending) navigate("school");
           }}
           aria-label="Smarticus home"
         >
@@ -242,7 +240,9 @@ export default function App() {
               {selectionError}
             </p>
           )}
-          {lesson ? (
+          {page === "school" ? (
+            <SchoolHome name={name} onBusyChange={setVoiceBusy} />
+          ) : lesson ? (
             <Suspense
               fallback={
                 <p className="session-notice" role="status">
@@ -259,20 +259,24 @@ export default function App() {
             </Suspense>
           ) : (
             <>
+              <section className="school-archive-notice" aria-label="Current schoolwork">
+                <div><strong>Looking for your current schoolwork?</strong><p>Your school assignments, schedule, and Virgil are on School day.</p></div>
+                <button className="button dark" onClick={() => navigate("school")}>Open current school day<Icon name="arrow" size={17} /></button>
+              </section>
               <div className="page-heading">
                 <div>
                   <span className="eyebrow">
                     {page === "today"
-                      ? "A LITTLE CURIOSITY. A LOT OF POSSIBILITY."
-                      : "LOOK HOW FAR YOU’RE GOING"}
+                      ? "ENRICHMENT & HOMESCHOOL ARCHIVE"
+                      : "ENRICHMENT & HOMESCHOOL RECORDS"}
                   </span>
                   <h1>
                     {page === "today" ? <>Hey, {name}</> : "Small steps. Real growth."}
                   </h1>
                   <p>
                     {page === "today"
-                      ? "Ready to make a little more sense of the world?"
-                      : "Understanding takes practice. Every question is a step forward."}
+                      ? "Revisit an earlier learning day or explore something extra. Your current schoolwork is on School day."
+                      : "Your earlier homeschool and enrichment work. School assignments and grades stay in the school’s official records."}
                   </p>
                 </div>
                 {page === "today" && (
